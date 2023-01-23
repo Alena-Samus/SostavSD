@@ -8,21 +8,30 @@ using Microsoft.EntityFrameworkCore;
 using SostavSD.Data;
 using SostavSD.Models;
 using SostavSD.Interfaces;
+using AutoMapper;
+using System.Diagnostics.Contracts;
+using SostavSD.Servises;
 
 namespace SostavSD.Controllers
 {
     public class ContractsController : Controller
     {
-        private readonly IContractService _ContractService;
+        private readonly IContractService _contractService;
+        
         public ContractsController(IContractService contractService)
         {
-            _ContractService = contractService;
+            _contractService = contractService;
+            
         }
-
+        
         // GET: Contracts
         public async Task<IActionResult> Index()
         {
-                        return View();
+
+            return _contractService.GetAll != null ?
+                          View( _contractService.GetAll()) :
+                          Problem("Entity set 'SostavSDContext.Contract'  is null.");
+
         }
 
         //// GET: Contracts/Details/5
