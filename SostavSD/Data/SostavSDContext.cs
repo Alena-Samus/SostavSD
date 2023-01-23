@@ -9,11 +9,11 @@ namespace SostavSD.Data
         {
         }
 
-        public DbSet<Contract> Contract { get; set; }
+        public DbSet<ContractModel> Contract { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Contract>().ToTable("Contract");
+            modelBuilder.Entity<ContractModel>().ToTable("Contract");
   
         }
     }
