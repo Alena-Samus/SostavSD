@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using SostavSD.Data;
 using SostavSD.Interfaces;
+using SostavSD.Models;
+using SostavSD.Entity;
+
 
 namespace SostavSD
 {
@@ -8,7 +11,8 @@ namespace SostavSD
     {
         public AppMappingProfile()
         {
-            CreateMap<IContractService, SostavSDContext>();
+            CreateMap<Contract, ContractModel>().ReverseMap().PreserveReferences();
+
         }
     }
 }
