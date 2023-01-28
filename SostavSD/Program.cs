@@ -1,56 +1,63 @@
-using SostavSD.Data;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using SostavSD.Interfaces;
-using SostavSD.Servises;
+using SostavSD.Data;
 using SostavSD;
+using SostavSD.Data.Interfaces;
+using SostavSD.Data.Services;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+
+//register the SostavSDContext
 builder.Services.AddDbContext<SostavSDContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddTransient<IContractService,ContractService>();
+builder.Services.AddTransient<IContractService, ContractService>();
+//the AddDatabaseDeveloperPageExceptionFilter provides helpful error information in the development environment.
+//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddAutoMapper(typeof(AppMappingProfile));
-builder.Services.AddControllersWithViews();
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-else
-{
-    app.UseDeveloperExceptionPage();
-    app.UseMigrationsEndPoint();
-}
+
+//
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<SostavSDContext>();
 
-    var context = services.GetRequiredService<SostavSDContext>();
-
-    DbInitializer.Initialize(context);
+        DBInitializer.Initialize(context);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Contracts}/{action=Index}/{id?}");
-
-
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
 
 app.Run();
-

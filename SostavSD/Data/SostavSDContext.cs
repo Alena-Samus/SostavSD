@@ -1,6 +1,5 @@
-﻿using SostavSD.Models;
-using Microsoft.EntityFrameworkCore;
-using SostavSD.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using SostavSD.Entities;
 
 namespace SostavSD.Data
 {
@@ -15,7 +14,7 @@ namespace SostavSD.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Contract>().ToTable("Contract");
-  
+
         }
     }
 }

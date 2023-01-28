@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
-using SostavSD.Data;
-using SostavSD.Interfaces;
 using SostavSD.Models;
-using SostavSD.Entity;
-
+using SostavSD.Entities;
 
 namespace SostavSD
 {
-    public class AppMappingProfile:Profile
+    public class AppMappingProfile: Profile
     {
         public AppMappingProfile()
         {
