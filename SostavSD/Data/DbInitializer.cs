@@ -1,4 +1,5 @@
 ﻿using SostavSD.Models;
+using SostavSD.Entity;
 using System;
 using System.Linq;
 
@@ -11,7 +12,7 @@ namespace SostavSD.Data
             context.Database.EnsureCreated();
 
             // Look for any contract.
-            if (context.Contract.Any())
+            if (context.contract.Any())
             {
                 return;   // DB has been seeded
             }
@@ -30,9 +31,12 @@ namespace SostavSD.Data
             };
             foreach (Contract s in Contract)
             {
-                context.Contract.Add(s);
+                context.contract.Add(s);
             }
             context.SaveChanges();
         }
+
     }
+
+    
 }

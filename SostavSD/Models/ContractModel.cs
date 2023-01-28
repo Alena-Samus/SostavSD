@@ -2,8 +2,9 @@
 
 namespace SostavSD.Models
 {
-    public class Contract
+    public class ContractModel
     {
+        [Key]
         public int ContractID { get; set; }
         public string ProjectName { get; set; }
         public string Index { get; set; }
