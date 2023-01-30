@@ -7,8 +7,8 @@ using SostavSD.Data;
 using SostavSD;
 using SostavSD.Data.Interfaces;
 using SostavSD.Data.Services;
-
-
+using TanvirArjel.Blazor.DependencyInjection;
+using System.Drawing.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,11 +19,12 @@ builder.Services.AddServerSideBlazor();
 //register the SostavSDContext
 builder.Services.AddDbContext<SostavSDContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddTransient<IContractService, ContractService>();
+AddBusinessLogicServices(builder.Services);
 //the AddDatabaseDeveloperPageExceptionFilter provides helpful error information in the development environment.
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddAutoMapper(typeof(AppMappingProfile));
 
+builder.Services.AddComponents();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -61,3 +62,9 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
+
+
+static void AddBusinessLogicServices(IServiceCollection collection)
+{
+    collection.AddScoped<IContractService, ContractService>();
+}

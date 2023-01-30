@@ -1,0 +1,42 @@
+﻿<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th>ProjectName</th>
+                <th>Index</th>
+                <th>Order</th>
+                <th>ContractNumber</th>
+                <th>ContractDate</th>
+                <th>ContractDateEndOfWork</th>
+                <th>City</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            @if (_contracts == null)
+            {
+                <tr>Loading...</tr>
+            }
+            else if (_contracts.Count == 0)
+            {
+                <tr>No items</tr>
+            }
+            else
+            {
+                @foreach (var item in _contracts)
+                {
+                    <tr>
+                        <td>@item.ProjectName</td>
+                        <td>@item.Index</td>
+                        <td>@item.Order</td>
+                        <td>@item.ContractNumber</td>
+                        <td>@item.ContractDate.ToShortDateString()</td>
+                        <td>@item.ContractDateEndOfWork.ToShortDateString()</td>
+                        <td>@item.City</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
