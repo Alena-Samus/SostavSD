@@ -1,16 +1,18 @@
-﻿using SostavSD.Models;
-using SostavSD.Entity;
-using System;
-using System.Linq;
+﻿using SostavSD.Entities;
 
 namespace SostavSD.Data
 {
-    public static class DbInitializer
+    public class DBInitializer
     {
-        public static void Initialize (SostavSDContext context)
+        public static void Initialize(SostavSDContext context)
         {
             context.Database.EnsureCreated();
+            AddContracts(context);
 
+            
+        }
+        public static void AddContracts(SostavSDContext context) 
+        {
             // Look for any contract.
             if (context.contract.Any())
             {
@@ -35,8 +37,5 @@ namespace SostavSD.Data
             }
             context.SaveChanges();
         }
-
     }
-
-    
 }
