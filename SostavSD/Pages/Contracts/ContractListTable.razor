@@ -1,42 +1,20 @@
-﻿<div class="table-responsive">
-    <table class="table table-striped">
-        <thead class="thead-light">
-            <tr>
-                <th>ProjectName</th>
-                <th>Index</th>
-                <th>Order</th>
-                <th>ContractNumber</th>
-                <th>ContractDate</th>
-                <th>ContractDateEndOfWork</th>
-                <th>City</th>
-            </tr>
-        </thead>
-
-
-        <tbody>
-            @if (_contracts == null)
-            {
-                <tr>Loading...</tr>
-            }
-            else if (_contracts.Count == 0)
-            {
-                <tr>No items</tr>
-            }
-            else
-            {
-                @foreach (var item in _contracts)
-                {
-                    <tr>
-                        <td>@item.ProjectName</td>
-                        <td>@item.Index</td>
-                        <td>@item.Order</td>
-                        <td>@item.ContractNumber</td>
-                        <td>@item.ContractDate.ToShortDateString()</td>
-                        <td>@item.ContractDateEndOfWork.ToShortDateString()</td>
-                        <td>@item.City</td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
-</div>
+﻿<MudTable Items="@_contracts">
+    <HeaderContent color="color.primary">
+        <MudTh>Объект</MudTh>
+        <MudTh>Индекс</MudTh>
+        <MudTh>Заказ</MudTh>
+        <MudTh>Номер договора</MudTh>
+        <MudTh>Дата договора</MudTh>
+        <MudTh>Дата окончания работ</MudTh>
+        <MudTh>Город</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Объект">@context.ProjectName</MudTd>
+        <MudTd DataLabel="Индекс">@context.Index</MudTd>
+        <MudTd DataLabel="Заказ">@context.Order</MudTd>
+        <MudTd DataLabel="Номер договора">@context.ContractNumber</MudTd>
+        <MudTd DataLabel="Дата договора">@Convert.ToDateTime(context.ContractDate).ToString("dd/MM/yyyy")</MudTd>
+        <MudTd DataLabel="Дата окончания работ">@Convert.ToDateTime(context.ContractDateEndOfWork).ToString("dd/MM/yyyy")</MudTd>
+        <MudTd DataLabel="Город">@context.City</MudTd>
+    </RowTemplate>
+</MudTable>
