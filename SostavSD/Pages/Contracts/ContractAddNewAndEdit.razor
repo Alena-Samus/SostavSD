@@ -1,0 +1,14 @@
+﻿@inject IDialogService _dialogService
+<MudDialog>
+	<DialogContent>
+		<MudTextField T="string" Label="Project Name" @bind-Value="Contract.ProjectName"/>
+		<MudTextField T="string" Label="Index" @bind-Value="Contract.Index"/>
+		<MudTextField T="string" Label="Order" @bind-Value="Contract.Order"/>
+
+	</DialogContent>
+
+	<DialogActions>
+		<MudButton @onclick="Cancel">Cancel</MudButton>
+		<MudButton @onclick="Submit" Color="Color.Primary">OK</MudButton>
+	</DialogActions>
+</MudDialog>

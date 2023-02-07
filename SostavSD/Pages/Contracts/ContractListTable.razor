@@ -1,20 +1,48 @@
-﻿<MudTable Items="@_contracts">
-    <HeaderContent>
-        <MudTh>Объект</MudTh>
-        <MudTh>Индекс</MudTh>
-        <MudTh>Заказ</MudTh>
-        <MudTh>Номер договора</MudTh>
-        <MudTh>Дата договора</MudTh>
-        <MudTh>Дата окончания работ</MudTh>
-        <MudTh>Город</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Объект">@context.ProjectName</MudTd>
-        <MudTd DataLabel="Индекс">@context.Index</MudTd>
-        <MudTd DataLabel="Заказ">@context.Order</MudTd>
-        <MudTd DataLabel="Номер договора">@context.ContractNumber</MudTd>
-        <MudTd DataLabel="Дата договора">@context.ContractDate.ToShortDateString()</MudTd>
-        <MudTd DataLabel="Дата окончания работ">@context.ContractDateEndOfWork.ToShortDateString()</MudTd>
-        <MudTd DataLabel="Город">@context.City</MudTd>
-    </RowTemplate>
+﻿@inject ISnackbar Snackbar
+@inject IDialogService _dialogService
+
+<MudContainer Class="d-flex justify-center mb-sm-5">
+	<MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="Add new contract" @onclick="(e => CreateNewContractAsync())">
+
+	</MudFab>
+</MudContainer>
+
+<MudTable Items="@_contracts" Filter="new Func<ContractModel,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem">
+
+	<ToolBarContent>
+		<MudSpacer />
+		<MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+	</ToolBarContent>
+	<HeaderContent >
+
+		<MudTh>Объект</MudTh>
+		<MudTh>Индекс</MudTh>
+		<MudTh>Заказ</MudTh>
+		<MudTh>Номер договора</MudTh>
+		<MudTh>Дата договора</MudTh>
+		<MudTh>Дата окончания работ</MudTh>
+		<MudTh>Город</MudTh>
+
+	</HeaderContent>
+
+	<RowTemplate>
+		<MudTd DataLabel="Объект">@context.ProjectName</MudTd>
+		<MudTd DataLabel="Индекс">@context.Index</MudTd>
+		<MudTd DataLabel="Заказ">@context.Order</MudTd>
+		<MudTd DataLabel="Номер договора">@context.ContractNumber</MudTd>
+		<MudTd DataLabel="Дата договора">@context.ContractDate.ToShortDateString()</MudTd>
+		<MudTd DataLabel="Дата окончания работ">@context.ContractDateEndOfWork.ToShortDateString()</MudTd>
+		<MudTd DataLabel="Город">@context.City</MudTd>
+		<MudTd DataLabel="">
+			@*			<MudFab @onclick="@(() => Edit(context.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
+*@			<MudFab @onclick="@(() => Delete(context.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small"/>
+
+		</MudTd>
+
+	</RowTemplate>
+
+	<PagerContent>
+		<MudTablePager />
+	</PagerContent>
 </MudTable>
+
