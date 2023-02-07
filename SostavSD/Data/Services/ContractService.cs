@@ -43,11 +43,33 @@ namespace SostavSD.Data.Services
             }
         }
 
-        public void AddContract(ContractModel newContract)
+        public async Task AddContract(ContractModel newContract)
         {
             Contract _newContract = _mapper.Map<Contract>(newContract);
-            _context.contract.Add(_newContract);
-            _context.SaveChanges();
+             _context.contract.Add(_newContract);
+            await _context.SaveChangesAsync();
+             
+        }
+
+        public async Task<ContractModel> GetSingleContract(int contractId)
+        {
+            var singleContract = await _context.contract.FindAsync(contractId);
+            return _mapper.Map<ContractModel>(singleContract);
+
+        }
+
+        public async Task EditContract(ContractModel currentContract, int contractId)
+        {
+            Contract oldContract = await _context.contract.FindAsync(contractId);
+
+            oldContract.ProjectName = currentContract.ProjectName;
+            oldContract.Index = currentContract.Index;
+            oldContract.Order = currentContract.Order;
+            oldContract.ContractNumber = currentContract.ContractNumber;
+            oldContract.ContractDate = currentContract.ContractDate;
+            oldContract.ContractDateEndOfWork = currentContract.ContractDateEndOfWork;
+            oldContract.City = currentContract.City;
+            await _context.SaveChangesAsync();
         }
     }
 }

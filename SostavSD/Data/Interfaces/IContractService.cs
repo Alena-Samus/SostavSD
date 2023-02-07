@@ -6,6 +6,10 @@ namespace SostavSD.Data.Interfaces
     {
         Task<List<ContractModel>> GetAllContract();
         Task DeleteContract(int contractId);
-        void AddContract(ContractModel newContract);
+        Task AddContract(ContractModel newContract);
+
+        Task <ContractModel> GetSingleContract(int contractId);
+
+        Task EditContract(ContractModel currentContract,int contractId);
     }
 }

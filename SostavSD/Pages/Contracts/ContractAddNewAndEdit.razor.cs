@@ -17,7 +17,7 @@ namespace SostavSD.Pages.Contracts
 
         private void Submit()
         {
-            AddOrEditContract.Close(DialogResult.Ok<ContractModel>(Contract));
+            AddOrEditContract.Close(DialogResult.Ok(Contract));
         }
     }
 }

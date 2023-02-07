@@ -30,8 +30,7 @@ public partial class ContractListTable : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        //_contracts = await _contractService.GetAllContract();
-       await GetContrscts();
+        await GetContrscts();
     }
 
     private async Task<List<Models.ContractModel>> GetContrscts()
@@ -53,9 +52,9 @@ public partial class ContractListTable : ComponentBase
             return true;
         if (contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
-        if (contract.ContractDate.ToShortDateString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        if (contract.ContractDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
-        if (contract.ContractDateEndOfWork.ToShortDateString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        if (contract.ContractDateEndOfWork.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
         if (contract.City.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
@@ -66,11 +65,11 @@ public partial class ContractListTable : ComponentBase
 
     private async Task Delete(int contractId)
     {
+        ContractModel currentContractName = await _contractService.GetSingleContract(contractId);
         bool? result = await _dialogService.ShowMessageBox(
-            "Delete",
-           "Delete Contract?",
-            yesText: "Delete!", cancelText: "Cancel");
-
+            "Удаление договора",
+           $"Удалить договор \"{currentContractName.ProjectName}\"?",
+            yesText: "Удалить", cancelText: "Отмена");
 
 
         if (result ?? false)
@@ -81,20 +80,36 @@ public partial class ContractListTable : ComponentBase
 
     }
 
-    private async Task CreateNewContractAsync()
+    private async Task Edit(int contractId)
+    {
+        var parameters = new DialogParameters();
+        var contractToEdit = await _contractService.GetSingleContract(contractId);
+        parameters.Add("Contract", contractToEdit);
+        var dialog = await _dialogService.Show<ContractAddNewAndEdit>("Update A Item", parameters).Result;
+        if (dialog != null)
+        {
+            ContractModel newContract = (ContractModel)dialog.Data;
+            await _contractService.EditContract(newContract, contractId);
+            await GetContrscts();
+        }
+    }
+
+
+    private async Task CreateNewContract()
     {
 
         var parameters = new DialogParameters();
         parameters.Add("Contract", new ContractModel());
 
 
-        var dialog = await _dialogService.Show<ContractAddNewAndEdit>("Create a new contract", parameters).Result;
+        var dialog = await _dialogService.Show<ContractAddNewAndEdit>("Добавить новый договор", parameters).Result;
 
-        //if(dialog.Data != null)
-        //{
-        //    ContractModel newContract = dialog.Data as ContractModel;
-        //    _contractService.AddContract(newContract);
-        //}
+        if (dialog.Data != null)
+        {
+            ContractModel newContract = (ContractModel)dialog.Data;
+            await _contractService.AddContract(newContract);
+            await GetContrscts();
+        }
     }
 
 
