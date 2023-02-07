@@ -1,5 +1,5 @@
 ﻿<MudTable Items="@_contracts">
-    <HeaderContent color="color.primary">
+    <HeaderContent>
         <MudTh>Объект</MudTh>
         <MudTh>Индекс</MudTh>
         <MudTh>Заказ</MudTh>
@@ -13,8 +13,8 @@
         <MudTd DataLabel="Индекс">@context.Index</MudTd>
         <MudTd DataLabel="Заказ">@context.Order</MudTd>
         <MudTd DataLabel="Номер договора">@context.ContractNumber</MudTd>
-        <MudTd DataLabel="Дата договора">@Convert.ToDateTime(context.ContractDate).ToString("dd/MM/yyyy")</MudTd>
-        <MudTd DataLabel="Дата окончания работ">@Convert.ToDateTime(context.ContractDateEndOfWork).ToString("dd/MM/yyyy")</MudTd>
+        <MudTd DataLabel="Дата договора">@context.ContractDate.ToShortDateString()</MudTd>
+        <MudTd DataLabel="Дата окончания работ">@context.ContractDateEndOfWork.ToShortDateString()</MudTd>
         <MudTd DataLabel="Город">@context.City</MudTd>
     </RowTemplate>
 </MudTable>
