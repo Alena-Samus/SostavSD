@@ -5,7 +5,7 @@ namespace SostavSD.Entities
 {
     public class Contract
     {
-        [Key]
+     
         public int ContractID { get; set; }
         public string ProjectName { get; set; }
         public string Index { get; set; }

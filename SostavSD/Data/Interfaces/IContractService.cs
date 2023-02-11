@@ -10,6 +10,6 @@ namespace SostavSD.Data.Interfaces
 
         Task <ContractModel> GetSingleContract(int contractId);
 
-        Task EditContract(ContractModel currentContract,int contractId);
+        Task EditContract(ContractModel currentContract);
     }
 }

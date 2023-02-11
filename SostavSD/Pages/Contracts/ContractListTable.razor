@@ -7,7 +7,7 @@
 	</MudFab>
 </MudContainer>
 
-<MudTable Items="@_contracts" Filter="new Func<ContractModel,bool>(FilterFunc1)" @bind-SelectedItem="selectedItem">
+<MudTable Items="@_contracts" Filter="new Func<ContractModel,bool>(FilterFuncCurrent)" @bind-SelectedItem="selectedItem">
 
 	<ToolBarContent>
 		<MudSpacer />

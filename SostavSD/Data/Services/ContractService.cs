@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MudBlazor.Utilities;
 using SostavSD.Data.Interfaces;
 using SostavSD.Entities;
 using SostavSD.Models;
@@ -52,24 +53,21 @@ namespace SostavSD.Data.Services
         }
 
         public async Task<ContractModel> GetSingleContract(int contractId)
-        {
-            var singleContract = await _context.contract.FindAsync(contractId);
+        {            
+            var singleContract = await _context.contract.FirstOrDefaultAsync(e => e.ContractID == contractId);
+            if (singleContract != null)
+            {
+                _context.contract.Entry(singleContract).State = EntityState.Detached;
+            }            
             return _mapper.Map<ContractModel>(singleContract);
-
         }
 
-        public async Task EditContract(ContractModel currentContract, int contractId)
+        public async Task EditContract(ContractModel currentContract)
         {
-            Contract oldContract = await _context.contract.FindAsync(contractId);
-
-            oldContract.ProjectName = currentContract.ProjectName;
-            oldContract.Index = currentContract.Index;
-            oldContract.Order = currentContract.Order;
-            oldContract.ContractNumber = currentContract.ContractNumber;
-            oldContract.ContractDate = currentContract.ContractDate;
-            oldContract.ContractDateEndOfWork = currentContract.ContractDateEndOfWork;
-            oldContract.City = currentContract.City;
+            Contract ctrnew = _mapper.Map<Contract>(currentContract);
+            _context.contract.Update(ctrnew);
             await _context.SaveChangesAsync();
+
         }
     }
 }

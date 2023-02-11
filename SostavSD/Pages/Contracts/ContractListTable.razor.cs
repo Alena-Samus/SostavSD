@@ -30,36 +30,24 @@ public partial class ContractListTable : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        await GetContrscts();
+        await GetContracts();
     }
 
-    private async Task<List<Models.ContractModel>> GetContrscts()
+    private async Task<List<ContractModel>> GetContracts()
     {
         _contracts =  await _contractService.GetAllContract();
         return _contracts;
     }
-    private bool FilterFunc1(ContractModel contract) => FilterFunc(contract, searchString);
+    private bool FilterFuncCurrent(ContractModel contract) => FilterFunc(contract, searchString);
 
     private bool FilterFunc(ContractModel contract, string searchString)
     {
-        if (string.IsNullOrWhiteSpace(searchString))
-            return true;
-        if (contract.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-            return true;
-        if (contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-            return true;
-        if (contract.Order.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-            return true;
-        if (contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-            return true;
-        if (contract.ContractDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
-            return true;
-        if (contract.ContractDateEndOfWork.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
-            return true;
-        if (contract.City.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-            return true;
-        if ($"{contract.ProjectName} {contract.Index} {contract.Order} {contract.ContractNumber} {contract.ContractDate} {contract.ContractDateEndOfWork} {contract.City}".Contains(searchString))
-            return true;
+        if ((string.IsNullOrWhiteSpace(searchString)) || (contract.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase)) ||
+            (contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase)) || (contract.Order.Contains(searchString, StringComparison.OrdinalIgnoreCase)) ||
+            (contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase)) || contract.ContractDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+            contract.ContractDateEndOfWork.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) || (contract.City.Contains(searchString, StringComparison.OrdinalIgnoreCase)))
+        { return true; }    
+     
         return false;
     }
 
@@ -75,7 +63,7 @@ public partial class ContractListTable : ComponentBase
         if (result ?? false)
         {
             await _contractService.DeleteContract(contractId);
-            await GetContrscts();
+            await GetContracts();
         }
 
     }
@@ -89,8 +77,8 @@ public partial class ContractListTable : ComponentBase
         if (dialog != null)
         {
             ContractModel newContract = (ContractModel)dialog.Data;
-            await _contractService.EditContract(newContract, contractId);
-            await GetContrscts();
+            await _contractService.EditContract(contractToEdit);
+            await GetContracts();
         }
     }
 
@@ -108,7 +96,7 @@ public partial class ContractListTable : ComponentBase
         {
             ContractModel newContract = (ContractModel)dialog.Data;
             await _contractService.AddContract(newContract);
-            await GetContrscts();
+            await GetContracts();
         }
     }
 
