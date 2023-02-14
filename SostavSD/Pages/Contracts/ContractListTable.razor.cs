@@ -42,13 +42,13 @@ public partial class ContractListTable : ComponentBase
 
     private bool FilterFunc(ContractModel contract, string searchString)
     {
-        if ((string.IsNullOrWhiteSpace(searchString)) || (contract.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase)) ||
-            (contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase)) || (contract.Order.Contains(searchString, StringComparison.OrdinalIgnoreCase)) ||
-            (contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase)) || contract.ContractDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
-            contract.ContractDateEndOfWork.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) || (contract.City.Contains(searchString, StringComparison.OrdinalIgnoreCase)))
-        { return true; }    
+        bool result = string.IsNullOrWhiteSpace(searchString) || (contract.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase)) ||
+             (contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase)) || (contract.Order.Contains(searchString, StringComparison.OrdinalIgnoreCase)) ||
+             (contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase)) || contract.ContractDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+             contract.ContractDateEndOfWork.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) || (contract.City.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+            
      
-        return false;
+        return result;
     }
 
     private async Task Delete(int contractId)
