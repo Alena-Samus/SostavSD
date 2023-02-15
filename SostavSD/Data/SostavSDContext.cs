@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SostavSD.Entities;
+using System.Reflection;
 
 namespace SostavSD.Data
 {
@@ -9,11 +10,13 @@ namespace SostavSD.Data
         {
         }
 
+        public DbSet<Company> company { get; set; }
         public DbSet<Contract> contract { get; set; }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Contract>().ToTable("Contract");
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         }
     }

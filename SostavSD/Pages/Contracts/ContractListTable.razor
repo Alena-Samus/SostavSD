@@ -30,7 +30,7 @@
 		<MudTd DataLabel="Индекс">@context.Index</MudTd>
 		<MudTd DataLabel="Заказ">@context.Order</MudTd>
 		<MudTd DataLabel="Номер договора">@context.ContractNumber</MudTd>
-		<MudTd DataLabel="Дата договора">@Convert.ToDateTime(context.ContractDate).ToString("dd/MM/yyyy")</MudTd>
+		<MudTd DataLabel="Дата договора" Class="">@Convert.ToDateTime(context.ContractDate).ToString("dd/MM/yyyy")</MudTd>
 		<MudTd DataLabel="Дата окончания работ">@Convert.ToDateTime(context.ContractDateEndOfWork).ToString("dd/MM/yyyy")</MudTd>
 		<MudTd DataLabel="Город">@context.City</MudTd>
 		<MudTd DataLabel="">
