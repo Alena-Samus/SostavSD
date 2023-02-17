@@ -1,0 +1,12 @@
+﻿@inject IDialogService _dialogService
+<MudDialog>
+	<DialogContent>
+		<MudTextField T="string" Label="Наименование" @bind-Value="Company.CompanyName" Lines="5"/>
+		<MudTextField T="string" Label="Реквизиты" @bind-Value="Company.CompanyDetails"/>
+	</DialogContent>
+
+	<DialogActions>
+		<MudButton @onclick="Cancel">Отменить</MudButton>
+		<MudButton @onclick="Submit" Color="Color.Primary">Сохранить</MudButton>
+	</DialogActions>
+</MudDialog>

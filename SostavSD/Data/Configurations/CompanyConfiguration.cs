@@ -11,7 +11,7 @@ namespace SostavSD.Data.Configurations
             builder.ToTable("Company")
                 .HasKey(k => k.CompanyID);
             builder.Property(p => p.CompanyName);
-            builder.Property(p => p.CompanyDetails);
+            builder.Property(p => p.CompanyDetails);                ;
             builder.Property(p => p.CompanyID);
 
         }

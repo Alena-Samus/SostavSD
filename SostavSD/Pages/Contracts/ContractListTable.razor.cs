@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using SostavSD.Data.Interfaces;
-using SostavSD.Data.Services;
 using SostavSD.Models;
 
 
@@ -15,6 +14,7 @@ public partial class ContractListTable : ComponentBase
 
     private IContractService _contractService;
 
+
     private string searchString = "";
 
     private ContractModel selectedItem = null;
@@ -23,14 +23,16 @@ public partial class ContractListTable : ComponentBase
 
     private IEnumerable<ContractModel> contracts = new List<ContractModel>();
 
+    
     public ContractListTable(IContractService contractService)
     {
         _contractService = contractService;
     }
 
+
     protected override async Task OnInitializedAsync()
     {
-        await GetContracts();
+        await GetContracts();        
     }
 
     private async Task<List<ContractModel>> GetContracts()

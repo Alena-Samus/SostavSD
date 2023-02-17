@@ -1,0 +1,37 @@
+﻿@inject ISnackbar Snackbar
+@inject IDialogService _dialogService
+
+<MudContainer Class="d-flex justify-center mb-sm-5">
+	<MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="Новая организация" @onclick="(e => CreateNewCompany())">
+	</MudFab>
+</MudContainer>
+<MudSelect T="CompanyModel" Label="Заказчик" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
+
+</MudSelect>
+<MudTable Items="@_companies" Filter="new Func<CompanyModel,bool>(FilterFuncCurrent)" @bind-SelectedItem="selectedItem">
+
+	<ToolBarContent>
+		<MudSpacer />
+		<MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+	</ToolBarContent>
+	<HeaderContent >
+		<MudTh>Наименование</MudTh>
+		<MudTh>Реквизиты</MudTh>
+	</HeaderContent>
+
+	<RowTemplate>
+		<MudTd DataLabel="Наименование">@context.CompanyName</MudTd>
+		<MudTd DataLabel="Реквизиты">@context.CompanyDetails</MudTd>
+
+		<MudTd DataLabel="">
+			<MudFab @onclick="@(() => Edit(context.CompanyID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
+			<MudFab @onclick="@(() => Delete(context.CompanyID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small"/>
+
+		</MudTd>
+
+	</RowTemplate>
+
+	<PagerContent>
+		<MudTablePager />
+	</PagerContent>
+</MudTable>

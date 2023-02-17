@@ -3,7 +3,6 @@
 
 <MudContainer Class="d-flex justify-center mb-sm-5">
 	<MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="Новый договор" @onclick="(e => CreateNewContract())">
-
 	</MudFab>
 </MudContainer>
 
@@ -21,6 +20,7 @@
 		<MudTh>Номер договора</MudTh>
 		<MudTh>Дата договора</MudTh>
 		<MudTh>Дата окончания работ</MudTh>
+		<MudTh>Заказчик</MudTh>
 		<MudTh>Город</MudTh>
 
 	</HeaderContent>
@@ -32,6 +32,7 @@
 		<MudTd DataLabel="Номер договора">@context.ContractNumber</MudTd>
 		<MudTd DataLabel="Дата договора" Class="">@Convert.ToDateTime(context.ContractDate).ToString("dd/MM/yyyy")</MudTd>
 		<MudTd DataLabel="Дата окончания работ">@Convert.ToDateTime(context.ContractDateEndOfWork).ToString("dd/MM/yyyy")</MudTd>
+		<MudTd DataLabel="Заказчик">@context.Company.CompanyName</MudTd>
 		<MudTd DataLabel="Город">@context.City</MudTd>
 		<MudTd DataLabel="">
 			<MudFab @onclick="@(() => Edit(context.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
