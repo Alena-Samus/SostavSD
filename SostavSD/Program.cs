@@ -9,6 +9,7 @@ using SostavSD.Data.Interfaces;
 using SostavSD.Data.Services;
 using TanvirArjel.Blazor.DependencyInjection;
 using System.Drawing.Text;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,4 +68,6 @@ app.Run();
 static void AddBusinessLogicServices(IServiceCollection collection)
 {
     collection.AddScoped<IContractService, ContractService>();
+    collection.AddScoped<ICompanyService, CompanyService>();
+    collection.AddMudServices();
 }

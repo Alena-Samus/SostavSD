@@ -1,0 +1,25 @@
+﻿@inject IDialogService _dialogService
+<MudDialog>
+    <DialogContent>
+        <MudTextField T="string" Label="Объект" @bind-Value="Contract.ProjectName" Lines="5"/>
+        <MudTextField T="string" Label="Индекс" @bind-Value="Contract.Index"/>
+        <MudTextField T="string" Label="Заказ" @bind-Value="Contract.Order"/>
+        <MudTextField T="string" Label="Номер договора" @bind-Value="Contract.ContractNumber"/>
+        <MudDatePicker Label="Дата договора" @bind-Date="Contract.ContractDate"/>
+        <MudDatePicker Label="Дата окончания работ" @bind-Date="Contract.ContractDateEndOfWork"/>
+        <MudSelect T="int" Label="Заказчик" AnchorOrigin="Origin.BottomCenter" @bind-Value="Contract.CompanyID" Required=true >
+           <MudSelectItem Value="0">--Выберите заказчика--</MudSelectItem>
+            @foreach (var item in _companies)
+            {
+            <MudSelectItem Value="@item.CompanyID">@item.CompanyName</MudSelectItem>
+            }
+        </MudSelect>
+        <MudTextField T="string" Label="Город" @bind-Value="Contract.City"/>
+
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton @onclick="Cancel">Отменить</MudButton>
+        <MudButton @onclick="Submit" Color="Color.Primary">Сохранить</MudButton>
+    </DialogActions>
+</MudDialog>

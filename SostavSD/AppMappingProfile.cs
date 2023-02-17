@@ -9,6 +9,7 @@ namespace SostavSD
         public AppMappingProfile()
         {
             CreateMap<Contract, ContractModel>().ReverseMap().PreserveReferences();
+            CreateMap<Company, CompanyModel>().ReverseMap().PreserveReferences();
 
         }
     }
