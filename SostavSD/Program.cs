@@ -1,15 +1,14 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using SostavSD.Data;
 using SostavSD;
 using SostavSD.Data.Interfaces;
 using SostavSD.Data.Services;
 using TanvirArjel.Blazor.DependencyInjection;
-using System.Drawing.Text;
 using MudBlazor.Services;
+using SostavSD.Areas.Identity;
+using Microsoft.AspNetCore.Identity;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,10 +19,14 @@ builder.Services.AddServerSideBlazor();
 //register the SostavSDContext
 builder.Services.AddDbContext<SostavSDContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<SostavSDContext>();
+
 AddBusinessLogicServices(builder.Services);
 //the AddDatabaseDeveloperPageExceptionFilter provides helpful error information in the development environment.
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddAutoMapper(typeof(AppMappingProfile));
+builder.Services.AddScoped<TokenProvider>();
 
 builder.Services.AddComponents();
 var app = builder.Build();
@@ -58,9 +61,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+app.MapRazorPages();
 
 app.Run();
 
@@ -70,4 +77,5 @@ static void AddBusinessLogicServices(IServiceCollection collection)
     collection.AddScoped<IContractService, ContractService>();
     collection.AddScoped<ICompanyService, CompanyService>();
     collection.AddMudServices();
+    
 }
