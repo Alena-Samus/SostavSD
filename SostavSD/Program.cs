@@ -2,13 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using SostavSD.Data;
 using SostavSD;
-using SostavSD.Data.Interfaces;
-using SostavSD.Data.Services;
 using TanvirArjel.Blazor.DependencyInjection;
 using MudBlazor.Services;
 using SostavSD.Areas.Identity;
 using Microsoft.AspNetCore.Identity;
-
+using SostavSD.Interfaces;
+using SostavSD.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
