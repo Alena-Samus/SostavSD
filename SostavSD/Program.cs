@@ -8,8 +8,10 @@ using SostavSD.Areas.Identity;
 using Microsoft.AspNetCore.Identity;
 using SostavSD.Interfaces;
 using SostavSD.Services;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
