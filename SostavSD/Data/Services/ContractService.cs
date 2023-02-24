@@ -27,8 +27,11 @@ namespace SostavSD.Data.Services
 
         public async Task<List<ContractModel>> GetAllContract()
         {
-            var contractList = await _context.contract.ToListAsync();
-            return _mapper.Map<List<ContractModel>>(contractList);
+            var contractList = _context.contract
+                .Include(c => c.Company)
+                .AsNoTracking();                          
+            
+            return _mapper.Map<List<ContractModel>>(await contractList.ToListAsync());
         }
 
 
@@ -53,8 +56,9 @@ namespace SostavSD.Data.Services
         }
 
         public async Task<ContractModel> GetSingleContract(int contractId)
-        {            
+        {
             var singleContract = await _context.contract.FirstOrDefaultAsync(e => e.ContractID == contractId);
+               
             if (singleContract != null)
             {
                 _context.contract.Entry(singleContract).State = EntityState.Detached;
@@ -64,8 +68,8 @@ namespace SostavSD.Data.Services
 
         public async Task EditContract(ContractModel currentContract)
         {
-            Contract ctrnew = _mapper.Map<Contract>(currentContract);
-            _context.contract.Update(ctrnew);
+            Contract contractAfterEdit = _mapper.Map<Contract>(currentContract);
+            _context.contract.Update(contractAfterEdit);
             await _context.SaveChangesAsync();
 
         }

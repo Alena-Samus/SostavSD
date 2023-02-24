@@ -1,4 +1,4 @@
-﻿using SostavSD.Shared;
+﻿using SostavSD.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace SostavSD.Models
@@ -12,8 +12,10 @@ namespace SostavSD.Models
         public string Index { get; set; }
         public string Order { get; set; }
         public string ContractNumber { get; set; }
-        public dateFormat? ContractDate { get; set; }
-        public dateFormat? ContractDateEndOfWork { get; set; }
+        public int CompanyID { get; set; }
+        public CompanyModel Company { get; set; }
         public string City { get; set; }
+        public int CompanyID { get; set; }
+        public CompanyModel Company { get; set; }
     }
 }

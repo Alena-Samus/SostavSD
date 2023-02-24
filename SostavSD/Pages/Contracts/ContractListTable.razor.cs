@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using SostavSD.Data.Interfaces;
-using SostavSD.Data.Services;
 using SostavSD.Models;
 
 
@@ -15,6 +14,7 @@ public partial class ContractListTable : ComponentBase
 
     private IContractService _contractService;
 
+
     private string searchString = "";
 
     private ContractModel selectedItem = null;
@@ -23,14 +23,16 @@ public partial class ContractListTable : ComponentBase
 
     private IEnumerable<ContractModel> contracts = new List<ContractModel>();
 
+    
     public ContractListTable(IContractService contractService)
     {
         _contractService = contractService;
     }
 
+
     protected override async Task OnInitializedAsync()
     {
-        await GetContracts();
+        await GetContracts();        
     }
 
     private async Task<List<ContractModel>> GetContracts()
@@ -42,13 +44,13 @@ public partial class ContractListTable : ComponentBase
 
     private bool FilterFunc(ContractModel contract, string searchString)
     {
-        if ((string.IsNullOrWhiteSpace(searchString)) || (contract.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase)) ||
-            (contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase)) || (contract.Order.Contains(searchString, StringComparison.OrdinalIgnoreCase)) ||
-            (contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase)) || contract.ContractDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
-            contract.ContractDateEndOfWork.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) || (contract.City.Contains(searchString, StringComparison.OrdinalIgnoreCase)))
-        { return true; }    
+        bool result = string.IsNullOrWhiteSpace(searchString) || (contract.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase)) ||
+             (contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase)) || (contract.Order.Contains(searchString, StringComparison.OrdinalIgnoreCase)) ||
+             (contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase)) || contract.ContractDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+             contract.ContractDateEndOfWork.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) || (contract.City.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+            
      
-        return false;
+        return result;
     }
 
     private async Task Delete(int contractId)

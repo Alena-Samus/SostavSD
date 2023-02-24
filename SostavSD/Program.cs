@@ -68,5 +68,6 @@ app.Run();
 static void AddBusinessLogicServices(IServiceCollection collection)
 {
     collection.AddScoped<IContractService, ContractService>();
+    collection.AddScoped<ICompanyService, CompanyService>();
     collection.AddMudServices();
 }
