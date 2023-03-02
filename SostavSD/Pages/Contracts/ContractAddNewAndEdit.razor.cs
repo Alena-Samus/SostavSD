@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using SostavSD.Data.Interfaces;
+using SostavSD.Interfaces;
 using SostavSD.Models;
 
 namespace SostavSD.Pages.Contracts

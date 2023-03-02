@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using SostavSD.Data.Interfaces;
+using SostavSD.Data;
 using SostavSD.Entities;
+using SostavSD.Interfaces;
 using SostavSD.Models;
 using System.Diagnostics.Contracts;
 
-namespace SostavSD.Data.Services
+namespace SostavSD.Services
 {
     public class CompanyService : ICompanyService
 
@@ -52,7 +53,7 @@ namespace SostavSD.Data.Services
         {
             var companyList = _context.company
                 .AsNoTracking();
-               
+
             return _mapper.Map<List<CompanyModel>>(await companyList.ToListAsync());
         }
 

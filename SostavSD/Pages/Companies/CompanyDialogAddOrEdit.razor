@@ -1,12 +1,14 @@
 ﻿@inject IDialogService _dialogService
+@inject IStringLocalizer<CompanyDialogAddOrEdit> localizer
+
 <MudDialog>
 	<DialogContent>
-		<MudTextField T="string" Label="Наименование" @bind-Value="Company.CompanyName" Lines="5"/>
-		<MudTextField T="string" Label="Реквизиты" @bind-Value="Company.CompanyDetails"/>
+		<MudTextField T="string" Label="@localizer["companyName"]" @bind-Value="Company.CompanyName" Lines="5"/>
+		<MudTextField T="string" Label="@localizer["companyDetails"]" @bind-Value="Company.CompanyDetails"/>
 	</DialogContent>
 
 	<DialogActions>
-		<MudButton @onclick="Cancel">Отменить</MudButton>
-		<MudButton @onclick="Submit" Color="Color.Primary">Сохранить</MudButton>
+		<MudButton @onclick="Cancel">@localizer["cancelChanges"]</MudButton>
+		<MudButton @onclick="Submit" Color="Color.Primary">@localizer["saveChanges"]</MudButton>
 	</DialogActions>
 </MudDialog>

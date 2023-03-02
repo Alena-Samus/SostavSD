@@ -1,27 +1,29 @@
 ﻿@inject ISnackbar Snackbar
 @inject IDialogService _dialogService
+@inject IStringLocalizer<CompanyListTable> localizer
 
 <MudContainer Class="d-flex justify-center mb-sm-5">
-	<MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="Новая организация" @onclick="(e => CreateNewCompany())">
+	<MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="@localizer["newCompany"]" @onclick="(e => CreateNewCompany())">
 	</MudFab>
+	
 </MudContainer>
-<MudSelect T="CompanyModel" Label="Заказчик" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
+<MudSelect T="CompanyModel" Label="@localizer["Customer"]" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
 
 </MudSelect>
 <MudTable Items="@_companies" Filter="new Func<CompanyModel,bool>(FilterFuncCurrent)" @bind-SelectedItem="selectedItem">
 
 	<ToolBarContent>
 		<MudSpacer />
-		<MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+		<MudTextField @bind-Value="searchString" Placeholder="@localizer["Search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
 	</ToolBarContent>
 	<HeaderContent >
-		<MudTh>Наименование</MudTh>
-		<MudTh>Реквизиты</MudTh>
+		<MudTh>@localizer["companyName"]</MudTh>
+		<MudTh>@localizer["companyDetails"]</MudTh>
 	</HeaderContent>
 
 	<RowTemplate>
-		<MudTd DataLabel="Наименование">@context.CompanyName</MudTd>
-		<MudTd DataLabel="Реквизиты">@context.CompanyDetails</MudTd>
+		<MudTd DataLabel="Name">@context.CompanyName</MudTd>
+		<MudTd DataLabel="Details">@context.CompanyDetails</MudTd>
 
 		<MudTd DataLabel="">
 			<MudFab @onclick="@(() => Edit(context.CompanyID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>

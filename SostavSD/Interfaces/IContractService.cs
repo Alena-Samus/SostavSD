@@ -1,6 +1,6 @@
 ﻿using SostavSD.Models;
 
-namespace SostavSD.Data.Interfaces
+namespace SostavSD.Interfaces
 {
     public interface IContractService
     {
@@ -8,7 +8,7 @@ namespace SostavSD.Data.Interfaces
         Task DeleteContract(int contractId);
         Task AddContract(ContractModel newContract);
 
-        Task <ContractModel> GetSingleContract(int contractId);
+        Task<ContractModel> GetSingleContract(int contractId);
 
         Task EditContract(ContractModel currentContract);
     }

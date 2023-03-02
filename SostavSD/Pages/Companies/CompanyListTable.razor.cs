@@ -1,6 +1,5 @@
 ﻿using MudBlazor;
-using SostavSD.Data.Interfaces;
-using SostavSD.Data.Services;
+using SostavSD.Interfaces;
 using SostavSD.Models;
 
 
