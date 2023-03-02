@@ -4,7 +4,7 @@ using SostavSD.Models;
 
 namespace SostavSD.Pages.Companies
 {
-    partial class CompanyDialogAddOrEdit
+    partial class CompanyDialogAddOrEdit : ComponentBase
     {
         [CascadingParameter] MudDialogInstance AddOrEditCompany { get; set; }
         [Parameter] public CompanyModel Company { get; set; }

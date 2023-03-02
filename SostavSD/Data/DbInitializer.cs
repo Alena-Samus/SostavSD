@@ -8,7 +8,7 @@ namespace SostavSD.Data
     {
         public static void Initialize(SostavSDContext context)
         {
-            context.Database.EnsureCreated();
+           // context.Database.EnsureCreated();
             context.Database.Migrate();
             AddCompany(context);   
             

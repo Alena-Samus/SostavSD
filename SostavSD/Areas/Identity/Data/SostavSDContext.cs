@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace SostavSD.Data;
 
-public class SostavSDContext : IdentityDbContext<IdentityUser>
+public class SostavSDContext : IdentityDbContext
 {
     public SostavSDContext(DbContextOptions<SostavSDContext> options)
         : base(options)
