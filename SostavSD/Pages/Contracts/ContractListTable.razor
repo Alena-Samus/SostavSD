@@ -1,8 +1,9 @@
 ﻿@inject ISnackbar Snackbar
 @inject IDialogService _dialogService
+@inject IStringLocalizer<ContractListTable> localizer
 
 <MudContainer Class="d-flex justify-center mb-sm-5">
-	<MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="Новый договор" @onclick="(e => CreateNewContract())">
+	<MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="@localizer["newContract"]" @onclick="(e => CreateNewContract())">
 	</MudFab>
 </MudContainer>
 
@@ -10,30 +11,30 @@
 
 	<ToolBarContent>
 		<MudSpacer />
-		<MudTextField @bind-Value="searchString" Placeholder="Поиск" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+		<MudTextField @bind-Value="searchString" Placeholder="@localizer["Search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
 	</ToolBarContent>
 	<HeaderContent >
 
-		<MudTh>Объект</MudTh>
-		<MudTh>Индекс</MudTh>
-		<MudTh>Заказ</MudTh>
-		<MudTh>Номер договора</MudTh>
-		<MudTh>Дата договора</MudTh>
-		<MudTh>Дата окончания работ</MudTh>
-		<MudTh>Заказчик</MudTh>
-		<MudTh>Город</MudTh>
+		<MudTh>@localizer["Object"]</MudTh>
+		<MudTh>@localizer["Index"]</MudTh>
+		<MudTh>@localizer["Order"]</MudTh>
+		<MudTh>@localizer["ContractNumber"]</MudTh>
+		<MudTh>@localizer["ContractDate"]</MudTh>
+		<MudTh>@localizer["ContractDateEndOfWork"]</MudTh>
+		<MudTh>@localizer["Customer"]</MudTh>
+		<MudTh>@localizer["City"]</MudTh>
 
 	</HeaderContent>
 
 	<RowTemplate>
-		<MudTd DataLabel="Объект">@context.ProjectName</MudTd>
-		<MudTd DataLabel="Индекс">@context.Index</MudTd>
-		<MudTd DataLabel="Заказ">@context.Order</MudTd>
-		<MudTd DataLabel="Номер договора">@context.ContractNumber</MudTd>
-		<MudTd DataLabel="Дата договора" Class="">@Convert.ToDateTime(context.ContractDate).ToString("dd/MM/yyyy")</MudTd>
-		<MudTd DataLabel="Дата окончания работ">@Convert.ToDateTime(context.ContractDateEndOfWork).ToString("dd/MM/yyyy")</MudTd>
-		<MudTd DataLabel="Заказчик">@context.Company.CompanyName</MudTd>
-		<MudTd DataLabel="Город">@context.City</MudTd>
+		<MudTd DataLabel="@localizer["Object"]">@context.ProjectName</MudTd>
+		<MudTd DataLabel="@localizer["Index"]">@context.Index</MudTd>
+		<MudTd DataLabel="@localizer["Order"]">@context.Order</MudTd>
+		<MudTd DataLabel="@localizer["ContractNumber"]">@context.ContractNumber</MudTd>
+		<MudTd DataLabel="@localizer["ContractDate"]">@Convert.ToDateTime(context.ContractDate).ToString("dd/MM/yyyy")</MudTd>
+		<MudTd DataLabel="@localizer["ContractDateEndOfWork"]">@Convert.ToDateTime(context.ContractDateEndOfWork).ToString("dd/MM/yyyy")</MudTd>
+		<MudTd DataLabel="@localizer["Customer"]">@context.Company.CompanyName</MudTd>
+		<MudTd DataLabel="@localizer["City"]">@context.City</MudTd>
 		<MudTd DataLabel="">
 			<MudFab @onclick="@(() => Edit(context.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
 			<MudFab @onclick="@(() => Delete(context.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small"/>

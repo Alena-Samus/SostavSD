@@ -1,4 +1,5 @@
-﻿using SostavSD.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SostavSD.Entities;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace SostavSD.Data
@@ -8,6 +9,7 @@ namespace SostavSD.Data
         public static void Initialize(SostavSDContext context)
         {
             context.Database.EnsureCreated();
+            context.Database.Migrate();
             AddCompany(context);   
             
         }

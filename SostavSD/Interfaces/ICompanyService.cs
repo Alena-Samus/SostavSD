@@ -1,6 +1,6 @@
 ﻿using SostavSD.Models;
 
-namespace SostavSD.Data.Interfaces
+namespace SostavSD.Interfaces
 {
     public interface ICompanyService
     {
