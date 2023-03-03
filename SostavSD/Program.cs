@@ -92,8 +92,9 @@ app.Run();
 
 static void AddBusinessLogicServices(IServiceCollection collection)
 {
+    collection.AddScoped<IAuthorizedUserService, AuthorizedUserService>();
+
     collection.AddScoped<IContractService, ContractService>();
     collection.AddScoped<ICompanyService, CompanyService>();
     collection.AddMudServices();
-
 }

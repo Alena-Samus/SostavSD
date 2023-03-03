@@ -1,4 +1,6 @@
-﻿namespace SostavSD.Areas.Identity.Constants;
+﻿using System.Data;
+
+namespace SostavSD.Areas.Identity.Constants;
 
 public static class Roles
 {
@@ -17,6 +19,8 @@ public static class Roles
             };
         }
     }
+
+    public static string SeveralRoles(params string[] roles) => string.Join( ",", roles);
 
     /// <summary>
     /// Default, readOnly
