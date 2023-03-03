@@ -1,56 +1,67 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using SostavSD.Entities;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+﻿using Microsoft.AspNetCore.Identity;
+using SostavSD.Areas.Identity.Constants;
 
 namespace SostavSD.Data
 {
     public class DBInitializerWithUsers
     {
+        private const string DefaultPassword = "12345678";
+
         public async static Task InitializeUsers(IServiceProvider serviceProvider)
         {
             var context = serviceProvider.GetService<SostavSDContext>();
-
-            var roleMananger = serviceProvider.GetService<RoleManager<IdentityRole>>();
-
-            string[] roles = new string[] { "Owner", "Administrator", "Manager", "Editor", "Buyer", "Business", "Seller", "Subscriber" };
-
-            foreach (string role in roles)
-            {
-                if (!context.Roles.Any(r => r.Name == role))
-                {
-                    await roleMananger.CreateAsync(new IdentityRole(role));
-                }
-            }
-
-            await context.SaveChangesAsync();
-
-            var _userStore = serviceProvider.GetService<IUserStore<IdentityUser>>();
-            var _emailStore = serviceProvider.GetService<IUserEmailStore<IdentityUser>>();
             var _userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
 
+            await AddRolesAsync(serviceProvider);
+            await context.SaveChangesAsync();
 
-            var user = Activator.CreateInstance<IdentityUser>();
-
-            await _userStore.SetUserNameAsync(user, "Test@test.com", CancellationToken.None);
-            user.Email = "Test@test.com";
-            //await _emailStore.SetEmailAsync(user, "Test@test.com", CancellationToken.None);
-            var result = await _userManager.CreateAsync(user, "12345678");
-
-
-            await AssignRoles(serviceProvider, user.Email, roles);
+            await AddUser("admin@test.com", Roles.AllRoles.ToArray(), _userManager, serviceProvider);
+            await AddUser("readonly@test.com", new[] { Roles.ReadOnly }, _userManager, serviceProvider);
+            await AddUser("chief@test.com", new[] { Roles.Chief, }, _userManager, serviceProvider);
+            await AddUser("headofthegroup@test.com", new[] { Roles.HeadOfGroup, }, _userManager, serviceProvider);
+            await AddUser("estimator@test.com", new[] { Roles.Estimator, }, _userManager, serviceProvider);
+            await AddUser("calculator@test.com", new[] { Roles.Calculator, }, _userManager, serviceProvider);
+            await AddUser("secretary@test.com", new[] { Roles.Secretary, }, _userManager, serviceProvider);
+            await AddUser("inspector@test.com", new[] { Roles.Inspector, }, _userManager, serviceProvider);
 
             await context.SaveChangesAsync();
         }
 
-        public static async Task<IdentityResult> AssignRoles(IServiceProvider services, string email, string[] roles)
+        private async static Task AddUser(string email, string[] roles, UserManager<IdentityUser> userManager, IServiceProvider serviceProvider)
         {
-            var _userManager = services.GetService<UserManager<IdentityUser>>();
-            var user = await _userManager.FindByEmailAsync(email);
-            var result = await _userManager.AddToRolesAsync(user, roles);
+            var user = Activator.CreateInstance<IdentityUser>();
+
+            user.UserName = email;
+            user.Email = email;
+            var result = await userManager.CreateAsync(user, DefaultPassword);
+
+            await AssignRoles(user.Email, roles, userManager);
+        }
+
+        private static async Task<IdentityResult> AssignRoles(string email, string[] roles, UserManager<IdentityUser> userManager)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            var result = await userManager.AddToRolesAsync(user, roles);
 
             return result;
+        }
+
+        private async static Task AddRolesAsync(IServiceProvider serviceProvider)
+        {
+            var roleMananger = serviceProvider.GetService<RoleManager<IdentityRole>>();
+
+            var roles = Roles.AllRoles;
+
+            var existingRoles = roleMananger.Roles.ToList();
+
+
+            foreach (string role in roles)
+            {
+                if (!existingRoles.Any(r => r.Name == role))
+                {
+                    await roleMananger.CreateAsync(new IdentityRole(role));
+                }
+            }
         }
     }
 }
