@@ -16,6 +16,6 @@ namespace SostavSD.Models
         public DateTime? ContractDateEndOfWork { get; set; }
         public string City { get; set; }
         public int CompanyID { get; set; }
-        public CompanyModel Company { get; set; }
+        public Company Company { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SostavSD.Entities;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+﻿using SostavSD.Entities;
 
 namespace SostavSD.Data
 {
