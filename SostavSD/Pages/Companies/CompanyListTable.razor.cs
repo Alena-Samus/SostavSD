@@ -1,15 +1,17 @@
-﻿using MudBlazor;
+﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 
 
 namespace SostavSD.Pages.Companies
 {
-    partial class CompanyListTable
+    partial class CompanyListTable : ComponentBase
     {
         private List<CompanyModel> _companies = new List<CompanyModel>();
 
         private ICompanyService _companyService;
+        private IDialogService _dialogService;
 
         private string searchString = "";
 
@@ -19,9 +21,10 @@ namespace SostavSD.Pages.Companies
 
         private IEnumerable<CompanyModel> contracts = new List<CompanyModel>();
 
-        public CompanyListTable(ICompanyService companyService)
+        public CompanyListTable(ICompanyService companyService, IDialogService dialogService)
         {
             _companyService = companyService;
+            _dialogService = dialogService;
         }
 
         protected override async Task OnInitializedAsync()
