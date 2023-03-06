@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.JSInterop;
 using SostavSD.Data;
 using SostavSD.Entities;
 using SostavSD.Interfaces;
@@ -48,6 +49,7 @@ namespace SostavSD.Services
             _context.company.Update(companytAfterEdit);
             await _context.SaveChangesAsync();
         }
+
 
         public async Task<List<CompanyModel>> GetAllCompany()
         {

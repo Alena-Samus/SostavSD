@@ -126,6 +126,9 @@
   <data name="Customer" xml:space="preserve">
     <value>Customer</value>
   </data>
+  <data name="exportToExcel" xml:space="preserve">
+    <value>Export To Excel</value>
+  </data>
   <data name="newCompany" xml:space="preserve">
     <value>New Company</value>
   </data>

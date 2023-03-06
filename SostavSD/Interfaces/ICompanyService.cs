@@ -11,5 +11,6 @@ namespace SostavSD.Interfaces
         Task<CompanyModel> GetSingleCompany(int companytId);
 
         Task EditCompany(CompanyModel currentCompany);
+       
     }
 }

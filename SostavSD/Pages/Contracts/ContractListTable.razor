@@ -31,8 +31,8 @@
 		<MudTd DataLabel="@localizer["Index"]">@context.Index</MudTd>
 		<MudTd DataLabel="@localizer["Order"]">@context.Order</MudTd>
 		<MudTd DataLabel="@localizer["ContractNumber"]">@context.ContractNumber</MudTd>
-		<MudTd DataLabel="@localizer["ContractDate"]">@Convert.ToDateTime(context.ContractDate).ToString("dd/MM/yyyy")</MudTd>
-		<MudTd DataLabel="@localizer["ContractDateEndOfWork"]">@Convert.ToDateTime(context.ContractDateEndOfWork).ToString("dd/MM/yyyy")</MudTd>
+		<MudTd DataLabel="@localizer["ContractDate"]">@Convert.ToDateTime(context.ContractDate).ToString(Constants.DateFormat)</MudTd>
+		<MudTd DataLabel="@localizer["ContractDateEndOfWork"]">@Convert.ToDateTime(context.ContractDateEndOfWork).ToString(Constants.DateFormat)</MudTd>
 		<MudTd DataLabel="@localizer["Customer"]">@context.Company.CompanyName</MudTd>
 		<MudTd DataLabel="@localizer["City"]">@context.City</MudTd>
 		<MudTd DataLabel="">
@@ -46,5 +46,6 @@
 	<PagerContent>
 		<MudTablePager />
 	</PagerContent>
-</MudTable>
+	</MudTable>
+	
 

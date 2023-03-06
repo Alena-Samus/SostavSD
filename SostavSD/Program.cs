@@ -31,6 +31,8 @@ builder.Services.AddAutoMapper(typeof(AppMappingProfile));
 builder.Services.AddScoped<TokenProvider>();
 
 builder.Services.AddComponents();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -79,5 +81,5 @@ static void AddBusinessLogicServices(IServiceCollection collection)
     collection.AddScoped<IContractService, ContractService>();
     collection.AddScoped<ICompanyService, CompanyService>();
     collection.AddMudServices();
-    
+        
 }
