@@ -9,8 +9,8 @@ namespace SostavSD.Data
         public static void Initialize(SostavSDContext context)
         {
             context.Database.Migrate();
-            AddCompany(context);   
-            
+            AddCompany(context);
+
         }
 
         public static void AddCompany(SostavSDContext context)

@@ -10,31 +10,44 @@
 <MudSelect T="CompanyModel" Label="@localizer["Customer"]" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
 
 </MudSelect>
-<MudTable Items="@_companies" Filter="new Func<CompanyModel,bool>(FilterFuncCurrent)" @bind-SelectedItem="selectedItem">
 
-	<ToolBarContent>
-		<MudSpacer />
-		<MudTextField @bind-Value="searchString" Placeholder="@localizer["Search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-	</ToolBarContent>
-	<HeaderContent >
-		<MudTh>@localizer["companyName"]</MudTh>
-		<MudTh>@localizer["companyDetails"]</MudTh>
-	</HeaderContent>
+@if (_companies == null)
+{
+	<tr>@localizer["loadingdata"]</tr>
+}
+else if (_companies.Count == 0)
+{
+	<tr> @localizer["noitem"]</tr>
+}
+else
+{
+		<MudTable Items="@_companies" Filter="new Func<CompanyModel,bool>(FilterFuncCurrent)" @bind-SelectedItem="selectedItem">
 
-	<RowTemplate>
-		<MudTd DataLabel="Name">@context.CompanyName</MudTd>
-		<MudTd DataLabel="Details">@context.CompanyDetails</MudTd>
+		<ToolBarContent>
+			<MudSpacer />
+			<MudTextField @bind-Value="searchString" Placeholder="@localizer["Search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+		</ToolBarContent>
+		<HeaderContent >
+			<MudTh>@localizer["companyName"]</MudTh>
+			<MudTh>@localizer["companyDetails"]</MudTh>
+		</HeaderContent>
 
-		<MudTd DataLabel="">
-			<MudFab @onclick="@(() => Edit(context.CompanyID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
-			<MudFab @onclick="@(() => Delete(context.CompanyID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small"/>
+		<RowTemplate>
+			<MudTd DataLabel="Name">@context.CompanyName</MudTd>
+			<MudTd DataLabel="Details">@context.CompanyDetails</MudTd>
 
-		</MudTd>
+			<MudTd DataLabel="">
+				<MudFab @onclick="@(() => Edit(context.CompanyID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
+				<MudFab @onclick="@(() => Delete(context.CompanyID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small"/>
 
-	</RowTemplate>
+			</MudTd>
 
-	<PagerContent>
-		<MudTablePager />
-	</PagerContent>
-</MudTable>
-<MudButton Variant="Variant.Filled" Size="Size.Large"  Color="Color.Tertiary">@localizer["exportToExcel"]</MudButton>
+		</RowTemplate>
+
+		<PagerContent>
+			<MudTablePager />
+		</PagerContent>
+	</MudTable>
+}
+
+<MudButton Variant="Variant.Filled" Size="Size.Medium"  Color="Color.Tertiary">@localizer["exportToExcel"]</MudButton>

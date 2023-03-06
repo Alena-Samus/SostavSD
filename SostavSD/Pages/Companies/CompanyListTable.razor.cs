@@ -15,10 +15,6 @@ namespace SostavSD.Pages.Companies
 
         private CompanyModel selectedItem = null;
 
-        private List<CompanyModel> selectedItems = new List<CompanyModel>();
-
-        private IEnumerable<CompanyModel> contracts = new List<CompanyModel>();
-
         public CompanyListTable(ICompanyService companyService)
         {
             _companyService = companyService;

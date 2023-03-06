@@ -129,8 +129,14 @@
   <data name="exportToExcel" xml:space="preserve">
     <value>Export To Excel</value>
   </data>
+  <data name="loadingdata" xml:space="preserve">
+    <value>Loading data ...</value>
+  </data>
   <data name="newCompany" xml:space="preserve">
     <value>New Company</value>
+  </data>
+  <data name="noitem" xml:space="preserve">
+    <value>No items</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
