@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using SostavSD.Interfaces;
 using SostavSD.Services;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,20 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContext<SostavSDContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<SostavSDContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<SostavSDContext>();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 5;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+});
+
+
 builder.Services.AddLocalization(opt => opt.ResourcesPath = "ResourceFiles");
 
 AddBusinessLogicServices(builder.Services);
@@ -50,8 +64,10 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<SostavSDContext>();
+        context.Database.Migrate();
 
         DBInitializer.Initialize(context);
+        await DBInitializerWithUsers.InitializeUsers(services);
     }
     catch (Exception ex)
     {
@@ -78,8 +94,9 @@ app.Run();
 
 static void AddBusinessLogicServices(IServiceCollection collection)
 {
+    collection.AddScoped<IAuthorizedUserService, AuthorizedUserService>();
+
     collection.AddScoped<IContractService, ContractService>();
     collection.AddScoped<ICompanyService, CompanyService>();
     collection.AddMudServices();
-        
 }

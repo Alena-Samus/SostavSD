@@ -1,0 +1,69 @@
+﻿@page "/IdentityUsageSample"
+
+@using SostavSD.Areas.Identity.Constants;
+
+<h1>ClaimsPrincipal Data</h1>
+<p>@authMessage</p>
+
+
+<p> Test from code is @textFromCode</p>
+
+@if (claims.Count() > 0)
+{
+    <ul>
+        @foreach (var claim in claims)
+        {
+            <li>@claim.Type: @claim.Value</li>
+        }
+    </ul>
+}
+<p>@surname</p>
+
+
+
+<AuthorizeView>
+    <Authorized>
+        This text is viewed only for authorized
+        Hello, @context.User.Identity.Name!
+    </Authorized>
+    <NotAuthorized>
+        This text is viewed only for non-authorized
+    </NotAuthorized>
+</AuthorizeView>
+
+<br/>
+<AuthorizeView Roles="@Roles.ReadOnly">
+    Only users with ReadOnly role can see this.<br />
+</AuthorizeView>
+
+<AuthorizeView Roles="@Roles.Chief">
+    Only users with Chief role can see this.<br />
+</AuthorizeView>
+
+<AuthorizeView Roles="@Roles.HeadOfGroup">
+    Only users with HeadOfGroup role can see this.<br />
+</AuthorizeView>
+
+<AuthorizeView Roles="@Roles.Estimator">
+    Only users with Estimator role can see this.<br />
+</AuthorizeView>
+
+<AuthorizeView Roles="@Roles.Calculator">
+    Only users with Calculator role can see this.<br />
+</AuthorizeView>
+
+<AuthorizeView Roles="@Roles.Secretary">
+    Only users with Secretary role can see this.<br />
+</AuthorizeView>
+
+<AuthorizeView Roles="@Roles.Inspector">
+    Only users with Inspector role can see this.<br />
+</AuthorizeView>
+
+
+
+<AuthorizeView Roles="@Roles.SeveralRoles(Roles.Chief, Roles.Calculator)">
+    Only users with Chief OR Calculator role can see this.<br />
+</AuthorizeView>
+
+

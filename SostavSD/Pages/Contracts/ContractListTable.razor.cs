@@ -13,16 +13,21 @@ public partial class ContractListTable : ComponentBase
     private List<ContractModel> _contracts = new List<ContractModel>();
 
     private IContractService _contractService;
-
+    private IDialogService _dialogService;
 
     private string searchString = "";
 
     private ContractModel selectedItem = null;
 
-    
-    public ContractListTable(IContractService contractService)
+    private List<ContractModel> selectedItems = new List<ContractModel>();
+
+    private IEnumerable<ContractModel> contracts = new List<ContractModel>();
+
+
+    public ContractListTable(IContractService contractService, IDialogService dialogService)
     {
         _contractService = contractService;
+        _dialogService = dialogService;
     }
 
 
