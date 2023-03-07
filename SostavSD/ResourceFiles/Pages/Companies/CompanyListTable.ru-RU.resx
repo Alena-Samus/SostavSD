@@ -129,6 +129,9 @@
   <data name="exportToExcel" xml:space="preserve">
     <value>Экспорт в Excel</value>
   </data>
+  <data name="exportToWord" xml:space="preserve">
+    <value>Экспорт в Word</value>
+  </data>
   <data name="loadingdata" xml:space="preserve">
     <value>Загрузка данных...</value>
   </data>

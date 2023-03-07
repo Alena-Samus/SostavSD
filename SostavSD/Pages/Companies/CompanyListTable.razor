@@ -1,11 +1,13 @@
 ﻿@inject ISnackbar Snackbar
 @inject IStringLocalizer<CompanyListTable> localizer
 
+
 <MudContainer Class="d-flex justify-center mb-sm-5">
 	<MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="@localizer["newCompany"]" @onclick="(e => CreateNewCompany())">
 	</MudFab>
-	
 </MudContainer>
+	<MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="ExportToExcel">Excel</MudButton>
+	<MudButton Variant="Variant.Filled" Size="Size.Medium"  Color="Color.Tertiary">@localizer["exportToWord"]</MudButton>
 <MudSelect T="CompanyModel" Label="@localizer["Customer"]" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
 
 </MudSelect>
@@ -21,7 +23,7 @@ else if (_companies.Count == 0)
 else
 {
 		<MudTable Items="@_companies" Filter="new Func<CompanyModel,bool>(FilterFuncCurrent)" @bind-SelectedItem="selectedItem">
-
+			
 		<ToolBarContent>
 			<MudSpacer />
 			<MudTextField @bind-Value="searchString" Placeholder="@localizer["Search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
@@ -49,4 +51,3 @@ else
 	</MudTable>
 }
 
-<MudButton Variant="Variant.Filled" Size="Size.Medium"  Color="Color.Tertiary">@localizer["exportToExcel"]</MudButton>

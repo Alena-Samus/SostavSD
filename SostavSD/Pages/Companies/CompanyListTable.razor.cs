@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using MudBlazor;
+using SostavSD.Data;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 
@@ -12,19 +14,17 @@ namespace SostavSD.Pages.Companies
 
         private ICompanyService _companyService;
         private IDialogService _dialogService;
+        private IJSRuntime _jsruntime;
 
         private string searchString = "";
 
         private CompanyModel selectedItem = null;
 
-        private List<CompanyModel> selectedItems = new List<CompanyModel>();
-
-        private IEnumerable<CompanyModel> contracts = new List<CompanyModel>();
-
-        public CompanyListTable(ICompanyService companyService, IDialogService dialogService)
+        public CompanyListTable(ICompanyService companyService, IDialogService dialogService, IJSRuntime jsruntime)
         {
             _companyService = companyService;
             _dialogService = dialogService;
+            _jsruntime = jsruntime;
         }
 
         protected override async Task OnInitializedAsync()
@@ -97,5 +97,11 @@ namespace SostavSD.Pages.Companies
                 await GetCompanies();
             }
         }
-    }
+
+		private void ExportToExcel()
+		{
+			ExcelExport excelExport = new ExcelExport();
+			excelExport.ExcelGenerate(_jsruntime, _companies);
+		}
+	}
 }
