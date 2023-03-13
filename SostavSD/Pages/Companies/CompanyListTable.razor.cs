@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using MudBlazor;
-using SostavSD.Data;
 using SostavSD.Interfaces;
 using SostavSD.Models;
-
+using System.Net;
+using System.Net.Mail;
+using MimeKit;
 
 namespace SostavSD.Pages.Companies
 {
@@ -102,5 +103,25 @@ namespace SostavSD.Pages.Companies
 		{
             await _companyService.ExcelGenerate(_jsruntime, _companies);		
 		}
+
+        private async void SendMail()
+        {
+            MimeMessage message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Sostav", "sostavsd@mail.ru")); //отправитель сообщения
+            message.To.Add(new MailboxAddress("", "sostavsd@gmail.com")); //адресат сообщения
+            message.Subject = "Сообщение от MailKit"; //тема сообщения
+            message.Body = new BodyBuilder() { HtmlBody = "<div style=\"color: green;\">Сообщение от MailKit</div>" }.ToMessageBody(); //тело сообщения (так же в формате HTML)
+
+            using (MailKit.Net.Smtp.SmtpClient client = new MailKit.Net.Smtp.SmtpClient())
+            {
+                client.Connect("smtp.mail.ru", 465, true); //либо использум порт 465
+                client.Authenticate("sostavsd@mail.ru", "xqeXY7cmcM3zDtVp8LGP"); //логин-пароль от аккаунта
+                client.Send(message);
+
+                client.Disconnect(true);
+
+            }
+
+        }
 	}
 }
