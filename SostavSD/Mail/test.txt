@@ -1,1 +1,1 @@
-text for test 3
+!!! добавить настройки в appsettings.json
