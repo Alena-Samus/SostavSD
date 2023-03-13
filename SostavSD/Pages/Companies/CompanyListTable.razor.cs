@@ -110,7 +110,13 @@ namespace SostavSD.Pages.Companies
             message.From.Add(new MailboxAddress("Sostav", "sostavsd@mail.ru")); //отправитель сообщения
             message.To.Add(new MailboxAddress("", "sostavsd@gmail.com")); //адресат сообщения
             message.Subject = "Сообщение от MailKit"; //тема сообщения
-            message.Body = new BodyBuilder() { HtmlBody = "<div style=\"color: green;\">Сообщение от MailKit</div>" }.ToMessageBody(); //тело сообщения (так же в формате HTML)
+
+            var builder = new BodyBuilder();
+
+            builder.TextBody = "<div style=\"color: green;\">Сообщение от MailKit</div>";
+            builder.Attachments.Add(@"d:\test.txt");
+
+            message.Body = builder.ToMessageBody(); //тело сообщения (так же в формате HTML)
             
 
             using (MailKit.Net.Smtp.SmtpClient client = new MailKit.Net.Smtp.SmtpClient())
