@@ -104,7 +104,7 @@ namespace SostavSD.Pages.Companies
             await _companyService.ExcelGenerate(_jsruntime, _companies);		
 		}
 
-        private async void SendMail()
+        private void SendMail()
         {
             MimeMessage message = new MimeMessage();
             message.From.Add(new MailboxAddress("Sostav", "sostavsd@mail.ru")); //отправитель сообщения
@@ -114,7 +114,7 @@ namespace SostavSD.Pages.Companies
             var builder = new BodyBuilder();
 
             builder.TextBody = "<div style=\"color: green;\">Сообщение от MailKit</div>";
-            builder.Attachments.Add(@"d:\test.txt");
+            builder.Attachments.Add(@"Mail\test.txt");
 
             message.Body = builder.ToMessageBody(); //тело сообщения (так же в формате HTML)
             
