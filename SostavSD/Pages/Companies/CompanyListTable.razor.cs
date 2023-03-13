@@ -6,6 +6,9 @@ using SostavSD.Models;
 using System.Net;
 using System.Net.Mail;
 using MimeKit;
+using SostavSD.Data;
+using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
 namespace SostavSD.Pages.Companies
 {
@@ -16,16 +19,18 @@ namespace SostavSD.Pages.Companies
         private ICompanyService _companyService;
         private IDialogService _dialogService;
         private IJSRuntime _jsruntime;
+        private IEmailService _emailService;
 
         private string searchString = "";
 
         private CompanyModel selectedItem = null;
 
-        public CompanyListTable(ICompanyService companyService, IDialogService dialogService, IJSRuntime jsruntime)
+        public CompanyListTable(ICompanyService companyService, IDialogService dialogService, IJSRuntime jsruntime, IEmailService emailService)
         {
             _companyService = companyService;
             _dialogService = dialogService;
             _jsruntime = jsruntime;
+            _emailService = emailService;
         }
 
         protected override async Task OnInitializedAsync()
@@ -105,29 +110,18 @@ namespace SostavSD.Pages.Companies
 		}
 
         private void SendMail()
+
         {
-            MimeMessage message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Sostav", "sostavsd@mail.ru")); //отправитель сообщения
-            message.To.Add(new MailboxAddress("", "sostavsd@gmail.com")); //адресат сообщения
-            message.Subject = "Сообщение от MailKit"; //тема сообщения
+            EmailMessage email= new EmailMessage();
+            string attachmentsPath = @"Mail\test.txt";
+            email.FromAddresses.Add(new EmailAddress { Name = "Sostav", Address = "sostavsd@mail.ru" });
+            email.ToAddresses.Add(new EmailAddress { Name = "", Address = "sostavsd@gmail.com" });
 
-            var builder = new BodyBuilder();
+  
+            email.Subject = "Сообщение от MailKit";
+            email.Content = "Сообщение от MailKit";
 
-            builder.TextBody = "<div style=\"color: green;\">Сообщение от MailKit</div>";
-            builder.Attachments.Add(@"Mail\test.txt");
-
-            message.Body = builder.ToMessageBody(); //тело сообщения (так же в формате HTML)
-            
-
-            using (MailKit.Net.Smtp.SmtpClient client = new MailKit.Net.Smtp.SmtpClient())
-            {
-                client.Connect("smtp.mail.ru", 465, true); //либо использум порт 465
-                client.Authenticate("sostavsd@mail.ru", "xqeXY7cmcM3zDtVp8LGP"); //логин-пароль от аккаунта
-                client.Send(message);
-
-                client.Disconnect(true);
-
-            }
+			_emailService.Send(email, attachmentsPath);                               
 
         }
 	}

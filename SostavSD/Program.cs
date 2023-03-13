@@ -10,6 +10,7 @@ using SostavSD.Interfaces;
 using SostavSD.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Components.Authorization;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,8 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 
 builder.Services.AddLocalization(opt => opt.ResourcesPath = "ResourceFiles");
+
+builder.Services.AddSingleton<IEmailConfiguration>(builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
 
 AddBusinessLogicServices(builder.Services);
 //the AddDatabaseDeveloperPageExceptionFilter provides helpful error information in the development environment.
@@ -98,5 +101,7 @@ static void AddBusinessLogicServices(IServiceCollection collection)
 
     collection.AddScoped<IContractService, ContractService>();
     collection.AddScoped<ICompanyService, CompanyService>();
-    collection.AddMudServices();
+    collection.AddTransient<IEmailService, EmailService>();
+
+	collection.AddMudServices();
 }
