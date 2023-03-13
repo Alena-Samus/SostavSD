@@ -127,10 +127,13 @@
     <value>Customer</value>
   </data>
   <data name="exportToExcel" xml:space="preserve">
-    <value>Export To Excel</value>
+    <value>Excel</value>
+  </data>
+  <data name="exportToPDF" xml:space="preserve">
+    <value>PDF</value>
   </data>
   <data name="exportToWord" xml:space="preserve">
-    <value>Export To Word</value>
+    <value>Word</value>
   </data>
   <data name="loadingdata" xml:space="preserve">
     <value>Loading data ...</value>
@@ -143,5 +146,8 @@
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
+  </data>
+  <data name="sendMail" xml:space="preserve">
+    <value>Mail</value>
   </data>
 </root>

@@ -98,10 +98,9 @@ namespace SostavSD.Pages.Companies
             }
         }
 
-		private void ExportToExcel()
+		private async void ExportToExcel()
 		{
-			ExcelExport excelExport = new ExcelExport();
-			excelExport.ExcelGenerate(_jsruntime, _companies);
+            await _companyService.ExcelGenerate(_jsruntime, _companies);		
 		}
 	}
 }

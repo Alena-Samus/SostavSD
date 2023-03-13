@@ -5,7 +5,9 @@ using SostavSD.Data;
 using SostavSD.Entities;
 using SostavSD.Interfaces;
 using SostavSD.Models;
-using System.Diagnostics.Contracts;
+using IronXL;
+using Microsoft.Extensions.Localization;
+using SostavSD.Pages.Companies;
 
 namespace SostavSD.Services
 {
@@ -15,6 +17,7 @@ namespace SostavSD.Services
         private readonly SostavSDContext _context;
 
         private readonly IMapper _mapper;
+       
 
 
         public CompanyService(SostavSDContext context, IMapper mapper)
@@ -51,7 +54,8 @@ namespace SostavSD.Services
         }
 
 
-        public async Task<List<CompanyModel>> GetAllCompany()
+
+		public async Task<List<CompanyModel>> GetAllCompany()
         {
             var companyList = _context.company
                 .AsNoTracking();
@@ -69,5 +73,35 @@ namespace SostavSD.Services
             }
             return _mapper.Map<CompanyModel>(singleCompany);
         }
-    }
+
+		public async Task ExcelGenerate(IJSRuntime iJSRuntime, List<CompanyModel> companies)
+		{
+			byte[] fileContents;
+			WorkBook xlsxWorkbook = WorkBook.Create(IronXL.ExcelFileFormat.XLSX);
+			xlsxWorkbook.Metadata.Author = "IronXL";
+			//Add a blank WorkSheet
+			WorkSheet xlsxSheet = xlsxWorkbook.CreateWorkSheet("new_sheet");
+			//Add data and styles to the new worksheet
+			xlsxSheet["A1"].Value = "Company Name";
+			xlsxSheet["B1"].Value = "Company Details";
+
+			xlsxSheet["A1:B1"].Style.Font.Bold = true;
+			for (int i = 0; i < companies.Count; i++)
+			{
+				xlsxSheet[$"A{i + 2}"].Value = companies[i].CompanyName;
+			}
+			for (int i = 0; i < companies.Count; i++)
+			{
+				xlsxSheet[$"B{i + 2}"].Value = companies[i].CompanyName;
+			}
+			fileContents = xlsxWorkbook.ToByteArray();
+			await iJSRuntime.InvokeAsync<CompanyModel>(
+				"saveAsFile",
+				"GeneratedExcel.xlsx",
+				Convert.ToBase64String(fileContents)
+			);
+		}
+
+
+	}
 }

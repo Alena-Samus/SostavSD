@@ -6,8 +6,10 @@
 	<MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="@localizer["newCompany"]" @onclick="(e => CreateNewCompany())">
 	</MudFab>
 </MudContainer>
-	<MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="ExportToExcel">Excel</MudButton>
-	<MudButton Variant="Variant.Filled" Size="Size.Medium"  Color="Color.Tertiary">@localizer["exportToWord"]</MudButton>
+	<MudIconButton Icon="@Icons.Custom.FileFormats.FileExcel" Size="Size.Large" Color="Color.Tertiary" @onclick="ExportToExcel"></MudIconButton>
+	<MudIconButton Icon="@Icons.Custom.FileFormats.FileWord" Size="Size.Large"  Color="Color.Info"></MudIconButton>
+	<MudIconButton Icon="@Icons.Custom.FileFormats.FilePdf" Size="Size.Large"  Color="Color.Secondary"></MudIconButton>
+	<MudIconButton Class="ms-7" Icon="@Icons.Material.Filled.AttachEmail" Size="Size.Large"  Color="Color.Primary"></MudIconButton>
 <MudSelect T="CompanyModel" Label="@localizer["Customer"]" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
 
 </MudSelect>
