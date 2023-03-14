@@ -110,7 +110,18 @@ namespace SostavSD.Pages.Companies
         private async void SendMail()
 
         {
-            EmailMessage email = new EmailMessage();
+			string text = "Email Test From Company Page"; 
+
+			
+			using (FileStream fileStream = File.Open(@"Mail\test.txt", FileMode.Create))
+			{
+				using (StreamWriter output = new StreamWriter(fileStream))
+				{					
+					output.Write(text);
+				}
+			}
+		
+		    EmailMessage email = new EmailMessage();
 			_email = await _emailService.GetEmail();
 			_user = await _emailService.GetEmail();
 			email.FromAddresses = new EmailAddress();
@@ -121,12 +132,13 @@ namespace SostavSD.Pages.Companies
             email.Content = $"Hello, {_user}, Email Test From Company Page";
             email.Attachment = @"Mail\test.txt";
 
-            //_emailService.Send(email);
-			showMailAlert = true;
+            _emailService.Send(email);
+            showMailAlert = true;
+            File.Delete(@"Mail\test.txt");
 
 
 
-		}
+        }
 
 		private bool showMailAlert = false;
 

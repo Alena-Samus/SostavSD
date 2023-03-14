@@ -12,7 +12,7 @@
 	<MudIconButton Class="ms-7" Icon="@Icons.Material.Filled.AttachEmail" Size="Size.Large"  Color="Color.Primary" @onclick="SendMail"></MudIconButton>
 @if (showMailAlert)
 {
-				<MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@localizer["successMailMessage"]</MudAlert>
+				<MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@localizer["successMailMessage"] @_email </MudAlert>
 }
 <MudSelect T="CompanyModel" Label="@localizer["Customer"]" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
 
