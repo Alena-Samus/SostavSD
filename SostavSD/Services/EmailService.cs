@@ -31,19 +31,23 @@ namespace SostavSD.Services
 
 		}
 
+		public async Task<string> GetUserName()
+		{
+			var user = await _authorizedUserService.GetCurrentUserAsync();
+			string _userName;
+			_userName = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value.ToString();
+
+			return _userName;
+		}
 
 		public void Send(EmailMessage emailMessage)
 		{
 			var message = new MimeMessage();
+		
 
-			//emailMessage.ToAddresses = GetEmail();
+			message.From.Add(new MailboxAddress(_emailConfiguration.SmtpUsername, _emailConfiguration.EmailAddress));
 			message.To.Add(new MailboxAddress(emailMessage.ToAddresses.Name, emailMessage.ToAddresses.Address));
-			message.From.Add(new MailboxAddress(emailMessage.FromAddresses.Name, emailMessage.FromAddresses.Address));
-			//email.FromAddresses = new EmailAddress { Name = "Sostav", Address = "sostavsd@mail.ru" };
-			//email.ToAddresses = new EmailAddress { Name = "", Address = "sostavsd@gmail.com" };
 
-			//message.To.Add(new MailboxAddress("", "sostavsd@gmail.com"));
-			//message.From.Add(new MailboxAddress("Sostav", "sostavsd@gmail.com"));
 
 			message.Subject = emailMessage.Subject;
 			var builder = new BodyBuilder();

@@ -3,11 +3,6 @@ using Microsoft.JSInterop;
 using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
-using System.Net;
-using System.Net.Mail;
-using MimeKit;
-using DocumentFormat.OpenXml.Wordprocessing;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using SostavSD.Classes.Email;
 
 namespace SostavSD.Pages.Companies
@@ -20,8 +15,10 @@ namespace SostavSD.Pages.Companies
         private IDialogService _dialogService;
         private IJSRuntime _jsruntime;
         private IEmailService _emailService;
+        private string _email;
+        private string _user;
 
-        private string searchString = "";
+		private string searchString = "";
 
         private CompanyModel selectedItem = null;
         
@@ -114,14 +111,14 @@ namespace SostavSD.Pages.Companies
 
         {
             EmailMessage email = new EmailMessage();
-            string eml =await _emailService.GetEmail();
+			_email = await _emailService.GetEmail();
+			_user = await _emailService.GetEmail();
+			email.FromAddresses = new EmailAddress();
+            email.ToAddresses = new EmailAddress { Name = "", Address = _email };
 
-            email.FromAddresses = new EmailAddress { Name = "Sostav", Address = "sostavsd@mail.ru" };
-            email.ToAddresses = new EmailAddress { Name = "", Address = eml };
 
-
-            email.Subject = "Send Email Test From Company Page";
-            email.Content = "Email Test From Company Page";
+            email.Subject = "Send Test Email From Company Page";
+            email.Content = $"Hello, {_user}, Email Test From Company Page";
             email.Attachment = @"Mail\test.txt";
 
             _emailService.Send(email);

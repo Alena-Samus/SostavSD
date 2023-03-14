@@ -6,6 +6,7 @@ namespace SostavSD.Interfaces
 	{
 		void Send(EmailMessage emailMessage);
 		Task<string> GetEmail();
+		Task<string> GetUserName();
 
 	}
 }

@@ -9,6 +9,6 @@ namespace SostavSD.Classes.Email
         public string SmtpUsername { get; set; }
         public string SmtpPassword { get; set; }
 
-
+        public string EmailAddress { get; set; }
     }
 }

@@ -6,5 +6,7 @@
 		int SmtpPort { get; }
 		string SmtpUsername { get; set; }
 		string SmtpPassword { get; set; }
+
+		public string EmailAddress { get; set; }
 	}
 }
