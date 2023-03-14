@@ -1,23 +1,31 @@
-﻿using MimeKit.Text;
-using MimeKit;
-using SostavSD.Data;
+﻿using MimeKit;
 using SostavSD.Interfaces;
 using MailKit.Net.Smtp;
+using System.Security.Claims;
+using SostavSD.Data;
 
 namespace SostavSD.Services
 {
-	public class EmailService : IEmailService
+    public class EmailService : IEmailService
 	{
 		private readonly IEmailConfiguration _emailConfiguration;
+      
 
-		public EmailService(IEmailConfiguration emailConfiguration)
+
+        public EmailService(IEmailConfiguration emailConfiguration)
 		{
 			_emailConfiguration = emailConfiguration;
 
 		}
 
+        public string GetEmail()        {
+            
 
-		public void Send(EmailMessage emailMessage)
+			return ClaimTypes.Email;
+
+        }
+
+        public void Send(EmailMessage emailMessage)
 		{
 			var message = new MimeMessage();
 			message.To.AddRange(emailMessage.ToAddresses.Select(x => new MailboxAddress(x.Name, x.Address)));
@@ -33,7 +41,7 @@ namespace SostavSD.Services
 			using (var emailClient = new SmtpClient())
 			{
 
-				emailClient.Connect(_emailConfiguration.SmtpServer, _emailConfiguration.SmtpPort, true);
+				emailClient.Connect(_emailConfiguration.SmtpServer, _emailConfiguration.SmtpPort, MailKit.Security.SecureSocketOptions.Auto);
 
 				emailClient.Authenticate(_emailConfiguration.SmtpUsername, _emailConfiguration.SmtpPassword);
 

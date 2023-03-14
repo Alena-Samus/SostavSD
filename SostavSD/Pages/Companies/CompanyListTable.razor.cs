@@ -6,9 +6,9 @@ using SostavSD.Models;
 using System.Net;
 using System.Net.Mail;
 using MimeKit;
-using SostavSD.Data;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using SostavSD.Data;
 
 namespace SostavSD.Pages.Companies
 {
@@ -24,6 +24,7 @@ namespace SostavSD.Pages.Companies
         private string searchString = "";
 
         private CompanyModel selectedItem = null;
+        
 
         public CompanyListTable(ICompanyService companyService, IDialogService dialogService, IJSRuntime jsruntime, IEmailService emailService)
         {
@@ -112,18 +113,20 @@ namespace SostavSD.Pages.Companies
         private void SendMail()
 
         {
-            EmailMessage email= new EmailMessage();  
-            
-            email.FromAddresses.Add(new EmailAddress { Name = "Sostav", Address = "sostavsd@mail.ru" });
-            email.ToAddresses.Add(new EmailAddress { Name = "", Address = "sostavsd@gmail.com" });
+            EmailMessage email = new EmailMessage();
 
-  
+            email.FromAddresses.Add(new EmailAddress { Name = "Sostav", Address = "sostavsd@mail.ru" });
+            email.ToAddresses.Add(new EmailAddress { Name = "", Address = "sostavsd@gmail.ru" });
+
+
             email.Subject = "Send Email Test From Company Page";
             email.Content = "Email Test From Company Page";
             email.Attachment = @"Mail\test.txt";
 
-            _emailService.Send(email);      
-            
+            _emailService.Send(email);
+
+
+
 
         }
 	}

@@ -2,8 +2,9 @@
 
 namespace SostavSD.Interfaces
 {
-	public interface IEmailService
+    public interface IEmailService
 	{
 		void Send(EmailMessage emailMessage);
+
 	}
 }

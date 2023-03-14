@@ -11,6 +11,7 @@ using SostavSD.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Components.Authorization;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using SostavSD.Classes.Email;
 
 var builder = WebApplication.CreateBuilder(args);
 

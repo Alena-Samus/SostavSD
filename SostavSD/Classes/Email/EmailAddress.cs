@@ -1,4 +1,4 @@
-﻿namespace SostavSD.Data
+﻿namespace SostavSD.Classes.Email
 {
     public class EmailAddress
     {
