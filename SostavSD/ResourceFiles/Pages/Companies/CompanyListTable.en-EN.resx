@@ -150,4 +150,7 @@
   <data name="sendMail" xml:space="preserve">
     <value>Mail</value>
   </data>
+  <data name="successMailMessage" xml:space="preserve">
+    <value>Message sent!</value>
+  </data>
 </root>

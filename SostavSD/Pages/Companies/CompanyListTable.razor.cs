@@ -121,9 +121,21 @@ namespace SostavSD.Pages.Companies
             email.Content = $"Hello, {_user}, Email Test From Company Page";
             email.Attachment = @"Mail\test.txt";
 
-            _emailService.Send(email);
+            //_emailService.Send(email);
+			showMailAlert = true;
 
 
-        }
-    }
+
+		}
+
+		private bool showMailAlert = false;
+
+		private void CloseMe(bool value)
+		{
+
+			showMailAlert = !value;
+
+
+		}
+	}
 }

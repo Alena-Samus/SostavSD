@@ -10,6 +10,10 @@
 	<MudIconButton Icon="@Icons.Custom.FileFormats.FileWord" Size="Size.Large"  Color="Color.Info"></MudIconButton>
 	<MudIconButton Icon="@Icons.Custom.FileFormats.FilePdf" Size="Size.Large"  Color="Color.Secondary"></MudIconButton>
 	<MudIconButton Class="ms-7" Icon="@Icons.Material.Filled.AttachEmail" Size="Size.Large"  Color="Color.Primary" @onclick="SendMail"></MudIconButton>
+@if (showMailAlert)
+{
+				<MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@localizer["successMailMessage"]</MudAlert>
+}
 <MudSelect T="CompanyModel" Label="@localizer["Customer"]" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
 
 </MudSelect>
