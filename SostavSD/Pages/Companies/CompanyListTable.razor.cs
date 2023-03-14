@@ -8,7 +8,7 @@ using System.Net.Mail;
 using MimeKit;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
-using SostavSD.Data;
+using SostavSD.Classes.Email;
 
 namespace SostavSD.Pages.Companies
 {
@@ -110,13 +110,14 @@ namespace SostavSD.Pages.Companies
             await _companyService.ExcelGenerate(_jsruntime, _companies);		
 		}
 
-        private void SendMail()
+        private async void SendMail()
 
         {
             EmailMessage email = new EmailMessage();
+            string eml =await _emailService.GetEmail();
 
-            email.FromAddresses.Add(new EmailAddress { Name = "Sostav", Address = "sostavsd@mail.ru" });
-            email.ToAddresses.Add(new EmailAddress { Name = "", Address = "sostavsd@gmail.ru" });
+            email.FromAddresses = new EmailAddress { Name = "Sostav", Address = "sostavsd@mail.ru" };
+            email.ToAddresses = new EmailAddress { Name = "", Address = eml };
 
 
             email.Subject = "Send Email Test From Company Page";
@@ -126,8 +127,6 @@ namespace SostavSD.Pages.Companies
             _emailService.Send(email);
 
 
-
-
         }
-	}
+    }
 }
