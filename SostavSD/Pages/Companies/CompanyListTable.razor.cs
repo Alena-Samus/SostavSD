@@ -112,16 +112,18 @@ namespace SostavSD.Pages.Companies
         private void SendMail()
 
         {
-            EmailMessage email= new EmailMessage();
-            string attachmentsPath = @"Mail\test.txt";
+            EmailMessage email= new EmailMessage();  
+            
             email.FromAddresses.Add(new EmailAddress { Name = "Sostav", Address = "sostavsd@mail.ru" });
             email.ToAddresses.Add(new EmailAddress { Name = "", Address = "sostavsd@gmail.com" });
 
   
-            email.Subject = "Сообщение от MailKit";
-            email.Content = "Сообщение от MailKit";
+            email.Subject = "Send Email Test From Company Page";
+            email.Content = "Email Test From Company Page";
+            email.Attachment = @"Mail\test.txt";
 
-			_emailService.Send(email, attachmentsPath);                               
+            _emailService.Send(email);      
+            
 
         }
 	}

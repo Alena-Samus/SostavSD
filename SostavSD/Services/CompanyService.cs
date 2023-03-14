@@ -6,8 +6,7 @@ using SostavSD.Entities;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 using IronXL;
-using Microsoft.Extensions.Localization;
-using SostavSD.Pages.Companies;
+
 
 namespace SostavSD.Services
 {
@@ -15,7 +14,6 @@ namespace SostavSD.Services
 
     {
         private readonly SostavSDContext _context;
-
         private readonly IMapper _mapper;
        
 
