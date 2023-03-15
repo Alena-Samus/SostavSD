@@ -104,7 +104,13 @@ namespace SostavSD.Pages.Companies
 
 		private async void ExportToExcel()
 		{
-            await _companyService.ExcelGenerate(_jsruntime, _companies);		
+           byte[] currentXLS = await _companyService.ExcelGenerate(_companies);
+
+			await _jsruntime.InvokeAsync<CompanyModel>(
+				"saveAsFile",
+				"GeneratedExcel.xlsx",
+				Convert.ToBase64String(currentXLS)
+			);
 		}
 
         private async void SendMail()
@@ -124,8 +130,8 @@ namespace SostavSD.Pages.Companies
 		    EmailMessage email = new EmailMessage();
 			_email = await _emailService.GetEmail();
 			_user = await _emailService.GetEmail();
-			email.FromAddresses = new EmailAddress();
-            email.ToAddresses = new EmailAddress { Name = "", Address = _email };
+			email.FromAddress = new EmailAddress();
+            email.ToAddress = new EmailAddress { Name = "", Address = _email };
 
 
             email.Subject = "Send Test Email From Company Page";

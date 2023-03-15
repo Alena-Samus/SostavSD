@@ -12,7 +12,7 @@ namespace SostavSD.Interfaces
         Task<CompanyModel> GetSingleCompany(int companytId);
 
         Task EditCompany(CompanyModel currentCompany);
-        Task ExcelGenerate(IJSRuntime iJSRuntime, List<CompanyModel> companies);
+        Task<byte[]> ExcelGenerate(List<CompanyModel> companies);
 
 
 	}

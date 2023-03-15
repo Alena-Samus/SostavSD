@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.JSInterop;
 using SostavSD.Data;
 using SostavSD.Entities;
 using SostavSD.Interfaces;
@@ -72,11 +71,12 @@ namespace SostavSD.Services
             return _mapper.Map<CompanyModel>(singleCompany);
         }
 
-		public async Task ExcelGenerate(IJSRuntime iJSRuntime, List<CompanyModel> companies)
+		public async Task<byte[]> ExcelGenerate(List<CompanyModel> companies)
 		{
 			byte[] fileContents;
-			WorkBook xlsxWorkbook = WorkBook.Create(IronXL.ExcelFileFormat.XLSX);
+			WorkBook xlsxWorkbook = WorkBook.Create(ExcelFileFormat.XLSX);
 			xlsxWorkbook.Metadata.Author = "IronXL";
+
 			//Add a blank WorkSheet
 			WorkSheet xlsxSheet = xlsxWorkbook.CreateWorkSheet("new_sheet");
 			//Add data and styles to the new worksheet
@@ -93,11 +93,9 @@ namespace SostavSD.Services
 				xlsxSheet[$"B{i + 2}"].Value = companies[i].CompanyName;
 			}
 			fileContents = xlsxWorkbook.ToByteArray();
-			await iJSRuntime.InvokeAsync<CompanyModel>(
-				"saveAsFile",
-				"GeneratedExcel.xlsx",
-				Convert.ToBase64String(fileContents)
-			);
+
+
+			return fileContents;
 		}
 
 

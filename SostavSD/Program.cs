@@ -70,7 +70,6 @@ using (var scope = app.Services.CreateScope())
         var context = services.GetRequiredService<SostavSDContext>();
         context.Database.Migrate();
 
-        DBInitializer.Initialize(context);
         await DBInitializerWithUsers.InitializeUsers(services);
     }
     catch (Exception ex)

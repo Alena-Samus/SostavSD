@@ -1,9 +1,0 @@
-diff a/SostavSD/Data/DbInitializer.cs b/SostavSD/Data/DbInitializer.cs	(rejected hunks)
-@@ -8,7 +8,6 @@
-     {
-         public static void Initialize(SostavSDContext context)
-         {
--            context.Database.EnsureCreated();
-             context.Database.Migrate();
-             AddCompany(context);   
-             

@@ -1,0 +1,9 @@
+
+   "EmailConfiguration": {
+    "SmtpServer": "smtp.mail.ru",
+    "SmtpPort": 465,
+    "SmtpUsername": "sostavsd@mail.ru",
+    "SmtpPassword": "DbStw1ryCy4680wfgfZU",
+    "EmailAddress": "sostavsd@mail.ru"
+
+  } 		

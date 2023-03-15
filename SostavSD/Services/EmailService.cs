@@ -46,7 +46,7 @@ namespace SostavSD.Services
 		
 
 			message.From.Add(new MailboxAddress(_emailConfiguration.SmtpUsername, _emailConfiguration.EmailAddress));
-			message.To.Add(new MailboxAddress(emailMessage.ToAddresses.Name, emailMessage.ToAddresses.Address));
+			message.To.Add(new MailboxAddress(emailMessage.ToAddress.Name, emailMessage.ToAddress.Address));
 
 
 			message.Subject = emailMessage.Subject;
