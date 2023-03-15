@@ -8,8 +8,8 @@ using SostavSD.Areas.Identity;
 using Microsoft.AspNetCore.Identity;
 using SostavSD.Interfaces;
 using SostavSD.Services;
-using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Components.Authorization;
+using SostavSD.Classes.Email;
+using SostavSD.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +22,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContext<SostavSDContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<UserSostav>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<SostavSDContext>();
 
@@ -38,6 +38,8 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.AddLocalization(opt => opt.ResourcesPath = "ResourceFiles");
 
+builder.Services.AddSingleton<IEmailConfiguration>(builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
+
 AddBusinessLogicServices(builder.Services);
 //the AddDatabaseDeveloperPageExceptionFilter provides helpful error information in the development environment.
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -45,6 +47,8 @@ builder.Services.AddAutoMapper(typeof(AppMappingProfile));
 builder.Services.AddScoped<TokenProvider>();
 
 builder.Services.AddComponents();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -64,7 +68,6 @@ using (var scope = app.Services.CreateScope())
         var context = services.GetRequiredService<SostavSDContext>();
         context.Database.Migrate();
 
-        DBInitializer.Initialize(context);
         await DBInitializerWithUsers.InitializeUsers(services);
     }
     catch (Exception ex)
@@ -96,5 +99,7 @@ static void AddBusinessLogicServices(IServiceCollection collection)
 
     collection.AddScoped<IContractService, ContractService>();
     collection.AddScoped<ICompanyService, CompanyService>();
-    collection.AddMudServices();
+    collection.AddTransient<IEmailService, EmailService>();
+
+	collection.AddMudServices();
 }

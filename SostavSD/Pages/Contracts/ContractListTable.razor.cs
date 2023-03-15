@@ -19,11 +19,6 @@ public partial class ContractListTable : ComponentBase
 
     private ContractModel selectedItem = null;
 
-    private List<ContractModel> selectedItems = new List<ContractModel>();
-
-    private IEnumerable<ContractModel> contracts = new List<ContractModel>();
-
-
     public ContractListTable(IContractService contractService, IDialogService dialogService)
     {
         _contractService = contractService;

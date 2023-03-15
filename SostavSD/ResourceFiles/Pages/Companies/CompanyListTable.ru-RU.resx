@@ -126,10 +126,31 @@
   <data name="Customer" xml:space="preserve">
     <value>Заказчик</value>
   </data>
+  <data name="exportToExcel" xml:space="preserve">
+    <value>Excel</value>
+  </data>
+  <data name="exportToPDF" xml:space="preserve">
+    <value>PDF</value>
+  </data>
+  <data name="exportToWord" xml:space="preserve">
+    <value>Word</value>
+  </data>
+  <data name="loadingdata" xml:space="preserve">
+    <value>Загрузка данных...</value>
+  </data>
   <data name="newCompany" xml:space="preserve">
     <value>Новая организация</value>
   </data>
+  <data name="noitem" xml:space="preserve">
+    <value>Нет данных</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>
+  </data>
+  <data name="sendMail" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="successMailMessage" xml:space="preserve">
+    <value>Сообщение отправлено!</value>
   </data>
 </root>

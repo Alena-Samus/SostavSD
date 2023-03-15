@@ -135,8 +135,14 @@
   <data name="Index" xml:space="preserve">
     <value>Index</value>
   </data>
+  <data name="loadingdata" xml:space="preserve">
+    <value>Loading data...</value>
+  </data>
   <data name="newContract" xml:space="preserve">
     <value>New contract</value>
+  </data>
+  <data name="noitem" xml:space="preserve">
+    <value>No items</value>
   </data>
   <data name="Object" xml:space="preserve">
     <value>Object</value>

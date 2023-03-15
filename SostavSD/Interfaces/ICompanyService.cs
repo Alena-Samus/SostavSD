@@ -1,4 +1,5 @@
-﻿using SostavSD.Models;
+﻿using Microsoft.JSInterop;
+using SostavSD.Models;
 
 namespace SostavSD.Interfaces
 {
@@ -11,5 +12,8 @@ namespace SostavSD.Interfaces
         Task<CompanyModel> GetSingleCompany(int companytId);
 
         Task EditCompany(CompanyModel currentCompany);
-    }
+        Task<byte[]> ExcelGenerate(List<CompanyModel> companies);
+
+
+	}
 }

@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity;
 using SostavSD.Areas.Identity.Constants;
 using SostavSD.Interfaces;
 using System.Security.Claims;

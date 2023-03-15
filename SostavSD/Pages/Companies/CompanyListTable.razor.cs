@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
-
+using SostavSD.Classes.Email;
 
 namespace SostavSD.Pages.Companies
 {
@@ -12,19 +13,22 @@ namespace SostavSD.Pages.Companies
 
         private ICompanyService _companyService;
         private IDialogService _dialogService;
+        private IJSRuntime _jsruntime;
+        private IEmailService _emailService;
+        private string _email;
+        private string _user;
 
-        private string searchString = "";
+		private string searchString = "";
 
         private CompanyModel selectedItem = null;
+        
 
-        private List<CompanyModel> selectedItems = new List<CompanyModel>();
-
-        private IEnumerable<CompanyModel> contracts = new List<CompanyModel>();
-
-        public CompanyListTable(ICompanyService companyService, IDialogService dialogService)
+        public CompanyListTable(ICompanyService companyService, IDialogService dialogService, IJSRuntime jsruntime, IEmailService emailService)
         {
             _companyService = companyService;
             _dialogService = dialogService;
+            _jsruntime = jsruntime;
+            _emailService = emailService;
         }
 
         protected override async Task OnInitializedAsync()
@@ -97,5 +101,59 @@ namespace SostavSD.Pages.Companies
                 await GetCompanies();
             }
         }
-    }
+
+		private async void ExportToExcel()
+		{
+           byte[] currentXLS = await _companyService.ExcelGenerate(_companies);
+
+			await _jsruntime.InvokeAsync<CompanyModel>(
+				"saveAsFile",
+				"GeneratedExcel.xlsx",
+				Convert.ToBase64String(currentXLS)
+			);
+		}
+
+        private async void SendMail()
+
+        {
+			string text = "Email Test From Company Page"; 
+
+			
+			using (FileStream fileStream = File.Open(@"Mail\test.txt", FileMode.Create))
+			{
+				using (StreamWriter output = new StreamWriter(fileStream))
+				{					
+					output.Write(text);
+				}
+			}
+		
+		    EmailMessage email = new EmailMessage();
+			_email = await _emailService.GetEmail();
+			_user = await _emailService.GetEmail();
+			email.FromAddress = new EmailAddress();
+            email.ToAddress = new EmailAddress { Name = "", Address = _email };
+
+
+            email.Subject = "Send Test Email From Company Page";
+            email.Content = $"Hello, {_user}, Email Test From Company Page";
+            email.Attachment = @"Mail\test.txt";
+
+            _emailService.Send(email);
+            showMailAlert = true;
+            File.Delete(@"Mail\test.txt");
+
+
+
+        }
+
+		private bool showMailAlert = false;
+
+		private void CloseMe(bool value)
+		{
+
+			showMailAlert = !value;
+
+
+		}
+	}
 }
