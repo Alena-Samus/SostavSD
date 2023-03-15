@@ -4,8 +4,8 @@
 	{
 		enum SourceOfFaundingName
 		{
-			OwnFunds,
-			BudgetResources
+			OwnFunds = 1,
+			BudgetResources,
 		}
 	}
 }

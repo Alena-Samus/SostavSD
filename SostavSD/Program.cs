@@ -8,10 +8,8 @@ using SostavSD.Areas.Identity;
 using Microsoft.AspNetCore.Identity;
 using SostavSD.Interfaces;
 using SostavSD.Services;
-using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Components.Authorization;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using SostavSD.Classes.Email;
+using SostavSD.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +22,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContext<SostavSDContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<UserSostav>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<SostavSDContext>();
 

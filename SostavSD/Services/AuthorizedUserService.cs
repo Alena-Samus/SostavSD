@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using SostavSD.Entities;
 using SostavSD.Interfaces;
 using System.Security.Claims;
 
@@ -7,10 +8,10 @@ namespace SostavSD.Services;
 
 public class AuthorizedUserService : IAuthorizedUserService
 {
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<UserSostav> _userManager;
     private readonly AuthenticationStateProvider _authenticationStateProvider;
     
-    public AuthorizedUserService(AuthenticationStateProvider authenticationStateProvider, UserManager<IdentityUser> userManager)
+    public AuthorizedUserService(AuthenticationStateProvider authenticationStateProvider, UserManager<UserSostav> userManager)
     {
         _authenticationStateProvider = authenticationStateProvider;
         _userManager = userManager;

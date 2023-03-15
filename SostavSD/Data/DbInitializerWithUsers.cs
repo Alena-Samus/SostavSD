@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SostavSD.Areas.Identity.Constants;
+using SostavSD.Entities;
 
 namespace SostavSD.Data
 {
@@ -10,7 +11,7 @@ namespace SostavSD.Data
         public async static Task InitializeUsers(IServiceProvider serviceProvider)
         {
             var context = serviceProvider.GetService<SostavSDContext>();
-            var _userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
+            var _userManager = serviceProvider.GetService<UserManager<UserSostav>>();
 
             await AddRolesAsync(serviceProvider);
             await context.SaveChangesAsync();
@@ -27,9 +28,9 @@ namespace SostavSD.Data
             await context.SaveChangesAsync();
         }
 
-        private async static Task AddUser(string email, string[] roles, UserManager<IdentityUser> userManager, IServiceProvider serviceProvider)
+        private async static Task AddUser(string email, string[] roles, UserManager<UserSostav> userManager, IServiceProvider serviceProvider)
         {
-            var user = Activator.CreateInstance<IdentityUser>();
+            var user = Activator.CreateInstance<UserSostav>();
 
             user.UserName = email;
             user.Email = email;
@@ -38,7 +39,7 @@ namespace SostavSD.Data
             await AssignRoles(user.Email, roles, userManager);
         }
 
-        private static async Task<IdentityResult> AssignRoles(string email, string[] roles, UserManager<IdentityUser> userManager)
+        private static async Task<IdentityResult> AssignRoles(string email, string[] roles, UserManager<UserSostav> userManager)
         {
             var user = await userManager.FindByEmailAsync(email);
             var result = await userManager.AddToRolesAsync(user, roles);
