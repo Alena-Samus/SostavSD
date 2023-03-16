@@ -10,6 +10,7 @@ using SostavSD.Interfaces;
 using SostavSD.Services;
 using SostavSD.Classes.Email;
 using SostavSD.Entities;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,8 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 
 builder.Services.AddLocalization(opt => opt.ResourcesPath = "ResourceFiles");
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization();
 
 builder.Services.AddSingleton<IEmailConfiguration>(builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
 
