@@ -5,5 +5,7 @@ namespace SostavSD.Entities
 	public class UserSostav: IdentityUser
 	{
 		public string Surname { get; set; }
+		public string GroupName { get; set; }
+		public string Position { get; set; }
 	}
 }
