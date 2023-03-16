@@ -6,6 +6,6 @@ namespace SostavSD.Entities
 	{
 		public string Surname { get; set; }
 		public string GroupName { get; set; }
-		public string Position { get; set; }
+		
 	}
 }

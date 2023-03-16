@@ -102,7 +102,12 @@ namespace SostavSD.Areas.Identity.Pages.Account
             [Required]
             [DataType(DataType.Text)]
             [Display(Name = "Surname")]
+            
             public string Surname { get; set; }
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "GroupName")]
+            public string GroupName { get; set; }
         }
 
 
@@ -120,6 +125,7 @@ namespace SostavSD.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
                 user.Surname = Input.Surname;
+                user.GroupName = Input.GroupName;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
 

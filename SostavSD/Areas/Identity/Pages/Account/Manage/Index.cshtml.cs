@@ -61,6 +61,11 @@ namespace SostavSD.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Surname")]
             public string Surname { get; set; }
 
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "GroupName")]
+            public string GroupName { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -76,6 +81,7 @@ namespace SostavSD.Areas.Identity.Pages.Account.Manage
             Input = new InputModel
             {
                 Surname = user.Surname,
+                GroupName = user.GroupName,
                 PhoneNumber = phoneNumber
             };
         }
@@ -121,7 +127,12 @@ namespace SostavSD.Areas.Identity.Pages.Account.Manage
                 user.Surname = Input.Surname;
             }
 
+            if (Input.GroupName != user.GroupName)
+            {
+                user.GroupName = Input.GroupName;
+            }
             await _userManager.UpdateAsync(user);
+
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
