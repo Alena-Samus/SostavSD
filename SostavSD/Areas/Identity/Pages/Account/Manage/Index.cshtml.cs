@@ -56,6 +56,11 @@ namespace SostavSD.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Surname")]
+            public string Surname { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -70,6 +75,7 @@ namespace SostavSD.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                Surname = user.Surname,
                 PhoneNumber = phoneNumber
             };
         }
@@ -110,7 +116,12 @@ namespace SostavSD.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+            if (Input.Surname != user.Surname)
+            {
+                user.Surname = Input.Surname;
+            }
 
+            await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
