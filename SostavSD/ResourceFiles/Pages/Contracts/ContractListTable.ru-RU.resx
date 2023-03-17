@@ -132,6 +132,9 @@
   <data name="Customer" xml:space="preserve">
     <value>Заказчик</value>
   </data>
+  <data name="Employee" xml:space="preserve">
+    <value>Исполнитель</value>
+  </data>
   <data name="Index" xml:space="preserve">
     <value>Индекс</value>
   </data>

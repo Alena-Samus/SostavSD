@@ -132,6 +132,9 @@
   <data name="Customer" xml:space="preserve">
     <value>Customer</value>
   </data>
+  <data name="Employee" xml:space="preserve">
+    <value>Employee</value>
+  </data>
   <data name="Index" xml:space="preserve">
     <value>Index</value>
   </data>

@@ -27,7 +27,8 @@ namespace SostavSD.Data.Configurations
             builder.Property(p => p.UserID);
             builder.HasOne(o => o.UserName)
                 .WithMany(m => m.Contracts) 
-                .HasForeignKey(p => p.UserID);
+                .HasForeignKey(p => p.UserID)
+                .IsRequired(false);
             
 
         }
