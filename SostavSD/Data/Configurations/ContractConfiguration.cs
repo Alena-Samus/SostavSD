@@ -24,6 +24,10 @@ namespace SostavSD.Data.Configurations
                 .WithMany(m => m.Contracts)
                 .HasForeignKey(p => p.CompanyID)
                 .IsRequired();
+            builder.Property(p => p.UserID);
+            builder.HasOne(o => o.UserName)
+                .WithMany(m => m.Contracts) 
+                .HasForeignKey(p => p.UserID);
             
 
         }

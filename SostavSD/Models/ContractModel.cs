@@ -17,5 +17,6 @@ namespace SostavSD.Models
         public string City { get; set; }
         public int CompanyID { get; set; }
         public CompanyModel Company { get; set; }
+
     }
 }

@@ -17,5 +17,8 @@ namespace SostavSD.Entities
         public string City { get; set; }
         public int? CompanyID { get; set; }
         public Company Company { get; set; }
+
+        public string UserID { get; set; }
+        public UserSostav UserName { get; set; }
     }
 }
