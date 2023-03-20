@@ -19,7 +19,7 @@ namespace SostavSD.Models
         public CompanyModel Company { get; set; }
 
         public string UserID { get; set;}
-        public UserSostavModel UserSostav { get; set; }
+        public UserSostavModel UserName { get; set; }
 
     }
 }
