@@ -18,7 +18,7 @@ namespace SostavSD.Entities
         public int? CompanyID { get; set; }
         public Company Company { get; set; }
 
-        public string UserID { get; set; }
-        public UserSostav UserName { get; set; }
+        public string? UserID { get; set; }
+        public UserSostav Executor { get; set; }
     }
 }

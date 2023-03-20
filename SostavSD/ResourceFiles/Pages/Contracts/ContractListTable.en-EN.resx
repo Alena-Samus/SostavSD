@@ -144,6 +144,9 @@
   <data name="newContract" xml:space="preserve">
     <value>New contract</value>
   </data>
+  <data name="NoExecutor" xml:space="preserve">
+    <value>No executor</value>
+  </data>
   <data name="noitem" xml:space="preserve">
     <value>No items</value>
   </data>

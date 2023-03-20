@@ -144,6 +144,9 @@
   <data name="newContract" xml:space="preserve">
     <value>Новый договор</value>
   </data>
+  <data name="NoExecutor" xml:space="preserve">
+    <value>Не назначен</value>
+  </data>
   <data name="noitem" xml:space="preserve">
     <value>Нет данных</value>
   </data>

@@ -30,7 +30,7 @@ namespace SostavSD.Services
         {
             var contractList = _context.contract
                 .Include(c => c.Company)
-                .Include(c => c.UserName)
+                .Include(c => c.Executor)
                 .AsNoTracking();
 
             return _mapper.Map<List<ContractModel>>(await contractList.ToListAsync());

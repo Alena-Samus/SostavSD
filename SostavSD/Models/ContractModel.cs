@@ -18,8 +18,8 @@ namespace SostavSD.Models
         public int CompanyID { get; set; }
         public CompanyModel Company { get; set; }
 
-        public string UserID { get; set;}
-        public UserSostavModel UserName { get; set; }
+        public string? UserID { get; set;}
+        public UserSostavModel Executor { get; set; }
 
     }
 }
