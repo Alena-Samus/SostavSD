@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MudBlazor.Utilities;
 using SostavSD.Data;
 using SostavSD.Entities;
 using SostavSD.Interfaces;
 using SostavSD.Models;
-using System.Runtime.CompilerServices;
-using TanvirArjel.Blazor.Extensions;
+
 
 namespace SostavSD.Services
 {

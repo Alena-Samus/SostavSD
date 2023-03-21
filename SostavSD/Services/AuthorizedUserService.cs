@@ -12,16 +12,18 @@ namespace SostavSD.Services;
 public class AuthorizedUserService : IAuthorizedUserService
 {
     private readonly UserManager<UserSostav> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly AuthenticationStateProvider _authenticationStateProvider;
     private readonly IMapper _mapper;
 
     List<UserSostav> _users = new List<UserSostav>();
 
-    public AuthorizedUserService(AuthenticationStateProvider authenticationStateProvider, UserManager<UserSostav> userManager, IMapper mapper)
+    public AuthorizedUserService(AuthenticationStateProvider authenticationStateProvider, UserManager<UserSostav> userManager, IMapper mapper, RoleManager<IdentityRole> roleManager)
     {
         _authenticationStateProvider = authenticationStateProvider;
         _userManager = userManager;
         _mapper = mapper;
+        _roleManager = roleManager;
     }
 
     public async Task<bool> IsCurrentUserInRole(string role)
@@ -52,7 +54,7 @@ public class AuthorizedUserService : IAuthorizedUserService
 
     public async Task<List<UserSostavModel>> GetAllUsersAsync()
     {
-        var user = _userManager.Users.Select(x => new UserSostav
+        var user =  _userManager.Users.Select(x => new UserSostav
 
         {
 
@@ -60,7 +62,7 @@ public class AuthorizedUserService : IAuthorizedUserService
 
             UserName = x.Surname,
 
-            Email = x.Email,
+            Email = x.Email,          
 
         });
 
@@ -72,6 +74,13 @@ public class AuthorizedUserService : IAuthorizedUserService
 
         }
 
-        return _mapper.Map<List<UserSostavModel>>(_users);
+        return  _mapper.Map<List<UserSostavModel>>(_users);
+    }
+
+    public async Task<UserSostavModel> GetSingleUser(string userID)
+    {
+        var currentUser = _userManager.FindByIdAsync(userID);
+
+        return _mapper.Map<UserSostavModel>(currentUser);
     }
 }

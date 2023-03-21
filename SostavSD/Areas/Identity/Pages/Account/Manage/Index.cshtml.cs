@@ -69,6 +69,8 @@ namespace SostavSD.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            public string Role { get; set; }
         }
 
         private async Task LoadAsync(UserSostav user)
@@ -81,7 +83,7 @@ namespace SostavSD.Areas.Identity.Pages.Account.Manage
             Input = new InputModel
             {
                 Surname = user.Surname,
-                GroupName = user.GroupName,
+                GroupName = user.GroupName,            
                 PhoneNumber = phoneNumber
             };
         }

@@ -15,6 +15,7 @@ namespace SostavSD.Pages.Adminitration
         private IAuthorizedUserService _authorizedUserService;
 
         List<UserSostavModel> _users = new List<UserSostavModel>();
+        UserSostavModel _user = new UserSostavModel();
 
         public Administration(IAuthorizedUserService authorizedUserService)
         {
@@ -31,9 +32,9 @@ namespace SostavSD.Pages.Adminitration
             return _users = await _authorizedUserService.GetAllUsersAsync();
         }
 
-        private async Task EditUser()
+        private async Task EditUser(string userId)
         {
-
+            _user =   await _authorizedUserService.GetSingleUser(userId);
         }
 
 

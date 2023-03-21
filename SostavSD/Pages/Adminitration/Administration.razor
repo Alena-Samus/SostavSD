@@ -1,9 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Identity;
 
-@inject NavigationManager _navigation
-
-@inject RoleManager<IdentityRole> _RoleManager
 
 <MudTd DataLabel="">
      <MudLink Href="/Identity/Account/Register">  New User   </MudLink>
@@ -20,7 +17,7 @@
         <MudTd DataLabel="Email">@context.Email</MudTd>
                     
         <MudTd DataLabel="">
-            <MudFab @onclick="EditUser" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
+            <MudFab @onclick="@(() =>EditUser(@context.Id))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
          </MudTd>
     </RowTemplate>
 </MudTable>
