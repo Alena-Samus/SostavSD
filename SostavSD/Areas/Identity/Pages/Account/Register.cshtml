@@ -1,5 +1,6 @@
 ﻿@page
 @using Microsoft.AspNetCore.Mvc.Localization;
+@using SostavSD.Areas.Identity.Constants;
 @model RegisterModel
 @inject IViewLocalizer localizer
 
@@ -36,10 +37,16 @@
                 <span asp-validation-for="Input.Surname" class="text-danger"></span>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.GroupName" class="form-control" autocomplete="groupname" aria-required="true" placeholder="groupname" />
-                <label asp-for="Input.GroupName">@localizer["Group"]</label>
-                <span asp-validation-for="Input.GroupName" class="text-danger"></span>
+                <select style="padding:15px 160px 10px 10px; background:white" asp-for="Input.GroupName" asp-items="Html.GetEnumSelectList<Groups>()">
+                    <option value="">@localizer["Group"]</option>
+                </select>                    
             </div>
+            <div class="form-floating mb-3">
+                <select style="padding:15px 170px 10px 10px; background:white" asp-for="Input.Role" asp-items="Model.SostavRoles">
+                    <option value="">@localizer["Role"]</option>
+                </select>                    
+            </div>
+
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">@localizer["Register"]</button>
         </form>
     </div>

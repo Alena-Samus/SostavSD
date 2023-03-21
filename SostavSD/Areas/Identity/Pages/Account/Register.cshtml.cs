@@ -11,8 +11,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
-
+using Microsoft.EntityFrameworkCore.Query;
+using SostavSD.Areas.Identity.Constants;
 using SostavSD.Entities;
 
 namespace SostavSD.Areas.Identity.Pages.Account
@@ -106,13 +108,17 @@ namespace SostavSD.Areas.Identity.Pages.Account
             [DataType(DataType.Text)]
             [Display(Name = "GroupName")]
             public string GroupName { get; set; }
+            public string Role { get; set; }
+
+          
         }
 
-
+        public SelectList SostavRoles { get; set; }
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            SostavRoles = new SelectList(Roles.AllRoles);
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -124,6 +130,8 @@ namespace SostavSD.Areas.Identity.Pages.Account
                 var user = CreateUser();
                 user.Surname = Input.Surname;
                 user.GroupName = Input.GroupName;
+              
+
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
 
@@ -148,6 +156,8 @@ namespace SostavSD.Areas.Identity.Pages.Account
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    await _userManager.AddToRoleAsync(user, Input.Role);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
