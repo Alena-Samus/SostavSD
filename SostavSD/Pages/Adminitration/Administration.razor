@@ -1,19 +1,26 @@
 ﻿@using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Identity;
 
+@inject NavigationManager _navigation
 
 @inject RoleManager<IdentityRole> _RoleManager
 
-
+<MudTd DataLabel="">
+     <MudLink Href="/Identity/Account/Register">  New User   </MudLink>
+</MudTd>
 <MudTable Items="@_users" SortLabel="Sort By"> 
     <HeaderContent>
         <MudTh>Id</MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<UserSostav,object>(x => x.Email)">Name</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<UserSostav,object>(x => x.Email)">Email</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<UserSostavModel,object>(x => x.Surname)">Name</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<UserSostavModel,object>(x => x.Email)">Email</MudTableSortLabel></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Id">@context.Id</MudTd>
-        <MudTd DataLabel="Name">@context.Email</MudTd>
+        <MudTd DataLabel="Name">@context.Surname</MudTd>
         <MudTd DataLabel="Email">@context.Email</MudTd>
+                    
+        <MudTd DataLabel="">
+            <MudFab @onclick="EditUser" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
+         </MudTd>
     </RowTemplate>
 </MudTable>

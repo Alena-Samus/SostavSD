@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Identity;
 using SostavSD.Entities;
 using SostavSD.Interfaces;
 using SostavSD.Models;
+using System.Security.Principal;
+using TanvirArjel.Blazor.Extensions;
+using static System.Net.WebRequestMethods;
 
 namespace SostavSD.Pages.Adminitration
 {
@@ -27,6 +30,12 @@ namespace SostavSD.Pages.Adminitration
         {
             return _users = await _authorizedUserService.GetAllUsersAsync();
         }
+
+        private async Task EditUser()
+        {
+
+        }
+
 
     }
 }

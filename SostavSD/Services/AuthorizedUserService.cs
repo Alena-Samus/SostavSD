@@ -58,7 +58,7 @@ public class AuthorizedUserService : IAuthorizedUserService
 
             Id = x.Id,
 
-            UserName = x.Email,
+            UserName = x.Surname,
 
             Email = x.Email,
 
