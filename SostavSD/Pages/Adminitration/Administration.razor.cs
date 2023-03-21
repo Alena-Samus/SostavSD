@@ -1,59 +1,31 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using SostavSD.Entities;
+using SostavSD.Interfaces;
+using SostavSD.Models;
 
 namespace SostavSD.Pages.Adminitration
 {
     partial class Administration
     {
-        //List<string> Administrators = new List<string> { "one", "two", "three" };
+        private IAuthorizedUserService _authorizedUserService;
 
-        private UserManager<UserSostav> _userManager;
+        List<UserSostavModel> _users = new List<UserSostavModel>();
 
-        List<UserSostav> _users = new List<UserSostav>();
-
-        public Administration( UserManager<UserSostav> userManager)
+        public Administration(IAuthorizedUserService authorizedUserService)
         {
-            _userManager = userManager;
+            _authorizedUserService = authorizedUserService;
         }
 
         protected override async Task OnInitializedAsync()
         {
-            GetUsers();
+           GetUsers();
         }
 
-        public void GetUsers()
-
+        private async Task <List<UserSostavModel>> GetUsers()
         {
-
-
-
-            // Collection to hold users
-
-            _users = new List<UserSostav>();
-
-            // get users from _UserManager
-
-            var user = _userManager.Users.Select(x => new UserSostav
-
-            {
-
-                Id = x.Id,
-
-                UserName = x.UserName,
-
-                Email = x.Email,
-
-            });
-
-            foreach (var item in user)
-
-            {
-
-                _users.Add(item);
-
-            }
-
+            return _users = await _authorizedUserService.GetAllUsersAsync();
         }
 
     }

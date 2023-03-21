@@ -5,15 +5,15 @@
 @inject RoleManager<IdentityRole> _RoleManager
 
 
-<MudTable Items="@_users"> 
+<MudTable Items="@_users" SortLabel="Sort By"> 
     <HeaderContent>
         <MudTh>Id</MudTh>
-        <MudTh>Name</MudTh>
-        <MudTh>Email</MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<UserSostav,object>(x => x.Email)">Name</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<UserSostav,object>(x => x.Email)">Email</MudTableSortLabel></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Id">@context.Id</MudTd>
-        <MudTd DataLabel="Name">@context.UserName</MudTd>
+        <MudTd DataLabel="Name">@context.Email</MudTd>
         <MudTd DataLabel="Email">@context.Email</MudTd>
     </RowTemplate>
 </MudTable>

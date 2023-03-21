@@ -1,6 +1,8 @@
-﻿namespace SostavSD.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace SostavSD.Models
 {
-    public class UserSostavModel
+    public class UserSostavModel : IdentityUser
     {
         public string Surname { get; set; }
         public string GroupName { get; set; }

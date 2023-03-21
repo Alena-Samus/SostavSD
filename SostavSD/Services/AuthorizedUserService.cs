@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿using AutoMapper;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using SostavSD.Entities;
 using SostavSD.Interfaces;
+using SostavSD.Models;
 using System.Security.Claims;
 
 namespace SostavSD.Services;
@@ -10,11 +13,15 @@ public class AuthorizedUserService : IAuthorizedUserService
 {
     private readonly UserManager<UserSostav> _userManager;
     private readonly AuthenticationStateProvider _authenticationStateProvider;
-    
-    public AuthorizedUserService(AuthenticationStateProvider authenticationStateProvider, UserManager<UserSostav> userManager)
+    private readonly IMapper _mapper;
+
+    List<UserSostav> _users = new List<UserSostav>();
+
+    public AuthorizedUserService(AuthenticationStateProvider authenticationStateProvider, UserManager<UserSostav> userManager, IMapper mapper)
     {
         _authenticationStateProvider = authenticationStateProvider;
         _userManager = userManager;
+        _mapper = mapper;
     }
 
     public async Task<bool> IsCurrentUserInRole(string role)
@@ -41,5 +48,30 @@ public class AuthorizedUserService : IAuthorizedUserService
         var user = authState.User;
 
         return user;
+    }
+
+    public async Task<List<UserSostavModel>> GetAllUsersAsync()
+    {
+        var user = _userManager.Users.Select(x => new UserSostav
+
+        {
+
+            Id = x.Id,
+
+            UserName = x.Email,
+
+            Email = x.Email,
+
+        });
+
+        foreach (var item in user)
+
+        {
+
+            _users.Add(item);
+
+        }
+
+        return _mapper.Map<List<UserSostavModel>>(_users);
     }
 }

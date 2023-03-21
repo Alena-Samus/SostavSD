@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using SostavSD.Models;
+using System.Security.Claims;
 
 namespace SostavSD.Interfaces
 {
@@ -16,5 +17,7 @@ namespace SostavSD.Interfaces
         /// </summary>
         /// <returns>User details</returns>
         Task<ClaimsPrincipal> GetCurrentUserAsync();
+
+        Task <List<UserSostavModel>> GetAllUsersAsync();
     }
 }
