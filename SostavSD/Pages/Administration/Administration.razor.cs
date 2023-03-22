@@ -42,11 +42,17 @@ namespace SostavSD.Pages.Administration
 
         private async Task EditUser(string userId)
         {
-            //var _user = await _authorizedUserService.GetSingleUser(userId);
+            Console.WriteLine(userId);
+            var userToEdit = await _authorizedUserService.GetSingleUser(userId);
+            Console.WriteLine($"second: {userToEdit.Id}");
+            var parameters = new DialogParameters();
+
+            parameters.Add("UserToEdit", userToEdit);
+
 
             DialogOptions closeOnEscapeKey = new DialogOptions() { CloseOnEscapeKey = true };
 
-            _dialogService.Show<EditUser_Dialog>("Simple Dialog", closeOnEscapeKey);
+            _dialogService.Show<EditUserRole_Dialog>("Simple Dialog", parameters, closeOnEscapeKey);
         }
 
 

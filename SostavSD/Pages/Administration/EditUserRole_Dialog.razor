@@ -1,0 +1,16 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudTextField T="string" Label="Name" @bind-Value="UserToEdit.Surname" ReadOnly="true"></MudTextField>
+        <MudTextField T="string" Label="Email" @bind-Value="UserToEdit.Email" ReadOnly="true"></MudTextField>
+        <MudSelect T="string" Label="Role" AnchorOrigin="Origin.BottomCenter" @bind-Value="NewRole">
+            @foreach (var item in _rolesList)
+            {
+                <MudSelectItem Value="@item">@item</MudSelectItem>   
+            }       
+        </MudSelect>
+    </DialogContent>
+    <DialogActions>
+        <MudButton @onclick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" @onclick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>

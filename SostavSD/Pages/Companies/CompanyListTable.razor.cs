@@ -73,7 +73,7 @@ namespace SostavSD.Pages.Companies
             var parameters = new DialogParameters();
             var companyToEdit = await _companyService.GetSingleCompany(companyId);
             parameters.Add("Company", companyToEdit);
-            var dialog = await _dialogService.Show<CompanyDialogAddOrEdit>("uodate", parameters).Result;
+            var dialog = await _dialogService.Show<CompanyDialogAddOrEdit>("update", parameters).Result;
             
             if (dialog != null)
             {

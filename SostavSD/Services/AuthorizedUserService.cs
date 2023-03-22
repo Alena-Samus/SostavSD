@@ -2,6 +2,7 @@
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using SostavSD.Entities;
 using SostavSD.Interfaces;
 using SostavSD.Models;
@@ -79,7 +80,7 @@ public class AuthorizedUserService : IAuthorizedUserService
 
     public async Task<UserSostavModel> GetSingleUser(string userID)
     {
-        var currentUser = _userManager.FindByIdAsync(userID);
+       var currentUser = _userManager.Users.FirstOrDefault(c => c.Id == userID);
 
         return _mapper.Map<UserSostavModel>(currentUser);
     }
