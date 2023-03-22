@@ -60,7 +60,7 @@ public class AuthorizedUserService : IAuthorizedUserService
 
             Id = x.Id,
 
-            UserName = x.Surname,
+            Surname = x.Surname,
 
             Email = x.Email,          
 

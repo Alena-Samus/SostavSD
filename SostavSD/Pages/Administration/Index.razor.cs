@@ -1,4 +1,4 @@
-﻿namespace SostavSD.Pages.Adminitration
+﻿namespace SostavSD.Pages.Administration
 {
     partial class Index
     {

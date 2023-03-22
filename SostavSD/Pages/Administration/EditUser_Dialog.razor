@@ -1,0 +1,15 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudTextField T="string" Label="Name"></MudTextField>
+        <MudTextField T="string" Label="Email"></MudTextField>
+        <MudSelect T="string" Label="Role" AnchorOrigin="Origin.BottomCenter">
+            <MudSelectItem Value="@("first")"></MudSelectItem>
+            <MudSelectItem Value="@("second")"></MudSelectItem>
+            <MudSelectItem Value="@("third")"></MudSelectItem>
+        </MudSelect>
+    </DialogContent>
+    <DialogActions>
+        <MudButton >Cancel</MudButton>
+        <MudButton Color="Color.Primary" >Ok</MudButton>
+    </DialogActions>
+</MudDialog>
