@@ -21,5 +21,6 @@ namespace SostavSD.Interfaces
         Task <List<ManagerUserModel>> GetAllUsersAsync();
         Task <ManagerUserModel> GetSingleUser(string userID);
         Task ChangeUserRole(ManagerUserModel newRole);
+        Task<List<UserSostavModel>> GetListUserSostavModel();
     }
 }

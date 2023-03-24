@@ -17,6 +17,7 @@ public class AuthorizedUserService : IAuthorizedUserService
 
     List<ManagerUserModel> _users = new List<ManagerUserModel>();
     List<ManagerUserModel> _resultUsers= new List<ManagerUserModel>();
+    List<UserSostavModel> _executors = new List<UserSostavModel>();
 
     public AuthorizedUserService(AuthenticationStateProvider authenticationStateProvider, UserManager<UserSostav> userManager, IMapper mapper)
     {
@@ -108,5 +109,22 @@ public class AuthorizedUserService : IAuthorizedUserService
         var currentUser = await _userManager.FindByIdAsync(currentId);
 
         await _userManager.AddToRolesAsync(currentUser, newRole.RegistredUserRoles);
+    }
+
+    public async Task<List<UserSostavModel>> GetListUserSostavModel()
+    {
+        var user = _userManager.Users.Select(x => new UserSostavModel
+
+        {
+            Id = x.Id,
+            Email = x.Email,
+
+        });
+
+        foreach (var item in user)
+        {
+            _executors.Add(item);
+        }
+        return _executors;
     }
 }

@@ -15,6 +15,13 @@
             <MudSelectItem Value="@item.CompanyID">@item.CompanyName</MudSelectItem>
             }
         </MudSelect>
+        <MudSelect T="string" Label="@localizer["Executor"]" AnchorOrigin="Origin.BottomCenter" @bind-Value="Contract.UserID" Required=true >
+@*        <MudSelectItem Value="executor">--@localizer["ChooseTheExecutor"]--</MudSelectItem>*@
+            @foreach (var item in _users)
+            {
+                <MudSelectItem Value="@item.Id">@item.Email</MudSelectItem>
+            }
+        </MudSelect>
         <MudTextField T="string" Label="@localizer["City"]" @bind-Value="Contract.City"/>
 
     </DialogContent>

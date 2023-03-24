@@ -71,10 +71,9 @@ public partial class ContractListTable : ComponentBase
         var parameters = new DialogParameters();
         var contractToEdit = await _contractService.GetSingleContract(contractId);
         parameters.Add("Contract", contractToEdit);
-        var dialog = await _dialogService.Show<ContractAddNewAndEdit>("Update A Item", parameters).Result;
+        var dialog = await _dialogService.Show<ContractAddNewAndEdit>("update", parameters).Result;
         if (dialog != null)
         {
-            ContractModel newContract = (ContractModel)dialog.Data;
             await _contractService.EditContract(contractToEdit);
             await GetContracts();
         }
@@ -87,8 +86,7 @@ public partial class ContractListTable : ComponentBase
         var parameters = new DialogParameters();
         parameters.Add("Contract", new ContractModel());
 
-
-        var dialog = await _dialogService.Show<ContractAddNewAndEdit>("Добавить новый договор", parameters).Result;
+        var dialog = await _dialogService.Show<ContractAddNewAndEdit>("add", parameters).Result;
 
         if (dialog.Data != null)
         {
