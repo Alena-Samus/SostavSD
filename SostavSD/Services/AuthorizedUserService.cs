@@ -61,14 +61,11 @@ public class AuthorizedUserService : IAuthorizedUserService
             RegistredUserSurname = x.Surname,
             RegistredUserEmail = x.Email,
 
-
-
         });
 
         foreach (var item in user)
         {
             item.RegistredUserRoles = new List<string>(await GetRoles(item.RegistredUserId));
-            //item.RegistredUserRoles = await GetRoles(item.RegistredUserId);
 
             _users.Add(item);
         }
