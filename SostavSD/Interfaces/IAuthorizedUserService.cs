@@ -18,7 +18,8 @@ namespace SostavSD.Interfaces
         /// <returns>User details</returns>
         Task<ClaimsPrincipal> GetCurrentUserAsync();
 
-        Task <List<UserSostavModel>> GetAllUsersAsync();
-        Task <UserSostavModel> GetSingleUser(string userID);
+        Task <List<ManagerUserModel>> GetAllUsersAsync();
+        Task <ManagerUserModel> GetSingleUser(string userID);
+        Task ChangeUserRole(ManagerUserModel newRole);
     }
 }

@@ -77,7 +77,6 @@ namespace SostavSD.Pages.Companies
             
             if (dialog != null)
             {
-                CompanyModel newContract = (CompanyModel)dialog.Data;
                 await _companyService.EditCompany(companyToEdit);
                 await GetCompanies();
             }

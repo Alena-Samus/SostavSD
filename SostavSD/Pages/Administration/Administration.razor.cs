@@ -1,6 +1,7 @@
 ﻿using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
+using SostavSD.Services;
 
 
 namespace SostavSD.Pages.Administration
@@ -26,33 +27,24 @@ namespace SostavSD.Pages.Administration
 
         private async Task <List<ManagerUserModel>> GetUsers()
         {
-            var users = await _authorizedUserService.GetAllUsersAsync();
-            foreach (var user in users)
-            {
-                ManagerUserModel model = new ManagerUserModel
-                {
-                    RegistredUser = user,
-                    RoleUser = ""
-                };
-                _usersForForm.Add(model);            }
-
+            _usersForForm = await _authorizedUserService.GetAllUsersAsync();            
 
             return _usersForForm;
         }
 
         private async Task EditUser(string userId)
         {
-            Console.WriteLine(userId);
-            var userToEdit = await _authorizedUserService.GetSingleUser(userId);
-            Console.WriteLine($"second: {userToEdit.Id}");
+
             var parameters = new DialogParameters();
-
+            var userToEdit = await _authorizedUserService.GetSingleUser(userId);
             parameters.Add("UserToEdit", userToEdit);
+            var dialog = await _dialogService.Show<EditUserRole_Dialog>("update", parameters).Result;
 
+            if (dialog != null)
+            {
+                await _authorizedUserService.ChangeUserRole(userToEdit);
+            }
 
-            DialogOptions closeOnEscapeKey = new DialogOptions() { CloseOnEscapeKey = true };
-
-            _dialogService.Show<EditUserRole_Dialog>("Simple Dialog", parameters, closeOnEscapeKey);
         }
 
 
