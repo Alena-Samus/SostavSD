@@ -1,7 +1,7 @@
 ﻿using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
-using SostavSD.Services;
+
 
 
 namespace SostavSD.Pages.Administration
@@ -22,13 +22,11 @@ namespace SostavSD.Pages.Administration
 
         protected override async Task OnInitializedAsync()
         {
-           GetUsers();
+            _usersForForm = await _authorizedUserService.GetAllUsersAsync();
         }
 
-        private async Task <List<ManagerUserModel>> GetUsers()
-        {
-            _usersForForm = await _authorizedUserService.GetAllUsersAsync();            
-
+        private List<ManagerUserModel> GetUsers()
+        {          
             return _usersForForm;
         }
 
@@ -42,7 +40,8 @@ namespace SostavSD.Pages.Administration
 
             if (dialog != null)
             {
-                await _authorizedUserService.ChangeUserRole(userToEdit);
+               await _authorizedUserService.ChangeUserRole(userToEdit);
+               GetUsers();
             }
 
         }

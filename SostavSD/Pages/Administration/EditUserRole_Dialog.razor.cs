@@ -16,7 +16,7 @@ namespace SostavSD.Pages.Administration
         void Submit() 
         {
             
-            UserToEdit.RegistredUserRoles.Add(newRole);
+            UserToEdit.UserRoles.Add(newRole);
             EditUserDialog.Close(DialogResult.Ok(UserToEdit));            
         }
         void Cancel() => EditUserDialog.Cancel();

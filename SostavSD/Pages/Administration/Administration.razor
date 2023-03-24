@@ -8,24 +8,24 @@
 <MudTable Items="@_usersForForm" SortLabel="Sort By"> 
     <HeaderContent>
         <MudTh>Id</MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<ManagerUserModel,object>(x => x.RegistredUserSurname)">Name</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<ManagerUserModel,object>(x => x.RegistredUserEmail)">Email</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<ManagerUserModel,object>(x => x.UserSurname)">Name</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<ManagerUserModel,object>(x => x.UserEmail)">Email</MudTableSortLabel></MudTh>
         <MudTh>Role</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Id">@context.RegistredUserId</MudTd>
-        <MudTd DataLabel="Name">@context.RegistredUserSurname</MudTd>
-        <MudTd DataLabel="Email">@context.RegistredUserEmail</MudTd>
+        <MudTd DataLabel="Id">@context.UserId</MudTd>
+        <MudTd DataLabel="Name">@context.UserSurname</MudTd>
+        <MudTd DataLabel="Email">@context.UserEmail</MudTd>
        <MudTd DataLabel="Role">
-            @foreach (var item in @context.RegistredUserRoles)
+            @foreach (var item in @context.UserRoles)
             {
-                <MudTd>item</MudTd>
+                <MudTd>@item</MudTd>
             }
        </MudTd>   
 
 
         <MudTd DataLabel="">
-           <MudFab @onclick="@(() => EditUser(@context.RegistredUserId))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
+           <MudFab @onclick="@(() => EditUser(@context.UserId))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
          </MudTd>
     </RowTemplate>
 </MudTable>

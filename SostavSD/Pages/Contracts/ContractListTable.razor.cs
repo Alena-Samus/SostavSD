@@ -17,7 +17,7 @@ public partial class ContractListTable : ComponentBase
 
     private string searchString = "";
 
-    private ContractModel selectedItem = null;
+
 
     public ContractListTable(IContractService contractService, IDialogService dialogService)
     {

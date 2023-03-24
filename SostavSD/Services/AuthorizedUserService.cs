@@ -13,17 +13,16 @@ public class AuthorizedUserService : IAuthorizedUserService
 {
     private readonly UserManager<UserSostav> _userManager;
     private readonly AuthenticationStateProvider _authenticationStateProvider;
-    private readonly IMapper _mapper;
+
 
     List<ManagerUserModel> _users = new List<ManagerUserModel>();
-    List<ManagerUserModel> _resultUsers= new List<ManagerUserModel>();
     List<UserSostavModel> _executors = new List<UserSostavModel>();
 
-    public AuthorizedUserService(AuthenticationStateProvider authenticationStateProvider, UserManager<UserSostav> userManager, IMapper mapper)
+    public AuthorizedUserService(AuthenticationStateProvider authenticationStateProvider, UserManager<UserSostav> userManager)
     {
         _authenticationStateProvider = authenticationStateProvider;
         _userManager = userManager;
-        _mapper = mapper;
+
     }
 
     public async Task<bool> IsCurrentUserInRole(string role)
@@ -54,19 +53,20 @@ public class AuthorizedUserService : IAuthorizedUserService
 
     public async Task<List<ManagerUserModel>> GetAllUsersAsync()
     {
-        var user = _userManager.Users.Select(x => new ManagerUserModel
+        var users = _userManager.Users.Select(x => new ManagerUserModel
 
         {
 
-            RegistredUserId = x.Id,
-            RegistredUserSurname = x.Surname,
-            RegistredUserEmail = x.Email,
+            UserId = x.Id,
+            UserSurname = x.Surname,
+            UserEmail = x.Email,
 
         });
 
-        foreach (var item in user)
+        foreach (var item in users)
         {
-            item.RegistredUserRoles = new List<string>(await GetRoles(item.RegistredUserId));
+            var userRoles = await GetRoles(item.UserId);
+            item.UserRoles = userRoles;
 
             _users.Add(item);
         }
@@ -75,28 +75,20 @@ public class AuthorizedUserService : IAuthorizedUserService
     }
     public async Task <List<string>> GetRoles(string id)
     {
-        List<string> roles = new List<string>();
-        var currentUser = _userManager.Users.FirstOrDefault(c => c.Id == id);
-        var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity( await _userManager.GetClaimsAsync(currentUser)));
-        var Claims = claimsPrincipal.Claims;
-        foreach (var claim in Claims)
-        {
-            if(claim.Type == ClaimTypes.Role)
-            {
-                roles.Add(claim.Value);
-            }
-        }
-        return roles;
+        var currentUser = await _userManager.FindByIdAsync(id);
+        var userRoles = await _userManager.GetRolesAsync(currentUser);
+        
+        return userRoles.ToList();
     }
-    public async Task<ManagerUserModel> GetSingleUser(string userID)
+    public async Task<ManagerUserModel> GetSingleUser(string id)
     {
-       var currentUser = _userManager.Users.FirstOrDefault(c => c.Id == userID);
+       var currentUser = await _userManager.FindByIdAsync(id);
         ManagerUserModel model = new ManagerUserModel
         {
-            RegistredUserId = currentUser.Id,
-            RegistredUserSurname = currentUser.Surname,
-            RegistredUserEmail = currentUser.Email,
-            RegistredUserRoles = new List<string>(),
+            UserId = currentUser.Id,
+            UserSurname = currentUser.Surname,
+            UserEmail = currentUser.Email,
+            UserRoles = new List<string>(),
         };
 
         return model;
@@ -104,17 +96,16 @@ public class AuthorizedUserService : IAuthorizedUserService
 
     public async Task ChangeUserRole(ManagerUserModel newRole)
     {
-        string currentId = newRole.RegistredUserId;
+        string currentId = newRole.UserId;
 
         var currentUser = await _userManager.FindByIdAsync(currentId);
 
-        await _userManager.AddToRolesAsync(currentUser, newRole.RegistredUserRoles);
+        await _userManager.AddToRolesAsync(currentUser, newRole.UserRoles);
     }
 
-    public async Task<List<UserSostavModel>> GetListUserSostavModel()
+    public List<UserSostavModel> GetListUserSostavModel()
     {
         var user = _userManager.Users.Select(x => new UserSostavModel
-
         {
             Id = x.Id,
             Email = x.Email,

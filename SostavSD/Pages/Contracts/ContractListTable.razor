@@ -17,7 +17,7 @@ else if (_contracts.Count == 0)
 }
 else
 {
-		<MudTable Items="@_contracts" Filter="new Func<ContractModel,bool>(FilterFuncCurrent)" @bind-SelectedItem="selectedItem">
+		<MudTable Items="@_contracts" Filter="new Func<ContractModel,bool>(FilterFuncCurrent)">
 
 		<ToolBarContent>
 			<MudSpacer />

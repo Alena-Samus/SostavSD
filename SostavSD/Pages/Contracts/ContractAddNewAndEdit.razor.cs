@@ -26,7 +26,7 @@ namespace SostavSD.Pages.Contracts
         protected override async Task OnInitializedAsync()
         {
             _companies = await _companyService.GetAllCompany();
-            _users = await _authorizedUserService.GetListUserSostavModel();
+            _users = _authorizedUserService.GetListUserSostavModel();
            
 
         }

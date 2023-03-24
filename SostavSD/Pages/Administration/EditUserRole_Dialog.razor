@@ -1,7 +1,7 @@
 ﻿<MudDialog>
     <DialogContent>
-        <MudTextField T="string" Label="Name" @bind-Value="UserToEdit.RegistredUserSurname" ReadOnly="true"></MudTextField>
-        <MudTextField T="string" Label="Email" @bind-Value="UserToEdit.RegistredUserEmail" ReadOnly="true"></MudTextField>
+        <MudTextField T="string" Label="Name" @bind-Value="UserToEdit.UserSurname" ReadOnly="true"></MudTextField>
+        <MudTextField T="string" Label="Email" @bind-Value="UserToEdit.UserEmail" ReadOnly="true"></MudTextField>
         <MudSelect T="string" Label="Role" AnchorOrigin="Origin.BottomCenter" @bind-Value="newRole">
             @foreach (var item in _rolesList)
             {
