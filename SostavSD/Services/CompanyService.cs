@@ -45,7 +45,6 @@ namespace SostavSD.Services
 
         public async Task EditCompany(CompanyModel currentCompany)
         {
-            Console.WriteLine("999999999");
             Company companytAfterEdit = _mapper.Map<Company>(currentCompany);
             _context.company.Update(companytAfterEdit);
             await _context.SaveChangesAsync();

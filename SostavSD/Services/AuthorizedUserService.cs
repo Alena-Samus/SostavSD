@@ -60,29 +60,36 @@ public class AuthorizedUserService : IAuthorizedUserService
             RegistredUserId = x.Id,
             RegistredUserSurname = x.Surname,
             RegistredUserEmail = x.Email,
-            RegistredUserRoles = new List<string>(),
+
+
 
         });
 
         foreach (var item in user)
-
         {
+            item.RegistredUserRoles = new List<string>(await GetRoles(item.RegistredUserId));
+            //item.RegistredUserRoles = await GetRoles(item.RegistredUserId);
 
             _users.Add(item);
-
         }
-        //foreach (var elem in _users)
 
-        //{
-
-        //    ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(await _userManager.GetClaimsAsync(_userManager.get))); ;
-
-        //    RolesUser = claimsPrincipal.FindFirst(c => c.Type == ClaimTypes.Email)?.Value.ToString(),
-        //};
-        //_resultUsers.Add(model); 
         return _users;
     }
-
+    public async Task <List<string>> GetRoles(string id)
+    {
+        List<string> roles = new List<string>();
+        var currentUser = _userManager.Users.FirstOrDefault(c => c.Id == id);
+        var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity( await _userManager.GetClaimsAsync(currentUser)));
+        var Claims = claimsPrincipal.Claims;
+        foreach (var claim in Claims)
+        {
+            if(claim.Type == ClaimTypes.Role)
+            {
+                roles.Add(claim.Value);
+            }
+        }
+        return roles;
+    }
     public async Task<ManagerUserModel> GetSingleUser(string userID)
     {
        var currentUser = _userManager.Users.FirstOrDefault(c => c.Id == userID);
@@ -100,14 +107,8 @@ public class AuthorizedUserService : IAuthorizedUserService
     public async Task ChangeUserRole(ManagerUserModel newRole)
     {
         string currentId = newRole.RegistredUserId;
-        Console.WriteLine("*****");
 
         var currentUser = await _userManager.FindByIdAsync(currentId);
-
-        Console.WriteLine($"currentUser.Id: {currentUser.Id}");
-        Console.WriteLine($"currentUser.Surname: {currentUser.Surname}");
-        Console.WriteLine($"currentUser.Email: {currentUser.Email}");
-        Console.WriteLine($"RegistredUserNewRole: {newRole.RegistredUserRoles}");
 
         await _userManager.AddToRolesAsync(currentUser, newRole.RegistredUserRoles);
     }
