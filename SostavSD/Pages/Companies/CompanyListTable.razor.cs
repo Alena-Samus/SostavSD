@@ -4,6 +4,9 @@ using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 using SostavSD.Classes.Email;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml;
 
 namespace SostavSD.Pages.Companies
 {
@@ -79,10 +82,8 @@ namespace SostavSD.Pages.Companies
             {
                 await _companyService.EditCompany(companyToEdit);
                 await GetCompanies();
-            }
-            
+            }            
         }
-
 
         private async Task CreateNewCompany()
         {
@@ -111,7 +112,15 @@ namespace SostavSD.Pages.Companies
 				Convert.ToBase64String(currentXLS)
 			);
 		}
-
+        private async void ExportToWord()
+        {
+            byte[] currentDOCX = await _companyService.WordGenerate(_companies);
+            await _jsruntime.InvokeAsync<CompanyModel>(
+                "saveAsFile",
+                "GeneratedWord.docx",
+                Convert.ToBase64String(currentDOCX)
+            );
+        }
         private async void SendMail()
 
         {
@@ -140,18 +149,13 @@ namespace SostavSD.Pages.Companies
             _emailService.Send(email);
             showMailAlert = true;
             File.Delete(@"Mail\test.txt");
-
-
-
         }
 
 		private bool showMailAlert = false;
 
 		private void CloseMe(bool value)
 		{
-
 			showMailAlert = !value;
-
 
 		}
 	}

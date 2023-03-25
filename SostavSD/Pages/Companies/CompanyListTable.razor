@@ -10,7 +10,7 @@
     
 </MudContainer>
     <MudIconButton Icon="@Icons.Custom.FileFormats.FileExcel" Size="Size.Large" Color="Color.Tertiary" @onclick="ExportToExcel"></MudIconButton>
-    <MudIconButton Icon="@Icons.Custom.FileFormats.FileWord" Size="Size.Large"  Color="Color.Info"></MudIconButton>
+    <MudIconButton Icon="@Icons.Custom.FileFormats.FileWord" Size="Size.Large"  Color="Color.Info" @onclick="ExportToWord"></MudIconButton>
     <MudIconButton Icon="@Icons.Custom.FileFormats.FilePdf" Size="Size.Large"  Color="Color.Secondary"></MudIconButton>
     <MudIconButton Class="ms-7" Icon="@Icons.Material.Filled.AttachEmail" Size="Size.Large"  Color="Color.Primary" @onclick="SendMail"></MudIconButton>
 @if (showMailAlert)

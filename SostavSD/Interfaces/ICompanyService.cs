@@ -14,6 +14,7 @@ namespace SostavSD.Interfaces
         Task EditCompany(CompanyModel currentCompany);
         Task<byte[]> ExcelGenerate(List<CompanyModel> companies);
 
+        Task<byte[]> WordGenerate(List<CompanyModel> companies);
 
-	}
+    }
 }
