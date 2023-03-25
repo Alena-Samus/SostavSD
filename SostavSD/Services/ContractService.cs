@@ -71,5 +71,16 @@ namespace SostavSD.Services
             await _context.SaveChangesAsync();
 
         }
+
+        public async Task<List<ContractModel>> GetCurrentUserContracts(string userId)
+        {
+            var contractList = _context.contract
+                .Where(c => c.UserID == userId)
+                .Include(c => c.Company)
+                .Include(c => c.Executor)
+                .AsNoTracking();
+
+            return _mapper.Map<List<ContractModel>>(await contractList.ToListAsync());
+        }
     }
 }

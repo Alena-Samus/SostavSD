@@ -1,0 +1,43 @@
+﻿
+@if (_userContracts == null)
+{
+	<tr>["loadingdata"]</tr>
+}
+else if (_userContracts.Count == 0)
+{
+	<tr>["noitem"]</tr>
+}
+else
+{
+	<MudTable Items="@_userContracts" >
+		<HeaderContent >
+			<MudTh>Object</MudTh>
+			<MudTh>Index</MudTh>
+			<MudTh>Order</MudTh>
+			<MudTh>Executor</MudTh>
+			<MudTh>ContractNumber</MudTh>
+			<MudTh>ContractDate</MudTh>
+			<MudTh>ContractDateEndOfWork</MudTh>
+			<MudTh>Customer</MudTh>
+			<MudTh>City</MudTh>
+		</HeaderContent>
+		
+		<RowTemplate>
+			<MudTd DataLabel="Object">@context.ProjectName</MudTd>
+			<MudTd DataLabel="Index">@context.Index</MudTd>
+			<MudTd DataLabel="Order">@context.Order</MudTd>
+			<MudTd DataLabel="Executor">@(context.Executor?.Surname ?? "NoExecutor")</MudTd>
+			<MudTd DataLabel="ContractNumber">@context.ContractNumber</MudTd>
+			<MudTd DataLabel="ContractDate">@Convert.ToDateTime(context.ContractDate).ToString(Constants.DateFormat)</MudTd>
+			<MudTd DataLabel="ContractDateEndOfWork">@Convert.ToDateTime(context.ContractDateEndOfWork).ToString(Constants.DateFormat)</MudTd>
+			<MudTd DataLabel="Customer">@context.Company.CompanyName</MudTd>
+			<MudTd DataLabel="City">@context.City</MudTd>
+
+		</RowTemplate>
+
+		<PagerContent>
+			<MudTablePager />
+		</PagerContent>
+	</MudTable>
+
+}

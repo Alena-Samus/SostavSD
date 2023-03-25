@@ -24,20 +24,20 @@ namespace SostavSD.Services
 		public async Task<string> GetEmail()
 		{
 			var user = await _authorizedUserService.GetCurrentUserAsync();
-			string _emailadress;
-			_emailadress = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value.ToString();
+			string emailadress;
+			emailadress = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value.ToString();
 			
-			return _emailadress;
+			return emailadress;
 
 		}
 
 		public async Task<string> GetUserName()
 		{
 			var user = await _authorizedUserService.GetCurrentUserAsync();
-			string _userName;
-			_userName = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value.ToString();
+			string userName;
+			userName = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value.ToString();
 
-			return _userName;
+			return userName;
 		}
 
 		public void Send(EmailMessage emailMessage)
