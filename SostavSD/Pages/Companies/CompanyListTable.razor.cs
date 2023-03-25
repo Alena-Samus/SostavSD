@@ -4,9 +4,9 @@ using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 using SostavSD.Classes.Email;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-using DocumentFormat.OpenXml;
+
+using System.Drawing.Text;
+using MimeKit.Encodings;
 
 namespace SostavSD.Pages.Companies
 {
@@ -18,6 +18,10 @@ namespace SostavSD.Pages.Companies
         private IDialogService _dialogService;
         private IJSRuntime _jsruntime;
         private IEmailService _emailService;
+        private IWordExport _wordExport;
+        private IPdfExport _pdfExport;
+        private IExcelExport _excelExport;
+
         private string _email;
         private string _user;
 
@@ -26,12 +30,16 @@ namespace SostavSD.Pages.Companies
         private CompanyModel selectedItem = null;
         
 
-        public CompanyListTable(ICompanyService companyService, IDialogService dialogService, IJSRuntime jsruntime, IEmailService emailService)
+        public CompanyListTable(ICompanyService companyService, IDialogService dialogService, IJSRuntime jsruntime, IEmailService emailService, 
+            IWordExport wordExport, IPdfExport pdfExport, IExcelExport excelExport)
         {
             _companyService = companyService;
             _dialogService = dialogService;
             _jsruntime = jsruntime;
             _emailService = emailService;
+            _wordExport = wordExport;
+            _pdfExport = pdfExport;
+            _excelExport = excelExport;
         }
 
         protected override async Task OnInitializedAsync()
@@ -104,7 +112,7 @@ namespace SostavSD.Pages.Companies
 
 		private async void ExportToExcel()
 		{
-           byte[] currentXLS = await _companyService.ExcelGenerate(_companies);
+           byte[] currentXLS = await _excelExport.ExcelGenerate(_companies);
 
 			await _jsruntime.InvokeAsync<CompanyModel>(
 				"saveAsFile",
@@ -114,13 +122,25 @@ namespace SostavSD.Pages.Companies
 		}
         private async void ExportToWord()
         {
-            byte[] currentDOCX = await _companyService.WordGenerate(_companies);
+            byte[] currentDOCX = await _wordExport.WordGenerate(_companies);
             await _jsruntime.InvokeAsync<CompanyModel>(
                 "saveAsFile",
                 "GeneratedWord.docx",
                 Convert.ToBase64String(currentDOCX)
             );
         }
+        private async void ExportToPDF()
+        {
+            byte[] currentPDF = await _pdfExport.PDFGenerate(_companies);    
+
+            await _jsruntime.InvokeAsync<CompanyModel>(
+                "saveAsFile",
+                "GeneratedPDF.pdf",
+                Convert.ToBase64String(currentPDF)
+            );
+        }
+        
+        
         private async void SendMail()
 
         {
