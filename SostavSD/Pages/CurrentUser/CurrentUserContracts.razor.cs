@@ -1,5 +1,7 @@
-﻿using SostavSD.Interfaces;
+﻿using Microsoft.Extensions.Localization;
+using SostavSD.Interfaces;
 using SostavSD.Models;
+using SostavSD.Pages.Contracts;
 using System.Security.Claims;
 
 namespace SostavSD.Pages.CurrentUser
@@ -8,13 +10,16 @@ namespace SostavSD.Pages.CurrentUser
 	{
 		private IContractService _contractService;
 		private IAuthorizedUserService _authorizedUserService;
+        private IStringLocalizer<CurrentUserContracts> _localizer;
 
-		List<ContractModel> _userContracts = new List<ContractModel>();
 
-		public  CurrentUserContracts(IContractService contractService, IAuthorizedUserService authorizedUserService) 
+        List<ContractModel> _userContracts = new List<ContractModel>();
+
+		public  CurrentUserContracts(IContractService contractService, IAuthorizedUserService authorizedUserService,IStringLocalizer<CurrentUserContracts> localizer) 
 		{ 
 			_contractService = contractService;
 			_authorizedUserService = authorizedUserService;
+			_localizer = localizer;
 		}
 
 		protected override async Task OnInitializedAsync()
