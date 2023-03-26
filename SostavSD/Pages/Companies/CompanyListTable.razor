@@ -1,33 +1,32 @@
 ﻿@using SostavSD.Areas.Identity.Constants;
-@inject ISnackbar Snackbar
-@inject IStringLocalizer<CompanyListTable> localizer
+
 
 
 <MudContainer Class="d-flex justify-center mb-sm-5">
     <AuthorizeView Roles="@Roles.SeveralRoles(Roles.Chief, Roles.Secretary)">
-        <MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="@localizer["newCompany"]" @onclick="(e => CreateNewCompany())"/>
+        <MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="@_localizer["newCompany"]" @onclick="(e => CreateNewCompany())"/>
     </AuthorizeView>
     
 </MudContainer>
-    <MudIconButton Icon="@Icons.Custom.FileFormats.FileExcel" Size="Size.Large" Color="Color.Tertiary" @onclick="ExportToExcel"></MudIconButton>
-    <MudIconButton Icon="@Icons.Custom.FileFormats.FileWord" Size="Size.Large"  Color="Color.Info" @onclick="ExportToWord"></MudIconButton>
-    <MudIconButton Icon="@Icons.Custom.FileFormats.FilePdf" Size="Size.Large"  Color="Color.Secondary" @onclick="ExportToPDF"></MudIconButton>
-    <MudIconButton Class="ms-7" Icon="@Icons.Material.Filled.AttachEmail" Size="Size.Large"  Color="Color.Primary" @onclick="SendMail"></MudIconButton>
+    <MudIconButton Icon="@Icons.Custom.FileFormats.FileExcel" Size="Size.Large" Color="Color.Tertiary" @onclick="ExportToExcel" Title="@_localizer["exportExcel"]"></MudIconButton>
+    <MudIconButton Icon="@Icons.Custom.FileFormats.FileWord" Size="Size.Large"  Color="Color.Info" @onclick="ExportToWord" Title="@_localizer["exportWord"]"></MudIconButton>
+    <MudIconButton Icon="@Icons.Custom.FileFormats.FilePdf" Size="Size.Large"  Color="Color.Secondary" @onclick="ExportToPDF" Title="@_localizer["exportPdf"]"></MudIconButton>
+    <MudIconButton Class="ms-7" Icon="@Icons.Material.Filled.AttachEmail" Size="Size.Large"  Color="Color.Primary" @onclick="SendMail" Title="@_localizer["send"]"></MudIconButton>
 @if (showMailAlert)
 {
-  <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@localizer["successMailMessage"] @_email </MudAlert>
+  <MudAlert Severity="Severity.Success" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@_localizer["successMailMessage"] @_email </MudAlert>
 }
-<MudSelect T="CompanyModel" Label="@localizer["Customer"]" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
+<MudSelect T="CompanyModel" Label="@_localizer["Customer"]" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
 
 </MudSelect>
 
 @if (_companies == null)
 {
-        <tr>@localizer["loadingdata"]</tr>
+        <tr>@_localizer["loadingdata"]</tr>
 }
 else if (_companies.Count == 0)
 {
-        <tr> @localizer["noitem"]</tr>
+        <tr> @_localizer["noitem"]</tr>
 }
 else
 {
@@ -35,16 +34,16 @@ else
 
             <ToolBarContent>
                 <MudSpacer />
-                <MudTextField @bind-Value="searchString" Placeholder="@localizer["Search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                <MudTextField @bind-Value="searchString" Placeholder="@_localizer["Search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
             <HeaderContent >
-                <MudTh>@localizer["companyName"]</MudTh>
-                    <MudTh>@localizer["companyDetails"]</MudTh>
+                <MudTh>@_localizer["companyName"]</MudTh>
+                <MudTh>@_localizer["companyDetails"]</MudTh>
             </HeaderContent>
 
                 <RowTemplate Context="tableRowContext">
-                    <MudTd DataLabel="Name">@tableRowContext.CompanyName</MudTd>
-                    <MudTd DataLabel="Details">@tableRowContext.CompanyDetails</MudTd>
+                        <MudTd DataLabel="@_localizer["companyName"]">@tableRowContext.CompanyName</MudTd>
+                            <MudTd DataLabel="@_localizer["companyDetails"]">@tableRowContext.CompanyDetails</MudTd>
 
                     <MudTd>
                          <AuthorizeView Roles="@Roles.SeveralRoles(Roles.Chief, Roles.Secretary)">

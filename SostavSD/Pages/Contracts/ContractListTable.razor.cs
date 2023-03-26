@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
@@ -14,15 +15,19 @@ public partial class ContractListTable : ComponentBase
 
     private IContractService _contractService;
     private IDialogService _dialogService;
+    private IStringLocalizer<ContractListTable> _localizer;
+
+
 
     private string searchString = "";
 
 
 
-    public ContractListTable(IContractService contractService, IDialogService dialogService)
+    public ContractListTable(IContractService contractService, IDialogService dialogService, IStringLocalizer<ContractListTable> localizer)
     {
         _contractService = contractService;
         _dialogService = dialogService;
+        _localizer = localizer;
     }
 
 

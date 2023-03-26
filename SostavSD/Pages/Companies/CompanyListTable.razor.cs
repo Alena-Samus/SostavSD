@@ -7,6 +7,7 @@ using SostavSD.Classes.Email;
 
 using System.Drawing.Text;
 using MimeKit.Encodings;
+using Microsoft.Extensions.Localization;
 
 namespace SostavSD.Pages.Companies
 {
@@ -21,6 +22,7 @@ namespace SostavSD.Pages.Companies
         private IWordExport _wordExport;
         private IPdfExport _pdfExport;
         private IExcelExport _excelExport;
+        private IStringLocalizer<CompanyListTable> _localizer;
 
         private string _email;
         private string _user;
@@ -31,7 +33,7 @@ namespace SostavSD.Pages.Companies
         
 
         public CompanyListTable(ICompanyService companyService, IDialogService dialogService, IJSRuntime jsruntime, IEmailService emailService, 
-            IWordExport wordExport, IPdfExport pdfExport, IExcelExport excelExport)
+            IWordExport wordExport, IPdfExport pdfExport, IExcelExport excelExport, IStringLocalizer<CompanyListTable> localizer)
         {
             _companyService = companyService;
             _dialogService = dialogService;
@@ -40,6 +42,7 @@ namespace SostavSD.Pages.Companies
             _wordExport = wordExport;
             _pdfExport = pdfExport;
             _excelExport = excelExport;
+            _localizer = localizer;
         }
 
         protected override async Task OnInitializedAsync()

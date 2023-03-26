@@ -1,4 +1,5 @@
-﻿using MudBlazor;
+﻿using Microsoft.Extensions.Localization;
+using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 
@@ -10,14 +11,16 @@ namespace SostavSD.Pages.Administration
     {
         private IAuthorizedUserService _authorizedUserService;
         private IDialogService _dialogService;
+        private IStringLocalizer<Administration> _localizer;
 
 
         List<ManagerUserModel> _usersForForm = new List<ManagerUserModel>();
 
-        public Administration(IAuthorizedUserService authorizedUserService, IDialogService dialogService)
+        public Administration(IAuthorizedUserService authorizedUserService, IDialogService dialogService, IStringLocalizer<Administration> localizer)
         {
             _authorizedUserService = authorizedUserService;
             _dialogService = dialogService;
+            _localizer = localizer;
         }
 
         protected override async Task OnInitializedAsync()

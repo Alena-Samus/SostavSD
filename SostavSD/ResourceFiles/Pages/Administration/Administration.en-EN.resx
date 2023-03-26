@@ -117,40 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="companyDetails" xml:space="preserve">
-    <value>Реквизиты</value>
+  <data name="email" xml:space="preserve">
+    <value>E-mail</value>
   </data>
-  <data name="companyName" xml:space="preserve">
-    <value>Наименование</value>
+  <data name="id" xml:space="preserve">
+    <value>ID</value>
   </data>
-  <data name="Customer" xml:space="preserve">
-    <value>Заказчик</value>
+  <data name="newUser" xml:space="preserve">
+    <value>New User</value>
   </data>
-  <data name="exportExcel" xml:space="preserve">
-    <value>Экспорт в Excel</value>
+  <data name="roles" xml:space="preserve">
+    <value>Roles</value>
   </data>
-  <data name="exportPdf" xml:space="preserve">
-    <value>Экспорт в  PDF</value>
-  </data>
-  <data name="exportWord" xml:space="preserve">
-    <value>Экспорт в  Word</value>
-  </data>
-  <data name="loadingdata" xml:space="preserve">
-    <value>Загрузка данных...</value>
-  </data>
-  <data name="newCompany" xml:space="preserve">
-    <value>Новая организация</value>
-  </data>
-  <data name="noitem" xml:space="preserve">
-    <value>Нет данных</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Поиск</value>
-  </data>
-  <data name="send" xml:space="preserve">
-    <value>Отправка по E-mail</value>
-  </data>
-  <data name="successMailMessage" xml:space="preserve">
-    <value>Сообщение отправлено!</value>
+  <data name="surname" xml:space="preserve">
+    <value>Name</value>
   </data>
 </root>

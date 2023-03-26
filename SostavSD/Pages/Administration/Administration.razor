@@ -3,20 +3,20 @@
 
 
 <MudTd DataLabel="">
-     <MudLink Href="/Identity/Account/Register">  New User   </MudLink>
+     <MudLink Href="/Identity/Account/Register">  @_localizer["newUser"]  </MudLink>
 </MudTd>
 <MudTable Items="@_usersForForm" SortLabel="Sort By"> 
     <HeaderContent>
-        <MudTh>Id</MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<ManagerUserModel,object>(x => x.UserSurname)">Name</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortBy="new Func<ManagerUserModel,object>(x => x.UserEmail)">Email</MudTableSortLabel></MudTh>
-        <MudTh>Role</MudTh>
+        <MudTh>@_localizer["id"]</MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<ManagerUserModel,object>(x => x.UserSurname)">@_localizer["surname"]</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<ManagerUserModel,object>(x => x.UserEmail)">@_localizer["email"]</MudTableSortLabel></MudTh>
+        <MudTh>@_localizer["roles"]</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Id">@context.UserId</MudTd>
-        <MudTd DataLabel="Name">@context.UserSurname</MudTd>
-        <MudTd DataLabel="Email">@context.UserEmail</MudTd>
-       <MudTd DataLabel="Role">
+        <MudTd DataLabel="@_localizer["id"]">@context.UserId</MudTd>
+        <MudTd DataLabel="@_localizer["surname"]">@context.UserSurname</MudTd>
+        <MudTd DataLabel="@_localizer["email"]">@context.UserEmail</MudTd>
+       <MudTd DataLabel="@_localizer["roles"]">
             @foreach (var item in @context.UserRoles)
             {
                 <MudTd>@item</MudTd>
