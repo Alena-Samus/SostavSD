@@ -1,8 +1,10 @@
-﻿<MudDialog>
+﻿@inject IStringLocalizer<EditUserRole_Dialog> _localizer;
+
+<MudDialog>
     <DialogContent>
-        <MudTextField T="string" Label="Name" @bind-Value="UserToEdit.UserSurname" ReadOnly="true"></MudTextField>
-        <MudTextField T="string" Label="Email" @bind-Value="UserToEdit.UserEmail" ReadOnly="true"></MudTextField>
-        <MudSelect T="string" Label="Role" AnchorOrigin="Origin.BottomCenter" @bind-Value="newRole">
+        <MudTextField T="string" Label="@_localizer["name"]" @bind-Value="UserToEdit.UserSurname" ReadOnly="true"></MudTextField>
+        <MudTextField T="string" Label="@_localizer["email"]" @bind-Value="UserToEdit.UserEmail" ReadOnly="true"></MudTextField>
+        <MudSelect T="string" Label="@_localizer["roles"]" AnchorOrigin="Origin.BottomCenter" @bind-Value="newRole">
             @foreach (var item in _rolesList)
             {
                 <MudSelectItem Value="@item">@item</MudSelectItem>   
@@ -10,7 +12,7 @@
         </MudSelect>
     </DialogContent>
     <DialogActions>
-        <MudButton @onclick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Primary" @onclick="Submit">Ok</MudButton>
+        <MudButton @onclick="Cancel">@_localizer["cancel"]</MudButton>
+        <MudButton Color="Color.Primary" @onclick="Submit">@_localizer["save"]</MudButton>
     </DialogActions>
 </MudDialog>
