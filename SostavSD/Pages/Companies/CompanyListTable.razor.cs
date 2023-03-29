@@ -147,7 +147,7 @@ namespace SostavSD.Pages.Companies
         private async void SendMail()
 
         {
-			string text = "Email Test From Company Page"; 
+			string text = "Email Test From Company Page";
 
 			
 			using (FileStream fileStream = File.Open(@"Mail\test.txt", FileMode.Create))
@@ -171,7 +171,7 @@ namespace SostavSD.Pages.Companies
 
             _emailService.Send(email);
             showMailAlert = true;
-            File.Delete(@"Mail\test.txt");
+            File.Delete(@"test.txt");
         }
 
 		private bool showMailAlert = false;
