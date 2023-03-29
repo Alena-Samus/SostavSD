@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
@@ -14,15 +15,19 @@ public partial class ContractListTable : ComponentBase
 
     private IContractService _contractService;
     private IDialogService _dialogService;
+    private IStringLocalizer<ContractListTable> _localizer;
+
+
 
     private string searchString = "";
 
-    private ContractModel selectedItem = null;
 
-    public ContractListTable(IContractService contractService, IDialogService dialogService)
+
+    public ContractListTable(IContractService contractService, IDialogService dialogService, IStringLocalizer<ContractListTable> localizer)
     {
         _contractService = contractService;
         _dialogService = dialogService;
+        _localizer = localizer;
     }
 
 
@@ -71,10 +76,9 @@ public partial class ContractListTable : ComponentBase
         var parameters = new DialogParameters();
         var contractToEdit = await _contractService.GetSingleContract(contractId);
         parameters.Add("Contract", contractToEdit);
-        var dialog = await _dialogService.Show<ContractAddNewAndEdit>("Update A Item", parameters).Result;
+        var dialog = await _dialogService.Show<ContractAddNewAndEdit>("update", parameters).Result;
         if (dialog != null)
         {
-            ContractModel newContract = (ContractModel)dialog.Data;
             await _contractService.EditContract(contractToEdit);
             await GetContracts();
         }
@@ -87,8 +91,7 @@ public partial class ContractListTable : ComponentBase
         var parameters = new DialogParameters();
         parameters.Add("Contract", new ContractModel());
 
-
-        var dialog = await _dialogService.Show<ContractAddNewAndEdit>("Добавить новый договор", parameters).Result;
+        var dialog = await _dialogService.Show<ContractAddNewAndEdit>("add", parameters).Result;
 
         if (dialog.Data != null)
         {

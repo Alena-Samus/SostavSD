@@ -1,52 +1,52 @@
-﻿@inject ISnackbar Snackbar
-@inject IStringLocalizer<ContractListTable> localizer
-
-
+﻿
 <MudContainer Class="d-flex justify-center mb-sm-5">
-	<MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="@localizer["newContract"]" @onclick="(e => CreateNewContract())">
+	<MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="@_localizer["newContract"]" @onclick="(e => CreateNewContract())">
 	</MudFab>
 </MudContainer>
 
 @if (_contracts == null)
 {
-	<tr>@localizer["loadingdata"]</tr>
+	<tr>@_localizer["loadingdata"]</tr>
 }
 else if (_contracts.Count == 0)
 {
-	@localizer["noitem"]
+	@_localizer["noitem"]
 }
 else
 {
-		<MudTable Items="@_contracts" Filter="new Func<ContractModel,bool>(FilterFuncCurrent)" @bind-SelectedItem="selectedItem">
+		<MudTable Items="@_contracts" Filter="new Func<ContractModel,bool>(FilterFuncCurrent)">
 
 		<ToolBarContent>
 			<MudSpacer />
-			<MudTextField @bind-Value="searchString" Placeholder="@localizer["Search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+			<MudTextField @bind-Value="searchString" Placeholder="@_localizer["Search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
 		</ToolBarContent>
 
 		<HeaderContent >
 
-			<MudTh>@localizer["Object"]</MudTh>
-			<MudTh>@localizer["Index"]</MudTh>
-			<MudTh>@localizer["Order"]</MudTh>
-			<MudTh>@localizer["ContractNumber"]</MudTh>
-			<MudTh>@localizer["ContractDate"]</MudTh>
-			<MudTh>@localizer["ContractDateEndOfWork"]</MudTh>
-			<MudTh>@localizer["Customer"]</MudTh>
-			<MudTh>@localizer["City"]</MudTh>
+			<MudTh>@_localizer["Object"]</MudTh>
+			<MudTh>@_localizer["Index"]</MudTh>
+			<MudTh>@_localizer["Order"]</MudTh>
+			<MudTh>@_localizer["Executor"]</MudTh>
+			<MudTh>@_localizer["ContractNumber"]</MudTh>
+			<MudTh>@_localizer["ContractDate"]</MudTh>
+			<MudTh>@_localizer["ContractDateEndOfWork"]</MudTh>
+			<MudTh>@_localizer["Customer"]</MudTh>
+			<MudTh>@_localizer["City"]</MudTh>
+
 
 		</HeaderContent>
 
 
 		<RowTemplate>
-			<MudTd DataLabel="@localizer["Object"]">@context.ProjectName</MudTd>
-			<MudTd DataLabel="@localizer["Index"]">@context.Index</MudTd>
-			<MudTd DataLabel="@localizer["Order"]">@context.Order</MudTd>
-			<MudTd DataLabel="@localizer["ContractNumber"]">@context.ContractNumber</MudTd>
-			<MudTd DataLabel="@localizer["ContractDate"]">@Convert.ToDateTime(context.ContractDate).ToString(Constants.DateFormat)</MudTd>
-			<MudTd DataLabel="@localizer["ContractDateEndOfWork"]">@Convert.ToDateTime(context.ContractDateEndOfWork).ToString(Constants.DateFormat)</MudTd>
-			<MudTd DataLabel="@localizer["Customer"]">@context.Company.CompanyName</MudTd>
-			<MudTd DataLabel="@localizer["City"]">@context.City</MudTd>
+			<MudTd DataLabel="@_localizer["Object"]">@context.ProjectName</MudTd>
+			<MudTd DataLabel="@_localizer["Index"]">@context.Index</MudTd>
+			<MudTd DataLabel="@_localizer["Order"]">@context.Order</MudTd>
+			<MudTd DataLabel="@_localizer["Executor"]">@(context.Executor?.Surname ?? _localizer["NoExecutor"])</MudTd>
+			<MudTd DataLabel="@_localizer["ContractNumber"]">@context.ContractNumber</MudTd>
+			<MudTd DataLabel="@_localizer["ContractDate"]">@Convert.ToDateTime(context.ContractDate).ToString(Constants.DateFormat)</MudTd>
+			<MudTd DataLabel="@_localizer["ContractDateEndOfWork"]">@Convert.ToDateTime(context.ContractDateEndOfWork).ToString(Constants.DateFormat)</MudTd>
+			<MudTd DataLabel="@_localizer["Customer"]">@context.Company.CompanyName</MudTd>
+			<MudTd DataLabel="@_localizer["City"]">@context.City</MudTd>
 			<MudTd DataLabel="">
 				<MudFab @onclick="@(() => Edit(context.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
 				<MudFab @onclick="@(() => Delete(context.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small"/>

@@ -132,6 +132,9 @@
   <data name="Customer" xml:space="preserve">
     <value>Customer</value>
   </data>
+  <data name="Executor" xml:space="preserve">
+    <value>Executor</value>
+  </data>
   <data name="Index" xml:space="preserve">
     <value>Index</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="newContract" xml:space="preserve">
     <value>New contract</value>
+  </data>
+  <data name="NoExecutor" xml:space="preserve">
+    <value>No executor</value>
   </data>
   <data name="noitem" xml:space="preserve">
     <value>No items</value>

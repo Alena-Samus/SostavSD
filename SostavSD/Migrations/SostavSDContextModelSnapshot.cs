@@ -211,9 +211,14 @@ namespace SostavSD.Migrations
                     b.Property<string>("ProjectName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("ContractID");
 
                     b.HasIndex("CompanyID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("Contract", (string)null);
                 });
@@ -236,6 +241,9 @@ namespace SostavSD.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("GroupName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -345,10 +353,21 @@ namespace SostavSD.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SostavSD.Entities.UserSostav", "UserName")
+                        .WithMany("Contracts")
+                        .HasForeignKey("UserID");
+
                     b.Navigation("Company");
+
+                    b.Navigation("UserName");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.Company", b =>
+                {
+                    b.Navigation("Contracts");
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.UserSostav", b =>
                 {
                     b.Navigation("Contracts");
                 });

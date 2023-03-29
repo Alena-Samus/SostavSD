@@ -132,6 +132,9 @@
   <data name="Customer" xml:space="preserve">
     <value>Заказчик</value>
   </data>
+  <data name="Executor" xml:space="preserve">
+    <value>Исполнитель</value>
+  </data>
   <data name="Index" xml:space="preserve">
     <value>Индекс</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="newContract" xml:space="preserve">
     <value>Новый договор</value>
+  </data>
+  <data name="NoExecutor" xml:space="preserve">
+    <value>Не назначен</value>
   </data>
   <data name="noitem" xml:space="preserve">
     <value>Нет данных</value>

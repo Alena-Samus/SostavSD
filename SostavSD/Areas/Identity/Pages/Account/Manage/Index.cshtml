@@ -1,4 +1,5 @@
 ﻿@page
+@using SostavSD.Areas.Identity.Constants;
 @model IndexModel
 @{
     ViewData["Title"] = "Profile";
@@ -19,6 +20,11 @@
                 <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number."/>
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <select style="padding:15px 200px 10px 10px; background:white" asp-for="Input.GroupName" asp-items="Html.GetEnumSelectList<Groups>()">
+                    <option value="">Choose group</option>
+                </select>                    
             </div>
             <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
         </form>

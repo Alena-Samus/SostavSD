@@ -1,0 +1,43 @@
+﻿
+@if (_userContracts == null)
+{
+	<tr>@_localizer["loadingdata"]</tr>
+}
+else if (_userContracts.Count == 0)
+{
+	<tr>@_localizer["noitem"]</tr>
+}
+else
+{
+	<MudTable Items="@_userContracts" >
+		<HeaderContent >
+			<MudTh>@_localizer["Object"]</MudTh>
+			<MudTh>@_localizer["Index"]</MudTh>
+			<MudTh>@_localizer["Order"]</MudTh>
+			<MudTh>@_localizer["Executor"]</MudTh>
+			<MudTh>@_localizer["ContractNumber"]</MudTh>
+			<MudTh>@_localizer["ContractDate"]</MudTh>
+			<MudTh>@_localizer["ContractDateEndOfWork"]</MudTh>
+			<MudTh>@_localizer["Customer"]</MudTh>
+			<MudTh>@_localizer["City"]</MudTh>
+		</HeaderContent>
+		
+		<RowTemplate>
+			<MudTd DataLabel="@_localizer["Object"]">@context.ProjectName</MudTd>
+			<MudTd DataLabel="@_localizer["Index"]">@context.Index</MudTd>
+			<MudTd DataLabel="@_localizer["Order"]">@context.Order</MudTd>
+			<MudTd DataLabel="@_localizer["Executor"]">@(context.Executor?.Surname ?? _localizer["NoExecutor"])</MudTd>
+			<MudTd DataLabel="@_localizer["ContractNumber"]">@context.ContractNumber</MudTd>
+			<MudTd DataLabel="@_localizer["ContractDate"]">@Convert.ToDateTime(context.ContractDate).ToString(Constants.DateFormat)</MudTd>
+			<MudTd DataLabel="@_localizer["ContractDateEndOfWork"]">@Convert.ToDateTime(context.ContractDateEndOfWork).ToString(Constants.DateFormat)</MudTd>
+			<MudTd DataLabel="@_localizer["Customer"]">@context.Company.CompanyName</MudTd>
+			<MudTd DataLabel="@_localizer["City"]">@context.City</MudTd>
+
+		</RowTemplate>
+
+		<PagerContent>
+			<MudTablePager />
+		</PagerContent>
+	</MudTable>
+
+}

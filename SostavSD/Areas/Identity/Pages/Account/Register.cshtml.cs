@@ -2,22 +2,19 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
+
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore.Query;
+using SostavSD.Areas.Identity.Constants;
 using SostavSD.Entities;
 
 namespace SostavSD.Areas.Identity.Pages.Account
@@ -31,12 +28,15 @@ namespace SostavSD.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
+
         public RegisterModel(
             UserManager<UserSostav> userManager,
             IUserStore<UserSostav> userStore,
             SignInManager<UserSostav> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender
+
+            )
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -98,13 +98,27 @@ namespace SostavSD.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+           
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Surname")]
+            
+            public string Surname { get; set; }
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "GroupName")]
+            public string GroupName { get; set; }
+            public string Role { get; set; }
+
+          
         }
 
-
+        public SelectList SostavRoles { get; set; }
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            SostavRoles = new SelectList(Roles.AllRoles);
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -114,10 +128,18 @@ namespace SostavSD.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                user.Surname = Input.Surname;
+                user.GroupName = Input.GroupName;
+              
+
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+              
 
                 if (result.Succeeded)
                 {
@@ -134,6 +156,8 @@ namespace SostavSD.Areas.Identity.Pages.Account
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    await _userManager.AddToRoleAsync(user, Input.Role);
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

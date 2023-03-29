@@ -17,6 +17,7 @@ namespace SostavSD.Pages.Companies
 
         private void Submit()
         {
+            Console.WriteLine("111111111");
             AddOrEditCompany.Close(DialogResult.Ok(Company));
         }
     }

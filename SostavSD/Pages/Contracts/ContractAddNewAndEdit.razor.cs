@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Identity;
 using MudBlazor;
+using SostavSD.Entities;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 
@@ -11,16 +13,22 @@ namespace SostavSD.Pages.Contracts
         
         [Parameter] public ContractModel Contract { get; set; }
         private ICompanyService _companyService;
+        private IAuthorizedUserService _authorizedUserService;
         private List<CompanyModel> _companies = new List<CompanyModel>();
-        
+        private List<UserSostavModel> _users = new List<UserSostavModel>();
 
-        public ContractAddNewAndEdit(ICompanyService companyService)
+
+        public ContractAddNewAndEdit(ICompanyService companyService,IAuthorizedUserService authorizedUserService)
         {
-            _companyService= companyService;
+            _companyService = companyService;
+            _authorizedUserService = authorizedUserService;
         }
         protected override async Task OnInitializedAsync()
         {
             _companies = await _companyService.GetAllCompany();
+            _users = _authorizedUserService.GetListUserSostavModel();
+           
+
         }
         private void Cancel()
         {
@@ -32,5 +40,7 @@ namespace SostavSD.Pages.Contracts
         {
             AddOrEditContract.Close(DialogResult.Ok(Contract));
         }
+
+
     }
 }

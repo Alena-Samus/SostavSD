@@ -5,6 +5,10 @@ using SostavSD.Interfaces;
 using SostavSD.Models;
 using SostavSD.Classes.Email;
 
+using System.Drawing.Text;
+using MimeKit.Encodings;
+using Microsoft.Extensions.Localization;
+
 namespace SostavSD.Pages.Companies
 {
     partial class CompanyListTable : ComponentBase
@@ -15,6 +19,11 @@ namespace SostavSD.Pages.Companies
         private IDialogService _dialogService;
         private IJSRuntime _jsruntime;
         private IEmailService _emailService;
+        private IWordExport _wordExport;
+        private IPdfExport _pdfExport;
+        private IExcelExport _excelExport;
+        private IStringLocalizer<CompanyListTable> _localizer;
+
         private string _email;
         private string _user;
 
@@ -23,12 +32,17 @@ namespace SostavSD.Pages.Companies
         private CompanyModel selectedItem = null;
         
 
-        public CompanyListTable(ICompanyService companyService, IDialogService dialogService, IJSRuntime jsruntime, IEmailService emailService)
+        public CompanyListTable(ICompanyService companyService, IDialogService dialogService, IJSRuntime jsruntime, IEmailService emailService, 
+            IWordExport wordExport, IPdfExport pdfExport, IExcelExport excelExport, IStringLocalizer<CompanyListTable> localizer)
         {
             _companyService = companyService;
             _dialogService = dialogService;
             _jsruntime = jsruntime;
             _emailService = emailService;
+            _wordExport = wordExport;
+            _pdfExport = pdfExport;
+            _excelExport = excelExport;
+            _localizer = localizer;
         }
 
         protected override async Task OnInitializedAsync()
@@ -73,17 +87,14 @@ namespace SostavSD.Pages.Companies
             var parameters = new DialogParameters();
             var companyToEdit = await _companyService.GetSingleCompany(companyId);
             parameters.Add("Company", companyToEdit);
-            var dialog = await _dialogService.Show<CompanyDialogAddOrEdit>("uodate", parameters).Result;
+            var dialog = await _dialogService.Show<CompanyDialogAddOrEdit>("update", parameters).Result;
             
             if (dialog != null)
             {
-                CompanyModel newContract = (CompanyModel)dialog.Data;
                 await _companyService.EditCompany(companyToEdit);
                 await GetCompanies();
-            }
-            
+            }            
         }
-
 
         private async Task CreateNewCompany()
         {
@@ -104,7 +115,7 @@ namespace SostavSD.Pages.Companies
 
 		private async void ExportToExcel()
 		{
-           byte[] currentXLS = await _companyService.ExcelGenerate(_companies);
+           byte[] currentXLS = await _excelExport.ExcelGenerate(_companies);
 
 			await _jsruntime.InvokeAsync<CompanyModel>(
 				"saveAsFile",
@@ -112,7 +123,27 @@ namespace SostavSD.Pages.Companies
 				Convert.ToBase64String(currentXLS)
 			);
 		}
+        private async void ExportToWord()
+        {
+            byte[] currentDOCX = await _wordExport.WordGenerate(_companies);
+            await _jsruntime.InvokeAsync<CompanyModel>(
+                "saveAsFile",
+                "GeneratedWord.docx",
+                Convert.ToBase64String(currentDOCX)
+            );
+        }
+        private async void ExportToPDF()
+        {
+            byte[] currentPDF = await _pdfExport.PDFGenerate(_companies);    
 
+            await _jsruntime.InvokeAsync<CompanyModel>(
+                "saveAsFile",
+                "GeneratedPDF.pdf",
+                Convert.ToBase64String(currentPDF)
+            );
+        }
+        
+        
         private async void SendMail()
 
         {
@@ -141,18 +172,13 @@ namespace SostavSD.Pages.Companies
             _emailService.Send(email);
             showMailAlert = true;
             File.Delete(@"Mail\test.txt");
-
-
-
         }
 
 		private bool showMailAlert = false;
 
 		private void CloseMe(bool value)
 		{
-
 			showMailAlert = !value;
-
 
 		}
 	}

@@ -126,14 +126,14 @@
   <data name="Customer" xml:space="preserve">
     <value>Заказчик</value>
   </data>
-  <data name="exportToExcel" xml:space="preserve">
-    <value>Excel</value>
+  <data name="exportExcel" xml:space="preserve">
+    <value>Экспорт в Excel</value>
   </data>
-  <data name="exportToPDF" xml:space="preserve">
-    <value>PDF</value>
+  <data name="exportPdf" xml:space="preserve">
+    <value>Экспорт в  PDF</value>
   </data>
-  <data name="exportToWord" xml:space="preserve">
-    <value>Word</value>
+  <data name="exportWord" xml:space="preserve">
+    <value>Экспорт в  Word</value>
   </data>
   <data name="loadingdata" xml:space="preserve">
     <value>Загрузка данных...</value>
@@ -147,8 +147,8 @@
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>
   </data>
-  <data name="sendMail" xml:space="preserve">
-    <value>Mail</value>
+  <data name="send" xml:space="preserve">
+    <value>Отправка по E-mail</value>
   </data>
   <data name="successMailMessage" xml:space="preserve">
     <value>Сообщение отправлено!</value>

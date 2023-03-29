@@ -10,7 +10,8 @@ namespace SostavSD
         {
             CreateMap<Contract, ContractModel>().ReverseMap().PreserveReferences();
             CreateMap<Company, CompanyModel>().ReverseMap().PreserveReferences();
+			CreateMap<UserSostav, UserSostavModel>().ReverseMap().PreserveReferences();
 
-        }
+		}
     }
 }

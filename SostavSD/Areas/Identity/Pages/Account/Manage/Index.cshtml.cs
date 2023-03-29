@@ -9,17 +9,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SostavSD.Entities;
 
 namespace SostavSD.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<UserSostav> _userManager;
+        private readonly SignInManager<UserSostav> _signInManager;
 
         public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            UserManager<UserSostav> userManager,
+            SignInManager<UserSostav> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -55,12 +56,24 @@ namespace SostavSD.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Surname")]
+            public string Surname { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "GroupName")]
+            public string GroupName { get; set; }
+
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            public string Role { get; set; }
         }
 
-        private async Task LoadAsync(IdentityUser user)
+        private async Task LoadAsync(UserSostav user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
@@ -69,6 +82,8 @@ namespace SostavSD.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                Surname = user.Surname,
+                GroupName = user.GroupName,            
                 PhoneNumber = phoneNumber
             };
         }
@@ -109,6 +124,16 @@ namespace SostavSD.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+            if (Input.Surname != user.Surname)
+            {
+                user.Surname = Input.Surname;
+            }
+
+            if (Input.GroupName != user.GroupName)
+            {
+                user.GroupName = Input.GroupName;
+            }
+            await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

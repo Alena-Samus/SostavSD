@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MudBlazor.Utilities;
 using SostavSD.Data;
 using SostavSD.Entities;
 using SostavSD.Interfaces;
 using SostavSD.Models;
-using System.Runtime.CompilerServices;
-using TanvirArjel.Blazor.Extensions;
+
 
 namespace SostavSD.Services
 {
@@ -30,6 +26,7 @@ namespace SostavSD.Services
         {
             var contractList = _context.contract
                 .Include(c => c.Company)
+                .Include(c => c.Executor)
                 .AsNoTracking();
 
             return _mapper.Map<List<ContractModel>>(await contractList.ToListAsync());
@@ -73,6 +70,17 @@ namespace SostavSD.Services
             _context.contract.Update(contractAfterEdit);
             await _context.SaveChangesAsync();
 
+        }
+
+        public async Task<List<ContractModel>> GetCurrentUserContracts(string userId)
+        {
+            var contractList = _context.contract
+                .Where(c => c.UserID == userId)
+                .Include(c => c.Company)
+                .Include(c => c.Executor)
+                .AsNoTracking();
+
+            return _mapper.Map<List<ContractModel>>(await contractList.ToListAsync());
         }
     }
 }
