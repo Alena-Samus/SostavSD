@@ -25,11 +25,12 @@ namespace SostavSD.Pages.Administration
 
         protected override async Task OnInitializedAsync()
         {
-            _usersForForm = await _authorizedUserService.GetAllUsersAsync();
+           await GetUsers();
         }
 
-        private List<ManagerUserModel> GetUsers()
-        {          
+        private async Task<List<ManagerUserModel>> GetUsers()
+        {
+            _usersForForm = await _authorizedUserService.GetAllUsersAsync();
             return _usersForForm;
         }
 
@@ -44,7 +45,7 @@ namespace SostavSD.Pages.Administration
             if (dialog != null)
             {
                await _authorizedUserService.ChangeUserRole(userToEdit);
-               GetUsers();
+               await GetUsers();
             }
 
         }
