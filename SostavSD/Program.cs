@@ -11,8 +11,14 @@ using SostavSD.Services;
 using SostavSD.Classes.Email;
 using SostavSD.Entities;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using NLog.Web;
 
-var builder = WebApplication.CreateBuilder(args);
+var logger = NLogBuilder
+    .ConfigureNLog("nlog.config")
+    .GetCurrentClassLogger();
+try
+{
+    var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
@@ -75,8 +81,8 @@ using (var scope = app.Services.CreateScope())
     }
     catch (Exception ex)
     {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while seeding the database.");
+        var log = services.GetRequiredService<ILogger<Program>>();
+        log.LogError(ex, "An error occurred while seeding the database.");
     }
 }
 
@@ -93,7 +99,11 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 app.MapRazorPages();
 
-app.Run();
+
+    logger.Debug("Initialize app");
+    app.Run();
+
+
 
 
 static void AddBusinessLogicServices(IServiceCollection collection)
@@ -107,4 +117,15 @@ static void AddBusinessLogicServices(IServiceCollection collection)
     collection.AddTransient<IPdfExport, PdfExportService>();
     collection.AddTransient<IExcelExport, ExcelExportService>();
     collection.AddMudServices();
+}
+
+}
+catch (Exception ex)
+{
+    logger.Error(ex, "Close app");
+
+}
+finally
+{
+    NLog.LogManager.Shutdown();
 }
