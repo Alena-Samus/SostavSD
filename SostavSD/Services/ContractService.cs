@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
+using NLog;
 using SostavSD.Data;
 using SostavSD.Entities;
 using SostavSD.Interfaces;
@@ -14,6 +16,7 @@ namespace SostavSD.Services
 
         private readonly IMapper _mapper;
 
+        private Logger _logger = LogManager.GetCurrentClassLogger();
 
         public ContractService(SostavSDContext context, IMapper mapper)
         {
@@ -24,12 +27,22 @@ namespace SostavSD.Services
 
         public async Task<List<ContractModel>> GetAllContract()
         {
-            var contractList = _context.contract
+           
+            try
+            {
+                var contractList = _context.contract
                 .Include(c => c.Company)
                 .Include(c => c.Executor)
                 .AsNoTracking();
 
-            return _mapper.Map<List<ContractModel>>(await contractList.ToListAsync());
+                return _mapper.Map<List<ContractModel>>(await contractList.ToListAsync());
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+                return new List<ContractModel>();
+            }
+                        
         }
 
 
@@ -47,9 +60,18 @@ namespace SostavSD.Services
 
         public async Task AddContract(ContractModel newContract)
         {
-            Contract _newContract = _mapper.Map<Contract>(newContract);
-            _context.contract.Add(_newContract);
-            await _context.SaveChangesAsync();
+            try
+            {
+                Contract _newContract = _mapper.Map<Contract>(newContract);
+                _context.contract.Add(_newContract);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+                
+            }
+            
 
         }
 
@@ -61,14 +83,23 @@ namespace SostavSD.Services
             {
                 _context.contract.Entry(singleContract).State = EntityState.Detached;
             }
+
             return _mapper.Map<ContractModel>(singleContract);
         }
 
         public async Task EditContract(ContractModel currentContract)
         {
-            Contract contractAfterEdit = _mapper.Map<Contract>(currentContract);
-            _context.contract.Update(contractAfterEdit);
-            await _context.SaveChangesAsync();
+            try
+            {
+                Contract contractAfterEdit = _mapper.Map<Contract>(currentContract);
+                _context.contract.Update(contractAfterEdit);
+                await _context.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+            }
+            
 
         }
 
