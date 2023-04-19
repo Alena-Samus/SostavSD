@@ -12,6 +12,7 @@ using SostavSD.Classes.Email;
 using SostavSD.Entities;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using NLog.Web;
+using MudBlazor;
 
 var logger = NLogBuilder
     .ConfigureNLog("nlog.config")
@@ -117,7 +118,19 @@ static void AddBusinessLogicServices(IServiceCollection collection)
     collection.AddTransient<IPdfExport, PdfExportService>();
     collection.AddTransient<IExcelExport, ExcelExportService>();
     collection.AddMudServices();
-}
+    collection.AddMudServices(config =>
+	{
+		config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomLeft;
+
+		config.SnackbarConfiguration.PreventDuplicates = false;
+		config.SnackbarConfiguration.NewestOnTop = false;
+		config.SnackbarConfiguration.ShowCloseIcon = true;
+		config.SnackbarConfiguration.VisibleStateDuration = 10000;
+		config.SnackbarConfiguration.HideTransitionDuration = 500;
+		config.SnackbarConfiguration.ShowTransitionDuration = 500;
+		config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
+	});
+	}
 
 }
 catch (Exception ex)

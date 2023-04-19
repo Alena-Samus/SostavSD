@@ -16,7 +16,7 @@ namespace SostavSD.Services
 
         private readonly IMapper _mapper;
 
-        private Logger _logger = LogManager.GetCurrentClassLogger();
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public ContractService(SostavSDContext context, IMapper mapper)
         {
@@ -40,7 +40,8 @@ namespace SostavSD.Services
             catch (Exception ex)
             {
                 _logger.Error(ex.InnerException);
-                return new List<ContractModel>();
+
+                throw;
             }
                         
         }
@@ -48,14 +49,21 @@ namespace SostavSD.Services
 
         public async Task DeleteContract(int contractId)
         {
-            var contractToRemove = await _context.contract.FindAsync(contractId);
-
-            if (contractToRemove != null)
+            try
             {
-                _context.contract.Remove(contractToRemove);
-                _context.SaveChanges();
+				var contractToRemove = await _context.contract.FindAsync(contractId);
 
+				if (contractToRemove != null)
+				{
+					_context.contract.Remove(contractToRemove);
+					_context.SaveChanges();
+				}
+			}
+            catch(Exception ex)
+            {
+                _logger.Error(ex.InnerException);
             }
+            
         }
 
         public async Task AddContract(ContractModel newContract)
@@ -68,23 +76,30 @@ namespace SostavSD.Services
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.InnerException);
-                
-            }
-            
+                _logger.Error(ex.InnerException);                
+            }            
 
         }
 
         public async Task<ContractModel> GetSingleContract(int contractId)
         {
-            var singleContract = await _context.contract.FirstOrDefaultAsync(e => e.ContractID == contractId);
-
-            if (singleContract != null)
+            try
             {
-                _context.contract.Entry(singleContract).State = EntityState.Detached;
-            }
+				var singleContract = await _context.contract.FirstOrDefaultAsync(e => e.ContractID == contractId);
 
-            return _mapper.Map<ContractModel>(singleContract);
+				if (singleContract != null)
+				{
+					_context.contract.Entry(singleContract).State = EntityState.Detached;
+				}
+
+				return _mapper.Map<ContractModel>(singleContract);
+			}
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+                throw;
+            }
+            
         }
 
         public async Task EditContract(ContractModel currentContract)
@@ -105,13 +120,22 @@ namespace SostavSD.Services
 
         public async Task<List<ContractModel>> GetCurrentUserContracts(string userId)
         {
-            var contractList = _context.contract
-                .Where(c => c.UserID == userId)
-                .Include(c => c.Company)
-                .Include(c => c.Executor)
-                .AsNoTracking();
+            try
+            {
+				var contractList = _context.contract
+				.Where(c => c.UserID == userId)
+				.Include(c => c.Company)
+				.Include(c => c.Executor)
+				.AsNoTracking();
 
-            return _mapper.Map<List<ContractModel>>(await contractList.ToListAsync());
+				return _mapper.Map<List<ContractModel>>(await contractList.ToListAsync());
+			}
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+                throw;
+            }
+            
         }
     }
 }
