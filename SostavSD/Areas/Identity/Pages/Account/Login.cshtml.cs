@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using NLog;
+using NLog.Fluent;
 using SostavSD.Entities;
 
 
@@ -18,17 +20,14 @@ namespace SostavSD.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly SignInManager<UserSostav> _signInManager;
-        private readonly ILogger<LoginModel> _logger;
- 
-        
+		private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public LoginModel(SignInManager<UserSostav> signInManager, ILogger<LoginModel> logger, IViewLocalizer   localizer)
+
+
+		public LoginModel(SignInManager<UserSostav> signInManager, IViewLocalizer   localizer)
         {
             _signInManager = signInManager;
-            _logger = logger;
-
-
-            
+           
         }
 
 
@@ -89,7 +88,8 @@ namespace SostavSD.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+		
+		public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
@@ -119,7 +119,7 @@ namespace SostavSD.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User logged in.");
+                    _logger.Info($"User {Input.Email} logged in.");
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -128,12 +128,13 @@ namespace SostavSD.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
+                    _logger.Info($"User account locked out. User: {Input.Email} ");
                     return RedirectToPage("./Lockout");
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    _logger.Info($"User: {Input.Email}. Failed to log in: {result}");
                     return Page();
                 }
             }

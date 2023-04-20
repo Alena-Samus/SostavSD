@@ -1,5 +1,6 @@
 ﻿using SostavSD.Models;
 
+
 namespace SostavSD.Classes.Validation
 {
 	public class ContractModelValidation
