@@ -13,7 +13,7 @@ namespace SostavSD.Classes.Validation
 			}
 			if (contract.CompanyID == 0)
 			{
-				result.Errors.Add("CompanyDetails is empty");
+				result.Errors.Add("Customer is empty");
 			}
 			if (contract.ContractDate > DateTime.Today)
 			{

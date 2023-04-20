@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using SostavSD.Classes.Validation;
 using SostavSD.Entities;
@@ -15,8 +15,10 @@ namespace SostavSD.Pages.Contracts
         [Parameter] public ContractModel Contract { get; set; }
 
         [Inject] ISnackbar Snackbar { get; set; }
+		[Inject] IStringLocalizer<ContractAddNewAndEdit> localizer { get; set; }
 
-        private ICompanyService _companyService;
+
+		private ICompanyService _companyService;
         private IAuthorizedUserService _authorizedUserService;
         private List<CompanyModel> _companies = new List<CompanyModel>();
         private List<UserSostavModel> _users = new List<UserSostavModel>();
