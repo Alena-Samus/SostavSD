@@ -128,7 +128,7 @@ namespace SostavSD.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.Info($"User account locked out. User: {Input.Email} ");
+                    _logger.Info($"User: {Input.Email}. User account locked out. ");
                     return RedirectToPage("./Lockout");
                 }
                 else
