@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
-using Newtonsoft.Json.Serialization;
 using SostavSD.Classes.Validation;
 using SostavSD.Models;
 
@@ -38,7 +37,7 @@ namespace SostavSD.Pages.Companies
             {
                 foreach (var item in validationResult.Errors)
                 {
-                    errors += $"{item}\n";
+                    errors += $"{item} ";
                 }
                 Snackbar.Add($"{errors}",Severity.Error);
             }
