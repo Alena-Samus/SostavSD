@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using NLog;
 using SostavSD.Data;
 using SostavSD.Entities;
 using SostavSD.Interfaces;
@@ -13,10 +14,11 @@ namespace SostavSD.Services
     {
         private readonly SostavSDContext _context;
         private readonly IMapper _mapper;
-       
+		private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
 
-        public CompanyService(SostavSDContext context, IMapper mapper)
+
+		public CompanyService(SostavSDContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -25,9 +27,19 @@ namespace SostavSD.Services
 
         public async Task AddCompany(CompanyModel newCompany)
         {
-            Company _newCompany = _mapper.Map<Company>(newCompany);
-            _context.company.Add(_newCompany);
-            await _context.SaveChangesAsync();
+            try
+            {
+				Company _newCompany = _mapper.Map<Company>(newCompany);
+				_context.company.Add(_newCompany);
+				await _context.SaveChangesAsync();
+			}
+            catch (Exception ex)
+            {
+				_logger.Error(ex.InnerException);
+
+				throw;
+			}
+            
         }
 
         public async Task DeleteCompany(int companyId)

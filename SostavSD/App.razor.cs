@@ -16,7 +16,7 @@ namespace SostavSD
 
         protected override async Task OnInitializedAsync()
         {
-            TokenProvider.XsrfToken = InitialState.XsrfToken;
+           TokenProvider.XsrfToken = InitialState.XsrfToken;
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+using NLog;
 using SostavSD.Entities;
 
 namespace SostavSD.Areas.Identity.Pages.Account.Manage
@@ -17,16 +17,16 @@ namespace SostavSD.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<UserSostav> _userManager;
         private readonly SignInManager<UserSostav> _signInManager;
-        private readonly ILogger<ChangePasswordModel> _logger;
+
 
         public ChangePasswordModel(
             UserManager<UserSostav> userManager,
-            SignInManager<UserSostav> signInManager,
-            ILogger<ChangePasswordModel> logger)
+            SignInManager<UserSostav> signInManager
+)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
+
         }
 
         /// <summary>
@@ -78,6 +78,7 @@ namespace SostavSD.Areas.Identity.Pages.Account.Manage
             public string ConfirmPassword { get; set; }
         }
 
+        Logger _logger = LogManager.GetCurrentClassLogger();
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -119,7 +120,7 @@ namespace SostavSD.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            _logger.LogInformation("User changed their password successfully.");
+            _logger.Info("User changed their password successfully.");
             StatusMessage = "Your password has been changed.";
 
             return RedirectToPage();
