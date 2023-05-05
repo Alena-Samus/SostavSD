@@ -32,6 +32,10 @@ namespace SostavSD.Data.Configurations
             builder.HasOne(o => o.BuildingZone)
                 .WithMany(m => m.Contracts)
                 .HasForeignKey(p => p.BuildingZoneId);
+            builder.Property(p => p.SourceOfFinancingId);
+            builder.HasOne(o => o.SourceOfFinacing)
+                .WithMany(m => m.Contracts)
+                .HasForeignKey(p => p.SourceOfFinancingId);
             
 
         }

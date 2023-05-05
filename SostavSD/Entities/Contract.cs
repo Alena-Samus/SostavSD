@@ -19,8 +19,11 @@ namespace SostavSD.Entities
 
         public string? UserID { get; set; }
         public UserSostav Executor { get; set; }
-
+        public string? CalculatorId { get; set; }
         public int? BuildingZoneId { get; set; }
         public BuildingZone BuildingZone { get; set; }
+
+        public int? SourceOfFinancingId { get; set; }
+        public SourceOfFinacing SourceOfFinacing { get; set; }
     }
 }

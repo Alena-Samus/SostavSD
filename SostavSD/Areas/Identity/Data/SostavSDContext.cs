@@ -16,6 +16,7 @@ public class SostavSDContext : IdentityDbContext<UserSostav>
 	public DbSet<Company> company { get; set; }
 	public DbSet<Contract> contract { get; set; }
     public DbSet<BuildingZone> buildingZone { get; set; }
+    public DbSet<SourceOfFinacing> sourceOfFinacing { get; set; }
 
 
 

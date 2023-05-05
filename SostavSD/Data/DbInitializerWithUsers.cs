@@ -27,6 +27,7 @@ namespace SostavSD.Data
 
             await context.SaveChangesAsync();
             AddBuildingZone(context);
+            AddSourceOfFinancing(context);
             AddCompany(context);
         }
 
@@ -133,7 +134,24 @@ namespace SostavSD.Data
             }
             context.SaveChanges();
         }
+		public static void AddSourceOfFinancing(SostavSDContext context)
+		{
+			if (context.sourceOfFinacing.Any())
+			{
+				return;
+			}
 
-    }
+			var sources = new SourceOfFinacing[]
+			{
+				new SourceOfFinacing {SourceName = "бюджет"},
+				new SourceOfFinacing {SourceName = "собственные средства"},
+			};
+			foreach (SourceOfFinacing item in sources)
+			{
+				context.sourceOfFinacing.Add(item);
+			}
+			context.SaveChanges();
+		}
+	}
 }
 
