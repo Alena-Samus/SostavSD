@@ -7,7 +7,6 @@
         <MudTextField T="string" Label="@localizer["Order"]" @bind-Value="Contract.Order"/>
         <MudTextField T="string" Label="@localizer["ContractNumber"]" @bind-Value="Contract.ContractNumber"/>
         <MudDatePicker Label="@localizer["ContractDate"]" @bind-Date="Contract.ContractDate"/>
-        <MudDatePicker Label="@localizer["ContractDateEndOfWork"]" @bind-Date="Contract.ContractDateEndOfWork"/>
         <MudSelect T="int" Label="@localizer["Customer"]" AnchorOrigin="Origin.BottomCenter" @bind-Value="Contract.CompanyID" Required=true >
            <MudSelectItem Value="0">--@localizer["ChooseTheCustomer"]--</MudSelectItem>
             @foreach (var item in _companies)

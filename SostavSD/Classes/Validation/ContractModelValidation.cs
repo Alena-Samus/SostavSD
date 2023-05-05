@@ -20,10 +20,6 @@ namespace SostavSD.Classes.Validation
 			{
 				result.Errors.Add("ContractDate is greater than current date");
 			}
-			if (contract.ContractDateEndOfWork < DateTime.Today)
-			{
-				result.Errors.Add("ContractDateEndOfWork is less than current date");
-			}
 
 			return result;
 		}

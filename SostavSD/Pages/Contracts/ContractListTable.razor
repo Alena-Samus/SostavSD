@@ -29,7 +29,6 @@ else
 			<MudTh>@_localizer["Executor"]</MudTh>
 			<MudTh>@_localizer["ContractNumber"]</MudTh>
 			<MudTh>@_localizer["ContractDate"]</MudTh>
-			<MudTh>@_localizer["ContractDateEndOfWork"]</MudTh>
 			<MudTh>@_localizer["Customer"]</MudTh>
 			<MudTh>@_localizer["City"]</MudTh>
 
@@ -44,7 +43,6 @@ else
 			<MudTd DataLabel="@_localizer["Executor"]">@(context.Executor?.Surname ?? _localizer["NoExecutor"])</MudTd>
 			<MudTd DataLabel="@_localizer["ContractNumber"]">@context.ContractNumber</MudTd>
 			<MudTd DataLabel="@_localizer["ContractDate"]">@Convert.ToDateTime(context.ContractDate).ToString(Constants.DateFormat)</MudTd>
-			<MudTd DataLabel="@_localizer["ContractDateEndOfWork"]">@Convert.ToDateTime(context.ContractDateEndOfWork).ToString(Constants.DateFormat)</MudTd>
 			<MudTd DataLabel="@_localizer["Customer"]">@context.Company.CompanyName</MudTd>
 			<MudTd DataLabel="@_localizer["City"]">@context.City</MudTd>
 			<MudTd DataLabel="">
