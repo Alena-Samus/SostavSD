@@ -30,12 +30,14 @@ namespace SostavSD.Services
            
             try
             {
-                var contractList = _context.contract
-                .Include(c => c.Company)
-                .Include(c => c.Executor)
-                .AsNoTracking();
+				var contractList = _context.contract
+                    .Include(c => c.Company)
+                    .Include(c => c.Executor)
+                    .Include(c => c.BuildingZone)
+                    .Include(c => c.SourceOfFinacing)
+                    .AsNoTracking();
 
-                return _mapper.Map<List<ContractModel>>(await contractList.ToListAsync());
+				return _mapper.Map<List<ContractModel>>(await contractList.ToListAsync());
             }
             catch (Exception ex)
             {

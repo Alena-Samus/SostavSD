@@ -22,15 +22,17 @@ else
 		</ToolBarContent>
 
 		<HeaderContent >
-
-			<MudTh>@_localizer["Object"]</MudTh>
-			<MudTh>@_localizer["Index"]</MudTh>
-			<MudTh>@_localizer["Order"]</MudTh>
-			<MudTh>@_localizer["Executor"]</MudTh>
-			<MudTh>@_localizer["ContractNumber"]</MudTh>
-			<MudTh>@_localizer["ContractDate"]</MudTh>
-			<MudTh>@_localizer["Customer"]</MudTh>
-			<MudTh>@_localizer["City"]</MudTh>
+			@*TODO: implement sorting*@
+				<MudTh>@_localizer["Object"]</MudTh>
+				<MudTh>@_localizer["Index"]</MudTh>
+				<MudTh>@_localizer["Order"]</MudTh>
+				<MudTh>@_localizer["Executor"]</MudTh>
+				<MudTh>@_localizer["ContractNumber"]</MudTh>
+				<MudTh>@_localizer["ContractDate"]</MudTh>
+				<MudTh>@_localizer["Customer"]</MudTh>
+				<MudTh>@_localizer["BuildingZone"]</MudTh>
+				<MudTh>@_localizer["Source"]</MudTh>
+				<MudTh>@_localizer["City"]</MudTh>
 
 
 		</HeaderContent>
@@ -44,6 +46,8 @@ else
 			<MudTd DataLabel="@_localizer["ContractNumber"]">@context.ContractNumber</MudTd>
 			<MudTd DataLabel="@_localizer["ContractDate"]">@Convert.ToDateTime(context.ContractDate).ToString(Constants.DateFormat)</MudTd>
 			<MudTd DataLabel="@_localizer["Customer"]">@context.Company.CompanyName</MudTd>
+			<MudTd DataLabel="@_localizer["BuildingZone"]">@context.BuildingZone?.BuildingZoneName</MudTd>
+			<MudTd DataLabel="@_localizer["Source"]">@context.SourceOfFinacing?.SourceName</MudTd>
 			<MudTd DataLabel="@_localizer["City"]">@context.City</MudTd>
 			<MudTd DataLabel="">
 				<MudFab @onclick="@(() => Edit(context.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
