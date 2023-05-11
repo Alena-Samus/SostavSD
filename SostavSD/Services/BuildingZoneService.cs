@@ -37,8 +37,7 @@ namespace SostavSD.Services
             {
                 _logger.Error(ex.InnerException);
                 throw;
-            }
-            
+            }            
             
         }
     }

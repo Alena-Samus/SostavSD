@@ -45,10 +45,17 @@ public partial class ContractListTable : ComponentBase
 
     private bool FilterFunc(ContractModel contract, string searchString)
     {
-        bool result = string.IsNullOrWhiteSpace(searchString) || (contract.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase)) ||
-             (contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase)) || (contract.Order.Contains(searchString, StringComparison.OrdinalIgnoreCase)) ||
-             (contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase)) || contract.ContractDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
-             (contract.City.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+        bool result = string.IsNullOrWhiteSpace(searchString)
+             || (!string.IsNullOrWhiteSpace(contract.ProjectName) && contract.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+             || (!string.IsNullOrWhiteSpace(contract.Index) && contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+             || (!string.IsNullOrWhiteSpace(contract.Order) && contract.Order.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+             || (!string.IsNullOrWhiteSpace(contract.ContractNumber) && contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+             || (!string.IsNullOrWhiteSpace(contract.ContractDate.ToString()) && contract.ContractDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+             || (!string.IsNullOrWhiteSpace(contract.City) && contract.City.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+             || (!string.IsNullOrWhiteSpace(contract.Company.CompanyName) && contract.Company.CompanyName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+             //|| (!string.IsNullOrWhiteSpace(contract.Executor.UserName) && contract.Executor.Surname.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+             || ((contract.BuildingZoneId > 1) && contract.BuildingZone.BuildingZoneName.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+            //|| (!string.IsNullOrWhiteSpace(contract.Executor.UserName) && contract.Executor.UserName.Contains(searchString, StringComparison.OrdinalIgnoreCase));
             
      
         return result;

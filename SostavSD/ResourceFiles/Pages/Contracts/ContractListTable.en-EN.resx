@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BuildingZone" xml:space="preserve">
+    <value>Building zone</value>
+  </data>
+  <data name="ChooseTheSource" xml:space="preserve">
+    <value>Choose the source of financing</value>
+  </data>
+  <data name="ChooseTheZone" xml:space="preserve">
+    <value>Choose the building zone</value>
+  </data>
   <data name="City" xml:space="preserve">
     <value>City</value>
   </data>
@@ -128,6 +137,9 @@
   </data>
   <data name="ContractNumber" xml:space="preserve">
     <value>Contract number</value>
+  </data>
+  <data name="CPE" xml:space="preserve">
+    <value>CPE</value>
   </data>
   <data name="Customer" xml:space="preserve">
     <value>Customer</value>
@@ -158,5 +170,8 @@
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Source of financing</value>
   </data>
 </root>

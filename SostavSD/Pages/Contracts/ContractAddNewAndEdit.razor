@@ -14,9 +14,21 @@
             <MudSelectItem Value="@item.CompanyID">@item.CompanyName</MudSelectItem>
             }
         </MudSelect>
-        <MudTextField T="int?" Label="zone test" @bind-Value="Contract.BuildingZoneId"/>
-        <MudSelect T="string" Label="@localizer["Executor"]" AnchorOrigin="Origin.BottomCenter" @bind-Value="Contract.UserID" Required=true >
-@*        <MudSelectItem Value="executor">--@localizer["ChooseTheExecutor"]--</MudSelectItem>*@
+        <MudSelect  T="int" Label="@localizer["BuildingZone"]" @bind-Value="selectedZone">
+            <MudSelectItem Value="0">--@localizer["ChooseTheZone"]--</MudSelectItem>
+            @foreach (var item in _buildingZones)
+            {
+                <MudSelectItem Value="@item.BuildingZoneId">@item.BuildingZoneName</MudSelectItem>
+            }
+        </MudSelect>
+        <MudSelect  T="int" Label="@localizer["Source"]" @bind-Value="selectedSource">
+            <MudSelectItem Value="0">--@localizer["ChooseTheSource"]--</MudSelectItem>
+            @foreach (var item in _sources)
+            {
+                    <MudSelectItem Value="@item.SourceId">@item.SourceName</MudSelectItem>
+            }
+        </MudSelect>
+        <MudSelect T="string" Label="@localizer["CPE"]" AnchorOrigin="Origin.BottomCenter" @bind-Value="Contract.UserID" Required=true >
             @foreach (var item in _users)
             {
                 <MudSelectItem Value="@item.Id">@item.Email</MudSelectItem>
