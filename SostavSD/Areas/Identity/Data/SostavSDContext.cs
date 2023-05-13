@@ -19,6 +19,7 @@ public class SostavSDContext : IdentityDbContext<UserSostav>
     public DbSet<SourceOfFinacing> sourceOfFinacing { get; set; }
     public DbSet<BuildingView> buildingView { get; set; }  
     public DbSet<Project> project { get; set; }
+    public DbSet<DesignStage> designStage { get; set; }
   
 
 
