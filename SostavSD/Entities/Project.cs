@@ -12,8 +12,8 @@
         public DesignStage DesignStage { get; set; }
         public int? BuildingViewId { get; set; }
         public BuildingView BuildingView { get; set; }
-        //public int StatusId { get; set; }
-        //public Status Status { get; set; }
+        public int? StatusId { get; set; }
+        public Status Status { get; set; }
         public DateTime? ProjectReleaseDate { get; set; }
         public DateTime? ProjectReleaseDateByContract { get;set; }
         public DateTime? WorkStartDate { get; set; }

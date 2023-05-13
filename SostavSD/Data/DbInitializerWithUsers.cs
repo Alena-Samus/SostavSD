@@ -34,6 +34,7 @@ namespace SostavSD.Data
             AddBuildingView(context);
             AddBuildingZone(context);
             AddStage(context);
+            AddStatus(context);
             AddSourceOfFinancing(context);
             AddCompany(context);
         }
@@ -203,6 +204,27 @@ namespace SostavSD.Data
                 context.SaveChanges();
             }
         }
-	}
+        public static void AddStatus(SostavSDContext context)
+        {
+            if (context.status.Any())
+            {
+                return;
+            }
+            else
+            {
+                var statuses = new Status[]
+                {
+                    new Status {StatusName = "в работе", IsEstimate = true},
+                    new Status {StatusName = "выпущено", IsEstimate = true, IsProject = true},
+                    new Status {StatusName = "в план", IsDrawing = true},
+                };
+                foreach (Status item in statuses)
+                {
+                    context.status.Add(item);
+                }
+                context.SaveChanges();
+            }
+        }
+    }
 }
 

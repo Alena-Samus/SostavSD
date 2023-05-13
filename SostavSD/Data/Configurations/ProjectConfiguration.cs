@@ -41,6 +41,11 @@ namespace SostavSD.Data.Configurations
                 .WithMany(m => m.Projects)
                 .HasForeignKey(p => p.StageId) 
                 .IsRequired(false);
+            builder.Property(p => p.StatusId);
+            builder.HasOne(o => o.Status)
+                .WithMany(m => m.Projects)
+                .HasForeignKey(p => p.StatusId)
+                .IsRequired(false);
         }
     }
 }

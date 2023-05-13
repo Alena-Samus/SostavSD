@@ -20,6 +20,7 @@ public class SostavSDContext : IdentityDbContext<UserSostav>
     public DbSet<BuildingView> buildingView { get; set; }  
     public DbSet<Project> project { get; set; }
     public DbSet<DesignStage> designStage { get; set; }
+    public DbSet<Status> status { get; set; }
   
 
 
