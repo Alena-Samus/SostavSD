@@ -112,6 +112,7 @@ static void AddBusinessLogicServices(IServiceCollection collection)
     collection.AddScoped<IAuthorizedUserService, AuthorizedUserService>();
 
     collection.AddScoped<IContractService, ContractService>();
+    collection.AddScoped<IContractForTableService, ContractForTableService>();
     collection.AddScoped<ICompanyService, CompanyService>();
     collection.AddScoped<ISourceOfFinancingService, SourceOfFinancingService>();
     collection.AddScoped<IBuildingZoneService, BuildingZoneService>();

@@ -28,10 +28,16 @@
                     <MudSelectItem Value="@item.SourceId">@item.SourceName</MudSelectItem>
             }
         </MudSelect>
-        <MudSelect T="string" Label="@localizer["CPE"]" AnchorOrigin="Origin.BottomCenter" @bind-Value="Contract.UserID" Required=true >
-            @foreach (var item in _users)
+        <MudSelect T="string" Label="@localizer["cpe"]" AnchorOrigin="Origin.BottomCenter" @bind-Value="Contract.UserID">
+            @foreach (var item in _usersCPE)
             {
-                <MudSelectItem Value="@item.Id">@item.Email</MudSelectItem>
+                    <MudSelectItem Value="@item.IdUser">@item.SurnameUser</MudSelectItem>
+            }
+        </MudSelect>
+        <MudSelect T="string" Label="@localizer["calculator"]" AnchorOrigin="Origin.BottomCenter" @bind-Value="Contract.CalculatorId">
+            @foreach (var item in _usersCalculator)
+            {
+                        <MudSelectItem Value="@item.IdUser">@item.SurnameUser</MudSelectItem>
             }
         </MudSelect>
         <MudTextField T="string" Label="@localizer["City"]" @bind-Value="Contract.City"/>

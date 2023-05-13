@@ -117,31 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BuildingZone" xml:space="preserve">
+  <data name="buildingZone" xml:space="preserve">
     <value>Зона строительства</value>
   </data>
-  <data name="City" xml:space="preserve">
+  <data name="city" xml:space="preserve">
     <value>Город</value>
   </data>
-  <data name="ContractDate" xml:space="preserve">
+  <data name="contractDate" xml:space="preserve">
     <value>Дата договора</value>
   </data>
-  <data name="ContractDateEndOfWork" xml:space="preserve">
+  <data name="contractDateEndOfWork" xml:space="preserve">
     <value>Дата окончания работ</value>
   </data>
-  <data name="ContractNumber" xml:space="preserve">
+  <data name="contractNumber" xml:space="preserve">
     <value>Номер договора</value>
   </data>
-  <data name="CPE" xml:space="preserve">
+  <data name="cpe" xml:space="preserve">
     <value>ГИП</value>
   </data>
-  <data name="Customer" xml:space="preserve">
+  <data name="customer" xml:space="preserve">
     <value>Заказчик</value>
   </data>
-  <data name="Executor" xml:space="preserve">
+  <data name="executor" xml:space="preserve">
     <value>Исполнитель</value>
   </data>
-  <data name="Index" xml:space="preserve">
+  <data name="index" xml:space="preserve">
     <value>Индекс</value>
   </data>
   <data name="loadingdata" xml:space="preserve">
@@ -150,22 +150,22 @@
   <data name="newContract" xml:space="preserve">
     <value>Новый договор</value>
   </data>
-  <data name="NoExecutor" xml:space="preserve">
+  <data name="noExecutor" xml:space="preserve">
     <value>Не назначен</value>
   </data>
   <data name="noitem" xml:space="preserve">
     <value>Нет данных</value>
   </data>
-  <data name="Object" xml:space="preserve">
+  <data name="object" xml:space="preserve">
     <value>Объект</value>
   </data>
-  <data name="Order" xml:space="preserve">
+  <data name="order" xml:space="preserve">
     <value>Заказ</value>
   </data>
-  <data name="Search" xml:space="preserve">
+  <data name="search" xml:space="preserve">
     <value>Поиск</value>
   </data>
-  <data name="Source" xml:space="preserve">
+  <data name="source" xml:space="preserve">
     <value>Источник финансирования</value>
   </data>
 </root>

@@ -28,6 +28,9 @@ namespace SostavSD.Pages.Contracts
         private List<BuildingZoneModel> _buildingZones = new List<BuildingZoneModel>();
         private List<SourceOfFinacingModel> _sources = new List<SourceOfFinacingModel>();
 
+        private List<UsersForList> _usersCalculator = new List<UsersForList>();
+        private List<UsersForList> _usersCPE = new List<UsersForList>();
+
         private int selectedZone = 0;
         private int selectedSource = 0;
 
@@ -54,6 +57,9 @@ namespace SostavSD.Pages.Contracts
             {
                 selectedSource = (int)Contract.SourceOfFinancingId;
             }
+
+            _usersCPE = _authorizedUserService.GetListUserSostavModelByGroup("8");
+            _usersCalculator = _authorizedUserService.GetListUserSostavModelByGroup("6");
         }
         private void Cancel()
         {

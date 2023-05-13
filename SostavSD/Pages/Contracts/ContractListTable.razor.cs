@@ -11,53 +11,58 @@ namespace SostavSD.Pages.Contracts;
 
 public partial class ContractListTable : ComponentBase
 {
-    private List<ContractModel> _contracts = new List<ContractModel>();
+    private List<ContractForTableModel> _contractForTableModel = new List<ContractForTableModel>();
 
     private IContractService _contractService;
     private IDialogService _dialogService;
     private IStringLocalizer<ContractListTable> _localizer;
+    private ISnackbar _snackbar;
 
 
+    [Inject] IContractForTableService _contractForTableService { get; set; }
 
     private string searchString = "";
 
 
 
-    public ContractListTable(IContractService contractService, IDialogService dialogService, IStringLocalizer<ContractListTable> localizer)
+    public ContractListTable(IContractService contractService, IDialogService dialogService, IStringLocalizer<ContractListTable> localizer, ISnackbar snackbar)
     {
         _contractService = contractService;
         _dialogService = dialogService;
         _localizer = localizer;
+        _snackbar = snackbar;
     }
 
 
     protected override async Task OnInitializedAsync()
     {
-        await GetContracts();        
+        await GetContracts();
     }
 
-    private async Task<List<ContractModel>> GetContracts()
+    private async Task<List<ContractForTableModel>> GetContracts()
     {
-        _contracts =  await _contractService.GetAllContract();
-        return _contracts;
+        _contractForTableModel.Clear();
+        _contractForTableModel = await _contractForTableService.GetContractsAsync();
+        return _contractForTableModel;
     }
-    private bool FilterFuncCurrent(ContractModel contract) => FilterFunc(contract, searchString);
+    private bool FilterFuncCurrent(ContractForTableModel contract) => FilterFunc(contract, searchString);
 
-    private bool FilterFunc(ContractModel contract, string searchString)
+    private bool FilterFunc(ContractForTableModel contract, string searchString)
     {
         bool result = string.IsNullOrWhiteSpace(searchString)
-             || (!string.IsNullOrWhiteSpace(contract.ProjectName) && contract.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-             || (!string.IsNullOrWhiteSpace(contract.Index) && contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-             || (!string.IsNullOrWhiteSpace(contract.Order) && contract.Order.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-             || (!string.IsNullOrWhiteSpace(contract.ContractNumber) && contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-             || (!string.IsNullOrWhiteSpace(contract.ContractDate.ToString()) && contract.ContractDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
-             || (!string.IsNullOrWhiteSpace(contract.City) && contract.City.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-             || (!string.IsNullOrWhiteSpace(contract.Company.CompanyName) && contract.Company.CompanyName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-             //|| (!string.IsNullOrWhiteSpace(contract.Executor.UserName) && contract.Executor.Surname.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-             || ((contract.BuildingZoneId > 1) && contract.BuildingZone.BuildingZoneName.Contains(searchString, StringComparison.OrdinalIgnoreCase));
-            //|| (!string.IsNullOrWhiteSpace(contract.Executor.UserName) && contract.Executor.UserName.Contains(searchString, StringComparison.OrdinalIgnoreCase));
-            
-     
+            || (!string.IsNullOrWhiteSpace(contract.Contract.ProjectName) && contract.Contract.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Contract.Index) && contract.Contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Contract.Order) && contract.Contract.Order.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Contract.ContractNumber) && contract.Contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Contract.ContractDate.ToString()) && contract.Contract.ContractDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Contract.City) && contract.Contract.City.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Contract.Company.CompanyName) && contract.Contract.Company.CompanyName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Contract.UserID) && contract.Contract.Executor.Surname.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || ((contract.Contract.BuildingZoneId > 1) && contract.Contract.BuildingZone.BuildingZoneName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Calculator.UserSurname) && contract.Calculator.UserSurname.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            ;
+
+
         return result;
     }
 
