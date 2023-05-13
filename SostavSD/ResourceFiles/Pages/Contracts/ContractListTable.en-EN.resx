@@ -120,6 +120,9 @@
   <data name="buildingZone" xml:space="preserve">
     <value>Building zone</value>
   </data>
+  <data name="calculator" xml:space="preserve">
+    <value>Calculator</value>
+  </data>
   <data name="chooseTheSource" xml:space="preserve">
     <value>Choose the source of financing</value>
   </data>

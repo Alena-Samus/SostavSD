@@ -1,5 +1,5 @@
 ﻿
-<MudContainer Class="d-flex justify-center mb-sm-5">
+<MudContainer Class="d-flex justify-left">
 	<MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="@_localizer["newContract"]" @onclick="(e => CreateNewContract())">
 	</MudFab>
 </MudContainer>
@@ -16,42 +16,40 @@ else
 {
     <MudTable Items="@_contractForTableModel" Filter="new Func<ContractForTableModel,bool>(FilterFuncCurrent)">
         <ToolBarContent>
-            <MudTextField @bind-Value="searchString" Placeholder="@_localizer["Search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            <MudSpacer />
+            <MudTextField @bind-Value="searchString" Placeholder="@_localizer["search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
         </ToolBarContent>
 
             <HeaderContent >
-            @*TODO: implement sorting*@
-                    <MudTh>@_localizer["object"]</MudTh>
-                    <MudTh>@_localizer["index"]</MudTh>
-                    <MudTh>@_localizer["order"]</MudTh>
-                    <MudTh>@_localizer["cpe"]</MudTh>
-                    <MudTh>@_localizer["contractNumber"]</MudTh>
-                    <MudTh>@_localizer["contractDate"]</MudTh>
-                    <MudTh>@_localizer["customer"]</MudTh>
-                    <MudTh>@_localizer["buildingZone"]</MudTh>
-                    <MudTh>@_localizer["calculator"]</MudTh>
-                    <MudTh>@_localizer["city"]</MudTh>
-
-
+                <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.ProjectName)">@_localizer["object"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.Index)">@_localizer["index"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.Order)">@_localizer["order"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.UserID)">@_localizer["cpe"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.ContractNumber)">@_localizer["contractNumber"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.ContractDate)">@_localizer["contractDate"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.CompanyID)">@_localizer["customer"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.BuildingZoneId)">@_localizer["buildingZone"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.CalculatorId)">@_localizer["calculator"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.City)">@_localizer["city"]</MudTableSortLabel></MudTh>
             </HeaderContent>
 
 
             <RowTemplate>
-                    <MudTd DataLabel="@_localizer["object"]">@context.Contract.ProjectName</MudTd>
-                    <MudTd DataLabel="@_localizer["index"]">@context.Contract.Index</MudTd>
-                    <MudTd DataLabel="@_localizer["order"]">@context.Contract.Order</MudTd>
-                    <MudTd DataLabel="@_localizer["cpe"]">@(context.Contract.Executor?.Surname ?? _localizer["noExecutor"])</MudTd>
-                    <MudTd DataLabel="@_localizer["contractNumber"]">@context.Contract.ContractNumber</MudTd>
-                    <MudTd DataLabel="@_localizer["contractDate"]">@Convert.ToDateTime(context.Contract.ContractDate).ToString(Constants.DateFormat)</MudTd>
-                    <MudTd DataLabel="@_localizer["customer"]">@context.Contract.Company.CompanyName</MudTd>
-                    <MudTd DataLabel="@_localizer["buildingZone"]">@context.Contract.BuildingZone?.BuildingZoneName</MudTd>
-                    <MudTd DataLabel="@_localizer["calculator"]">@context.Calculator.UserSurname</MudTd>
-                    <MudTd DataLabel="@_localizer["city"]">@context.Contract.City</MudTd>
-                    <MudTd DataLabel="">
-                        <MudFab @onclick="@(() => Edit(context.Contract.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
-                        <MudFab @onclick="@(() => Delete(context.Contract.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small"/>
+                <MudTd DataLabel="@_localizer["object"]">@context.Contract.ProjectName</MudTd>
+                <MudTd DataLabel="@_localizer["index"]">@context.Contract.Index</MudTd>
+                <MudTd DataLabel="@_localizer["order"]">@context.Contract.Order</MudTd>
+                <MudTd DataLabel="@_localizer["cpe"]">@(context.Contract.Executor?.Surname ?? _localizer["noExecutor"])</MudTd>
+                <MudTd DataLabel="@_localizer["contractNumber"]">@context.Contract.ContractNumber</MudTd>
+                <MudTd DataLabel="@_localizer["contractDate"]">@Convert.ToDateTime(context.Contract.ContractDate).ToString(Constants.DateFormat)</MudTd>
+                <MudTd DataLabel="@_localizer["customer"]">@context.Contract.Company.CompanyName</MudTd>
+                <MudTd DataLabel="@_localizer["buildingZone"]">@context.Contract.BuildingZone?.BuildingZoneName</MudTd>
+                <MudTd DataLabel="@_localizer["calculator"]">@context.Calculator.UserSurname</MudTd>
+                <MudTd DataLabel="@_localizer["city"]">@context.Contract.City</MudTd>
+                <MudTd DataLabel="">
+                    <MudFab @onclick="@(() => Edit(context.Contract.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
+                    <MudFab @onclick="@(() => Delete(context.Contract.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small"/>
 
-                    </MudTd>
+                </MudTd>
 
                 </RowTemplate>
 

@@ -120,6 +120,9 @@
   <data name="buildingZone" xml:space="preserve">
     <value>Зона строительства</value>
   </data>
+  <data name="calculator" xml:space="preserve">
+    <value>Расчетчик</value>
+  </data>
   <data name="city" xml:space="preserve">
     <value>Город</value>
   </data>
