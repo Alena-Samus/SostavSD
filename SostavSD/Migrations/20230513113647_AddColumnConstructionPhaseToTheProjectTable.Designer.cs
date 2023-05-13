@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SostavSD.Data;
 
@@ -11,9 +12,11 @@ using SostavSD.Data;
 namespace SostavSD.Migrations
 {
     [DbContext(typeof(SostavSDContext))]
-    partial class SostavSDContextModelSnapshot : ModelSnapshot
+    [Migration("20230513113647_AddColumnConstructionPhaseToTheProjectTable")]
+    partial class AddColumnConstructionPhaseToTheProjectTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,6 +215,22 @@ namespace SostavSD.Migrations
                     b.ToTable("Company", (string)null);
                 });
 
+            modelBuilder.Entity("SostavSD.Entities.ConstructionPhase", b =>
+                {
+                    b.Property<int>("PhaseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PhaseId"));
+
+                    b.Property<string>("PhaseName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PhaseId");
+
+                    b.ToTable("ConstructionPhase", (string)null);
+                });
+
             modelBuilder.Entity("SostavSD.Entities.Contract", b =>
                 {
                     b.Property<int>("ContractID")
@@ -286,6 +305,9 @@ namespace SostavSD.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("ConstructionPhasePhaseId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ContractId")
                         .HasColumnType("int");
 
@@ -310,6 +332,8 @@ namespace SostavSD.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("ProjectId");
+
+                    b.HasIndex("ConstructionPhasePhaseId");
 
                     b.ToTable("Project", (string)null);
                 });
@@ -483,6 +507,10 @@ namespace SostavSD.Migrations
 
             modelBuilder.Entity("SostavSD.Entities.Project", b =>
                 {
+                    b.HasOne("SostavSD.Entities.ConstructionPhase", null)
+                        .WithMany("Projects")
+                        .HasForeignKey("ConstructionPhasePhaseId");
+
                     b.HasOne("SostavSD.Entities.BuildingView", "BuildingView")
                         .WithMany("Projects")
                         .HasForeignKey("ProjectId");
@@ -509,6 +537,11 @@ namespace SostavSD.Migrations
             modelBuilder.Entity("SostavSD.Entities.Company", b =>
                 {
                     b.Navigation("Contracts");
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.ConstructionPhase", b =>
+                {
+                    b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.Contract", b =>

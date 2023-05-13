@@ -30,6 +30,7 @@ namespace SostavSD.Data
             await AddUser("calc2@test.com", new[] { Roles.Calculator, }, _userManager, serviceProvider, "Расчетчик2", "6");
 
             await context.SaveChangesAsync();
+            AddBuildingView(context);
             AddBuildingZone(context);
             AddSourceOfFinancing(context);
             AddCompany(context);
@@ -157,6 +158,28 @@ namespace SostavSD.Data
 			}
 			context.SaveChanges();
 		}
+        public static void AddBuildingView(SostavSDContext context)
+        {
+            if(context.buildingView.Any())
+            {
+                return;
+            }
+            else
+            {
+                var views = new BuildingView[]
+                {
+                    new BuildingView {BuildingViewName = "новое строительство"},
+                    new BuildingView {BuildingViewName = "модернизация"},
+                    new BuildingView {BuildingViewName = "реконструкция"},
+                };
+
+                foreach (BuildingView view in views)
+                {
+                    context.buildingView.Add(view);
+                }
+                context.SaveChanges();
+            }
+        }
 	}
 }
 

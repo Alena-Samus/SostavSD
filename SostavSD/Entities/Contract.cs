@@ -24,5 +24,7 @@ namespace SostavSD.Entities
 
         public int? SourceOfFinancingId { get; set; }
         public SourceOfFinacing SourceOfFinacing { get; set; }
+
+        public ICollection<Project> Projects { get; set; }
     }
 }

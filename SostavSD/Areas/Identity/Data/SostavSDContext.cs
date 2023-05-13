@@ -17,7 +17,9 @@ public class SostavSDContext : IdentityDbContext<UserSostav>
 	public DbSet<Contract> contract { get; set; }
     public DbSet<BuildingZone> buildingZone { get; set; }
     public DbSet<SourceOfFinacing> sourceOfFinacing { get; set; }
-
+    public DbSet<BuildingView> buildingView { get; set; }
+    public DbSet<Project> project { get; set; }
+  
 
 
 	protected override void OnModelCreating(ModelBuilder builder)
