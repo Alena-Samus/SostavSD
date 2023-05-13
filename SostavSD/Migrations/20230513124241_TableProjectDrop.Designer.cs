@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SostavSD.Data;
 
@@ -11,9 +12,11 @@ using SostavSD.Data;
 namespace SostavSD.Migrations
 {
     [DbContext(typeof(SostavSDContext))]
-    partial class SostavSDContextModelSnapshot : ModelSnapshot
+    [Migration("20230513124241_TableProjectDrop")]
+    partial class TableProjectDrop
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -267,59 +270,6 @@ namespace SostavSD.Migrations
                     b.ToTable("Contract", (string)null);
                 });
 
-            modelBuilder.Entity("SostavSD.Entities.Project", b =>
-                {
-                    b.Property<int>("ProjectId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"));
-
-                    b.Property<string>("BuildingNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("BuildingViewId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CiCVersion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ConstructionPhase")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ContractId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("PriceLevel")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PrintType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Priority")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("ProjectReleaseDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ProjectReleaseDateByContract")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("StageId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("WorkStartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ProjectId");
-
-                    b.HasIndex("BuildingViewId");
-
-                    b.HasIndex("ContractId");
-
-                    b.ToTable("Project", (string)null);
-                });
-
             modelBuilder.Entity("SostavSD.Entities.SourceOfFinacing", b =>
                 {
                     b.Property<int>("SourceId")
@@ -487,26 +437,6 @@ namespace SostavSD.Migrations
                     b.Navigation("SourceOfFinacing");
                 });
 
-            modelBuilder.Entity("SostavSD.Entities.Project", b =>
-                {
-                    b.HasOne("SostavSD.Entities.BuildingView", "BuildingView")
-                        .WithMany("Projects")
-                        .HasForeignKey("BuildingViewId");
-
-                    b.HasOne("SostavSD.Entities.Contract", "Contract")
-                        .WithMany("Projects")
-                        .HasForeignKey("ContractId");
-
-                    b.Navigation("BuildingView");
-
-                    b.Navigation("Contract");
-                });
-
-            modelBuilder.Entity("SostavSD.Entities.BuildingView", b =>
-                {
-                    b.Navigation("Projects");
-                });
-
             modelBuilder.Entity("SostavSD.Entities.BuildingZone", b =>
                 {
                     b.Navigation("Contracts");
@@ -515,11 +445,6 @@ namespace SostavSD.Migrations
             modelBuilder.Entity("SostavSD.Entities.Company", b =>
                 {
                     b.Navigation("Contracts");
-                });
-
-            modelBuilder.Entity("SostavSD.Entities.Contract", b =>
-                {
-                    b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.SourceOfFinacing", b =>

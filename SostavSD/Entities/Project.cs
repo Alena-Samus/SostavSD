@@ -7,10 +7,10 @@
         public int? Priority { get; set; }
         public int ContractId { get; set; }
         public Contract Contract { get; set; }
-        public string ConstructionPhase { get; set; }      
-        //public int StageId { get; set; }
+        public string ConstructionPhase { get; set; }
+        public int StageId { get; set; }
         //public DesignStage DesignStage { get; set; }
-        public int BuildingViewId { get; set; }
+        public int? BuildingViewId { get; set; }
         public BuildingView BuildingView { get; set; }
         //public int StatusId { get; set; }
         //public Status Status { get; set; }
