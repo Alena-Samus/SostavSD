@@ -16,14 +16,18 @@ namespace SostavSD.Data
             await AddRolesAsync(serviceProvider);
             await context.SaveChangesAsync();
 
-            await AddUser("admin@test.com", Roles.AllRoles.ToArray(), _userManager, serviceProvider,"Admin");
-            await AddUser("readonly@test.com", new[] { Roles.ReadOnly }, _userManager, serviceProvider,"ReadOnly");
-            await AddUser("chief@test.com", new[] { Roles.Chief, }, _userManager, serviceProvider,"Chief");
-            await AddUser("headofthegroup@test.com", new[] { Roles.HeadOfGroup, }, _userManager, serviceProvider, "HeadofTheGroup");
-            await AddUser("estimator@test.com", new[] { Roles.Estimator, }, _userManager, serviceProvider, "Estimator");
-            await AddUser("calculator@test.com", new[] { Roles.Calculator, }, _userManager, serviceProvider, "Calculator");
-            await AddUser("secretary@test.com", new[] { Roles.Secretary, }, _userManager, serviceProvider, "Secretary");
-            await AddUser("inspector@test.com", new[] { Roles.Inspector, }, _userManager, serviceProvider, "Inspector");
+            await AddUser("admin@test.com", Roles.AllRoles.ToArray(), _userManager, serviceProvider,"Admin","7");
+            await AddUser("readonly@test.com", new[] { Roles.ReadOnly }, _userManager, serviceProvider,"ReadOnly","7");
+            await AddUser("chief@test.com", new[] { Roles.Chief, }, _userManager, serviceProvider,"Chief", "7");
+            await AddUser("headofthegroup@test.com", new[] { Roles.HeadOfGroup, }, _userManager, serviceProvider, "HeadofTheGroup", "1");
+            await AddUser("estimator@test.com", new[] { Roles.Estimator, }, _userManager, serviceProvider, "Estimator", "1");
+            await AddUser("calculator@test.com", new[] { Roles.Calculator, }, _userManager, serviceProvider, "Calculator", "6");
+            await AddUser("secretary@test.com", new[] { Roles.Secretary, }, _userManager, serviceProvider, "Secretary", "7");
+            await AddUser("inspector@test.com", new[] { Roles.Inspector, }, _userManager, serviceProvider, "Inspector", "7");
+            await AddUser("cpe1@test.com", new[] { Roles.ReadOnly, }, _userManager, serviceProvider, "ГИП1", "8");
+            await AddUser("cpe2@test.com", new[] { Roles.ReadOnly, }, _userManager, serviceProvider, "ГИП2", "8");
+            await AddUser("calc1@test.com", new[] { Roles.Calculator, }, _userManager, serviceProvider, "Расчетчик1", "6");
+            await AddUser("calc2@test.com", new[] { Roles.Calculator, }, _userManager, serviceProvider, "Расчетчик2", "6");
 
             await context.SaveChangesAsync();
             AddBuildingZone(context);
@@ -31,13 +35,14 @@ namespace SostavSD.Data
             AddCompany(context);
         }
 
-        private async static Task AddUser(string email, string[] roles, UserManager<UserSostav> userManager, IServiceProvider serviceProvider, string surname)
+        private async static Task AddUser(string email, string[] roles, UserManager<UserSostav> userManager, IServiceProvider serviceProvider, string surname, string group)
         {
             var user = Activator.CreateInstance<UserSostav>();
 
             user.UserName = email;
             user.Email = email;
-            user.Surname= surname;
+            user.Surname = surname;
+            user.GroupName = group;
             var result = await userManager.CreateAsync(user, DefaultPassword);
 
             await AssignRoles(user.Email, roles, userManager);

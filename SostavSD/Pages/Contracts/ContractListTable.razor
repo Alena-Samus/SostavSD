@@ -29,6 +29,7 @@ else
                 <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.ContractDate)">@_localizer["contractDate"]</MudTableSortLabel></MudTh>
                 <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.CompanyID)">@_localizer["customer"]</MudTableSortLabel></MudTh>
                 <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.BuildingZoneId)">@_localizer["buildingZone"]</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.SourceOfFinancingId)">@_localizer["source"]</MudTableSortLabel></MudTh>
                 <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.CalculatorId)">@_localizer["calculator"]</MudTableSortLabel></MudTh>
                 <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.City)">@_localizer["city"]</MudTableSortLabel></MudTh>
             </HeaderContent>
@@ -43,6 +44,7 @@ else
                 <MudTd DataLabel="@_localizer["contractDate"]">@Convert.ToDateTime(context.Contract.ContractDate).ToString(Constants.DateFormat)</MudTd>
                 <MudTd DataLabel="@_localizer["customer"]">@context.Contract.Company.CompanyName</MudTd>
                 <MudTd DataLabel="@_localizer["buildingZone"]">@context.Contract.BuildingZone?.BuildingZoneName</MudTd>
+                <MudTd DataLabel="@_localizer["source"]">@context.Contract.SourceOfFinacing?.SourceName</MudTd>
                 <MudTd DataLabel="@_localizer["calculator"]">@context.Calculator.UserSurname</MudTd>
                 <MudTd DataLabel="@_localizer["city"]">@context.Contract.City</MudTd>
                 <MudTd DataLabel="">

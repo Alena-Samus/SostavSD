@@ -82,7 +82,7 @@ namespace SostavSD.Pages.Contracts
                     Contract.SourceOfFinancingId= selectedSource;
                 }
 				AddOrEditContract.Close(DialogResult.Ok(Contract));
-                Snackbar.Add("Contract added", Severity.Success);
+                Snackbar.Add("Done", Severity.Success);
 			}
 			else
 			{
