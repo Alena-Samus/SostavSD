@@ -22,6 +22,6 @@ namespace SostavSD.Interfaces
         Task <ManagerUserModel> GetSingleUser(string userID);
         Task ChangeUserRole(ManagerUserModel newRole);
         List<UserSostavModel> GetListUserSostavModel();
-        List<UsersForList> GetListUserSostavModelByGroup(string group);
+        List<UsersForListModel> GetListUserSostavModelByGroup(string group);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using DocumentFormat.OpenXml.InkML;
+using Microsoft.AspNetCore.Identity;
 using SostavSD.Areas.Identity.Constants;
 using SostavSD.Entities;
 
@@ -37,6 +38,7 @@ namespace SostavSD.Data
             AddStatus(context);
             AddSourceOfFinancing(context);
             AddCompany(context);
+            AddProject(context);
         }
 
         private async static Task AddUser(string email, string[] roles, UserManager<UserSostav> userManager, IServiceProvider serviceProvider, string surname, string group)
@@ -225,6 +227,19 @@ namespace SostavSD.Data
                 context.SaveChanges();
             }
         }
+        public static  void AddProject(SostavSDContext context)
+        {
+			if (context.project.Any())
+			{
+				return;
+			}
+            else
+            {
+				context.project.Add(new Project { BuildingNumber = "1", ContractId = 1, StageId = 1 });
+			}
+            
+            context.SaveChanges();
+		}
     }
 }
 

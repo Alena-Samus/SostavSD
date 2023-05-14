@@ -28,8 +28,8 @@ namespace SostavSD.Pages.Contracts
         private List<BuildingZoneModel> _buildingZones = new List<BuildingZoneModel>();
         private List<SourceOfFinacingModel> _sources = new List<SourceOfFinacingModel>();
 
-        private List<UsersForList> _usersCalculator = new List<UsersForList>();
-        private List<UsersForList> _usersCPE = new List<UsersForList>();
+        private List<UsersForListModel> _usersCalculator = new List<UsersForListModel>();
+        private List<UsersForListModel> _usersCPE = new List<UsersForListModel>();
 
         private int selectedZone = 0;
         private int selectedSource = 0;

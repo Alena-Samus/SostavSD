@@ -118,10 +118,10 @@ public class AuthorizedUserService : IAuthorizedUserService
         }
         return _executors;
     }
-    public List<UsersForList> GetListUserSostavModelByGroup(string group)
+    public List<UsersForListModel> GetListUserSostavModelByGroup(string group)
     {
-        List<UsersForList> currentList = new List<UsersForList>();
-        var user = _userManager.Users.Where(x => x.GroupName == group).Select(x => new UsersForList
+        List<UsersForListModel> currentList = new List<UsersForListModel>();
+        var user = _userManager.Users.Where(x => x.GroupName == group).Select(x => new UsersForListModel
         {
             IdUser = x.Id,
             SurnameUser = x.Surname,
