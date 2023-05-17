@@ -2,7 +2,7 @@
 
 
 
-<MudContainer Class="d-flex justify-center mb-sm-5">
+<MudContainer Class="d-flex oi-justify-left">
     <AuthorizeView Roles="@Roles.SeveralRoles(Roles.Chief, Roles.Secretary)">
         <MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="@_localizer["newCompany"]" @onclick="(e => CreateNewCompany())"/>
     </AuthorizeView>

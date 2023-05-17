@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using SostavSD.Interfaces;
 using SostavSD.Models;
-using SostavSD.Pages.Contracts;
+
 
 namespace SostavSD.Pages.Projects
 {
@@ -9,6 +10,7 @@ namespace SostavSD.Pages.Projects
     {
         private IProjectForTableService _projectService;
         private IStringLocalizer<ProjectListTable> _localizer;
+        private NavigationManager _navigationManager;
 
         private List<ProjectForTableModel> _projects;
         string searchString;
@@ -16,10 +18,11 @@ namespace SostavSD.Pages.Projects
 		string styleTableBody = "padding: 0; text-align: center;";
     
 
-		public ProjectListTable(IProjectForTableService projectService, IStringLocalizer<ProjectListTable> localizer)
+		public ProjectListTable(IProjectForTableService projectService, IStringLocalizer<ProjectListTable> localizer, NavigationManager navigation)
         {
             _projectService = projectService;
             _localizer = localizer;
+            _navigationManager = navigation;
         }
 
         protected override async Task OnInitializedAsync()
@@ -47,5 +50,10 @@ namespace SostavSD.Pages.Projects
 
 			return result;
 		}
-    }
+        private void NavigateToTheNewProjectPage()
+        {
+            _navigationManager.NavigateTo("/projects/newproject");
+        }
+
+	}
 }

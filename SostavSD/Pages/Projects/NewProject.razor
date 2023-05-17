@@ -1,0 +1,32 @@
+﻿@page "/projects/newproject"
+
+<div class="row">
+	<MudButtonGroup Variant="Variant.Outlined" Color="Color.Success" OverrideStyles="false" >
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Save" Title="@Localizer["saveNewProject"]" Color="Color.Success"  @onclick="(e => GoToPage(_toProject))"/>	 
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Outlined.CollectionsBookmark" Title="@Localizer["listOfContracts"]" Color="Color.Info"  @onclick="(e => GoToPage(_toContracts))"/>	 
+
+	</MudButtonGroup>
+</div>
+
+
+<MudTextField Class="@_class" FullWidth T="string" Label="projectName" Variant="Variant.Outlined"></MudTextField>	
+<MudAutocomplete T="ContractModel" @bind-Value="_selectedContract"> </MudAutocomplete>
+
+<MudTextField Class="@_class" T="string" Label="order" Variant="Variant.Outlined"></MudTextField>
+<MudTextField Class="@_class" T="string" Label="contractNumber" Variant="Variant.Outlined"></MudTextField>
+<MudTextField Class="@_class" T="string" Label="contractDate" Variant="Variant.Outlined"></MudTextField>
+<MudTextField Class="@_class" T="string" Label="customer" Variant="Variant.Outlined"></MudTextField>
+<MudTextField Class="@_class" T="string" Label="cpe" Variant="Variant.Outlined"></MudTextField>
+<MudTextField Class="@_class" T="string" Label="calculator" Variant="Variant.Outlined"></MudTextField>
+<MudTextField Class="@_class" T="string" Label="buildingZone" Variant="Variant.Outlined"></MudTextField>
+<MudTextField Class="@_class" T="string" Label="buildingView" Variant="Variant.Outlined"></MudTextField>
+<MudTextField Class="@_class" T="string" Label="releaseDate" Variant="Variant.Outlined"></MudTextField>
+<MudTextField Class="@_class" T="string" Label="releaseDateByContract" Variant="Variant.Outlined"></MudTextField>
+<MudTextField Class="@_class" T="string" Label="designStage" Variant="Variant.Outlined"></MudTextField>
+<MudTextField Class="@_class" T="string" Label="buildingNumber" Variant="Variant.Outlined"></MudTextField>	
+<MudTextField Class="@_class" T="string" Label="dateWorkStart" Variant="Variant.Outlined"></MudTextField>
+<MudTextField Class="@_class" T="string" Label="sourceOfFinancing" Variant="Variant.Outlined"></MudTextField>	
+<MudTextField Class="@_class" T="string" Label="versionCiC" Variant="Variant.Outlined"></MudTextField>
+<MudTextField Class="@_class" T="string" Label="printType" Variant="Variant.Outlined"></MudTextField>
+
+
