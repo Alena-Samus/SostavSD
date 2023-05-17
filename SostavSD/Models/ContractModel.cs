@@ -8,7 +8,6 @@ namespace SostavSD.Models
 
         [Key]
 		public int ContractID { get; set; }
-		public string ProjectName { get; set; }
 		public string Index { get; set; }
 		public string Order { get; set; }
 		public string ContractNumber { get; set; }

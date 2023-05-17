@@ -12,7 +12,6 @@ namespace SostavSD.Data.Configurations
 
             builder.ToTable("Contract")
                     .HasKey(k => k.ContractID);
-            builder.Property(p => p.ProjectName);
             builder.Property(p => p.Index);
             builder.Property(p => p.Order);
             builder.Property(p => p.ContractNumber);

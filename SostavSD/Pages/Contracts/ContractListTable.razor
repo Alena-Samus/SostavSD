@@ -1,5 +1,5 @@
 ﻿
-<MudContainer Class="d-flex justify-left">
+<MudContainer Class="d-flex">
 	<MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.Add" Size="Size.Small" Label="@_localizer["newContract"]" @onclick="(e => CreateNewContract())">
 	</MudFab>
 </MudContainer>
@@ -20,8 +20,7 @@ else
             <MudTextField @bind-Value="searchString" Placeholder="@_localizer["search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
         </ToolBarContent>
 
-            <HeaderContent >
-                <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.ProjectName)">@_localizer["object"]</MudTableSortLabel></MudTh>
+            <HeaderContent>
                 <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.Index)">@_localizer["index"]</MudTableSortLabel></MudTh>
                 <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.Order)">@_localizer["order"]</MudTableSortLabel></MudTh>
                 <MudTh><MudTableSortLabel SortBy="new Func<ContractForTableModel, object>(x => x.Contract.UserID)">@_localizer["cpe"]</MudTableSortLabel></MudTh>
@@ -36,12 +35,11 @@ else
 
 
             <RowTemplate>
-                <MudTd DataLabel="@_localizer["object"]">@context.Contract.ProjectName</MudTd>
                 <MudTd DataLabel="@_localizer["index"]">@context.Contract.Index</MudTd>
                 <MudTd DataLabel="@_localizer["order"]">@context.Contract.Order</MudTd>
                 <MudTd DataLabel="@_localizer["cpe"]">@(context.Contract.Executor?.Surname ?? _localizer["noExecutor"])</MudTd>
                 <MudTd DataLabel="@_localizer["contractNumber"]">@context.Contract.ContractNumber</MudTd>
-                <MudTd DataLabel="@_localizer["contractDate"]">@Convert.ToDateTime(context.Contract.ContractDate).ToString(Constants.DateFormat)</MudTd>
+                <MudTd DataLabel="@_localizer["contractDate"]">@(context.Contract.ContractDate != null ? Convert.ToDateTime(context.Contract.ContractDate).ToString(Constants.DateFormat) : "")</MudTd>
                 <MudTd DataLabel="@_localizer["customer"]">@context.Contract.Company.CompanyName</MudTd>
                 <MudTd DataLabel="@_localizer["buildingZone"]">@context.Contract.BuildingZone?.BuildingZoneName</MudTd>
                 <MudTd DataLabel="@_localizer["source"]">@context.Contract.SourceOfFinacing?.SourceName</MudTd>

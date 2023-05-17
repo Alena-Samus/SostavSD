@@ -8,10 +8,7 @@ namespace SostavSD.Classes.Validation
 		public ValidationResult Validate(ContractModel contract)
 		{
 			var result = new ValidationResult();
-			if (string.IsNullOrWhiteSpace(contract.ProjectName))
-			{
-				result.Errors.Add("ProjectName is empty");
-			}
+			
 			if (contract.CompanyID == 0)
 			{
 				result.Errors.Add("Customer is empty");

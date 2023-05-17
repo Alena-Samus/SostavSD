@@ -7,7 +7,6 @@ namespace SostavSD.Entities
     public class Contract
     {  
         public int ContractID { get; set; }
-        public string ProjectName { get; set; }
         public string Index { get; set; }
         public string Order { get; set; }
         public string ContractNumber { get; set; }

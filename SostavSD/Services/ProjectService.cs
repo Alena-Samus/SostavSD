@@ -21,9 +21,12 @@ namespace SostavSD.Services
 		{
 			var projectList = _context.project
 				.Include(c => c.Contract)
-				.Include(c => c.DesignStage)
+					.ThenInclude(c => c.Executor)
 				.Include(c => c.BuildingView)
-				.Include(c => c.Status);
+				.Include(c => c.Status)
+				.Include(c => c.DesignStage);
+
+
 			return _mapper.Map<List<ProjectModel>>(await projectList.ToListAsync());
 		}
 	}

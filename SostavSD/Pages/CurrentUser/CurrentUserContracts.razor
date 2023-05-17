@@ -11,7 +11,6 @@ else
 {
 	<MudTable Items="@_userContracts" >
 		<HeaderContent >
-			<MudTh>@_localizer["Object"]</MudTh>
 			<MudTh>@_localizer["Index"]</MudTh>
 			<MudTh>@_localizer["Order"]</MudTh>
 			<MudTh>@_localizer["Executor"]</MudTh>
@@ -22,7 +21,6 @@ else
 		</HeaderContent>
 		
 		<RowTemplate>
-			<MudTd DataLabel="@_localizer["Object"]">@context.ProjectName</MudTd>
 			<MudTd DataLabel="@_localizer["Index"]">@context.Index</MudTd>
 			<MudTd DataLabel="@_localizer["Order"]">@context.Order</MudTd>
 			<MudTd DataLabel="@_localizer["Executor"]">@(context.Executor?.Surname ?? _localizer["NoExecutor"])</MudTd>

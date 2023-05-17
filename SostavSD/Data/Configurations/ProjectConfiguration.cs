@@ -12,6 +12,7 @@ namespace SostavSD.Data.Configurations
             builder.ToTable("Project")
                 .HasKey(k => k.ProjectId);
             builder.Property(p => p.ProjectId);
+            builder.Property(p => p.ProjectName);
             builder.Property(p => p.BuildingNumber)
                 .HasMaxLength(20);
             builder.Property(p => p.Priority);
@@ -46,6 +47,7 @@ namespace SostavSD.Data.Configurations
                 .WithMany(m => m.Projects)
                 .HasForeignKey(p => p.StatusId)
                 .IsRequired(false);
+            builder.Property(p => p.StatusDate);
         }
     }
 }

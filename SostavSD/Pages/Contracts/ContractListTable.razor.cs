@@ -50,7 +50,6 @@ public partial class ContractListTable : ComponentBase
     private bool FilterFunc(ContractForTableModel contract, string searchString)
     {
         bool result = string.IsNullOrWhiteSpace(searchString)
-            || (!string.IsNullOrWhiteSpace(contract.Contract.ProjectName) && contract.Contract.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             || (!string.IsNullOrWhiteSpace(contract.Contract.Index) && contract.Contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             || (!string.IsNullOrWhiteSpace(contract.Contract.Order) && contract.Contract.Order.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             || (!string.IsNullOrWhiteSpace(contract.Contract.ContractNumber) && contract.Contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase))
@@ -71,7 +70,7 @@ public partial class ContractListTable : ComponentBase
         ContractModel currentContractName = await _contractService.GetSingleContract(contractId);
         bool? result = await _dialogService.ShowMessageBox(
             "Удаление договора",
-           $"Удалить договор \"{currentContractName.ProjectName}\"?",
+           $"Удалить договор \"{currentContractName.ContractNumber}\"?",
             yesText: "Удалить", cancelText: "Отмена");
 
 
