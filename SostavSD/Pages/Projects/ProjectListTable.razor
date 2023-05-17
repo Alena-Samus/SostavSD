@@ -1,4 +1,10 @@
-﻿ 
+﻿<div class="row">
+	 <MudButtonGroup Variant="Variant.Outlined" Color="Color.Success" >
+	 <MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.LibraryAdd" Title="@_localizer["addNewProject"]" Color="Color.Success"/>	 
+ </MudButtonGroup>
+</div>
+
+
 @if (_projects == null)
 {
         <tr>@_localizer["loadingdata"]</tr>
