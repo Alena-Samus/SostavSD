@@ -11,9 +11,17 @@
 	<MudItem xs="9">
 		<MudTextField FullWidth T="string" @bind-Value="@_newProject.ProjectName" Label="@Localizer["projectName"]" Variant="Variant.Outlined" Lines="3"></MudTextField>	
 	</MudItem>
+
+	<MudGrid>
+		<MudItem>
+			<MudIconButton @onclick="@(() => Edit(_selectedContract.Contract.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
+		</MudItem>
+	</MudGrid>
+
 	<MudGrid>
 		<MudItem xs="3">
 			<div>
+
 				<MudAutocomplete T="ContractForTableModel" Label="@Localizer["index"]" Variant="Variant.Outlined" @bind-Value="_selectedContract" SearchFunc="@FindContract" 
 								ToStringFunc="@(i => i is null ? "" : $"{i.Contract?.Index}")"/>
 				<MudTextField T="string" Label="@Localizer["order"]" Text="@_selectedContract.Contract?.Order" ReadOnly=true Variant="Variant.Outlined"/>
@@ -39,7 +47,6 @@
 			<div>				
 				<MudTextField T="string" Label="@Localizer["buildingNumber"]" @bind-Value="@_newProject.BuildingNumber" Variant="Variant.Outlined"></MudTextField>	
 				<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date"Label="@Localizer["dateWorkStart"]" @bind-Value="@_newProject.WorkStartDate" Variant="Variant.Outlined"></MudTextField>
-				@*<MudTextField T="string" Label="@Localizer["designStage"]" Variant="Variant.Outlined"></MudTextField>*@
 				<MudAutocomplete T="DesignStageModel" Label="@Localizer["designStage"]" Variant="Variant.Outlined" @bind-Value="_selectedDesignStage" SearchFunc="@FindDesignStage" 
 								ToStringFunc="@(i => i is null ? "" : $"{i.StageName}")"/>
 				<MudTextField T="string" Label="@Localizer["versionCiC"]" @bind-Value="@_newProject.CiCVersion" Variant="Variant.Outlined"></MudTextField>

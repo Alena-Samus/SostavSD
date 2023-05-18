@@ -87,7 +87,8 @@ namespace SostavSD.Services
         {
             try
             {
-				var singleContract = await _context.contract.FirstOrDefaultAsync(e => e.ContractID == contractId);
+				var singleContract = await _context.contract					
+					.FirstOrDefaultAsync(e => e.ContractID == contractId);
 
 				if (singleContract != null)
 				{

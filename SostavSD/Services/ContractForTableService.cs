@@ -35,5 +35,14 @@ namespace SostavSD.Services
 
             return _contractForTableModel;
         }
-    }
+
+		public async Task<ContractForTableModel> GetContractByIdAsync(int contractId)
+		{
+            ContractForTableModel contract = new();
+            ContractModel currentContract = await _contractService.GetSingleContract(contractId);
+            contract.Contract = currentContract;
+			contract.Calculator = await _authorizedUserService.GetSingleUser(currentContract.CalculatorId);
+            return contract;
+		}
+	}
 }

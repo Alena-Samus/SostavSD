@@ -3,6 +3,8 @@ using Microsoft.Extensions.Localization;
 using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
+using SostavSD.Pages.Contracts;
+using SostavSD.Services;
 using System.Runtime.CompilerServices;
 
 namespace SostavSD.Pages.Projects
@@ -12,11 +14,13 @@ namespace SostavSD.Pages.Projects
 		private NavigationManager _navigationManager;
 		
 		[Inject] IStringLocalizer<NewProject> Localizer { get; set; }
-		[Inject] IContractForTableService ContractService { get; set; }
+		[Inject] IContractForTableService ContractForTableService { get; set; }
 		[Inject] IBuildingViewService BuildingViewService { get; set; }
 		[Inject] IDesignStageService DesignStageService { get; set; }
 		[Inject] IProjectService ProjectService { get; set; }
 		[Inject] ISnackbar Snackbar { get; set; }
+		[Inject] IContractService ContractService { get; set; }
+		[Inject] IDialogService DialogService { get; set; }
 
 	
 
@@ -53,7 +57,7 @@ namespace SostavSD.Pages.Projects
 
 		protected async Task<IEnumerable<ContractForTableModel>> FindContract(string value)
 		{
-			_contracts = await ContractService.GetContractsAsync();
+			_contracts = await ContractForTableService.GetContractsAsync();
 
 			if (string.IsNullOrEmpty(value))
 			{
@@ -110,6 +114,24 @@ namespace SostavSD.Pages.Projects
 			}			
 			
 			GoToPage(_toProject);
+		}
+		private async Task Edit(int contractId)
+		{
+			if (contractId > 0)
+			{
+				var parameters = new DialogParameters();
+				var contractToEdit = await ContractService.GetSingleContract(contractId);
+				parameters.Add("Contract", contractToEdit);
+				var dialog = await DialogService.Show<ContractAddNewAndEdit>("update", parameters).Result;
+				if (dialog != null)
+				{
+					await ContractService.EditContract(contractToEdit);
+				}
+				_selectedContract = await ContractForTableService.GetContractByIdAsync(contractId);
+				StateHasChanged();
+
+			}
+			
 		}
 
 	}

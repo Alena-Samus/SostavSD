@@ -42,5 +42,6 @@ namespace SostavSD.Services
 
 			return _mapper.Map<List<ProjectModel>>(await projectList.ToListAsync());
 		}
+
 	}
 }
