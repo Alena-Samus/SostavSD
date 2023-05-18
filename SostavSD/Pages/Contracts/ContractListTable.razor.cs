@@ -16,7 +16,6 @@ public partial class ContractListTable : ComponentBase
     private IContractService _contractService;
     private IDialogService _dialogService;
     private IStringLocalizer<ContractListTable> _localizer;
-    private ISnackbar _snackbar;
 
 
     [Inject] IContractForTableService _contractForTableService { get; set; }
@@ -25,12 +24,11 @@ public partial class ContractListTable : ComponentBase
 
 
 
-    public ContractListTable(IContractService contractService, IDialogService dialogService, IStringLocalizer<ContractListTable> localizer, ISnackbar snackbar)
+    public ContractListTable(IContractService contractService, IDialogService dialogService, IStringLocalizer<ContractListTable> localizer)
     {
         _contractService = contractService;
         _dialogService = dialogService;
         _localizer = localizer;
-        _snackbar = snackbar;
     }
 
 

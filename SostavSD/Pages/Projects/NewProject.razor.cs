@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 using System.Runtime.CompilerServices;
@@ -12,6 +13,8 @@ namespace SostavSD.Pages.Projects
 		
 		[Inject] IStringLocalizer<NewProject> Localizer { get; set; }
 		[Inject] IContractForTableService ContractService { get; set; }
+		[Inject] IProjectService ProjectService { get; set; }
+		[Inject] ISnackbar Snackbar { get; set; }
 
 	
 
@@ -26,8 +29,7 @@ namespace SostavSD.Pages.Projects
 		private ProjectModel _newProject = new();
 
 		protected override async Task OnInitializedAsync()
-		{
-			_contracts = await ContractService.GetContractsAsync();
+		{			
 			_newProject = new ProjectModel();
 		}
 		public NewProject(NavigationManager navigationManager)
@@ -42,7 +44,9 @@ namespace SostavSD.Pages.Projects
 
 		protected async Task<IEnumerable<ContractForTableModel>> FindContract(string value)
 		{
-			if(string.IsNullOrEmpty(value))
+			_contracts = await ContractService.GetContractsAsync();
+
+			if (string.IsNullOrEmpty(value))
 			{
 				return _contracts;
 			}
@@ -51,6 +55,22 @@ namespace SostavSD.Pages.Projects
 				return _contracts.Where(x => x.Contract.Index.Contains(value, StringComparison.InvariantCultureIgnoreCase));
 			}
 
+		}
+
+		private async Task Save()
+		{
+			_newProject.ContractId = _selectedContract.Contract.ContractID;
+
+			if (await ProjectService.AddProjectAsync(_newProject))
+			{
+				Snackbar.Add("Add", Severity.Success);
+			}
+			else
+			{
+				Snackbar.Add("Don't add", Severity.Error);
+			}			
+			
+			GoToPage(_toProject);
 		}
 
 	}

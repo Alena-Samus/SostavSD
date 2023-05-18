@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SostavSD.Data;
+using SostavSD.Entities;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 
@@ -15,6 +16,17 @@ namespace SostavSD.Services
 		{
 			_context = context;
 			_mapper = mapper;
+		}
+
+		public async Task<bool> AddProjectAsync(ProjectModel newProject)
+		{
+			Project _newProject = _mapper.Map<Project>(newProject);
+
+			_context.project.Add(_newProject);
+
+			await _context.SaveChangesAsync();
+
+			return true;
 		}
 
 		public async Task<List<ProjectModel>> GetProjectsAsync()
