@@ -13,14 +13,20 @@ namespace SostavSD.Pages.Projects
 		
 		[Inject] IStringLocalizer<NewProject> Localizer { get; set; }
 		[Inject] IContractForTableService ContractService { get; set; }
+		[Inject] IBuildingViewService BuildingViewService { get; set; }
 		[Inject] IProjectService ProjectService { get; set; }
 		[Inject] ISnackbar Snackbar { get; set; }
 
 	
 
 		private List<ContractForTableModel> _contracts = new();
+		private List<BuildingViewModel> _viewes = new();
+
 
 		private ContractForTableModel _selectedContract = new();
+		
+		private BuildingViewModel _selectedBuildingView = new();
+
 		private string _toProject = "/projects";
 		private string _toContracts = "/contracts";
 
@@ -56,10 +62,25 @@ namespace SostavSD.Pages.Projects
 			}
 
 		}
+		protected async Task<IEnumerable<BuildingViewModel>> FindBuildingView(string value)
+		{
+			_viewes = await BuildingViewService.GetAllBuildingView();
+
+			if (string.IsNullOrEmpty(value))
+			{
+				return _viewes;
+			}
+			else
+			{
+				return _viewes.Where(x => x.BuildingViewName.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+			}
+
+		}
 
 		private async Task Save()
 		{
 			_newProject.ContractId = _selectedContract.Contract.ContractID;
+			_newProject.BuildingViewId = _selectedBuildingView.BuildingViewId;
 
 			if (await ProjectService.AddProjectAsync(_newProject))
 			{
