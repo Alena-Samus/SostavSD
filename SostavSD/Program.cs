@@ -117,6 +117,7 @@ static void AddBusinessLogicServices(IServiceCollection collection)
     collection.AddScoped<ISourceOfFinancingService, SourceOfFinancingService>();
     collection.AddScoped<IBuildingZoneService, BuildingZoneService>();
     collection.AddScoped<IBuildingViewService, BuildingViewService>();
+    collection.AddScoped<IDesignStageService, DesignStageService>();
     collection.AddScoped<IProjectService, ProjectService>();
     collection.AddScoped<IProjectForTableService, ProjectForTableService>();
     collection.AddTransient<IEmailService, EmailService>();

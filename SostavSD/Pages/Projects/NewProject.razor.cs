@@ -14,6 +14,7 @@ namespace SostavSD.Pages.Projects
 		[Inject] IStringLocalizer<NewProject> Localizer { get; set; }
 		[Inject] IContractForTableService ContractService { get; set; }
 		[Inject] IBuildingViewService BuildingViewService { get; set; }
+		[Inject] IDesignStageService DesignStageService { get; set; }
 		[Inject] IProjectService ProjectService { get; set; }
 		[Inject] ISnackbar Snackbar { get; set; }
 
@@ -21,11 +22,13 @@ namespace SostavSD.Pages.Projects
 
 		private List<ContractForTableModel> _contracts = new();
 		private List<BuildingViewModel> _viewes = new();
-
+		private List<DesignStageModel> _stages = new();
 
 		private ContractForTableModel _selectedContract = new();
 		
 		private BuildingViewModel _selectedBuildingView = new();
+
+		private DesignStageModel _selectedDesignStage = new();
 
 		private string _toProject = "/projects";
 		private string _toContracts = "/contracts";
@@ -76,11 +79,26 @@ namespace SostavSD.Pages.Projects
 			}
 
 		}
+		protected async Task<IEnumerable<DesignStageModel>> FindDesignStage(string value)
+		{
+			_stages = await DesignStageService.GetAllDesignStageAsync();
+
+			if (string.IsNullOrEmpty(value))
+			{
+				return _stages;
+			}
+			else
+			{
+				return _stages.Where(x => x.StageName.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+			}
+
+		}
 
 		private async Task Save()
 		{
 			_newProject.ContractId = _selectedContract.Contract.ContractID;
 			_newProject.BuildingViewId = _selectedBuildingView.BuildingViewId;
+			_newProject.StageId = _selectedDesignStage.StageId;
 
 			if (await ProjectService.AddProjectAsync(_newProject))
 			{

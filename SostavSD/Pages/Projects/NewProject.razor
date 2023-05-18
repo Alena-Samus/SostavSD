@@ -39,7 +39,9 @@
 			<div>				
 				<MudTextField T="string" Label="@Localizer["buildingNumber"]" @bind-Value="@_newProject.BuildingNumber" Variant="Variant.Outlined"></MudTextField>	
 				<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date"Label="@Localizer["dateWorkStart"]" @bind-Value="@_newProject.WorkStartDate" Variant="Variant.Outlined"></MudTextField>
-				<MudTextField T="string" Label="@Localizer["designStage"]" Variant="Variant.Outlined"></MudTextField>
+				@*<MudTextField T="string" Label="@Localizer["designStage"]" Variant="Variant.Outlined"></MudTextField>*@
+				<MudAutocomplete T="DesignStageModel" Label="@Localizer["designStage"]" Variant="Variant.Outlined" @bind-Value="_selectedDesignStage" SearchFunc="@FindDesignStage" 
+								ToStringFunc="@(i => i is null ? "" : $"{i.StageName}")"/>
 				<MudTextField T="string" Label="@Localizer["versionCiC"]" @bind-Value="@_newProject.CiCVersion" Variant="Variant.Outlined"></MudTextField>
 				<MudTextField T="string" Label="@Localizer["printType"]" @bind-Value="@_newProject.PrintType" Variant="Variant.Outlined"></MudTextField>
 			</div>

@@ -40,13 +40,13 @@ namespace SostavSD.Pages.Projects
 			|| (!string.IsNullOrWhiteSpace(project.Project.ProjectName) && project.Project.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| (!string.IsNullOrWhiteSpace(project.Project.Contract.UserID) && project.Project.Contract.Executor.Surname.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| (!string.IsNullOrWhiteSpace(project.Calculator.UserSurname) && project.Calculator.UserSurname.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-			|| (!string.IsNullOrWhiteSpace(project.Project.DesignStage.ToString()) && project.Project.DesignStage.StageName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+			|| ((project.Project.StageId > 0) && project.Project.DesignStage.StageName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| (!string.IsNullOrWhiteSpace(project.Project.Contract.ContractNumber) && project.Project.Contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| (!string.IsNullOrWhiteSpace(project.Project.ProjectReleaseDate.ToString()) && project.Project.ProjectReleaseDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| (!string.IsNullOrWhiteSpace(project.Project.ProjectReleaseDateByContract.ToString()) && project.Project.ProjectReleaseDateByContract.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| (!string.IsNullOrWhiteSpace(project.Project.StatusDate.ToString()) && project.Project.StatusDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
-			|| ((project.Project.StatusId > 1) && project.Project.Status.StatusName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-			;
+            || ((project.Project.StatusId > 0) && project.Project.Status.StatusName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            ;
 
 			return result;
 		}
