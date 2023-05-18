@@ -11,22 +11,23 @@ namespace SostavSD.Pages.Projects
 		private NavigationManager _navigationManager;
 		
 		[Inject] IStringLocalizer<NewProject> Localizer { get; set; }
-		[Inject] IContractService ContractService { get; set; }
+		[Inject] IContractForTableService ContractService { get; set; }
 
 	
 
-		private List<ContractModel> _contracts = new();
+		private List<ContractForTableModel> _contracts = new();
 
-		private ContractModel _selectedContract;
+		private ContractForTableModel _selectedContract = new();
 		private string _toProject = "/projects";
 		private string _toContracts = "/contracts";
-		private string _class = "d-inline-block gap-2";
 
-		private ProjectModel _newProject;
+	
+
+		private ProjectModel _newProject = new();
 
 		protected override async Task OnInitializedAsync()
 		{
-			_contracts = await ContractService.GetAllContract();
+			_contracts = await ContractService.GetContractsAsync();
 			_newProject = new ProjectModel();
 		}
 		public NewProject(NavigationManager navigationManager)
@@ -38,11 +39,19 @@ namespace SostavSD.Pages.Projects
 		{
 			_navigationManager.NavigateTo(adress);
 		}
-		
-		//protected async Task<IEnumerable<string>> SearchItems(string value)
-		//{
-		//	return new string[0];
-		//}
-		
+
+		protected async Task<IEnumerable<ContractForTableModel>> FindContract(string value)
+		{
+			if(string.IsNullOrEmpty(value))
+			{
+				return _contracts;
+			}
+			else
+			{
+				return _contracts.Where(x => x.Contract.Index.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+			}
+
+		}
+
 	}
 }
