@@ -1,0 +1,15 @@
+﻿::deep .mud-input > input.mud-input-root-outlined, .mud-input-slot.mud-input-root-outlined {
+    padding: 10px 5px;
+}
+
+
+::deep .mud-typography mud-typography-body1{
+    color:blueviolet;
+}
+
+/*::deep label.mud-input-label.mud-input-label-inputcontrol {
+    color: red;
+}*/
+::deep .mud-input-control > .mud-input-control-input-container > .mud-input-label-outlined.mud-input-label-inputcontrol{
+    line-height: 0;
+}
