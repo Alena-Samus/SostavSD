@@ -10,39 +10,39 @@
 
 <MudGrid>
 	<MudItem xs="9">
-		<MudTextField FullWidth T="string" Label="@Localizer["projectName"]" Variant="Variant.Outlined"></MudTextField>	
+		<MudTextField FullWidth T="string" Label="@Localizer["projectName"]" Variant="Variant.Outlined" Lines="3"></MudTextField>	
 	</MudItem>
 	<MudGrid>
 		<MudItem xs="3">
 			<div>
 				<MudAutocomplete T="ContractForTableModel" Label="@Localizer["index"]" Variant="Variant.Outlined" @bind-Value="_selectedContract" SearchFunc="@FindContract" 
 								ToStringFunc="@(i => i is null ? "" : $"{i.Contract?.Index}")"/>
-				<MudTextField T="string" Label="@Localizer["order"]" Text="@_selectedContract.Contract?.Order" Variant="Variant.Outlined" ReadOnly=true/>
-				<MudTextField T="string" Label="@Localizer["contractNumber"]" Variant="Variant.Outlined"></MudTextField>
-				<MudTextField T="string" Label="@Localizer["contractDate"]" Variant="Variant.Outlined"></MudTextField>
-				<MudTextField T="string" Label="@Localizer["customer"]" Variant="Variant.Outlined"></MudTextField>
-				<MudTextField T="string" Label="@Localizer["cpe"]" Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["order"]" Text="@_selectedContract.Contract?.Order" ReadOnly=true Variant="Variant.Outlined"/>
+				<MudTextField T="string" Label="@Localizer["contractNumber"]"  Text="@_selectedContract.Contract?.ContractNumber" ReadOnly=true Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["contractDate"]"  Text="@(_selectedContract.Contract?.ContractDate != null ? Convert.ToDateTime(_selectedContract.Contract?.ContractDate).ToString(Constants.DateFormat) : null)" ReadOnly=true Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["customer"]"  Text="@_selectedContract.Contract?.Company?.CompanyName" ReadOnly=true Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["cpe"]"  Text="@_selectedContract.Contract?.Executor?.Surname" ReadOnly=true Variant="Variant.Outlined"></MudTextField>
 			</div>
 		</MudItem>
 		<MudItem xs="3">
 			<div>				
-				<MudTextField T="string" Label="@Localizer["calculator"]" Variant="Variant.Outlined"></MudTextField>
-				<MudTextField T="string" Label="@Localizer["buildingZone"]" Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["calculator"]"  Text="@_selectedContract.Calculator?.UserSurname" ReadOnly=true Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["buildingZone"]"  Text="@_selectedContract.Contract?.BuildingZone?.BuildingZoneName" ReadOnly=true Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["sourceOfFinancing"]"  Text="@_selectedContract.Contract?.SourceOfFinacing?.SourceName" ReadOnly=true Variant="Variant.Outlined"></MudTextField>	
 				<MudTextField T="string" Label="@Localizer["buildingView"]" Variant="Variant.Outlined"></MudTextField>
-				<MudTextField T="string" Label="@Localizer["releaseDate"]" Variant="Variant.Outlined"></MudTextField>
-				<MudTextField T="string" Label="@Localizer["releaseDateByContract"]" Variant="Variant.Outlined"></MudTextField>
-				<MudTextField T="string" Label="@Localizer["designStage"]" Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["releaseDate"]" Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["releaseDateByContract"]" Variant="Variant.Outlined"></MudTextField>				
 			</div>
 			
 		</MudItem>
 		<MudItem xs="3">
 			<div>	
 				
-				<MudTextField T="string" Label="@Localizer["buildingNumber"]" Variant="Variant.Outlined"></MudTextField>	
-				<MudTextField T="string" Label="@Localizer["dateWorkStart"]" Variant="Variant.Outlined"></MudTextField>
-				<MudTextField T="string" Label="@Localizer["sourceOfFinancing"]" Variant="Variant.Outlined"></MudTextField>	
-				<MudTextField T="string" Label="@Localizer["versionCiC"]" Variant="Variant.Outlined"></MudTextField>
-				<MudTextField T="string" Label="@Localizer["printType"]" Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["buildingNumber"]" @bind-Value="@_newProject.BuildingNumber" Variant="Variant.Outlined"></MudTextField>	
+				<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date"Label="@Localizer["dateWorkStart"]" Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["designStage"]" Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["versionCiC"]" @bind-Value="@_newProject.CiCVersion" Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["printType"]" @bind-Value="@_newProject.PrintType" Variant="Variant.Outlined"></MudTextField>
 			</div>
 		</MudItem>
 	</MudGrid>
