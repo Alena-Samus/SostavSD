@@ -18,7 +18,8 @@ namespace SostavSD.Services
 		}
 		public async Task<List<DesignStageModel>> GetAllDesignStageAsync()
 		{
-			var stages = _context.designStage;
+			var stages = _context.designStage
+				.AsNoTracking();
 			return _mapper.Map<List<DesignStageModel>>(await stages.ToListAsync());
 		}
 	}

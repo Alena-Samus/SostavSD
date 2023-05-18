@@ -29,7 +29,8 @@ namespace SostavSD.Services
         {
             try
             {
-                var zonesList = _context.buildingZone;
+                var zonesList = _context.buildingZone
+                    .AsNoTracking();
 
                 return _mapper.Map<List<BuildingZoneModel>>(await zonesList.ToListAsync());
             }

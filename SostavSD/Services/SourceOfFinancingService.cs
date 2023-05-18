@@ -21,7 +21,8 @@ namespace SostavSD.Services
         {
             try
             {
-                var sourcesList = _context.sourceOfFinacing;
+                var sourcesList = _context.sourceOfFinacing
+                    .AsNoTracking();
 
                 return _mapper.Map<List<SourceOfFinacingModel>>(await sourcesList.ToListAsync());
             }

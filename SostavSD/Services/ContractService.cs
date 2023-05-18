@@ -78,8 +78,8 @@ namespace SostavSD.Services
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.InnerException);                
-            }            
+                _logger.Error(ex.InnerException);
+            }
 
         }
 
@@ -111,14 +111,14 @@ namespace SostavSD.Services
                 Contract contractAfterEdit = _mapper.Map<Contract>(currentContract);
                 _context.contract.Update(contractAfterEdit);
                 await _context.SaveChangesAsync();
-            }
+        }
             catch(Exception ex)
             {
                 _logger.Error(ex.InnerException);
             }
-            
 
-        }
+
+}
 
         public async Task<List<ContractModel>> GetCurrentUserContracts(string userId)
         {

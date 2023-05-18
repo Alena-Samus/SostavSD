@@ -19,7 +19,8 @@ namespace SostavSD.Services
 
 		public async Task<List<BuildingViewModel>> GetAllBuildingView()
 		{
-			var viewes = _context.buildingView;
+			var viewes = _context.buildingView
+				.AsNoTracking();
 			return _mapper.Map<List<BuildingViewModel>>(await viewes.ToListAsync());
 		}
 	}
