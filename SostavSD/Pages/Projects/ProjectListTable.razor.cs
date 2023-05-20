@@ -71,7 +71,7 @@ namespace SostavSD.Pages.Projects
             var dialog = _dialogService.Show<EditProject>("update", parameters).Result;
             if (dialog != null)
             {
-               ProjectService.EditProjectAsync((ProjectModel)projectToEdit);
+               ProjectService.EditProjectAsync(projectToEdit);
             }
         }
 
