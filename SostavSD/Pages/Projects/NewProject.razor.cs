@@ -1,10 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
+using SostavSD.Areas.Identity.Constants;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 using SostavSD.Pages.Contracts;
 using SostavSD.Services;
+using SostavSD.Shared;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace SostavSD.Pages.Projects
@@ -27,14 +31,16 @@ namespace SostavSD.Pages.Projects
 		private List<ContractForTableModel> _contracts = new();
 		private List<BuildingViewModel> _viewes = new();
 		private List<DesignStageModel> _stages = new();
+		
 
 		private ContractForTableModel _selectedContract = new();
 		
 		private BuildingViewModel _selectedBuildingView = new();
 
 		private DesignStageModel _selectedDesignStage = new();
+        
 
-		private string _toProject = "/projects";
+        private string _toProject = "/projects";
 		private string _toContracts = "/contracts";
 
 	
@@ -44,7 +50,9 @@ namespace SostavSD.Pages.Projects
 		protected override async Task OnInitializedAsync()
 		{			
 			_newProject = new ProjectModel();
-		}
+			
+			
+        }
 		public NewProject(NavigationManager navigationManager)
 		{
 			_navigationManager= navigationManager;
@@ -127,8 +135,10 @@ namespace SostavSD.Pages.Projects
 				{
 					await ContractService.EditContract(contractToEdit);
 				}
-				_selectedContract = await ContractForTableService.GetContractByIdAsync(contractId);
-				StateHasChanged();
+                _contracts = await ContractForTableService.GetContractsAsync();
+                _selectedContract = _contracts.FirstOrDefault(c => c.Contract.Index == contractToEdit.Index);
+
+                StateHasChanged();
 
 			}
 			

@@ -1,8 +1,4 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
-using System.ComponentModel;
-using System.Data;
-
-namespace SostavSD.Areas.Identity.Constants;
+﻿namespace SostavSD.Areas.Identity.Constants;
 
 public static class Roles
 {
@@ -22,7 +18,7 @@ public static class Roles
         }
     }
 
-    public static string SeveralRoles(params string[] roles) => string.Join( ",", roles);
+    public static string SeveralRoles(params string[] roles) => string.Join(",", roles);
 
     /// <summary>
     /// Default, readOnly

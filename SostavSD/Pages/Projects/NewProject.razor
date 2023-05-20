@@ -51,6 +51,7 @@
 								ToStringFunc="@(i => i is null ? "" : $"{i.StageName}")"/>
 				<MudTextField T="string" Label="@Localizer["versionCiC"]" @bind-Value="@_newProject.CiCVersion" Variant="Variant.Outlined"></MudTextField>
 				<MudTextField T="string" Label="@Localizer["printType"]" @bind-Value="@_newProject.PrintType" Variant="Variant.Outlined"></MudTextField>
+
 			</div>
 		</MudItem>
 	</MudGrid>

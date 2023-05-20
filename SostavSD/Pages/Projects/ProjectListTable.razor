@@ -15,7 +15,7 @@ else if (_projects.Count == 0)
 }
 else
 {
-		<MudTable Items="@_projects" Filter="new Func<ProjectForTableModel,bool>(FilterFuncCurrent)">
+		<MudTable Items="@_projects" Filter="new Func<ProjectForTableModel,bool>(FilterFuncCurrent)" OnRowClick="RowClickEvent" @ref="mudTable">
 			<ToolBarContent>
 				<MudSpacer />
 				<MudTextField @bind-Value="searchString" Placeholder="@_localizer["search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
@@ -61,8 +61,8 @@ else
 					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["projectReleaseDate"]">@(context.Project.ProjectReleaseDate == null ? "" : Convert.ToDateTime(context.Project.ProjectReleaseDate).ToString(Constants.DateFormat))</MudTd>
 					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["projectReleaseDateByContract"]">@(context.Project.ProjectReleaseDateByContract == null ? "" : Convert.ToDateTime(context.Project.ProjectReleaseDateByContract).ToString(Constants.DateFormat))</MudTd>
 					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["status"]">@context.Project.Status?.StatusName</MudTd>
-					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["statusDate"]">@(context.Project.ProjectReleaseDate == null ? "" : Convert.ToDateTime(context.Project.ProjectReleaseDate).ToString(Constants.DateFormat))</MudTd>
-			</RowTemplate>
+					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["statusDate"]">@(context.Project.StatusDate == null ? "" : Convert.ToDateTime(context.Project.StatusDate).ToString(Constants.DateFormat))</MudTd>
+			</RowTemplate>			
 		</MudTable>
 
 }

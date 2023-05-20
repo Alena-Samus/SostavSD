@@ -45,7 +45,7 @@ namespace SostavSD.Services
 
                 throw;
             }
-                        
+
         }
 
 
@@ -87,8 +87,8 @@ namespace SostavSD.Services
         {
             try
             {
-				var singleContract = await _context.contract					
-					.FirstOrDefaultAsync(e => e.ContractID == contractId);
+                var singleContract = await _context.contract
+                .FirstOrDefaultAsync(e => e.ContractID == contractId);
 
 				if (singleContract != null)
 				{
@@ -96,13 +96,13 @@ namespace SostavSD.Services
 				}
 
 				return _mapper.Map<ContractModel>(singleContract);
-			}
+            }
             catch (Exception ex)
             {
                 _logger.Error(ex.InnerException);
                 throw;
             }
-            
+
         }
 
         public async Task EditContract(ContractModel currentContract)
@@ -112,14 +112,14 @@ namespace SostavSD.Services
                 Contract contractAfterEdit = _mapper.Map<Contract>(currentContract);
                 _context.contract.Update(contractAfterEdit);
                 await _context.SaveChangesAsync();
-        }
+             }
             catch(Exception ex)
             {
                 _logger.Error(ex.InnerException);
             }
 
 
-}
+        }
 
         public async Task<List<ContractModel>> GetCurrentUserContracts(string userId)
         {

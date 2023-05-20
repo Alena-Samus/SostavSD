@@ -1,13 +1,19 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
+using SostavSD.Services;
 
 
 namespace SostavSD.Pages.Projects
 {
     partial class ProjectListTable
     {
+        [Inject] IProjectService ProjectService { get; set; }
+        private IDialogService _dialogService;
+
+        private MudTable<ProjectForTableModel> mudTable;
         private IProjectForTableService _projectService;
         private IStringLocalizer<ProjectListTable> _localizer;
         private NavigationManager _navigationManager;
@@ -18,11 +24,12 @@ namespace SostavSD.Pages.Projects
 		string styleTableBody = "padding: 0; text-align: center;";
     
 
-		public ProjectListTable(IProjectForTableService projectService, IStringLocalizer<ProjectListTable> localizer, NavigationManager navigation)
+		public ProjectListTable(IDialogService dialog, IProjectForTableService projectService, IStringLocalizer<ProjectListTable> localizer, NavigationManager navigation)
         {
             _projectService = projectService;
             _localizer = localizer;
             _navigationManager = navigation;
+            _dialogService = dialog;
         }
 
         protected override async Task OnInitializedAsync()
@@ -53,6 +60,19 @@ namespace SostavSD.Pages.Projects
         private void NavigateToTheNewProjectPage()
         {
             _navigationManager.NavigateTo("/projects/newproject");
+        }
+		private void RowClickEvent(TableRowClickEventArgs<ProjectForTableModel> tableRowClickEventArgs)
+		{
+            var parameters = new DialogParameters();
+
+            var projectToEdit = ProjectService.GetProjectByIdAsync(tableRowClickEventArgs.Item.Project.ProjectId);
+            
+            parameters.Add("Project", projectToEdit);
+            var dialog = _dialogService.Show<EditProject>("update", parameters).Result;
+            if (dialog != null)
+            {
+               ProjectService.EditProjectAsync((ProjectModel)projectToEdit);
+            }
         }
 
 	}
