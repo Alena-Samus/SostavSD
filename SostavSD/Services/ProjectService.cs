@@ -4,6 +4,7 @@ using SostavSD.Data;
 using SostavSD.Entities;
 using SostavSD.Interfaces;
 using SostavSD.Models;
+using System.Diagnostics.Contracts;
 
 namespace SostavSD.Services
 {
@@ -25,6 +26,19 @@ namespace SostavSD.Services
 			_context.project.Add(_newProject);
 
 			await _context.SaveChangesAsync();
+
+			return true;
+		}
+
+		public async Task<bool> DeleteProjectAsync(int id)
+		{
+			var projectToRemove = await _context.project.FindAsync(id);
+
+			if (projectToRemove != null)
+			{
+				_context.project.Remove(projectToRemove);
+				_context.SaveChanges();
+			}
 
 			return true;
 		}

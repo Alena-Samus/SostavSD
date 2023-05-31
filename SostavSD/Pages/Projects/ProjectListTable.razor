@@ -15,7 +15,7 @@ else if (_projects.Count == 0)
 }
 else
 {
-		<MudTable Items="@_projects" Filter="new Func<ProjectForTableModel,bool>(FilterFuncCurrent)" OnRowClick="RowClickEvent" @ref="mudTable">
+			<MudTable T="ProjectForTableModel" Items="@_projects" Filter="new Func<ProjectForTableModel,bool>(FilterFuncCurrent)" OnRowClick="RowClickEvent">
 			<ToolBarContent>
 				<MudSpacer />
 				<MudTextField @bind-Value="searchString" Placeholder="@_localizer["search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>

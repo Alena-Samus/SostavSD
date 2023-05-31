@@ -66,13 +66,14 @@ namespace SostavSD.Pages.Projects
             var parameters = new DialogParameters();
 
             var projectToEdit = ProjectService.GetProjectByIdAsync(tableRowClickEventArgs.Item.Project.ProjectId);
-            
+
             parameters.Add("Project", projectToEdit);
             var dialog = _dialogService.Show<EditProject>("update", parameters).Result;
             if (dialog != null)
             {
-               ProjectService.EditProjectAsync(projectToEdit);
+                ProjectService.EditProjectAsync(projectToEdit);
             }
+
         }
 
 	}
