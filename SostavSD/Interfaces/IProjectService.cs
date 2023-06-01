@@ -8,7 +8,7 @@ namespace SostavSD.Interfaces
 		Task <bool> AddProjectAsync(ProjectModel newProject);
 		Task<bool> EditProjectAsync(ProjectModel newProject);
 		Task<bool> DeleteProjectAsync(int id);
-		ProjectModel GetProjectByIdAsync (int id);
-
+		Task<ProjectModel> GetProjectByIdAsync (int id);
+		
 	}
 }

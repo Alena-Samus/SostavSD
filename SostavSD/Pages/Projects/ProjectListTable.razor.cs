@@ -11,15 +11,20 @@ namespace SostavSD.Pages.Projects
     partial class ProjectListTable
     {
         [Inject] IProjectService ProjectService { get; set; }
-        private IDialogService _dialogService;
+		[Inject] ISnackbar Snackbar { get; set; }
+		private IDialogService _dialogService;
 
-        private MudTable<ProjectForTableModel> mudTable;
+       
         private IProjectForTableService _projectService;
         private IStringLocalizer<ProjectListTable> _localizer;
         private NavigationManager _navigationManager;
 
         private List<ProjectForTableModel> _projects;
-        string searchString;
+		private HashSet<ProjectForTableModel> selectedItems = new HashSet<ProjectForTableModel>();
+
+		
+		string searchString;
+
         string styleTableHeader = "font-size: 12px; text-align: center; padding: 0 0 0 10px; overflow-wrap: break-word; line-height: 1;";
 		string styleTableBody = "padding: 0; text-align: center;";
     
@@ -34,9 +39,15 @@ namespace SostavSD.Pages.Projects
 
         protected override async Task OnInitializedAsync()
         {
-            _projects = await _projectService.GetProjectsAsync();
-        }
+			_projects = await _projectService.GetProjectsAsync();
 
+		}
+        private async Task<List<ProjectForTableModel>> GetProjects()
+        {
+            _projects.Clear();
+			_projects = await _projectService.GetProjectsAsync();
+            return _projects;
+		}
         private bool FilterFuncCurrent(ProjectForTableModel project) => FilterFunc(project, searchString);
         private bool FilterFunc(ProjectForTableModel project, string searchString)
         {
@@ -61,17 +72,40 @@ namespace SostavSD.Pages.Projects
         {
             _navigationManager.NavigateTo("/projects/newproject");
         }
-		private void RowClickEvent(TableRowClickEventArgs<ProjectForTableModel> tableRowClickEventArgs)
-		{
-            var parameters = new DialogParameters();
+		//private async Task RowClickEvent(TableRowClickEventArgs<ProjectForTableModel> tableRowClickEventArgs)
+		//{
+  //          var parameters = new DialogParameters();
 
-            var projectToEdit = ProjectService.GetProjectByIdAsync(tableRowClickEventArgs.Item.Project.ProjectId);
+  //          var projectToEdit = await ProjectService.GetProjectByIdAsync(tableRowClickEventArgs.Item.Project.ProjectId);
 
-            parameters.Add("Project", projectToEdit);
-            var dialog = _dialogService.Show<EditProject>("update", parameters).Result;
-            if (dialog != null)
+  //          parameters.Add("Project", projectToEdit);
+  //          var dialog = await _dialogService.Show<EditProject>("update", parameters).Result;
+  //          if (dialog != null)
+  //          {
+  //             await ProjectService.EditProjectAsync(projectToEdit);
+  //             await GetProjects();
+  //          }
+            
+  //      }
+        private void ItemHasBeenComitted(object item)
+        {
+            ProjectService.EditProjectAsync(((ProjectForTableModel)item).Project);
+
+		}
+
+        private void RemoveProjects()
+        {
+            if (selectedItems.Count != 0)
             {
-                ProjectService.EditProjectAsync(projectToEdit);
+				foreach (var project in selectedItems)
+				{
+					ProjectService.DeleteProjectAsync(project.Project.ProjectId);
+				}
+				Snackbar.Add("Items removed", Severity.Success);
+			}
+            else
+            {
+                Snackbar.Add("No items", Severity.Info);
             }
 
         }

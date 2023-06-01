@@ -19,11 +19,12 @@ namespace SostavSD.Pages.Projects
 		}
 
 		private void Submit()
+		{			
+			EditCurrentProject.Close(DialogResult.Ok(Project));		
+		}
+		private void Remove()
 		{
-			
-			EditCurrentProject.Close(DialogResult.Ok(Project));
-			
-
+			EditCurrentProject.Cancel();
 		}
 
 	}

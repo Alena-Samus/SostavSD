@@ -1,12 +1,27 @@
 ﻿
 <MudDialog>
     <DialogContent>
+		<MudTextField T="int?" Label="@Localizer["priority"]" @bind-Value="Project.Priority"/>
+					@*<MudTd DataLabel="">@context.Priority</MudTd>
+					<MudTd DataLabel="@Localizer["index"]">@context.Contract?.Index</MudTd>
+					<MudTd DataLabel="@Localizer["buildingNumber"]">@context.BuildingNumber</MudTd>
+					<MudTd DataLabel="@Localizer["projectName"]">@context.ProjectName</MudTd>
+					<MudTd DataLabel="@Localizer["cpe"]">@(context.Contract.Executor?.Surname)</MudTd>
+					<MudTd DataLabel="@Localizer["calculator"]">@context.Contract.CalculatorId</MudTd>
+					<MudTd DataLabel="@Localizer["designStage"]">@context.DesignStage?.StageName</MudTd>
+					<MudTd DataLabel="@Localizer["contractNumber"]">@context.Contract?.ContractNumber</MudTd>
+					<MudTd DataLabel="@Localizer["projectReleaseDate"]">@(context.ProjectReleaseDate == null ? "" : Convert.ToDateTime(context.ProjectReleaseDate).ToString(Constants.DateFormat))</MudTd>
+					<MudTd DataLabel="@Localizer["projectReleaseDateByContract"]">@(context.ProjectReleaseDateByContract == null ? "" : Convert.ToDateTime(context.ProjectReleaseDateByContract).ToString(Constants.DateFormat))</MudTd>
+					<MudTd DataLabel="@Localizer["status"]">@context.Status?.StatusName</MudTd>
+					<MudTd DataLabel="@Localizer["statusDate"]">@(context.StatusDate == null ? "" : Convert.ToDateTime(context.StatusDate).ToString(Constants.DateFormat))</MudTd>
+*@
 
 
     </DialogContent>
 
     <DialogActions>
         <MudButton @onclick="Cancel">@Localizer["cancelChanges"]</MudButton>
-        <MudButton @onclick="Submit" Color="Color.Primary">@Localizer["saveChanges"]</MudButton>
+        <MudButton @onclick="Remove" Color="Color.Primary">@Localizer["remove"]</MudButton>
+        <MudButton @onclick="Submit" Color="Color.Primary">@Localizer["saveChanges"]</MudButton>        
     </DialogActions>
 </MudDialog>

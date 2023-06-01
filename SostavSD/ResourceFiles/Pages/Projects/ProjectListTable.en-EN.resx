@@ -156,6 +156,9 @@
   <data name="projectRDC" xml:space="preserve">
     <value>Project release date by contract</value>
   </data>
+  <data name="removeProjects" xml:space="preserve">
+    <value>Remove Projects</value>
+  </data>
   <data name="search" xml:space="preserve">
     <value>Search</value>
   </data>

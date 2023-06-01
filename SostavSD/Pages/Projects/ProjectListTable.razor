@@ -1,6 +1,7 @@
 ﻿<div class="row">
-	<MudButtonGroup Variant="Variant.Outlined" Color="Color.Success" >
+	<MudButtonGroup Variant="Variant.Outlined" Color="Color.Success"  OverrideStyles="false">
 		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.LibraryAdd" Title="@_localizer["addNewProject"]" Color="Color.Success"  @onclick="(e => NavigateToTheNewProjectPage())"/>	 
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.DeleteForever" Title="@_localizer["removeProjects"]" Color="Color.Error"  @onclick="(e => RemoveProjects())"/>	 
 	</MudButtonGroup>
 </div>
 
@@ -15,12 +16,15 @@ else if (_projects.Count == 0)
 }
 else
 {
-			<MudTable T="ProjectForTableModel" Items="@_projects" Filter="new Func<ProjectForTableModel,bool>(FilterFuncCurrent)" OnRowClick="RowClickEvent">
+			<MudTable T="ProjectForTableModel" Items="@_projects" Filter="new Func<ProjectForTableModel,bool>(FilterFuncCurrent)" 
+				RowEditCommit="ItemHasBeenComitted" MultiSelection=true @bind-SelectedItems="selectedItems" Bordered=true>
 			<ToolBarContent>
 				<MudSpacer />
 				<MudTextField @bind-Value="searchString" Placeholder="@_localizer["search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+				
 			</ToolBarContent>
 			<ColGroup>
+				<col />
 				<col style="width: 3%;"/>
 				<col />
 				<col />
@@ -62,7 +66,35 @@ else
 					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["projectReleaseDateByContract"]">@(context.Project.ProjectReleaseDateByContract == null ? "" : Convert.ToDateTime(context.Project.ProjectReleaseDateByContract).ToString(Constants.DateFormat))</MudTd>
 					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["status"]">@context.Project.Status?.StatusName</MudTd>
 					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["statusDate"]">@(context.Project.StatusDate == null ? "" : Convert.ToDateTime(context.Project.StatusDate).ToString(Constants.DateFormat))</MudTd>
-			</RowTemplate>			
+			</RowTemplate>		
+
+			<RowEditingTemplate>
+				<MudTd Style = "@styleTableBody">
+					<MudTextField @bind-Value="@context.Project.Priority"/>
+				</MudTd>
+					<MudTd>@context.Project.Contract?.Index</MudTd>
+				<MudTd>
+					<MudTextField @bind-Value="@context.Project.BuildingNumber"/>
+				</MudTd>
+				<MudTd>
+					<MudTextField @bind-Value="@context.Project.ProjectName" Lines="4"/>
+				</MudTd>
+					<MudTd>@(context.Project.Contract.Executor?.Surname)</MudTd>
+					<MudTd>@context.Calculator.UserSurname</MudTd>
+					<MudTd>@context.Project.DesignStage?.StageName</MudTd>
+					<MudTd>@context.Project.Contract?.ContractNumber</MudTd>
+					<MudTd>
+						<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" @bind-Value="@context.Project.ProjectReleaseDate"></MudTextField>
+					</MudTd>
+							<MudTd>
+								<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" @bind-Value="@context.Project.ProjectReleaseDateByContract"></MudTextField>
+							</MudTd>
+
+					<MudTd></MudTd>
+					<MudTd></MudTd>
+
+			</RowEditingTemplate>
+
 		</MudTable>
 
 }

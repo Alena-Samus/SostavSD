@@ -52,7 +52,7 @@ namespace SostavSD.Services
 			return true;
 		}
 
-        public ProjectModel GetProjectByIdAsync(int id)
+        public async Task<ProjectModel> GetProjectByIdAsync(int id)
         {
 	
 			var project = _context.project

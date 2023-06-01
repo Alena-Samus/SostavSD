@@ -156,6 +156,9 @@
   <data name="projectRDC" xml:space="preserve">
     <value>Выпуск по договору</value>
   </data>
+  <data name="removeProjects" xml:space="preserve">
+    <value>Удалить стройки</value>
+  </data>
   <data name="search" xml:space="preserve">
     <value>Поиск</value>
   </data>
