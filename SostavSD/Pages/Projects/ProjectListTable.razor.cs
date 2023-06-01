@@ -22,8 +22,11 @@ namespace SostavSD.Pages.Projects
         private List<ProjectForTableModel> _projects;
 		private HashSet<ProjectForTableModel> selectedItems = new HashSet<ProjectForTableModel>();
 
-		
-		string searchString;
+        private string _toNewProject = "/projects/newproject";
+		private string _toContracts = "/contracts";
+
+
+		private string searchString;
 
         string styleTableHeader = "font-size: 12px; text-align: center; padding: 0 0 0 10px; overflow-wrap: break-word; line-height: 1;";
 		string styleTableBody = "padding: 0; text-align: center;";
@@ -68,40 +71,27 @@ namespace SostavSD.Pages.Projects
 
 			return result;
 		}
-        private void NavigateToTheNewProjectPage()
-        {
-            _navigationManager.NavigateTo("/projects/newproject");
-        }
-		//private async Task RowClickEvent(TableRowClickEventArgs<ProjectForTableModel> tableRowClickEventArgs)
-		//{
-  //          var parameters = new DialogParameters();
-
-  //          var projectToEdit = await ProjectService.GetProjectByIdAsync(tableRowClickEventArgs.Item.Project.ProjectId);
-
-  //          parameters.Add("Project", projectToEdit);
-  //          var dialog = await _dialogService.Show<EditProject>("update", parameters).Result;
-  //          if (dialog != null)
-  //          {
-  //             await ProjectService.EditProjectAsync(projectToEdit);
-  //             await GetProjects();
-  //          }
-            
-  //      }
+        private void NavigateToPage(string adress)
+        {           
+			_navigationManager.NavigateTo(adress);
+		}
+		
         private void ItemHasBeenComitted(object item)
         {
             ProjectService.EditProjectAsync(((ProjectForTableModel)item).Project);
 
 		}
 
-        private void RemoveProjects()
+        private async Task  RemoveProjects()
         {
             if (selectedItems.Count != 0)
             {
 				foreach (var project in selectedItems)
 				{
-					ProjectService.DeleteProjectAsync(project.Project.ProjectId);
+					await ProjectService.DeleteProjectAsync(project.Project.ProjectId);
 				}
 				Snackbar.Add("Items removed", Severity.Success);
+               await GetProjects();
 			}
             else
             {

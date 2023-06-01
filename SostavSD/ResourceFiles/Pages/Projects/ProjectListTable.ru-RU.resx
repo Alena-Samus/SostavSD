@@ -138,6 +138,9 @@
   <data name="index" xml:space="preserve">
     <value>Индекс</value>
   </data>
+  <data name="listOfContracts" xml:space="preserve">
+    <value>Список договоров</value>
+  </data>
   <data name="loadingdata" xml:space="preserve">
     <value>Загрузка данных...</value>
   </data>

@@ -1,9 +1,17 @@
-﻿<div class="row">
-	<MudButtonGroup Variant="Variant.Outlined" Color="Color.Success"  OverrideStyles="false">
-		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.LibraryAdd" Title="@_localizer["addNewProject"]" Color="Color.Success"  @onclick="(e => NavigateToTheNewProjectPage())"/>	 
+﻿
+	<MudButtonGroup Class="d-flex justify-space-between flex-grow-1 gap-4" Variant="Variant.Outlined" Color="Color.Success"  OverrideStyles="false">
+		<MudButtonGroup OverrideStyles="false">
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.LibraryAdd" Title="@_localizer["addNewProject"]" Color="Color.Success"  @onclick="(e => NavigateToPage(_toNewProject))"/>	 
 		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.DeleteForever" Title="@_localizer["removeProjects"]" Color="Color.Error"  @onclick="(e => RemoveProjects())"/>	 
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Outlined.CollectionsBookmark" Title="@_localizer["listOfContracts"]" Color="Color.Info"  @onclick="(e => NavigateToPage(_toContracts))"/>
+		</MudButtonGroup>
+	<MudButtonGroup OverrideStyles="false" >
+		<MudButton Class="mx-4 my-2" Size="Size.Small" Style="text-transform:none" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Tertiary"  @onclick="(e => NavigateToPage(_toNewProject))">@_localizer["index"]</MudButton>
+		<MudButton Class="mx-4 my-2" Size="Size.Small" Style="text-transform:none" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Tertiary"  @onclick="(e => NavigateToPage(_toNewProject))">@_localizer["designStage"]</MudButton>
+		<MudButton Class="mx-4 my-2" Size="Size.Small" Style="text-transform:none" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Tertiary"  @onclick="(e => NavigateToPage(_toNewProject))">@_localizer["status"]</MudButton>
 	</MudButtonGroup>
-</div>
+	</MudButtonGroup>	
+
 
 
 @if (_projects == null)

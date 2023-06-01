@@ -109,8 +109,8 @@ namespace SostavSD.Pages.Projects
 		private async Task Save()
 		{
 			_newProject.ContractId = _selectedContract.Contract.ContractID;
-			_newProject.BuildingViewId = _selectedBuildingView.BuildingViewId;
-			_newProject.StageId = _selectedDesignStage.StageId;
+			_newProject.BuildingViewId = _selectedBuildingView.BuildingViewId > 0 ? _selectedBuildingView.BuildingViewId : null;
+			_newProject.StageId = _selectedDesignStage.StageId > 0 ? _selectedDesignStage.StageId : null;
 
 			if (await ProjectService.AddProjectAsync(_newProject))
 			{

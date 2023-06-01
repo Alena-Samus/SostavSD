@@ -138,6 +138,9 @@
   <data name="index" xml:space="preserve">
     <value>Index</value>
   </data>
+  <data name="listOfContracts" xml:space="preserve">
+    <value>List of contracts</value>
+  </data>
   <data name="loadingdata" xml:space="preserve">
     <value>Loading data...</value>
   </data>
@@ -166,6 +169,6 @@
     <value>Status</value>
   </data>
   <data name="statusDate" xml:space="preserve">
-    <value>Status Date</value>
+    <value>Status date</value>
   </data>
 </root>
