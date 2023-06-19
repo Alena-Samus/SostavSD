@@ -92,7 +92,7 @@ namespace SostavSD.Services
 
 				if (singleContract != null)
 				{
-					_context.contract.Entry(singleContract).State = EntityState.Detached;
+					_context.contract.Entry(singleContract).State = EntityState.Modified;
 				}
 
 				return _mapper.Map<ContractModel>(singleContract);

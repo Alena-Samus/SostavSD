@@ -17,11 +17,11 @@ namespace SostavSD.Services
 			_mapper = mapper;
 		}
 
-		public async Task<List<BuildingViewModel>> GetAllBuildingView()
+		public List<BuildingViewModel> GetAllBuildingView()
 		{
 			var viewes = _context.buildingView
 				.AsNoTracking();
-			return _mapper.Map<List<BuildingViewModel>>(await viewes.ToListAsync());
+			return _mapper.Map<List<BuildingViewModel>>(viewes.ToList());
 		}
 	}
 }

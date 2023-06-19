@@ -4,6 +4,6 @@ namespace SostavSD.Interfaces
 {
 	public interface IBuildingViewService
 	{
-		Task<List<BuildingViewModel>> GetAllBuildingView();
+		List<BuildingViewModel> GetAllBuildingView();
 	}
 }

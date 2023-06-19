@@ -14,6 +14,7 @@ public partial class ContractListTable : ComponentBase
     private List<ContractForTableModel> _contractForTableModel = new List<ContractForTableModel>();
 
     private IContractService _contractService;
+    [Inject] IEntityManagementService EntityManagementService { get; set; }
     private IDialogService _dialogService;
     private IStringLocalizer<ContractListTable> _localizer;
 
@@ -82,15 +83,16 @@ public partial class ContractListTable : ComponentBase
 
     private async Task Edit(int contractId)
     {
-        var parameters = new DialogParameters();
-        var contractToEdit = await _contractService.GetSingleContract(contractId);
-        parameters.Add("Contract", contractToEdit);
-        var dialog = await _dialogService.Show<ContractAddNewAndEdit>("update", parameters).Result;
-        if (dialog != null)
-        {
-            await _contractService.EditContract(contractToEdit);
-            await GetContracts();
-        }
+        await EntityManagementService.EditContractDialog(contractId);
+        //var parameters = new DialogParameters();
+        //var contractToEdit = await _contractService.GetSingleContract(contractId);
+        //parameters.Add("Contract", contractToEdit);
+        //var dialog = await _dialogService.Show<ContractAddNewAndEdit>("update", parameters).Result;
+        //if (dialog != null)
+        //{
+        //    await _contractService.EditContract(contractToEdit);
+        await GetContracts();
+        //}
     }
 
 

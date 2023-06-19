@@ -46,10 +46,11 @@ namespace SostavSD.Services
 		public async Task<bool> EditProjectAsync(ProjectModel newProject)
 		{
 			Project projectAfterEdit = _mapper.Map<Project>(newProject);
-			_context.project.Update(projectAfterEdit);
-			await _context.SaveChangesAsync();
+            _context.project.Entry(projectAfterEdit).State = EntityState.Modified;
+            _context.project.Update(projectAfterEdit);
+            await _context.SaveChangesAsync();
 
-			return true;
+            return true;
 		}
 
         public async Task<ProjectModel> GetProjectByIdAsync(int id)
@@ -66,11 +67,11 @@ namespace SostavSD.Services
 
 			if (project != null)
 			{
-				_context.project.Entry(project).State = EntityState.Detached;
-				_context.contract.Entry(project.Contract).State = EntityState.Detached;
-				_context.designStage.Entry(project.DesignStage).State = EntityState.Detached;
-				_context.status.Entry(project.Status).State = EntityState.Detached;
-				_context.buildingView.Entry(project.BuildingView).State = EntityState.Detached;
+				_context.project.Entry(project).State = EntityState.Modified;
+				_context.contract.Entry(project.Contract).State = EntityState.Modified;
+				_context.designStage.Entry(project.DesignStage).State = EntityState.Modified;
+				_context.status.Entry(project.Status).State = EntityState.Modified;
+				_context.buildingView.Entry(project.BuildingView).State = EntityState.Modified;
 			}
 
 			return _mapper.Map<ProjectModel>(project);
@@ -86,9 +87,8 @@ namespace SostavSD.Services
 				.Include(c => c.Status)
 				.Include(c => c.DesignStage)
 				.AsNoTracking();
-
-
-			return _mapper.Map<List<ProjectModel>>(await projectList.ToListAsync());
+            
+            return _mapper.Map<List<ProjectModel>>(await projectList.ToListAsync());
 		}
 
 	}

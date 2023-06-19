@@ -95,11 +95,6 @@ namespace SostavSD.Pages.Contracts
 
 		}
 
-        private void GetZones()
-        {
-            
-        }
-
 
     }
 }

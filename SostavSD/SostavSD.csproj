@@ -38,4 +38,10 @@
     <Folder Include="Mail\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Update="ResourceFiles\Pages\Projects\ProjectListTable.en-EN.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

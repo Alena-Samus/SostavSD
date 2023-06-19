@@ -1,0 +1,8 @@
+﻿::deep .mud-input-control > .mud-input-control-input-container > .mud-input-label-inputcontrol {
+    font-size: 15px;
+    color: blue;
+}
+
+::deep .mud-input > textarea.mud-input-root {
+}
+

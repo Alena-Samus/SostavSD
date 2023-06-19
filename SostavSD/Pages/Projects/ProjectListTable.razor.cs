@@ -10,7 +10,7 @@ namespace SostavSD.Pages.Projects
 {
     partial class ProjectListTable
     {
-        [Inject] IProjectService ProjectService { get; set; }
+        [Inject] IEntityManagementService EntityManagementService { get; set; }
 		[Inject] ISnackbar Snackbar { get; set; }
 		private IDialogService _dialogService;
 
@@ -77,9 +77,8 @@ namespace SostavSD.Pages.Projects
 		}
 		
         private void ItemHasBeenComitted(object item)
-        {
-            ProjectService.EditProjectAsync(((ProjectForTableModel)item).Project);
-
+        {            
+            EntityManagementService.EditProjectAsync(((ProjectForTableModel)item).Project);  
 		}
 
         private async Task  RemoveProjects()
@@ -88,10 +87,10 @@ namespace SostavSD.Pages.Projects
             {
 				foreach (var project in selectedItems)
 				{
-					await ProjectService.DeleteProjectAsync(project.Project.ProjectId);
+					await EntityManagementService.DeleteProjectAsync(project.Project.ProjectId);
 				}
 				Snackbar.Add("Items removed", Severity.Success);
-               await GetProjects();
+                await GetProjects();
 			}
             else
             {
@@ -99,6 +98,21 @@ namespace SostavSD.Pages.Projects
             }
 
         }
+
+        private async Task OpenEditDialog(TableRowClickEventArgs<ProjectForTableModel> tableRowClickEventArgs)
+        {
+            var currentProject = tableRowClickEventArgs.Item.Project;
+            if ( await EntityManagementService.EditProjectAsync(currentProject))
+            {
+                Snackbar.Add("Project edited", Severity.Success);
+                await GetProjects();
+            }
+            else
+            {
+                Snackbar.Add("Project not edited", Severity.Error);
+            }			
+
+		}
 
 	}
 }

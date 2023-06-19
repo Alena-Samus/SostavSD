@@ -18,13 +18,8 @@ namespace SostavSD.Pages.Projects
 		private NavigationManager _navigationManager;
 		
 		[Inject] IStringLocalizer<NewProject> Localizer { get; set; }
-		[Inject] IContractForTableService ContractForTableService { get; set; }
-		[Inject] IBuildingViewService BuildingViewService { get; set; }
-		[Inject] IDesignStageService DesignStageService { get; set; }
-		[Inject] IProjectService ProjectService { get; set; }
 		[Inject] ISnackbar Snackbar { get; set; }
-		[Inject] IContractService ContractService { get; set; }
-		[Inject] IDialogService DialogService { get; set; }
+		[Inject] IEntityManagementService EntityManagementService { get; set; }
 
 	
 
@@ -65,7 +60,7 @@ namespace SostavSD.Pages.Projects
 
 		protected async Task<IEnumerable<ContractForTableModel>> FindContract(string value)
 		{
-			_contracts = await ContractForTableService.GetContractsAsync();
+			_contracts = await EntityManagementService.GetContractsAsync();
 
 			if (string.IsNullOrEmpty(value))
 			{
@@ -79,7 +74,7 @@ namespace SostavSD.Pages.Projects
 		}
 		protected async Task<IEnumerable<BuildingViewModel>> FindBuildingView(string value)
 		{
-			_viewes = await BuildingViewService.GetAllBuildingView();
+			_viewes = EntityManagementService.GetAllBuildingView();
 
 			if (string.IsNullOrEmpty(value))
 			{
@@ -93,7 +88,7 @@ namespace SostavSD.Pages.Projects
 		}
 		protected async Task<IEnumerable<DesignStageModel>> FindDesignStage(string value)
 		{
-			_stages = await DesignStageService.GetAllDesignStageAsync();
+			_stages = await EntityManagementService.GetAllDesignStageAsync();
 
 			if (string.IsNullOrEmpty(value))
 			{
@@ -112,7 +107,7 @@ namespace SostavSD.Pages.Projects
 			_newProject.BuildingViewId = _selectedBuildingView.BuildingViewId > 0 ? _selectedBuildingView.BuildingViewId : null;
 			_newProject.StageId = _selectedDesignStage.StageId > 0 ? _selectedDesignStage.StageId : null;
 
-			if (await ProjectService.AddProjectAsync(_newProject))
+			if (await EntityManagementService.AddProjectAsync(_newProject))
 			{
 				Snackbar.Add("Add", Severity.Success);
 			}
@@ -127,16 +122,9 @@ namespace SostavSD.Pages.Projects
 		{
 			if (contractId > 0)
 			{
-				var parameters = new DialogParameters();
-				var contractToEdit = await ContractService.GetSingleContract(contractId);
-				parameters.Add("Contract", contractToEdit);
-				var dialog = await DialogService.Show<ContractAddNewAndEdit>("update", parameters).Result;
-				if (dialog != null)
-				{
-					await ContractService.EditContract(contractToEdit);
-				}
-                _contracts = await ContractForTableService.GetContractsAsync();
-                _selectedContract = _contracts.FirstOrDefault(c => c.Contract.Index == contractToEdit.Index);
+				await EntityManagementService.EditContractDialog(contractId);
+				_contracts = await EntityManagementService.GetContractsAsync();
+				_selectedContract = _contracts.FirstOrDefault(c => c.Contract.ContractID == contractId);
 
                 StateHasChanged();
 

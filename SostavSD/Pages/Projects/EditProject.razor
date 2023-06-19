@@ -1,27 +1,63 @@
 ﻿
 <MudDialog>
     <DialogContent>
-		<MudTextField T="int?" Label="@Localizer["priority"]" @bind-Value="Project.Priority"/>
-					@*<MudTd DataLabel="">@context.Priority</MudTd>
-					<MudTd DataLabel="@Localizer["index"]">@context.Contract?.Index</MudTd>
-					<MudTd DataLabel="@Localizer["buildingNumber"]">@context.BuildingNumber</MudTd>
-					<MudTd DataLabel="@Localizer["projectName"]">@context.ProjectName</MudTd>
-					<MudTd DataLabel="@Localizer["cpe"]">@(context.Contract.Executor?.Surname)</MudTd>
-					<MudTd DataLabel="@Localizer["calculator"]">@context.Contract.CalculatorId</MudTd>
-					<MudTd DataLabel="@Localizer["designStage"]">@context.DesignStage?.StageName</MudTd>
-					<MudTd DataLabel="@Localizer["contractNumber"]">@context.Contract?.ContractNumber</MudTd>
-					<MudTd DataLabel="@Localizer["projectReleaseDate"]">@(context.ProjectReleaseDate == null ? "" : Convert.ToDateTime(context.ProjectReleaseDate).ToString(Constants.DateFormat))</MudTd>
-					<MudTd DataLabel="@Localizer["projectReleaseDateByContract"]">@(context.ProjectReleaseDateByContract == null ? "" : Convert.ToDateTime(context.ProjectReleaseDateByContract).ToString(Constants.DateFormat))</MudTd>
-					<MudTd DataLabel="@Localizer["status"]">@context.Status?.StatusName</MudTd>
-					<MudTd DataLabel="@Localizer["statusDate"]">@(context.StatusDate == null ? "" : Convert.ToDateTime(context.StatusDate).ToString(Constants.DateFormat))</MudTd>
-*@
+        <div  class="d-flex justify-space-around flex-grow-1 gap-4 mb-3">
+            <MudTextField  T="string" Label="@Localizer["projectName"]" @bind-Value="@Project.ProjectName" Lines="3"/>
+        </div>
 
+        <div class="d-flex justify-space-around flex-grow-1 gap-4 mb-3">
+            <MudTextField T="int?" Label="@Localizer["priority"]" @bind-Value="@Project.Priority"/>
+            <MudIconButton @onclick="@(() => Edit(Project.Contract.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
+            <MudTextField T="string" Label="@Localizer["index"]" @bind-Value="@Project.Contract.Index" ReadOnly=true/>        
+            <MudTextField T="string" Label="@Localizer["buildingNumber"]" @bind-Value="@Project.BuildingNumber"/>
+            <MudSelect T="int?" Label="@Localizer["status"]" @bind-Value="@Project.StatusId">
+               
+                @foreach(var status in _statuses)
+                {
+                    <MudSelectItem T="int?" Value="@status.StatusId">@status.StatusName</MudSelectItem>
+                }
+                
+            </MudSelect>
+
+            <MudTextField T="string" Label="@Localizer["versionCiC"]" @bind-Value="@Project.CiCVersion" />
+            <MudTextField T="string" Label="@Localizer["printType"]" @bind-Value="@Project.PrintType" />
+             <MudSpacer/>
+        </div>
+        <div class="d-flex justify-space-around flex-grow-1 gap-4 mb-3">
+
+            <MudDatePicker Label="@Localizer["projectReleaseDate"]" @bind-Date="@Project.ProjectReleaseDate"></MudDatePicker>
+            <MudDatePicker Label="@Localizer["projectReleaseDateByContract"]" @bind-Date="@Project.ProjectReleaseDateByContract"></MudDatePicker>
+            <MudDatePicker Label="@Localizer["workStartDate"]" @bind-Date="@Project.WorkStartDate"></MudDatePicker>
+            <MudDatePicker Label="@Localizer["priceLevel"]" @bind-Date="@Project.PriceLevel"></MudDatePicker>
+
+        </div>
+        <div class="d-flex justify-space-around flex-grow-1 gap-4" mb-3>
+
+            <MudSelect T="int?" Label="@Localizer["designStage"]" @bind-Value="@Project.StageId">
+
+                @foreach (var stage in _stages)
+                {
+                    <MudSelectItem T="int?" Value="@stage.StageId">@stage.StageName</MudSelectItem>
+                }
+
+            </MudSelect>
+
+           <MudSelect T="int?" Label="@Localizer["buildingView"]" @bind-Value="@Project.BuildingViewId">
+
+                @foreach (var stage in _views)
+                {
+                                <MudSelectItem T="int?" Value="@stage.BuildingViewId">@stage.BuildingViewName</MudSelectItem>
+                }
+
+            </MudSelect>
+            <MudTextField T="string" Label="@Localizer["constructionPhase"]" @bind-Value="@Project.ConstructionPhase"></MudTextField>     
+
+        </div>
 
     </DialogContent>
 
     <DialogActions>
         <MudButton @onclick="Cancel">@Localizer["cancelChanges"]</MudButton>
-        <MudButton @onclick="Remove" Color="Color.Primary">@Localizer["remove"]</MudButton>
         <MudButton @onclick="Submit" Color="Color.Primary">@Localizer["saveChanges"]</MudButton>        
     </DialogActions>
 </MudDialog>

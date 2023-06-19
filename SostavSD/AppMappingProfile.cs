@@ -17,6 +17,7 @@ namespace SostavSD
 			CreateMap<BuildingView, BuildingViewModel>().ReverseMap().PreserveReferences();
 			CreateMap<Status, StatusModel>().ReverseMap().PreserveReferences();
 			CreateMap<Project, ProjectModel>().ReverseMap().PreserveReferences();
+			CreateMap<Status, StatusModel>().ReverseMap().PreserveReferences();
 		}
     }
 }

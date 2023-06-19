@@ -18,7 +18,7 @@ namespace SostavSD.Services
             _mapper = mapper;
         }
 
-        public async Task<BuildingZoneModel> GetBuildingZoneByIdAsync(int zoneId)
+        public BuildingZoneModel GetBuildingZoneById(int zoneId)
         {
             var currentZone = _context.buildingZone.FirstOrDefault(x => x.BuildingZoneId == zoneId);
 
