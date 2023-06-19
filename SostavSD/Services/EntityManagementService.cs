@@ -14,14 +14,16 @@ namespace SostavSD.Services
 		private readonly IContractService _contractService;
 		private readonly IDialogService _dialogService;
 		private readonly IBuildingViewService _buildingViewService;
+		private readonly IBuildingZoneService _buildingZoneService;
 		private readonly IDesignStageService _designStageService;
 		private readonly IProjectService _projectService;
 		private readonly IContractForTableService _contractForTableService;
 		private readonly IStatusService _statusService;
+		private readonly ISourceOfFinancingService _sourceOfFinancingService;
 
 		public EntityManagementService(IContractService contractService, IDialogService dialogService, IBuildingViewService buildingViewService, 
 			IDesignStageService designStageService, IProjectService projectService, IContractForTableService contractForTableService, 
-			IStatusService statusService)
+			IStatusService statusService, IBuildingZoneService buildingZoneService, ISourceOfFinancingService sourceOfFinancingService)
 		{
 			_contractService = contractService;
 			_dialogService = dialogService;
@@ -30,6 +32,9 @@ namespace SostavSD.Services
 			_projectService = projectService;
 			_contractForTableService = contractForTableService;
 			_statusService = statusService;
+			_buildingZoneService = buildingZoneService;
+			_sourceOfFinancingService = sourceOfFinancingService;
+
 		}
 
 		private bool result = false;
@@ -108,9 +113,9 @@ namespace SostavSD.Services
 			return await _statusService.GetAllStatusAsync();
 		}
 
-        public Task<List<BuildingZoneModel>> GetBuildingZoneModelsAsync()
+        public async Task<List<BuildingZoneModel>> GetBuildingZoneModelsAsync()
         {
-            throw new NotImplementedException();
+			return await _buildingZoneService.GetBuildingZoneModelsAsync();
         }
 
         public Task<List<ContractModel>> GetAllContract()
@@ -156,6 +161,11 @@ namespace SostavSD.Services
         public BuildingZoneModel GetBuildingZoneById(int zoneId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<SourceOfFinacingModel>> GetSourcesOfFinancingModelAsync()
+        {
+            return await _sourceOfFinancingService.GetSourcesOfFinancingModelAsync();
         }
     }
 }

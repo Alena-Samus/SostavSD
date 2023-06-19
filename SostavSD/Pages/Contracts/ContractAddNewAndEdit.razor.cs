@@ -14,9 +14,11 @@ namespace SostavSD.Pages.Contracts
         
         [Parameter] public ContractModel Contract { get; set; }
 
+        [Inject] IEntityManagementService EntityManagementService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 		[Inject] IStringLocalizer<ContractAddNewAndEdit> localizer { get; set; }
-        [Inject] IBuildingZoneService buildingZoneService { get; set; }
+    
+
         [Inject] ISourceOfFinancingService sourceOfFinancingService { get; set; }
 
 		private ICompanyService _companyService;
@@ -25,13 +27,13 @@ namespace SostavSD.Pages.Contracts
 
         private List<CompanyModel> _companies = new List<CompanyModel>();
         private List<UserSostavModel> _users = new List<UserSostavModel>();
-        private List<BuildingZoneModel> _buildingZones = new List<BuildingZoneModel>();
         private List<SourceOfFinacingModel> _sources = new List<SourceOfFinacingModel>();
+        private List<BuildingZoneModel> _buildingZones = new List<BuildingZoneModel>();
 
         private List<UsersForListModel> _usersCalculator = new List<UsersForListModel>();
         private List<UsersForListModel> _usersCPE = new List<UsersForListModel>();
 
-        private int selectedZone = 0;
+
         private int selectedSource = 0;
 
         private ContractModelValidation _contractModelValidation = new ContractModelValidation();
@@ -42,22 +44,11 @@ namespace SostavSD.Pages.Contracts
             _authorizedUserService = authorizedUserService;
         }
         protected override async Task OnInitializedAsync()
-        {
+        {          
+            _users = _authorizedUserService.GetListUserSostavModel();                     
             _companies = await _companyService.GetAllCompany();
-            _users = _authorizedUserService.GetListUserSostavModel();
-            _buildingZones = await buildingZoneService.GetBuildingZoneModelsAsync();
-            _sources= await sourceOfFinancingService.GetSourcesOfFinancingModelAsync();
-
-            if (Contract.BuildingZoneId is not null)
-            {
-                selectedZone = (int)Contract.BuildingZoneId;
-            }
-
-            if (Contract.SourceOfFinancingId is not null)
-            {
-                selectedSource = (int)Contract.SourceOfFinancingId;
-            }
-
+            _buildingZones = await EntityManagementService.GetBuildingZoneModelsAsync();
+            _sources = await EntityManagementService.GetSourcesOfFinancingModelAsync();
             _usersCPE = _authorizedUserService.GetListUserSostavModelByGroup("8");
             _usersCalculator = _authorizedUserService.GetListUserSostavModelByGroup("6");
         }
@@ -73,14 +64,6 @@ namespace SostavSD.Pages.Contracts
             string errors = string.Empty;
             if (validationResult.IsValid) 
             {
-                if (selectedZone > 0)
-                {
-                    Contract.BuildingZoneId = selectedZone;
-                }
-                if (selectedSource> 0)
-                {
-                    Contract.SourceOfFinancingId= selectedSource;
-                }
 				AddOrEditContract.Close(DialogResult.Ok(Contract));
                 Snackbar.Add("Done", Severity.Success);
 			}
