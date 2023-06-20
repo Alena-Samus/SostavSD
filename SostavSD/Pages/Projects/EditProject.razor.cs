@@ -68,5 +68,14 @@ namespace SostavSD.Pages.Projects
 
         }
 
+        private void ChangeDate(int? elem)
+        {
+            if (Project.StatusId != elem)
+            {
+                Project.StatusId= elem;
+                Project.StatusDate = DateTime.Now;
+            }            
+        }
+
     }
 }
