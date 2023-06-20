@@ -7,8 +7,9 @@
 
         <div class="d-flex justify-space-around flex-grow-1 gap-4 mb-3">
             <MudTextField T="int?" Label="@Localizer["priority"]" @bind-Value="@Project.Priority"/>
+            <MudAutocomplete T="ContractModel" Label="@Localizer["index"]" @bind-Value="@_selectedContract" SearchFunc="@FindContract" ToStringFunc="@(i => i is null ? "" : $"{i.Index}")"/>
             <MudIconButton @onclick="@(() => Edit(Project.Contract.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
-            <MudTextField T="string" Label="@Localizer["index"]" @bind-Value="@Project.Contract.Index" ReadOnly=true/>        
+
             <MudTextField T="string" Label="@Localizer["buildingNumber"]" @bind-Value="@Project.BuildingNumber"/>
             <MudSelect T="int?" Label="@Localizer["status"]" @bind-Value="@Project.StatusId">
                

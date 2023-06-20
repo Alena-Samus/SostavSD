@@ -118,9 +118,9 @@ namespace SostavSD.Services
 			return await _buildingZoneService.GetBuildingZoneModelsAsync();
         }
 
-        public Task<List<ContractModel>> GetAllContract()
+        public async Task<List<ContractModel>> GetAllContract()
         {
-            throw new NotImplementedException();
+            return await _contractService.GetAllContract();
         }
 
         public Task DeleteContract(int contractId)

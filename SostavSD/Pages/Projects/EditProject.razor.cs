@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 using SostavSD.Interfaces;
@@ -14,14 +15,18 @@ namespace SostavSD.Pages.Projects
 		[Parameter] public ProjectModel Project { get; set; }
 		[Inject] IStringLocalizer<EditProject> Localizer { get; set; }
 		[Inject] IEntityManagementService EntityManagementService { get; set; }
-				
+
+        private ContractModel _selectedContract = new();
+
         List<StatusModel> _statuses = new();
         List<DesignStageModel> _stages = new();
         List<BuildingViewModel> _views = new();
+        List<ContractModel> _contracts = new();
 
 
         protected override async Task OnInitializedAsync()
 		{
+            _selectedContract = Project.Contract;
             await GetLists();
 
         }
@@ -32,6 +37,7 @@ namespace SostavSD.Pages.Projects
 
 		private void Submit()
 		{
+            Project.ContractId = _selectedContract.ContractID;
             EditCurrentProject.Close(DialogResult.Ok(Project));		
 		}
 
@@ -47,6 +53,20 @@ namespace SostavSD.Pages.Projects
 		{
 			await EntityManagementService.EditContractDialog(contractId);
 		}
+        protected async Task<IEnumerable<ContractModel>> FindContract(string value)
+        {
+            _contracts = await EntityManagementService.GetAllContract();
 
-	}
+            if (string.IsNullOrEmpty(value))
+            {               
+                return _contracts;
+            }
+            else
+            {               
+                return _contracts.Where(x => x.Index.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+        }
+
+    }
 }
