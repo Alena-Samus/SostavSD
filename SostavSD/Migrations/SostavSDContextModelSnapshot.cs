@@ -159,6 +159,40 @@ namespace SostavSD.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("SostavSD.Entities.BuildingView", b =>
+                {
+                    b.Property<int>("BuildingViewId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BuildingViewId"));
+
+                    b.Property<string>("BuildingViewName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("BuildingViewId");
+
+                    b.ToTable("BuildingView", (string)null);
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.BuildingZone", b =>
+                {
+                    b.Property<int>("BuildingZoneId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BuildingZoneId"));
+
+                    b.Property<string>("BuildingZoneName")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("BuildingZoneId");
+
+                    b.ToTable("BuildingZone", (string)null);
+                });
+
             modelBuilder.Entity("SostavSD.Entities.Company", b =>
                 {
                     b.Property<int>("CompanyID")
@@ -186,6 +220,12 @@ namespace SostavSD.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContractID"));
 
+                    b.Property<int?>("BuildingZoneId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CalculatorId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -194,9 +234,6 @@ namespace SostavSD.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ContractDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ContractDateEndOfWork")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ContractNumber")
@@ -208,19 +245,152 @@ namespace SostavSD.Migrations
                     b.Property<string>("Order")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProjectName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("SourceOfFinancingId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ContractID");
 
+                    b.HasIndex("BuildingZoneId");
+
                     b.HasIndex("CompanyID");
+
+                    b.HasIndex("SourceOfFinancingId");
 
                     b.HasIndex("UserID");
 
                     b.ToTable("Contract", (string)null);
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.DesignStage", b =>
+                {
+                    b.Property<int>("StageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StageId"));
+
+                    b.Property<string>("StageName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("StageId");
+
+                    b.ToTable("DesignStage", (string)null);
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.Project", b =>
+                {
+                    b.Property<int>("ProjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"));
+
+                    b.Property<string>("BuildingNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int?>("BuildingViewId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CiCVersion")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ConstructionPhase")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("ContractId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("PriceLevel")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PrintType")
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<int?>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProjectName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ProjectReleaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ProjectReleaseDateByContract")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("StageId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("StatusDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("StatusId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("WorkStartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ProjectId");
+
+                    b.HasIndex("BuildingViewId");
+
+                    b.HasIndex("ContractId");
+
+                    b.HasIndex("StageId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("Project", (string)null);
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.SourceOfFinacing", b =>
+                {
+                    b.Property<int>("SourceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SourceId"));
+
+                    b.Property<string>("SourceName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SourceId");
+
+                    b.ToTable("SourceOfFinancing", (string)null);
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.Status", b =>
+                {
+                    b.Property<int>("StatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StatusId"));
+
+                    b.Property<bool>("IsDrawing")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEstimate")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsProject")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("StatusName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("StatusId");
+
+                    b.ToTable("Status", (string)null);
                 });
 
             modelBuilder.Entity("SostavSD.Entities.UserSostav", b =>
@@ -347,24 +517,93 @@ namespace SostavSD.Migrations
 
             modelBuilder.Entity("SostavSD.Entities.Contract", b =>
                 {
+                    b.HasOne("SostavSD.Entities.BuildingZone", "BuildingZone")
+                        .WithMany("Contracts")
+                        .HasForeignKey("BuildingZoneId");
+
                     b.HasOne("SostavSD.Entities.Company", "Company")
                         .WithMany("Contracts")
                         .HasForeignKey("CompanyID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SostavSD.Entities.UserSostav", "UserName")
+                    b.HasOne("SostavSD.Entities.SourceOfFinacing", "SourceOfFinacing")
+                        .WithMany("Contracts")
+                        .HasForeignKey("SourceOfFinancingId");
+
+                    b.HasOne("SostavSD.Entities.UserSostav", "Executor")
                         .WithMany("Contracts")
                         .HasForeignKey("UserID");
 
+                    b.Navigation("BuildingZone");
+
                     b.Navigation("Company");
 
-                    b.Navigation("UserName");
+                    b.Navigation("Executor");
+
+                    b.Navigation("SourceOfFinacing");
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.Project", b =>
+                {
+                    b.HasOne("SostavSD.Entities.BuildingView", "BuildingView")
+                        .WithMany("Projects")
+                        .HasForeignKey("BuildingViewId");
+
+                    b.HasOne("SostavSD.Entities.Contract", "Contract")
+                        .WithMany("Projects")
+                        .HasForeignKey("ContractId");
+
+                    b.HasOne("SostavSD.Entities.DesignStage", "DesignStage")
+                        .WithMany("Projects")
+                        .HasForeignKey("StageId");
+
+                    b.HasOne("SostavSD.Entities.Status", "Status")
+                        .WithMany("Projects")
+                        .HasForeignKey("StatusId");
+
+                    b.Navigation("BuildingView");
+
+                    b.Navigation("Contract");
+
+                    b.Navigation("DesignStage");
+
+                    b.Navigation("Status");
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.BuildingView", b =>
+                {
+                    b.Navigation("Projects");
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.BuildingZone", b =>
+                {
+                    b.Navigation("Contracts");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.Company", b =>
                 {
                     b.Navigation("Contracts");
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.Contract", b =>
+                {
+                    b.Navigation("Projects");
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.DesignStage", b =>
+                {
+                    b.Navigation("Projects");
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.SourceOfFinacing", b =>
+                {
+                    b.Navigation("Contracts");
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.Status", b =>
+                {
+                    b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.UserSostav", b =>

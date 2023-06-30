@@ -15,8 +15,8 @@ public class AuthorizedUserService : IAuthorizedUserService
     private readonly AuthenticationStateProvider _authenticationStateProvider;
 
 
-    List<ManagerUserModel> _users = new List<ManagerUserModel>();
-    List<UserSostavModel> _executors = new List<UserSostavModel>();
+   private readonly List<ManagerUserModel> _users = new List<ManagerUserModel>();
+   private readonly List<UserSostavModel> _executors = new List<UserSostavModel>();
 
     public AuthorizedUserService(AuthenticationStateProvider authenticationStateProvider, UserManager<UserSostav> userManager)
     {
@@ -117,5 +117,19 @@ public class AuthorizedUserService : IAuthorizedUserService
             _executors.Add(item);
         }
         return _executors;
+    }
+    public List<UsersForListModel> GetListUserSostavModelByGroup(string group)
+    {
+        List<UsersForListModel> currentList = new List<UsersForListModel>();
+        var user = _userManager.Users.Where(x => x.GroupName == group).Select(x => new UsersForListModel
+        {
+            IdUser = x.Id,
+            SurnameUser = x.Surname,
+        });
+        foreach (var item in user)
+        {
+            currentList.Add(item);
+        }
+        return currentList;
     }
 }

@@ -1,0 +1,64 @@
+﻿@page "/projects/newproject"
+
+<div class="row">
+	<MudButtonGroup Variant="Variant.Outlined" Color="Color.Success" OverrideStyles="false" >		
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Outlined.CollectionsBookmark" Title="@Localizer["listOfContracts"]" Color="Color.Info"  @onclick="(e => GoToPage(_toContracts))"/>
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Check" Title="@Localizer["saveNewProject"]" Color="Color.Success"  @onclick="(e => Save())"/>	
+	</MudButtonGroup>
+</div>
+
+<MudGrid>
+	<MudItem xs="9">
+		<MudTextField FullWidth T="string" @bind-Value="@_newProject.ProjectName" Label="@Localizer["projectName"]" Variant="Variant.Outlined" Lines="3"></MudTextField>	
+	</MudItem>
+
+	<MudGrid>
+		<MudItem>
+			<MudIconButton @onclick="@(() => Edit(_selectedContract.Contract.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
+		</MudItem>
+	</MudGrid>
+
+	<MudGrid>
+		<MudItem xs="3">
+			<div>
+
+				<MudAutocomplete T="ContractForTableModel" Label="@Localizer["index"]" Variant="Variant.Outlined" @bind-Value="_selectedContract" SearchFunc="@FindContract" 
+								ToStringFunc="@(i => i is null ? "" : $"{i.Contract?.Index}")"/>
+				<MudTextField T="string" Label="@Localizer["order"]" Text="@_selectedContract.Contract?.Order" ReadOnly=true Variant="Variant.Outlined"/>
+				<MudTextField T="string" Label="@Localizer["contractNumber"]"  Text="@_selectedContract.Contract?.ContractNumber" ReadOnly=true Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["contractDate"]"  Text="@(_selectedContract.Contract?.ContractDate != null ? Convert.ToDateTime(_selectedContract.Contract?.ContractDate).ToString(Constants.DateFormat) : null)" ReadOnly=true Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["customer"]"  Text="@_selectedContract.Contract?.Company?.CompanyName" ReadOnly=true Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["cpe"]"  Text="@_selectedContract.Contract?.Executor?.Surname" ReadOnly=true Variant="Variant.Outlined"></MudTextField>
+			</div>
+		</MudItem>
+		<MudItem xs="3">
+			<div>				
+				<MudTextField T="string" Label="@Localizer["calculator"]"  Text="@_selectedContract.Calculator?.UserSurname" ReadOnly=true Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["buildingZone"]"  Text="@_selectedContract.Contract?.BuildingZone?.BuildingZoneName" ReadOnly=true Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["sourceOfFinancing"]"  Text="@_selectedContract.Contract?.SourceOfFinacing?.SourceName" ReadOnly=true Variant="Variant.Outlined"></MudTextField>	
+				<MudAutocomplete T="BuildingViewModel" Label="@Localizer["buildingView"]" Variant="Variant.Outlined" @bind-Value="_selectedBuildingView" SearchFunc="@FindBuildingView" 
+								ToStringFunc="@(i => i is null ? null : $"{i.BuildingViewName}")"/>
+				<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["releaseDate"]" @bind-Value="@_newProject.ProjectReleaseDate" Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["releaseDateByContract"]" @bind-Value="@_newProject.ProjectReleaseDateByContract" Variant="Variant.Outlined"></MudTextField>				
+			</div>
+			
+		</MudItem>
+		<MudItem xs="3">
+			<div>				
+				<MudTextField T="string" Label="@Localizer["buildingNumber"]" @bind-Value="@_newProject.BuildingNumber" Variant="Variant.Outlined"></MudTextField>	
+				<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date"Label="@Localizer["dateWorkStart"]" @bind-Value="@_newProject.WorkStartDate" Variant="Variant.Outlined"></MudTextField>
+				<MudAutocomplete T="DesignStageModel" Label="@Localizer["designStage"]" Variant="Variant.Outlined" @bind-Value="_selectedDesignStage" SearchFunc="@FindDesignStage" 
+								ToStringFunc="@(i => i is null ? null : $"{i.StageName}")"/>
+				<MudTextField T="string" Label="@Localizer["versionCiC"]" @bind-Value="@_newProject.CiCVersion" Variant="Variant.Outlined"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["printType"]" @bind-Value="@_newProject.PrintType" Variant="Variant.Outlined"></MudTextField>
+
+			</div>
+		</MudItem>
+	</MudGrid>
+</MudGrid>
+
+
+
+
+
+

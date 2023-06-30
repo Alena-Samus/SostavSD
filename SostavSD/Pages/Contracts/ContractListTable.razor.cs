@@ -11,13 +11,15 @@ namespace SostavSD.Pages.Contracts;
 
 public partial class ContractListTable : ComponentBase
 {
-    private List<ContractModel> _contracts = new List<ContractModel>();
+    private List<ContractForTableModel> _contractForTableModel = new List<ContractForTableModel>();
 
     private IContractService _contractService;
+    [Inject] IEntityManagementService EntityManagementService { get; set; }
     private IDialogService _dialogService;
     private IStringLocalizer<ContractListTable> _localizer;
 
 
+    [Inject] IContractForTableService _contractForTableService { get; set; }
 
     private string searchString = "";
 
@@ -33,24 +35,32 @@ public partial class ContractListTable : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        await GetContracts();        
+        await GetContracts();
     }
 
-    private async Task<List<ContractModel>> GetContracts()
+    private async Task<List<ContractForTableModel>> GetContracts()
     {
-        _contracts =  await _contractService.GetAllContract();
-        return _contracts;
+        _contractForTableModel.Clear();
+        _contractForTableModel = await _contractForTableService.GetContractsAsync();
+        return _contractForTableModel;
     }
-    private bool FilterFuncCurrent(ContractModel contract) => FilterFunc(contract, searchString);
+    private bool FilterFuncCurrent(ContractForTableModel contract) => FilterFunc(contract, searchString);
 
-    private bool FilterFunc(ContractModel contract, string searchString)
+    private bool FilterFunc(ContractForTableModel contract, string searchString)
     {
-        bool result = string.IsNullOrWhiteSpace(searchString) || (contract.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase)) ||
-             (contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase)) || (contract.Order.Contains(searchString, StringComparison.OrdinalIgnoreCase)) ||
-             (contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase)) || contract.ContractDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
-             contract.ContractDateEndOfWork.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) || (contract.City.Contains(searchString, StringComparison.OrdinalIgnoreCase));
-            
-     
+        bool result = string.IsNullOrWhiteSpace(searchString)
+            || (!string.IsNullOrWhiteSpace(contract.Contract.Index) && contract.Contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Contract.Order) && contract.Contract.Order.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Contract.ContractNumber) && contract.Contract.ContractNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Contract.ContractDate.ToString()) && contract.Contract.ContractDate.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Contract.City) && contract.Contract.City.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Contract.Company.CompanyName) && contract.Contract.Company.CompanyName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Contract.UserID) && contract.Contract.Executor.Surname.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || ((contract.Contract.BuildingZoneId > 1) && contract.Contract.BuildingZone.BuildingZoneName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(contract.Calculator.UserSurname) && contract.Calculator.UserSurname.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            ;
+
+
         return result;
     }
 
@@ -59,7 +69,7 @@ public partial class ContractListTable : ComponentBase
         ContractModel currentContractName = await _contractService.GetSingleContract(contractId);
         bool? result = await _dialogService.ShowMessageBox(
             "Удаление договора",
-           $"Удалить договор \"{currentContractName.ProjectName}\"?",
+           $"Удалить договор \"{currentContractName.ContractNumber}\"?",
             yesText: "Удалить", cancelText: "Отмена");
 
 
@@ -73,15 +83,8 @@ public partial class ContractListTable : ComponentBase
 
     private async Task Edit(int contractId)
     {
-        var parameters = new DialogParameters();
-        var contractToEdit = await _contractService.GetSingleContract(contractId);
-        parameters.Add("Contract", contractToEdit);
-        var dialog = await _dialogService.Show<ContractAddNewAndEdit>("update", parameters).Result;
-        if (dialog != null)
-        {
-            await _contractService.EditContract(contractToEdit);
-            await GetContracts();
-        }
+        await EntityManagementService.EditContractDialog(contractId);
+        await GetContracts();
     }
 
 

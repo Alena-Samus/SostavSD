@@ -30,12 +30,14 @@ namespace SostavSD.Services
            
             try
             {
-                var contractList = _context.contract
-                .Include(c => c.Company)
-                .Include(c => c.Executor)
-                .AsNoTracking();
+				var contractList = _context.contract
+                    .Include(c => c.Company)
+                    .Include(c => c.Executor)
+                    .Include(c => c.BuildingZone)
+                    .Include(c => c.SourceOfFinacing)
+                    .AsNoTracking();
 
-                return _mapper.Map<List<ContractModel>>(await contractList.ToListAsync());
+				return _mapper.Map<List<ContractModel>>(await contractList.ToListAsync());
             }
             catch (Exception ex)
             {
@@ -43,7 +45,7 @@ namespace SostavSD.Services
 
                 throw;
             }
-                        
+
         }
 
 
@@ -76,8 +78,8 @@ namespace SostavSD.Services
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.InnerException);                
-            }            
+                _logger.Error(ex.InnerException);
+            }
 
         }
 
@@ -85,7 +87,8 @@ namespace SostavSD.Services
         {
             try
             {
-				var singleContract = await _context.contract.FirstOrDefaultAsync(e => e.ContractID == contractId);
+                var singleContract = await _context.contract
+                .FirstOrDefaultAsync(e => e.ContractID == contractId);
 
 				if (singleContract != null)
 				{
@@ -93,13 +96,13 @@ namespace SostavSD.Services
 				}
 
 				return _mapper.Map<ContractModel>(singleContract);
-			}
+            }
             catch (Exception ex)
             {
                 _logger.Error(ex.InnerException);
                 throw;
             }
-            
+
         }
 
         public async Task EditContract(ContractModel currentContract)
@@ -109,12 +112,12 @@ namespace SostavSD.Services
                 Contract contractAfterEdit = _mapper.Map<Contract>(currentContract);
                 _context.contract.Update(contractAfterEdit);
                 await _context.SaveChangesAsync();
-            }
+             }
             catch(Exception ex)
             {
                 _logger.Error(ex.InnerException);
             }
-            
+
 
         }
 

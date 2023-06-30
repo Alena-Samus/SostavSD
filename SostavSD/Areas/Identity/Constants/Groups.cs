@@ -20,5 +20,7 @@ namespace SostavSD.Areas.Identity.Constants
         calculated,
         [Display(Name = "Руководство")]
         management,
+        [Display(Name = "ГИП")]
+        cpe,
     }
 }

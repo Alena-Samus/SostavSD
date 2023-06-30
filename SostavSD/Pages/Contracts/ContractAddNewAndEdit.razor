@@ -2,27 +2,42 @@
 
 <MudDialog>
     <DialogContent>
-        <MudTextField T="string" Label="@localizer["Object"]" @bind-Value="Contract.ProjectName" Lines="5"/>
-        <MudTextField T="string" Label="@localizer["Index"]" @bind-Value="Contract.Index"/>
-        <MudTextField T="string" Label="@localizer["Order"]" @bind-Value="Contract.Order"/>
-        <MudTextField T="string" Label="@localizer["ContractNumber"]" @bind-Value="Contract.ContractNumber"/>
-        <MudDatePicker Label="@localizer["ContractDate"]" @bind-Date="Contract.ContractDate"/>
-        <MudDatePicker Label="@localizer["ContractDateEndOfWork"]" @bind-Date="Contract.ContractDateEndOfWork"/>
-        <MudSelect T="int" Label="@localizer["Customer"]" AnchorOrigin="Origin.BottomCenter" @bind-Value="Contract.CompanyID" Required=true >
-           <MudSelectItem Value="0">--@localizer["ChooseTheCustomer"]--</MudSelectItem>
+        <MudTextField T="string" Label="@localizer["index"]" @bind-Value="Contract.Index"/>
+        <MudTextField T="string" Label="@localizer["order"]" @bind-Value="Contract.Order"/>
+        <MudTextField T="string" Label="@localizer["contractNumber"]" @bind-Value="Contract.ContractNumber"/>
+        <MudDatePicker Label="@localizer["contractDate"]" @bind-Date="Contract.ContractDate"/>
+        <MudSelect T="int" Label="@localizer["customer"]" AnchorOrigin="Origin.BottomCenter" @bind-Value="Contract.CompanyID" Required=true >
+           <MudSelectItem Value="0">--@localizer["chooseTheCustomer"]--</MudSelectItem>
             @foreach (var item in _companies)
             {
-            <MudSelectItem Value="@item.CompanyID">@item.CompanyName</MudSelectItem>
+                 <MudSelectItem Value="@item.CompanyID">@item.CompanyName</MudSelectItem>
             }
         </MudSelect>
-        <MudSelect T="string" Label="@localizer["Executor"]" AnchorOrigin="Origin.BottomCenter" @bind-Value="Contract.UserID" Required=true >
-@*        <MudSelectItem Value="executor">--@localizer["ChooseTheExecutor"]--</MudSelectItem>*@
-            @foreach (var item in _users)
+        <MudSelect  T="int?" Label="@localizer["buildingZone"]" @bind-Value="Contract.BuildingZoneId">
+            @foreach (var item in _buildingZones)
             {
-                <MudSelectItem Value="@item.Id">@item.Email</MudSelectItem>
+                 <MudSelectItem T="int?" Value="@item.BuildingZoneId">@item.BuildingZoneName</MudSelectItem>
             }
         </MudSelect>
-        <MudTextField T="string" Label="@localizer["City"]" @bind-Value="Contract.City"/>
+        <MudSelect  T="int?" Label="@localizer["source"]" @bind-Value="Contract.SourceOfFinancingId">
+            @foreach (var item in _sources)
+            {
+                        <MudSelectItem T="int?" Value="@item.SourceId">@item.SourceName</MudSelectItem>
+            }
+        </MudSelect>
+        <MudSelect T="string" Label="@localizer["cpe"]" AnchorOrigin="Origin.BottomCenter" @bind-Value="Contract.UserID">
+            @foreach (var item in _usersCPE)
+            {
+                    <MudSelectItem T="string" Value="@item.IdUser">@item.SurnameUser</MudSelectItem>
+            }
+        </MudSelect>
+        <MudSelect T="string" Label="@localizer["calculator"]" AnchorOrigin="Origin.BottomCenter" @bind-Value="Contract.CalculatorId">
+            @foreach (var item in _usersCalculator)
+            {
+                <MudSelectItem T="string" Value="@item.IdUser">@item.SurnameUser</MudSelectItem>
+            }
+        </MudSelect>
+        <MudTextField T="string" Label="@localizer["city"]" @bind-Value="Contract.City"/>
 
     </DialogContent>
 

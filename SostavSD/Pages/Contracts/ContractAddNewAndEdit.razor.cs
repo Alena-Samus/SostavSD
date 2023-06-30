@@ -14,14 +14,22 @@ namespace SostavSD.Pages.Contracts
         
         [Parameter] public ContractModel Contract { get; set; }
 
+        [Inject] IEntityManagementService EntityManagementService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 		[Inject] IStringLocalizer<ContractAddNewAndEdit> localizer { get; set; }
 
 
 		private ICompanyService _companyService;
         private IAuthorizedUserService _authorizedUserService;
+        
+
         private List<CompanyModel> _companies = new List<CompanyModel>();
-        private List<UserSostavModel> _users = new List<UserSostavModel>();
+        private List<SourceOfFinacingModel> _sources = new List<SourceOfFinacingModel>();
+        private List<BuildingZoneModel> _buildingZones = new List<BuildingZoneModel>();
+
+        private List<UsersForListModel> _usersCalculator = new List<UsersForListModel>();
+        private List<UsersForListModel> _usersCPE = new List<UsersForListModel>();
+
         private ContractModelValidation _contractModelValidation = new ContractModelValidation();
 
         public ContractAddNewAndEdit(ICompanyService companyService,IAuthorizedUserService authorizedUserService)
@@ -30,11 +38,12 @@ namespace SostavSD.Pages.Contracts
             _authorizedUserService = authorizedUserService;
         }
         protected override async Task OnInitializedAsync()
-        {
+        {                     
             _companies = await _companyService.GetAllCompany();
-            _users = _authorizedUserService.GetListUserSostavModel();
-           
-
+            _buildingZones = await EntityManagementService.GetBuildingZoneModelsAsync();
+            _sources = await EntityManagementService.GetSourcesOfFinancingModelAsync();
+            _usersCPE = _authorizedUserService.GetListUserSostavModelByGroup("8");
+            _usersCalculator = _authorizedUserService.GetListUserSostavModelByGroup("6");
         }
         private void Cancel()
         {
@@ -49,7 +58,7 @@ namespace SostavSD.Pages.Contracts
             if (validationResult.IsValid) 
             {
 				AddOrEditContract.Close(DialogResult.Ok(Contract));
-                Snackbar.Add("Contract added", Severity.Success);
+                Snackbar.Add("Done", Severity.Success);
 			}
 			else
 			{

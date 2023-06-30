@@ -1,0 +1,76 @@
+﻿
+		<MudButtonGroup Class="d-flex justify-start flex-grow-1 gap-4" OverrideStyles="false">
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.LibraryAdd" Title="@_localizer["addNewProject"]" Color="Color.Success"  @onclick="(e => NavigateToPage(_toNewProject))"/>	 
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.DeleteForever" Title="@_localizer["removeProjects"]" Color="Color.Error"  @onclick="(e => RemoveProjects())"/>	 
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Outlined.CollectionsBookmark" Title="@_localizer["listOfContracts"]" Color="Color.Info"  @onclick="(e => NavigateToPage(_toContracts))"/>
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.ContentCopy" Title="@_localizer["copyTheProject"]" Color="Color.Success"  @onclick="(e => CopyProject())"/>
+
+		</MudButtonGroup>
+
+@if (_projects == null)
+{
+        <tr>@_localizer["loadingdata"]</tr>
+}
+else if (_projects.Count == 0)
+{
+    @_localizer["noitem"]
+}
+else
+{
+			<MudTable T="ProjectForTableModel" Items="@_projects" Filter="new Func<ProjectForTableModel,bool>(FilterFuncCurrent)" 
+				RowEditCommit="ItemHasBeenComitted" MultiSelection=true @bind-SelectedItems="selectedItems" Bordered=true OnRowClick="OpenEditDialog">
+			<ToolBarContent>
+				<MudSpacer />
+				<MudTextField @bind-Value="searchString" Placeholder="@_localizer["search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+				
+			</ToolBarContent>
+			<ColGroup>
+				<col />
+				<col style="width: 3%;"/>
+				<col />
+				<col />
+				<col style="width: 40%;"/>
+				<col style="width: 10%;"/>
+				<col />
+				<col />
+				<col />
+				<col />
+				<col />
+				<col />
+				<col />
+			</ColGroup>
+            <HeaderContent>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.Priority)">@_localizer["priority"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.Contract.Index)">@_localizer["index"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.BuildingNumber)">@_localizer["buildingN"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.ProjectName)">@_localizer["projectName"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.Contract.UserID)">@_localizer["cpe"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.Contract.CalculatorId)">@_localizer["calculator"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.StageId)">@_localizer["designStage"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.Contract.ContractNumber)">@_localizer["contractNumber"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.ProjectReleaseDate)">@_localizer["projectRD"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.ProjectReleaseDateByContract)">@_localizer["projectRDC"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.Status)">@_localizer["status"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.Status)">@_localizer["statusDate"]</MudTableSortLabel></MudTh>
+            </HeaderContent>
+
+			<RowTemplate>
+					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["priority"]">@context.Project.Priority</MudTd>
+					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["index"]">@context.Project.Contract?.Index</MudTd>
+					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["buildingNumber"]">@context.Project.BuildingNumber</MudTd>
+					<MudTd DataLabel="@_localizer["projectName"]">@context.Project.ProjectName</MudTd>
+					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["cpe"]">@(context.Project.Contract.Executor?.Surname)</MudTd>
+					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["calculator"]">@context.Calculator.UserSurname</MudTd>
+					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["designStage"]">@context.Project.DesignStage?.StageName</MudTd>
+					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["contractNumber"]">@context.Project.Contract?.ContractNumber</MudTd>
+					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["projectReleaseDate"]">@(context.Project.ProjectReleaseDate == null ? "" : Convert.ToDateTime(context.Project.ProjectReleaseDate).ToString(Constants.DateFormat))</MudTd>
+					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["projectReleaseDateByContract"]">@(context.Project.ProjectReleaseDateByContract == null ? "" : Convert.ToDateTime(context.Project.ProjectReleaseDateByContract).ToString(Constants.DateFormat))</MudTd>
+					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["status"]">@context.Project.Status?.StatusName</MudTd>
+					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["statusDate"]">@(context.Project.StatusDate == null ? "" : Convert.ToDateTime(context.Project.StatusDate).ToString(Constants.DateFormat))</MudTd>
+			</RowTemplate>		
+
+			
+
+		</MudTable>
+
+}

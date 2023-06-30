@@ -12,12 +12,10 @@ namespace SostavSD.Data.Configurations
 
             builder.ToTable("Contract")
                     .HasKey(k => k.ContractID);
-            builder.Property(p => p.ProjectName);
             builder.Property(p => p.Index);
             builder.Property(p => p.Order);
             builder.Property(p => p.ContractNumber);
             builder.Property(p => p.ContractDate);
-            builder.Property(p => p.ContractDateEndOfWork);
             builder.Property(p => p.City);
             builder.Property(p => p.CompanyID);
             builder.HasOne(o => o.Company)
@@ -29,6 +27,14 @@ namespace SostavSD.Data.Configurations
                 .WithMany(m => m.Contracts) 
                 .HasForeignKey(p => p.UserID)
                 .IsRequired(false);
+            builder.Property(p => p.BuildingZoneId);
+            builder.HasOne(o => o.BuildingZone)
+                .WithMany(m => m.Contracts)
+                .HasForeignKey(p => p.BuildingZoneId);
+            builder.Property(p => p.SourceOfFinancingId);
+            builder.HasOne(o => o.SourceOfFinacing)
+                .WithMany(m => m.Contracts)
+                .HasForeignKey(p => p.SourceOfFinancingId);
             
 
         }

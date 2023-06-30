@@ -1,0 +1,8 @@
+﻿::deep .mud-input > input.mud-input-root-outlined, .mud-input-slot.mud-input-root-outlined {
+    padding: 10px;  
+ }
+
+
+::deep .mud-input-control > .mud-input-control-input-container {
+    margin-top: 10px;
+}
