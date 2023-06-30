@@ -5,6 +5,7 @@ using SostavSD.Data;
 using SostavSD.Entities;
 using SostavSD.Interfaces;
 using SostavSD.Models;
+using SostavSD.Pages.Projects;
 using System.Diagnostics.Contracts;
 
 namespace SostavSD.Services
@@ -42,7 +43,25 @@ namespace SostavSD.Services
 			
 		}
 
-		public async Task<bool> DeleteProjectAsync(int id)
+        public bool CheckBuildingNumber(string buildingNumber)
+        {
+            try
+            {
+                var _projects = _context.project.ToList();
+                bool result = _projects.Exists(x => x.BuildingNumber.Equals(buildingNumber));
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+
+                throw;
+            }
+
+        }
+
+        public async Task<bool> DeleteProjectAsync(int id)
 		{
 			try 
 			{

@@ -117,61 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buildingNumber" xml:space="preserve">
-    <value>№ building</value>
+  <data name="badBuildingNumber" xml:space="preserve">
+    <value>Стройка с таким номером уже существует!</value>
   </data>
-  <data name="buildingView" xml:space="preserve">
-    <value>Building view</value>
+  <data name="cancelChanges" xml:space="preserve">
+    <value>Отмена</value>
   </data>
-  <data name="buildingZone" xml:space="preserve">
-    <value>Building zone</value>
+  <data name="newBuildingNumber" xml:space="preserve">
+    <value>Новый № стройки</value>
   </data>
-  <data name="calculator" xml:space="preserve">
-    <value>Calculator</value>
-  </data>
-  <data name="contractDate" xml:space="preserve">
-    <value>Contract date</value>
-  </data>
-  <data name="contractNumber" xml:space="preserve">
-    <value>Contract number</value>
-  </data>
-  <data name="cpe" xml:space="preserve">
-    <value>CPE</value>
-  </data>
-  <data name="customer" xml:space="preserve">
-    <value>Customer</value>
-  </data>
-  <data name="dateWorkStart" xml:space="preserve">
-    <value>Date work start</value>
-  </data>
-  <data name="designStage" xml:space="preserve">
-    <value>Design stage</value>
-  </data>
-  <data name="listOfContracts" xml:space="preserve">
-    <value>List of contracts</value>
-  </data>
-  <data name="order" xml:space="preserve">
-    <value>Order</value>
-  </data>
-  <data name="printType" xml:space="preserve">
-    <value>Print Type</value>
-  </data>
-  <data name="projectName" xml:space="preserve">
-    <value>Project name</value>
-  </data>
-  <data name="releaseDate" xml:space="preserve">
-    <value>Release date</value>
-  </data>
-  <data name="releaseDateByContract" xml:space="preserve">
-    <value>Release date by contract</value>
-  </data>
-  <data name="saveNewProject" xml:space="preserve">
-    <value>Save the new project</value>
-  </data>
-  <data name="sourceOfFinancing" xml:space="preserve">
-    <value>Source of financing</value>
-  </data>
-  <data name="versionCiC" xml:space="preserve">
-    <value>Version CiC</value>
+  <data name="saveChanges" xml:space="preserve">
+    <value>Сохранить</value>
   </data>
 </root>

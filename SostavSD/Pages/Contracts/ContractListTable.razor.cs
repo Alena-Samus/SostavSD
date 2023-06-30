@@ -84,15 +84,7 @@ public partial class ContractListTable : ComponentBase
     private async Task Edit(int contractId)
     {
         await EntityManagementService.EditContractDialog(contractId);
-        //var parameters = new DialogParameters();
-        //var contractToEdit = await _contractService.GetSingleContract(contractId);
-        //parameters.Add("Contract", contractToEdit);
-        //var dialog = await _dialogService.Show<ContractAddNewAndEdit>("update", parameters).Result;
-        //if (dialog != null)
-        //{
-        //    await _contractService.EditContract(contractToEdit);
         await GetContracts();
-        //}
     }
 
 

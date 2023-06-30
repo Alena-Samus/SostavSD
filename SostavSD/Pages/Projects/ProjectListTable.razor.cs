@@ -3,9 +3,6 @@ using Microsoft.Extensions.Localization;
 using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
-using SostavSD.Services;
-
-
 namespace SostavSD.Pages.Projects
 {
     partial class ProjectListTable
@@ -89,27 +86,73 @@ namespace SostavSD.Pages.Projects
 				{
 					await EntityManagementService.DeleteProjectAsync(project.Project.ProjectId);
 				}
-				Snackbar.Add("Items removed", Severity.Success);
+				Snackbar.Add(_localizer["itemsRemoved"], Severity.Success);
                 await GetProjects();
 			}
             else
             {
-                Snackbar.Add("No items", Severity.Info);
+                Snackbar.Add(_localizer["noItems"], Severity.Info);
             }
 
         }
 
-        private async Task OpenEditDialog(TableRowClickEventArgs<ProjectForTableModel> tableRowClickEventArgs)
+		private async Task CopyProject()
+		{
+			if (selectedItems.Count == 0)
+			{
+				Snackbar.Add(_localizer["noItems"], Severity.Info);
+			}
+			if (selectedItems.Count == 1)
+			{				
+				var currentProject = selectedItems.ElementAt(0);
+				var parameters = new DialogParameters();
+				parameters.Add("BuildingNumber", string.Empty);
+
+				var dialog = await _dialogService.Show<CopyProject>("Copy", parameters).Result;
+
+				if (dialog.Data != null)
+				{
+					ProjectModel newProject = new ProjectModel
+					{
+						BuildingNumber = (string)dialog.Data,
+						ContractId = currentProject.Project.ContractId,
+						ConstructionPhase = currentProject.Project.ConstructionPhase,
+						StageId = currentProject.Project.StageId,
+						BuildingViewId = currentProject.Project.BuildingViewId,
+						ProjectReleaseDate = currentProject.Project.ProjectReleaseDate,
+						ProjectReleaseDateByContract = currentProject.Project.ProjectReleaseDateByContract,
+						WorkStartDate = currentProject.Project.WorkStartDate,
+						PriceLevel = currentProject.Project.PriceLevel,
+						PrintType = currentProject.Project.PrintType,
+						CiCVersion = currentProject.Project.CiCVersion,
+						ProjectName = currentProject.Project.ProjectName,
+					};
+					
+					await EntityManagementService.AddProjectAsync(newProject);
+					await GetProjects();
+					
+					Snackbar.Add(_localizer["copied"], Severity.Success);
+				}		
+				
+			}
+			if (selectedItems.Count > 1)
+			{
+				Snackbar.Add(_localizer["someItems"], Severity.Info);
+			}
+			selectedItems.Clear();
+		}
+
+		private async Task OpenEditDialog(TableRowClickEventArgs<ProjectForTableModel> tableRowClickEventArgs)
         {
             var currentProject = tableRowClickEventArgs.Item.Project;
             if ( await EntityManagementService.EditProjectAsync(currentProject))
             {
-                Snackbar.Add("Project edited", Severity.Success);
+                Snackbar.Add(_localizer["projectEdited"], Severity.Success);
                 await GetProjects();
             }
             else
             {
-                Snackbar.Add("Project not edited", Severity.Error);
+                Snackbar.Add(_localizer["projectNotEdited"], Severity.Error);
             }			
 
 		}

@@ -6,23 +6,47 @@
         </div>
 
         <div class="d-flex justify-space-around flex-grow-1 gap-4 mb-3">
-            <MudTextField T="int?" Label="@Localizer["priority"]" @bind-Value="@Project.Priority"/>
-            <MudAutocomplete T="ContractModel" Label="@Localizer["index"]" @bind-Value="@_selectedContract" SearchFunc="@FindContract" ToStringFunc="@(i => i is null ? "" : $"{i.Index}")"/>
-            <MudIconButton @onclick="@(() => Edit(Project.Contract.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
+            <MudGrid>
+                <MudItem xs="2"> 
+                    <MudTextField T="int?" Label="@Localizer["priority"]" @bind-Value="@Project.Priority"/>    
 
-            <MudTextField T="string" Label="@Localizer["buildingNumber"]" @bind-Value="@Project.BuildingNumber"/>
-            <MudSelect T="int?" Label="@Localizer["status"]" Value="@Project.StatusId" ValueChanged="ChangeDate">
-               
-                @foreach(var status in _statuses)
-                {
-                    <MudSelectItem T="int?" Value="@status.StatusId">@status.StatusName</MudSelectItem>
-                }
-                
-            </MudSelect>
+                </MudItem>
+                <MudItem xs="2">
+                    <MudField Label="@Localizer["buildingNumber"]">@Project.BuildingNumber</MudField>
+                </MudItem>
+                <MudItem xs="2">
+                    <MudGrid>
+                        <MudItem xs="9">
+                            <MudAutocomplete T="ContractModel" Label="@Localizer["index"]" @bind-Value="@_selectedContract" SearchFunc="@FindContract" ToStringFunc="@(i => i is null ? "" : $"{i.Index}")"/>
+                        </MudItem>
+                        <MudItem xs="3">
+                            <MudIconButton @onclick="@(() => Edit(Project.Contract.ContractID))" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small"/>
+                        </MudItem>
+                    </MudGrid>
+                </MudItem>
+                <MudItem xs="6">
+                    <MudGrid>
+                        <MudItem xs="5">
+                            <MudSelect T="int?" Label="@Localizer["status"]" Value="@Project.StatusId" ValueChanged="ChangeDate">
 
-            <MudTextField T="string" Label="@Localizer["versionCiC"]" @bind-Value="@Project.CiCVersion" />
-            <MudTextField T="string" Label="@Localizer["printType"]" @bind-Value="@Project.PrintType" />
-             <MudSpacer/>
+                                @foreach (var status in _statuses)
+                                {
+                                   <MudSelectItem T="int?" Value="@status.StatusId">@status.StatusName</MudSelectItem>
+                                }
+
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem xs="2">
+                            <MudTextField T="string" Label="@Localizer["versionCiC"]" @bind-Value="@Project.CiCVersion" />
+                        </MudItem>
+                        <MudItem xs="4">
+                            <MudTextField T="string" Label="@Localizer["printType"]" @bind-Value="@Project.PrintType" />
+                        </MudItem>
+                    </MudGrid>          
+                </MudItem>
+            </MudGrid>          
+            
+            
         </div>
         <div class="d-flex justify-space-around flex-grow-1 gap-4 mb-3">
 

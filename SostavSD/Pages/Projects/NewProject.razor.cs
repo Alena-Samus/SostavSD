@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 using SostavSD.Areas.Identity.Constants;
+using SostavSD.Classes.Validation;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 using SostavSD.Pages.Contracts;
@@ -10,6 +11,7 @@ using SostavSD.Services;
 using SostavSD.Shared;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace SostavSD.Pages.Projects
 {
@@ -33,7 +35,9 @@ namespace SostavSD.Pages.Projects
 		private BuildingViewModel _selectedBuildingView = new();
 
 		private DesignStageModel _selectedDesignStage = new();
-        
+
+        private ProjectModelValidation _projectModelValidation = new();
+
 
         private string _toProject = "/projects";
 		private string _toContracts = "/contracts";
@@ -107,16 +111,37 @@ namespace SostavSD.Pages.Projects
 			_newProject.BuildingViewId = _selectedBuildingView.BuildingViewId > 0 ? _selectedBuildingView.BuildingViewId : null;
 			_newProject.StageId = _selectedDesignStage.StageId > 0 ? _selectedDesignStage.StageId : null;
 
-			if (await EntityManagementService.AddProjectAsync(_newProject))
-			{
-				Snackbar.Add("Add", Severity.Success);
-			}
-			else
-			{
-				Snackbar.Add("Don't add", Severity.Error);
-			}			
-			
-			GoToPage(_toProject);
+            var validationResult = _projectModelValidation.Validate(_newProject);
+
+            if (validationResult.IsValid && !EntityManagementService.CheckBuildingNumber(_newProject.BuildingNumber))
+            {
+                if (await EntityManagementService.AddProjectAsync(_newProject))
+                {
+                    Snackbar.Add("Add", Severity.Success);
+                }
+                else
+                {
+                    Snackbar.Add("Don't add", Severity.Error);
+                }
+
+                GoToPage(_toProject);
+            }
+            else
+            {
+                StringBuilder bld = new StringBuilder();
+				if (EntityManagementService.CheckBuildingNumber(_newProject.BuildingNumber))
+				{
+					bld.AppendLine($"Стройка с номер {_newProject.BuildingNumber} уже существует!");
+				}
+                foreach (var item in validationResult.Errors)
+                {
+                    bld.Append($"{item} ");
+                }
+                string errors = bld.ToString();
+                Snackbar.Add($"{errors}", Severity.Error);
+            }
+
+
 		}
 		private async Task Edit(int contractId)
 		{

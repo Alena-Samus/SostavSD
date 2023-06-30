@@ -167,5 +167,10 @@ namespace SostavSD.Services
         {
             return await _sourceOfFinancingService.GetSourcesOfFinancingModelAsync();
         }
+
+        public bool CheckBuildingNumber(string buildingNumber)
+        {
+            return _projectService.CheckBuildingNumber(buildingNumber);
+        }
     }
 }

@@ -17,24 +17,18 @@ namespace SostavSD.Pages.Contracts
         [Inject] IEntityManagementService EntityManagementService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 		[Inject] IStringLocalizer<ContractAddNewAndEdit> localizer { get; set; }
-    
 
-        [Inject] ISourceOfFinancingService sourceOfFinancingService { get; set; }
 
 		private ICompanyService _companyService;
         private IAuthorizedUserService _authorizedUserService;
         
 
         private List<CompanyModel> _companies = new List<CompanyModel>();
-        private List<UserSostavModel> _users = new List<UserSostavModel>();
         private List<SourceOfFinacingModel> _sources = new List<SourceOfFinacingModel>();
         private List<BuildingZoneModel> _buildingZones = new List<BuildingZoneModel>();
 
         private List<UsersForListModel> _usersCalculator = new List<UsersForListModel>();
         private List<UsersForListModel> _usersCPE = new List<UsersForListModel>();
-
-
-        private int selectedSource = 0;
 
         private ContractModelValidation _contractModelValidation = new ContractModelValidation();
 
@@ -44,8 +38,7 @@ namespace SostavSD.Pages.Contracts
             _authorizedUserService = authorizedUserService;
         }
         protected override async Task OnInitializedAsync()
-        {          
-            _users = _authorizedUserService.GetListUserSostavModel();                     
+        {                     
             _companies = await _companyService.GetAllCompany();
             _buildingZones = await EntityManagementService.GetBuildingZoneModelsAsync();
             _sources = await EntityManagementService.GetSourcesOfFinancingModelAsync();

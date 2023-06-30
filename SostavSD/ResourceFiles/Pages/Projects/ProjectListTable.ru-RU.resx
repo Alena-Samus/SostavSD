@@ -129,6 +129,12 @@
   <data name="contractNumber" xml:space="preserve">
     <value>Номер договора</value>
   </data>
+  <data name="copied" xml:space="preserve">
+    <value>Стройка скопирована</value>
+  </data>
+  <data name="copyTheProject" xml:space="preserve">
+    <value>Копировать стройку</value>
+  </data>
   <data name="cpe" xml:space="preserve">
     <value>ГИП</value>
   </data>
@@ -137,6 +143,9 @@
   </data>
   <data name="index" xml:space="preserve">
     <value>Индекс</value>
+  </data>
+  <data name="itemsRemoved" xml:space="preserve">
+    <value>Стройки удалены</value>
   </data>
   <data name="listOfContracts" xml:space="preserve">
     <value>Список договоров</value>
@@ -147,11 +156,20 @@
   <data name="noitem" xml:space="preserve">
     <value>Нет данных</value>
   </data>
+  <data name="noItems" xml:space="preserve">
+    <value>Ничего не выбрано</value>
+  </data>
   <data name="priority" xml:space="preserve">
     <value>Приоритет</value>
   </data>
+  <data name="projectEdited" xml:space="preserve">
+    <value>Стройка отредактирована</value>
+  </data>
   <data name="projectName" xml:space="preserve">
     <value>Объект</value>
+  </data>
+  <data name="projectNotEdited" xml:space="preserve">
+    <value>Стройка не отредактирована</value>
   </data>
   <data name="projectRD" xml:space="preserve">
     <value>Выпуск</value>
@@ -164,6 +182,9 @@
   </data>
   <data name="search" xml:space="preserve">
     <value>Поиск</value>
+  </data>
+  <data name="someItems" xml:space="preserve">
+    <value>Выбрано несколько строек</value>
   </data>
   <data name="status" xml:space="preserve">
     <value>Статус</value>
