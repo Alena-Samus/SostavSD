@@ -38,6 +38,7 @@ namespace SostavSD.Data
 			AddSourceOfFinancing(context);
 			AddCompany(context);
 			AddProject(context);
+			AddDrawing(context);
 		}
 
 		private async static Task AddUser(string email, string[] roles, UserManager<UserSostav> userManager, IServiceProvider serviceProvider, string surname, string group)
@@ -238,9 +239,35 @@ namespace SostavSD.Data
 			else
 			{
 				context.project.Add(new Project { BuildingNumber = "1", ContractId = 1, StageId = 1 });
-			}
+                context.project.Add(new Project { BuildingNumber = "2", ContractId = 2, StageId = 1 });
+                context.project.Add(new Project { BuildingNumber = "3", ContractId = 3, StageId = 1 });
+                context.project.Add(new Project { BuildingNumber = "4", ContractId = 4, StageId = 1 });
+                context.project.Add(new Project { BuildingNumber = "5", ContractId = 1, StageId = 1 });
+            }
 
 			context.SaveChanges();
 		}
-	}
+
+        public static void AddDrawing(SostavSDContext context)
+        {
+            if (context.drawing.Any())
+            {
+                return;
+            }
+            else
+            {
+                var drawings = new Drawing[]
+                {
+                    new Drawing {DrawingName = "11111-Р-10000-ТМ8", ProjectId = 4},
+                    new Drawing {DrawingName = "050-1-КЖ10", ProjectId = 4},
+                    new Drawing {DrawingName = "17100-2001-ЭМ25 изм.1", ProjectId = 4},
+                };
+                foreach (Drawing item in drawings)
+                {
+                    context.drawing.Add(item);
+                }
+                context.SaveChanges();
+            }
+        }
+    }
 }

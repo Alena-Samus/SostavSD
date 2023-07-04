@@ -9,6 +9,7 @@
         public bool IsEstimate { get; set; }
 
         public ICollection<Project> Projects { get; set; }
+        public ICollection<Drawing> Drawings { get; set; }
 
     }
 }
