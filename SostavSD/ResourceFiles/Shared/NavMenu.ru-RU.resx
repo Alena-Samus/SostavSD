@@ -132,6 +132,9 @@
   <data name="projects" xml:space="preserve">
     <value>Объекты</value>
   </data>
+  <data name="selectProject" xml:space="preserve">
+    <value>Выбор объекта</value>
+  </data>
   <data name="SostavSD" xml:space="preserve">
     <value>SostavSD</value>
   </data>
