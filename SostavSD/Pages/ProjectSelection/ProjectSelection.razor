@@ -1,1 +1,19 @@
-﻿<h3>ProjectSelection</h3>
+﻿
+@if (_projects == null)
+{
+			<tr>@Localizer["loadingdata"]</tr>
+}
+else if (_projects.Count == 0)
+{
+	@Localizer["noitem"]
+}
+else
+{
+	foreach(var item in _projects)
+	{		
+
+		<IndividualProject Project="item" Calculator="Calculators"/>					
+	}	
+			
+}
+
