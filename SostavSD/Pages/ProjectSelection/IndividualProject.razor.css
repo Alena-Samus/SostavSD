@@ -11,8 +11,8 @@
 
 ::deep .mud-grid-item-xs-2, ::deep .mud-grid-item-xs-4,::deep .mud-grid-item-xs-1 {
     background-color: lightgray;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
+    margin: 0px;
+    padding: 0px;
 }
 
 ::deep .myclass .mud-input-slot.mud-input-root.mud-input-root-outlined {
