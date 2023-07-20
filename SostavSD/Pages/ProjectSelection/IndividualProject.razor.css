@@ -15,9 +15,12 @@
     padding: 0px;
 }
 
-::deep .myclass .mud-input-slot.mud-input-root.mud-input-root-outlined {
+::deep .myclass .mud-button-label {
     color: blue;
-    font-weight:bold;
+    font-weight: bold;
     font-size: 16px;
-    margin:10px 0 30px 0;
+    margin: 10px 0;
+    text-align:left;
+    text-transform: none;
 }
+
