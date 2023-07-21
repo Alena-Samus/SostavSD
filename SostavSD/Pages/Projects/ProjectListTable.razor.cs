@@ -73,10 +73,7 @@ namespace SostavSD.Pages.Projects
 			_navigationManager.NavigateTo(adress);
 		}
 		
-        private void ItemHasBeenComitted(object item)
-        {            
-            EntityManagementService.EditProjectAsync(((ProjectForTableModel)item).Project);  
-		}
+      
 
         private async Task  RemoveProjects()
         {

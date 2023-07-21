@@ -1,0 +1,18 @@
+﻿::deep .mud-button-outlined.mud-button-outlined-primary {
+    margin: 30px;
+}
+
+::deep .mud-input > input.mud-input-root.mud-input-root-filled.mud-input-root-adorned-end, div.mud-input-slot.mud-input-root.mud-input-root-filled.mud-input-root-adorned-end, 
+::deep .mud-input > input.mud-input-root.mud-input-root-filled, div.mud-input-slot.mud-input-root.mud-input-root-filled {
+    padding: 5px;
+}
+
+::deep .mud-input-label.mud-input-label-animated.mud-input-label-filled.mud-input-label-inputcontrol {
+    color: blue;
+    margin-top: -15px;
+    margin-bottom: 3px;
+}
+
+::deep .mud-input-slot.mud-input-root.mud-input-root-filled.mud-input-root-adorned-end.mud-select-input {
+    padding: 5px;
+}

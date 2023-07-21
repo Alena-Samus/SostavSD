@@ -1,0 +1,32 @@
+﻿<div>
+	<MudGrid>
+		<MudItem xs="2">
+			<MudField Variant="Variant.Outlined">@(Project.Contract.Executor?.Surname)</MudField>
+			</MudItem>
+
+				<MudItem xs="1">
+					<MudField Style="text-align:center;" Variant="Variant.Outlined">@Project.Contract?.Index</MudField>
+				</MudItem>
+
+				<MudItem xs="1">
+					<MudField Style="text-align:center;" Variant="Variant.Outlined">@Project.BuildingNumber</MudField>
+				</MudItem>
+				<MudItem xs="4">
+					<MudField Style="text-align:center;" Variant="Variant.Outlined">@Project.DesignStage?.StageName</MudField>	
+				</MudItem>
+				<MudItem xs="2">
+					<MudField Style="text-align:center;" Variant="Variant.Outlined">@Project.Contract?.ContractNumber</MudField>
+				</MudItem>
+				<MudItem xs="1">
+					<MudField Style="text-align:center;" Variant="Variant.Outlined">@calculatorName</MudField>
+				</MudItem>
+				<MudItem xs="1">
+					<MudField Style="text-align:center;" Variant="Variant.Outlined">@Project.CiCVersion</MudField>	
+				</MudItem>
+		</MudGrid>	
+
+			<div class="myclass"> 
+				<MudButton OnClick="navigate"> @Project.ProjectName </MudButton>
+		</div>
+</div>
+	

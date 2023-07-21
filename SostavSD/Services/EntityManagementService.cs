@@ -20,10 +20,12 @@ namespace SostavSD.Services
 		private readonly IContractForTableService _contractForTableService;
 		private readonly IStatusService _statusService;
 		private readonly ISourceOfFinancingService _sourceOfFinancingService;
+		private readonly IDrawingService _drawingService;
 
 		public EntityManagementService(IContractService contractService, IDialogService dialogService, IBuildingViewService buildingViewService, 
 			IDesignStageService designStageService, IProjectService projectService, IContractForTableService contractForTableService, 
-			IStatusService statusService, IBuildingZoneService buildingZoneService, ISourceOfFinancingService sourceOfFinancingService)
+			IStatusService statusService, IBuildingZoneService buildingZoneService, ISourceOfFinancingService sourceOfFinancingService, 
+			IDrawingService drawingService)
 		{
 			_contractService = contractService;
 			_dialogService = dialogService;
@@ -34,7 +36,7 @@ namespace SostavSD.Services
 			_statusService = statusService;
 			_buildingZoneService = buildingZoneService;
 			_sourceOfFinancingService = sourceOfFinancingService;
-
+			_drawingService = drawingService;
 		}
 
 		private bool result = false;
@@ -148,9 +150,9 @@ namespace SostavSD.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<ProjectModel>> GetProjectsAsync()
+        public async Task<List<ProjectModel>> GetProjectsAsync()
         {
-            throw new NotImplementedException();
+           return await _projectService.GetProjectsAsync();
         }
 
         public async Task<ContractModel> GetSingleContract(int contractId)
@@ -171,6 +173,11 @@ namespace SostavSD.Services
         public bool CheckBuildingNumber(string buildingNumber)
         {
             return _projectService.CheckBuildingNumber(buildingNumber);
+        }
+
+        public async Task<List<DrawingModel>> GetDrawingModelsAsync()
+        {
+           return await _drawingService.GetDrawingModelsAsync();
         }
     }
 }

@@ -18,6 +18,7 @@ namespace SostavSD
 			CreateMap<Status, StatusModel>().ReverseMap().PreserveReferences();
 			CreateMap<Project, ProjectModel>().ReverseMap().PreserveReferences();
 			CreateMap<Status, StatusModel>().ReverseMap().PreserveReferences();
+			CreateMap<Drawing,DrawingModel>().ReverseMap().PreserveReferences();
 		}
     }
 }

@@ -1,0 +1,57 @@
+﻿<div>
+	<MudGrid>
+		<MudItem xs="2">
+			<MudSelect T="string" Label="@Localizer["cpe"]" Variant="Variant.Filled" @bind-Value="findCPE">
+				@foreach (var item in _usersCPE)
+				{
+						<MudSelectItem T="string" Value="@item.IdUser">@item.SurnameUser</MudSelectItem>
+				}
+			</MudSelect>
+		</MudItem>
+		<MudItem xs="2">
+			<MudTextField T="string" @bind-Value="findIndex" Label="@Localizer["index"]" Variant="Variant.Filled"></MudTextField>
+		</MudItem>
+		<MudItem xs="2">
+			<MudTextField T="string" @bind-Value="findBuildingNumber" Label="@Localizer["buildingNumber"]" Variant="Variant.Filled"></MudTextField>
+		</MudItem>
+		<MudItem xs="4">
+			<MudSelect T="int?"  Label="@Localizer["designStage"]" Variant="Variant.Filled" @bind-Value="findDesignStage">
+				@foreach(var item in _designStages)
+				{
+					<MudSelectItem T="int?" Value="@item.StageId">@item.StageName</MudSelectItem>
+				}
+			</MudSelect>
+		</MudItem>
+		<MudItem xs="2">
+			<MudTextField T="string" @bind-Value="findContractNumber" Label="@Localizer["contractNumber"]" Variant="Variant.Filled">
+
+			</MudTextField>
+		</MudItem>
+	</MudGrid>
+</div>
+
+<div class="d-flex justify-center">
+	<MudButton Variant="Variant.Outlined" StartIcon="@Icons.Material.TwoTone.Search" Color="Color.Primary" @onclick="Find">@Localizer["find"]</MudButton>
+	<MudButton Variant="Variant.Outlined" Color="Color.Primary"  @onclick="Clean">@Localizer["clean"]</MudButton>
+</div>
+
+ <MudSpacer />
+
+@if (_projects == null)
+{
+			<tr>@Localizer["loadingdata"]</tr>
+}
+else if (_projects.Count == 0)
+{
+	@Localizer["noitem"]
+}
+else
+{
+	foreach(var item in _projects)
+	{		
+
+		<IndividualProject Project="item" Calculator="Calculators"/>					
+	}	
+			
+}
+

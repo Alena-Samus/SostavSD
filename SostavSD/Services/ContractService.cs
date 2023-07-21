@@ -26,8 +26,7 @@ namespace SostavSD.Services
         }
 
         public async Task<List<ContractModel>> GetAllContract()
-        {
-           
+        {           
             try
             {
 				var contractList = _context.contract

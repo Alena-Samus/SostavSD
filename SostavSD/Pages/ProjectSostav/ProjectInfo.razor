@@ -1,0 +1,112 @@
+﻿
+<div>
+    <MudGrid>
+        <MudItem xs="1">
+            <MudText Class="title">@Localizer["projectName"]</MudText>
+        </MudItem>
+        <MudItem xs="11">
+            <MudText >@_projectModel.ProjectName</MudText>
+        </MudItem>
+    </MudGrid>
+
+    <MudGrid>
+        <MudItem xs="5">
+            <MudGrid>
+                <MudItem xs="3">
+                    <MudText Class="title">@Localizer["contractNumber"]</MudText>
+                </MudItem>
+                <MudItem xs="3">
+                    <MudText>@_projectModel.Contract.ContractNumber</MudText>
+                </MudItem>
+                <MudItem xs="3">
+                    <MudText Class="title">@Localizer["contractDate"]</MudText>
+                </MudItem>
+                <MudItem xs="3">            
+                    <MudText>@(_projectModel.Contract.ContractDate == null ? "" : Convert.ToDateTime(_projectModel.Contract.ContractDate).ToString(Constants.DateFormat))</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+        <MudItem xs="2">
+            <MudGrid>
+                <MudItem xs="6">
+                    <MudText Class="title">@Localizer["releaseDate"]</MudText>
+                </MudItem>
+                <MudItem xs="6">            
+                    <MudText>@(_projectModel.ProjectReleaseDate == null ? "" : Convert.ToDateTime(_projectModel.ProjectReleaseDate).ToString(Constants.DateFormat))</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+        <MudItem xs="5">
+            <MudGrid>
+                <MudItem xs="3">
+                    <MudText Class="title">@Localizer["status"]</MudText>
+                </MudItem>
+                <MudItem xs="3">            
+                    <MudText>@_projectModel.Status.StatusName</MudText>
+                </MudItem>
+                <MudItem xs="3">
+                    <MudText Class="title">@Localizer["statusDate"]</MudText>
+                </MudItem>
+                <MudItem xs="3">            
+                    <MudText>@(_projectModel.StatusDate == null ? "" : Convert.ToDateTime(_projectModel.StatusDate).ToString(Constants.DateFormat))</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudItem>      
+        
+    </MudGrid>
+
+    <MudGrid>
+        <MudItem xs="2">
+            <MudGrid>
+                <MudItem xs="4">
+                        <MudText Class="title">@Localizer["cpe"]</MudText>
+                </MudItem>
+                <MudItem xs="8">
+                    <MudText>@_projectModel.Contract.Executor.Surname</MudText>
+                </MudItem>
+            </MudGrid>                                       
+        </MudItem>
+        <MudItem xs="2">
+            <MudGrid>
+                <MudItem xs="5">
+                    <MudText Class="title">@Localizer["buildingNumber"]</MudText>    
+                </MudItem>
+                <MudItem xs="7">
+                    <MudText>@_projectModel.BuildingNumber</MudText>
+                </MudItem>
+            </MudGrid>                   
+        </MudItem>
+        <MudItem xs="1">
+            <MudGrid>
+                <MudItem xs="6">
+                      <MudText Class="title">@Localizer["index"]</MudText>  
+                </MudItem>
+                <MudItem xs="6">
+                        <MudText>@_projectModel.Contract.Index</MudText>
+                </MudItem>
+            </MudGrid>                     
+        </MudItem>
+        <MudItem xs="5">
+            <MudGrid>
+                <MudItem xs="4">
+                     <MudText Class="title">@Localizer["designStage"]</MudText> 
+                </MudItem>
+                <MudItem xs="8">            
+                    <MudText>@_projectModel.DesignStage.StageName</MudText>
+                </MudItem>
+            </MudGrid>                      
+        </MudItem>
+        <MudItem xs="2">
+            <MudGrid>
+                <MudItem xs="8">
+                    <MudText Class="title">@Localizer["constructionPhase"]</MudText>
+                </MudItem>
+                <MudItem xs="3">            
+                    <MudText>@_projectModel.ConstructionPhase</MudText>
+                </MudItem>
+            </MudGrid>                      
+        </MudItem>       
+    </MudGrid>
+</div>
+
+

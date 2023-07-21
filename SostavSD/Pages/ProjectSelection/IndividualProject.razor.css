@@ -1,0 +1,26 @@
+﻿::deep .mud-input.mud-input-outlined .mud-input-outlined-border{
+    border:none;    
+}
+
+::deep .mud-input-slot.mud-input-root.mud-input-root-outlined {
+    font-size:14px;
+    font-weight:500;
+    border: none;
+    padding:0;
+}
+
+::deep .mud-grid-item-xs-2, ::deep .mud-grid-item-xs-4,::deep .mud-grid-item-xs-1 {
+    background-color: lightgray;
+    margin: 0px;
+    padding: 0px;
+}
+
+::deep .myclass .mud-button-label {
+    color: blue;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 10px 0;
+    text-align:left;
+    text-transform: none;
+}
+

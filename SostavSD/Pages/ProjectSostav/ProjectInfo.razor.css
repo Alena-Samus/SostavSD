@@ -1,0 +1,20 @@
+﻿::deep .mud-input-label.mud-input-label-animated.mud-input-label-text.mud-input-label-inputcontrol {
+    border: none;
+    font-weight:500;
+    font-size:13px;
+    text-align:left;
+    padding-right:0;
+}
+::deep .mud-grid.mud-grid-spacing-xs-3.justify-start {
+    background-color: lightgray;
+}
+::deep .mud-typography.mud-typography-body1{
+    background-color: aliceblue;
+    text-align:center;
+}
+::deep .title.mud-typography.mud-typography-body1 {
+    background-color: lightgray;
+    text-align: right;
+    font-size:15px;
+    font-weight:bolder;
+}

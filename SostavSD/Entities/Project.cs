@@ -23,6 +23,6 @@
         public string PrintType { get; set; }
         public string CiCVersion { get; set; }
 
-
+        public ICollection<Drawing> Drawings { get; set; }
     }
 }
