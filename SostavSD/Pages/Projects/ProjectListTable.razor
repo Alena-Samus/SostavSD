@@ -18,7 +18,7 @@ else if (_projects.Count == 0)
 else
 {
 			<MudTable T="ProjectForTableModel" Items="@_projects" Filter="new Func<ProjectForTableModel,bool>(FilterFuncCurrent)" 
-				RowEditCommit="ItemHasBeenComitted" MultiSelection=true @bind-SelectedItems="selectedItems" Bordered=true OnRowClick="OpenEditDialog">
+				MultiSelection=true @bind-SelectedItems="selectedItems" Bordered=true OnRowClick="OpenEditDialog">
 			<ToolBarContent>
 				<MudSpacer />
 				<MudTextField @bind-Value="searchString" Placeholder="@_localizer["search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
@@ -50,8 +50,8 @@ else
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.Contract.ContractNumber)">@_localizer["contractNumber"]</MudTableSortLabel></MudTh>
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.ProjectReleaseDate)">@_localizer["projectRD"]</MudTableSortLabel></MudTh>
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.ProjectReleaseDateByContract)">@_localizer["projectRDC"]</MudTableSortLabel></MudTh>
-					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.Status)">@_localizer["status"]</MudTableSortLabel></MudTh>
-					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.Status)">@_localizer["statusDate"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.StatusId)">@_localizer["status"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.StatusDate)">@_localizer["statusDate"]</MudTableSortLabel></MudTh>
             </HeaderContent>
 
 			<RowTemplate>

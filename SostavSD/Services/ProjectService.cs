@@ -120,9 +120,10 @@ namespace SostavSD.Services
                 {
                     _context.project.Entry(project).State = EntityState.Modified;
                     _context.contract.Entry(project.Contract).State = EntityState.Modified;
+                    _context.buildingView.Entry(project.BuildingView).State = EntityState.Modified;
                     _context.designStage.Entry(project.DesignStage).State = EntityState.Modified;
                     _context.status.Entry(project.Status).State = EntityState.Modified;
-                    _context.buildingView.Entry(project.BuildingView).State = EntityState.Modified;
+                    
                 }
 
                 return _mapper.Map<ProjectModel>(project);
