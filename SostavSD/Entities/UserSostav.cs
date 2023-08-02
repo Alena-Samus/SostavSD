@@ -8,6 +8,6 @@ namespace SostavSD.Entities
 		public string GroupName { get; set; }
 
         public ICollection<Contract> Contracts { get; set; }
-
+        public ICollection<Estimate> Estimators { get; set; }
     }
 }

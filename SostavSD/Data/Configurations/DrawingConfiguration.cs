@@ -26,6 +26,7 @@ namespace SostavSD.Data.Configurations
                 .WithMany(m => m.Drawings)
                 .HasForeignKey(p => p.StatusId)
                 .IsRequired(false);
+            builder.Property(p => p.Group);
 
         }
     }
