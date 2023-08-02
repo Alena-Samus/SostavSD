@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SostavSD.Data;
 
@@ -11,9 +12,11 @@ using SostavSD.Data;
 namespace SostavSD.Migrations
 {
     [DbContext(typeof(SostavSDContext))]
-    partial class SostavSDContextModelSnapshot : ModelSnapshot
+    [Migration("20230724073008_AddColumnGroupToTheDrawingTable")]
+    partial class AddColumnGroupToTheDrawingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -323,62 +326,6 @@ namespace SostavSD.Migrations
                     b.ToTable("Drawing", (string)null);
                 });
 
-            modelBuilder.Entity("SostavSD.Entities.Estimate", b =>
-                {
-                    b.Property<int>("EstimateId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EstimateId"));
-
-                    b.Property<double?>("Equipment")
-                        .HasColumnType("float");
-
-                    b.Property<string>("EstimateCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimateName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimateNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("EstimateReleaseDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EstimatorId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<double?>("Other")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("ReplacementOrAdditionEsimateId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ReplacementOrAdditionType")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("SMR")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime?>("StatusDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("StatusId")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("Total")
-                        .HasColumnType("float");
-
-                    b.HasKey("EstimateId");
-
-                    b.HasIndex("EstimatorId");
-
-                    b.HasIndex("StatusId");
-
-                    b.ToTable("Estimate", (string)null);
-                });
-
             modelBuilder.Entity("SostavSD.Entities.Project", b =>
                 {
                     b.Property<int>("ProjectId")
@@ -659,21 +606,6 @@ namespace SostavSD.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("SostavSD.Entities.Estimate", b =>
-                {
-                    b.HasOne("SostavSD.Entities.UserSostav", "Estimator")
-                        .WithMany("Estimators")
-                        .HasForeignKey("EstimatorId");
-
-                    b.HasOne("SostavSD.Entities.Status", "Status")
-                        .WithMany("Estimates")
-                        .HasForeignKey("StatusId");
-
-                    b.Navigation("Estimator");
-
-                    b.Navigation("Status");
-                });
-
             modelBuilder.Entity("SostavSD.Entities.Project", b =>
                 {
                     b.HasOne("SostavSD.Entities.BuildingView", "BuildingView")
@@ -740,16 +672,12 @@ namespace SostavSD.Migrations
                 {
                     b.Navigation("Drawings");
 
-                    b.Navigation("Estimates");
-
                     b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.UserSostav", b =>
                 {
                     b.Navigation("Contracts");
-
-                    b.Navigation("Estimators");
                 });
 #pragma warning restore 612, 618
         }

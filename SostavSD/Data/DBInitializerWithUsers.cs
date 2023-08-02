@@ -39,7 +39,9 @@ namespace SostavSD.Data
 			AddCompany(context);
 			AddProject(context);
 			AddDrawing(context);
-		}
+			AddEstimate(context);
+
+        }
 
 		private async static Task AddUser(string email, string[] roles, UserManager<UserSostav> userManager, IServiceProvider serviceProvider, string surname, string group)
 		{
@@ -265,6 +267,28 @@ namespace SostavSD.Data
                 foreach (Drawing item in drawings)
                 {
                     context.drawing.Add(item);
+                }
+                context.SaveChanges();
+            }
+        }
+        public static void AddEstimate(SostavSDContext context)
+        {
+            if (context.estimate.Any())
+            {
+                return;
+            }
+            else
+            {
+                var estimates = new Estimate[]
+                {
+                    new Estimate {EstimateNumber="14.1", EstimateCode="797-14-13", EstimateName="строительные работы", Other =145879, Equipment=1250 },
+                    new Estimate {EstimateNumber="3-73-4003Е-В2/Д9", EstimateCode="751-1-36", EstimateName="демонтаж оборудования и трубопроводов"},
+                    new Estimate {EstimateNumber="32", EstimateCode="7341-3-32", EstimateName="прокладку трубопроводов теплоснабжения", Total = 3477},
+
+                };
+                foreach (Estimate item in estimates)
+                {
+                    context.estimate.Add(item);
                 }
                 context.SaveChanges();
             }

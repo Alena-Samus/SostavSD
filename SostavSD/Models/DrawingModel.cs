@@ -15,5 +15,6 @@ namespace SostavSD.Models
         public DateTime? DrawingReleaseDateBySchedule { get; set; }
         public DateTime? DrawingReleaseDateDepertment { get; set; }
         public DateTime? DrawingDateOfAdmissionToDepartmetn { get; set; }
+        public string Group { get; set; }
     }
 }
