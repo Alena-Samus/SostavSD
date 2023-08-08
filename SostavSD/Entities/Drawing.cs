@@ -14,5 +14,8 @@
         public DateTime? DrawingReleaseDateDepertment { get; set; }
         public DateTime? DrawingDateOfAdmissionToDepartmetn { get; set; }
         public string Group { get; set; }
+
+        public ICollection<Estimate> Estimates { get; set; }
+        public ICollection<DrawingEstimate> DrawingsEstimates { get; set; }
     }
 }

@@ -28,6 +28,10 @@ namespace SostavSD.Data.Configurations
                 .IsRequired(false);
             builder.Property(p => p.Group);
 
+            builder.HasMany(m => m.Estimates)
+                .WithMany(m => m.Drawings)
+                .UsingEntity<DrawingEstimate>();
+
         }
     }
 }
