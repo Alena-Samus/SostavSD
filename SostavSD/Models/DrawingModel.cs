@@ -1,4 +1,4 @@
-﻿using SostavSD.Entities;
+﻿using SostavSD.Areas.Identity.Constants;
 
 namespace SostavSD.Models
 {
@@ -16,6 +16,6 @@ namespace SostavSD.Models
         public DateTime? DrawingReleaseDateDepertment { get; set; }
         public DateTime? DrawingDateOfAdmissionToDepartment { get; set; }
         public string Notes { get; set; }
-        public string Group { get; set; }
+        public Groups Group { get; set; }
     }
 }

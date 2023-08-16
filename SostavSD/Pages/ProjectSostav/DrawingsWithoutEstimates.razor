@@ -1,0 +1,23 @@
+﻿@using SostavSD.Areas.Identity.Constants;
+<MudDataGrid T="DrawingModel" Bordered=true ReadOnly="false" Groupable="false" Items="@_drawings" EditMode="DataGridEditMode.Cell" CommittedItemChanges="@CommitedItemChanges">
+    <Columns>
+        <PropertyColumn Property="x => x.DrawingName"/>
+        <PropertyColumn Property="x => x.DrawingDateOfAdmissionToDepartment"/>
+        <PropertyColumn Property="x => x.DrawingReleaseDateBySchedule"/>
+        <PropertyColumn Property="x => x.Group">
+            <EditTemplate>
+                <MudSelect>
+                    @foreach(var item in Enum.GetValues(typeof(Groups)))
+                    {
+                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                    }
+                </MudSelect>
+            </EditTemplate>
+      
+        </PropertyColumn>
+        <PropertyColumn Property="x => x.Notes"/>
+        <PropertyColumn Property="x => x.StatusId"/>        
+    </Columns>
+   
+</MudDataGrid>
+ 
