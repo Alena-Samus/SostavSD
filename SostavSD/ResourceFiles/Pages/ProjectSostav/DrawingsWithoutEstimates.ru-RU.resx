@@ -117,37 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="admissionDate" xml:space="preserve">
-    <value>Admission Date</value>
+  <data name="DateOfAdmission" xml:space="preserve">
+    <value>Дата поступления в ОСД</value>
   </data>
-  <data name="contractNumber" xml:space="preserve">
-    <value>Contract number</value>
+  <data name="DrawingName" xml:space="preserve">
+    <value>Наименование раздела</value>
   </data>
-  <data name="cpe" xml:space="preserve">
-    <value>CPE</value>
+  <data name="Notes" xml:space="preserve">
+    <value>Примечание</value>
   </data>
-  <data name="designStage" xml:space="preserve">
-    <value>Design stage</value>
-  </data>
-  <data name="drawingName" xml:space="preserve">
-    <value>Drawing Name</value>
-  </data>
-  <data name="index" xml:space="preserve">
-    <value>Index</value>
-  </data>
-  <data name="projectName" xml:space="preserve">
-    <value>Project name</value>
-  </data>
-  <data name="releaseDate" xml:space="preserve">
-    <value>Release date</value>
-  </data>
-  <data name="releaseDateBySchedule" xml:space="preserve">
-    <value>Release Date By Schedule</value>
-  </data>
-  <data name="status" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="statusDate" xml:space="preserve">
-    <value>Status date</value>
+  <data name="ReleaseDateBySchedule" xml:space="preserve">
+    <value>Дата выпуска по графику</value>
   </data>
 </root>
