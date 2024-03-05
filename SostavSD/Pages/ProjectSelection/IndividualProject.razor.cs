@@ -20,7 +20,7 @@ namespace SostavSD.Pages.ProjectSelection
 
 		protected override async Task OnInitializedAsync()
 		{
-			calculatorName = Calculator.FirstOrDefault(x => x.UserId == Project.Contract.CalculatorId).UserSurname.ToString();
+			calculatorName = Calculator.FirstOrDefault(x => x.UserId == Project.Contract.CalculatorId)?.UserSurname.ToString();
         }
 		private void navigate()
 		{

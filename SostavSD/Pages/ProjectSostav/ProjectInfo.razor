@@ -42,7 +42,7 @@
                     <MudText Class="title">@Localizer["status"]</MudText>
                 </MudItem>
                 <MudItem xs="3">            
-                    <MudText>@_projectModel.Status.StatusName</MudText>
+                    <MudText>@_projectModel.Status?.StatusName</MudText>
                 </MudItem>
                 <MudItem xs="3">
                     <MudText Class="title">@Localizer["statusDate"]</MudText>
@@ -62,7 +62,7 @@
                         <MudText Class="title">@Localizer["cpe"]</MudText>
                 </MudItem>
                 <MudItem xs="8">
-                    <MudText>@_projectModel.Contract.Executor.Surname</MudText>
+                    <MudText>@_projectModel.Contract.Executor?.Surname</MudText>
                 </MudItem>
             </MudGrid>                                       
         </MudItem>
