@@ -22,9 +22,8 @@ namespace SostavSD.Services
         public void EditDrawing(DrawingModel currentDrawing)
         {
             Drawing drawingAfterEdit = _mapper.Map<Drawing>(currentDrawing);
-            _context.drawing.Entry(drawingAfterEdit).State = EntityState.Modified;
-            _context.drawing.Update(drawingAfterEdit);
-            _context.drawing.Entry(drawingAfterEdit).State = EntityState.Detached;
+            _context.drawing.Entry(drawingAfterEdit).State = EntityState.Detached; //снимать отслеживание в момент получения 
+            _context.drawing.Update(drawingAfterEdit);           
             _context.SaveChanges();
             
         }

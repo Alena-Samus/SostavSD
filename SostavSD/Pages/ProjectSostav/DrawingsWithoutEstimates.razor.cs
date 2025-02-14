@@ -21,5 +21,10 @@ namespace SostavSD.Pages.ProjectSostav
         {
             EntityManagementService.EditDrawing(item);
         }
+        void ChangeDate(DrawingModel item)
+        {
+            EntityManagementService.EditDrawing(item);
+
+        }
     }
 }
