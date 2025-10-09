@@ -10,8 +10,9 @@ else if (_drawings.Count == 0)
 }
 else
 {
-	<MudTable T="DrawingModel" Items="@_drawings" Filter="new Func<DrawingModel,bool>(FilterFuncCurrent)"
-			  MultiSelection=true @bind-SelectedItems="selectedItems" Bordered=true OnRowClick="OpenEditDialog">
+	<MudTable T="DrawingModel" @ref="tableRef" Items="@_drawings" Filter="new Func<DrawingModel, bool>(FilterFuncCurrent)"
+			  MultiSelection=true @bind-SelectedItems="selectedItems" Bordered=true OnRowClick="OpenEditDialog" 
+			  ServerData="@(new Func<TableState, Task<TableData<DrawingModel>>>(LoadData))">
 			<ToolBarContent>
 				<MudSpacer />
 				<MudTextField @bind-Value="searchString" Placeholder="@Localizer["search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
@@ -31,9 +32,12 @@ else
             <HeaderContent>
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingPriority)">@Localizer["priority"]</MudTableSortLabel></MudTh>
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingName)">@Localizer["drawingName"]</MudTableSortLabel></MudTh>
-					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingDateOfAdmissionToDepartment)">@Localizer["dateOfAdmissionToDepartment"]</MudTableSortLabel></MudTh>
-					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingReleaseDateDepertment)">@Localizer["drawingReleaseDateDepertment"]</MudTableSortLabel></MudTh>
-					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingReleaseDateBySchedule)">@Localizer["drawingReleaseDateBySchedule"]</MudTableSortLabel></MudTh>
+					<MudTh Style="@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingDateOfAdmissionToDepartment)" 
+													SortLabel="DrawingDateOfAdmissionToDepartment">@Localizer["dateOfAdmissionToDepartment"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingReleaseDateDepertment)"
+													SortLabel="DrawingReleaseDateDepertment">@Localizer["drawingReleaseDateDepertment"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingReleaseDateBySchedule)"
+													SortLabel="DrawingReleaseDateBySchedule">@Localizer["drawingReleaseDateBySchedule"]</MudTableSortLabel>	</MudTh>
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.Status.StatusName)">@Localizer["status"]</MudTableSortLabel></MudTh>
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.Group)">@Localizer["group"]</MudTableSortLabel></MudTh>
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.Notes)">@Localizer["notes"]</MudTableSortLabel></MudTh>
@@ -43,8 +47,8 @@ else
 					<MudTd style = "@styleTableBody" DataLabel="@Localizer["priority"]">@context.DrawingPriority</MudTd>
 					<MudTd Style = "@styleTableBody" DataLabel="@Localizer["drawingName"]">@context.DrawingName</MudTd>
 					<MudTd Style = "@styleTableBody" DataLabel="@Localizer["dateOfAdmissionToDepartment"]">@(context.DrawingDateOfAdmissionToDepartment == null ? "" : Convert.ToDateTime(context.DrawingDateOfAdmissionToDepartment).ToString(Constants.DateFormat))</MudTd>
-					<MudTd Style = "@styleTableBody" DataLabel="@Localizer["drawingReleaseDateDepertment"]">@(context.DrawingDateOfAdmissionToDepartment == null ? "" : Convert.ToDateTime(context.DrawingDateOfAdmissionToDepartment).ToString(Constants.DateFormat))</MudTd>
-					<MudTd Style = "@styleTableBody" DataLabel="@Localizer["drawingReleaseDateBySchedule"]">@(context.DrawingDateOfAdmissionToDepartment == null ? "" : Convert.ToDateTime(context.DrawingDateOfAdmissionToDepartment).ToString(Constants.DateFormat))</MudTd>
+					<MudTd Style = "@styleTableBody" DataLabel="@Localizer["drawingReleaseDateDepertment"]">@(context.DrawingReleaseDateDepertment == null ? "" : Convert.ToDateTime(context.DrawingReleaseDateDepertment).ToString(Constants.DateFormat))</MudTd>
+					<MudTd Style = "@styleTableBody" DataLabel="@Localizer["drawingReleaseDateBySchedule"]">@(context.DrawingReleaseDateBySchedule == null ? "" : Convert.ToDateTime(context.DrawingReleaseDateBySchedule).ToString(Constants.DateFormat))</MudTd>
 					<MudTd style = "@styleTableBody" DataLabel="@Localizer["status"]">@context.Status?.StatusName</MudTd>
 					<MudTd Style = "@styleTableBody" DataLabel="@Localizer["group"]">@(context.Group)</MudTd>
 					<MudTd Style = "@styleTableBody" DataLabel="@Localizer["notes"]">@context.Notes</MudTd>

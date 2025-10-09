@@ -15,6 +15,10 @@ namespace SostavSD.Pages.ProjectSostav
         private IDrawingService _drawingService;
         private IDialogService _dialogService;
         private HashSet<DrawingModel> selectedItems = new HashSet<DrawingModel>();
+        private SortDirection _sortDirection = SortDirection.None;
+
+        private TableState _tableState = new();
+        private MudTable<DrawingModel> tableRef;
 
         List <DrawingModel> _drawings= new ();
 
@@ -66,5 +70,57 @@ namespace SostavSD.Pages.ProjectSostav
             //}
 
         }
+
+
+
+        //  // Обработчик сортировки
+        //private async Task OnSort(TableState state)
+        //{
+        //    _tableState = state;
+        //    _drawings = await GetSortedData(state);
+        //    tableRef.ReloadServerData();
+        //}
+        private Task<List<DrawingModel>> GetSortedData(TableState state)
+        {
+            var data = _drawings.AsQueryable();
+
+            // Сортировка
+            switch (state.SortLabel)
+            {
+                case nameof(DrawingModel.DrawingDateOfAdmissionToDepartment):
+                    data = state.SortDirection == SortDirection.Ascending ?
+                        data.OrderBy(x => x.DrawingDateOfAdmissionToDepartment) :
+                        data.OrderByDescending(x => x.DrawingDateOfAdmissionToDepartment);
+                    break;
+                case nameof(DrawingModel.DrawingReleaseDateBySchedule):
+                    data = state.SortDirection == SortDirection.Ascending ?
+                        data.OrderBy(x => x.DrawingReleaseDateBySchedule) :
+                        data.OrderByDescending(x => x.DrawingReleaseDateBySchedule);
+                    break;
+                case nameof(DrawingModel.DrawingReleaseDateDepertment):
+                    data = state.SortDirection == SortDirection.Ascending ?
+                        data.OrderBy(x => x.DrawingReleaseDateDepertment) :
+                        data.OrderByDescending(x => x.DrawingReleaseDateDepertment);
+                    break;
+                case nameof(DrawingModel.DrawingName):
+                    data = state.SortDirection == SortDirection.Ascending ?
+                        data.OrderBy(x => x.DrawingName) :
+                        data.OrderByDescending(x => x.DrawingName);
+                    break;
+                    // Можно добавить другие поля для сортировки по аналогии
+            }
+
+            return Task.FromResult(data.ToList());
+        }
+
+        private async Task<TableData<DrawingModel>> LoadData(TableState state)
+        {
+            return new TableData<DrawingModel>
+            {
+                TotalItems = _drawings.Count,
+                Items = await GetSortedData(state)
+            };
+        }
     }
 }
+
