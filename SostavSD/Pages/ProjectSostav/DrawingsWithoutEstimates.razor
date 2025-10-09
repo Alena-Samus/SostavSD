@@ -17,21 +17,17 @@ else
 				<MudTextField @bind-Value="searchString" Placeholder="@Localizer["search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
 				
 			</ToolBarContent> 
- 			@* <ColGroup>
+@* 			<ColGroup> должен содержать столько элементов `<col>`, сколько столбцов (включая столбец с чекбоксами для мультиселекта) *@ 			<ColGroup>
+				<col style="width: 1%;" />
+				<col style="width: 1%" />
+				<col style="width: 27%"/>
 				<col />
-				<col style="width: 3%;"/>
-				<col />
-				<col />
-				<col style="width: 40%;"/>
-				<col style="width: 10%;"/>
-				<col />
-				<col />
-				<col />
-				<col />
-				<col />
-				<col />
-				<col />
-			</ColGroup> *@
+				<col  />
+				<col  />
+				<col style="width: 17%" />
+				<col style="width: 17%" />
+				<col style="width: 25%"/>
+			</ColGroup>
             <HeaderContent>
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingPriority)">@Localizer["priority"]</MudTableSortLabel></MudTh>
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingName)">@Localizer["drawingName"]</MudTableSortLabel></MudTh>
