@@ -150,4 +150,13 @@
   <data name="status" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="addNewDrawing" xml:space="preserve">
+    <value>Add drawing</value>
+  </data>
+  <data name="removeDrawing" xml:space="preserve">
+    <value>Remove drawing</value>
+  </data>
+  <data name="copyDrawings" xml:space="preserve">
+    <value>Copy drawings</value>
+  </data>
 </root>

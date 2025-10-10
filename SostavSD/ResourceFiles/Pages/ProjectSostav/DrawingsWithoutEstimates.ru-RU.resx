@@ -150,4 +150,13 @@
   <data name="status" xml:space="preserve">
     <value>Статус</value>
   </data>
+  <data name="addNewDrawing" xml:space="preserve">
+    <value>Добавить чертеж</value>
+  </data>
+  <data name="removeDrawing" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="copyDrawings" xml:space="preserve">
+    <value>Копировать чертежи</value>
+  </data>
 </root>
