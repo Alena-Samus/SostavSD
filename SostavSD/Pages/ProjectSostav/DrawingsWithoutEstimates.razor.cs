@@ -10,9 +10,10 @@ namespace SostavSD.Pages.ProjectSostav
     {
         [Inject] IEntityManagementService EntityManagementService { get; set; }
         [Inject] IStringLocalizer<DrawingsWithoutEstimates> Localizer { get; set; }
+
         [Parameter] public int ProjectID { get; set; }
 
-        
+        private NavigationManager _navigationManager;
         private IDrawingService _drawingService;
         private IDialogService _dialogService;
         private HashSet<DrawingModel> selectedItems = new HashSet<DrawingModel>();
@@ -23,16 +24,19 @@ namespace SostavSD.Pages.ProjectSostav
 
         List <DrawingModel> _drawings= new ();
 
+        private string _toNewDrawing = "/sostav/newdrawing";
+
 
         private string searchString;
 
         string styleTableHeader = "font-size: 12px; text-align: center; padding: 0 0 0 10px; overflow-wrap: break-word; line-height: 1;";
         string styleTableBody = "padding: 0; text-align: center;";
 
-        public DrawingsWithoutEstimates(IDrawingService drawingService,IDialogService dialog)
+        public DrawingsWithoutEstimates(IDrawingService drawingService,IDialogService dialog, NavigationManager navigationManager)
         {
             _drawingService = drawingService;
             _dialogService = dialog;
+            _navigationManager = navigationManager;
         }
         protected override async Task OnInitializedAsync()
         {
@@ -121,6 +125,20 @@ namespace SostavSD.Pages.ProjectSostav
                 TotalItems = _drawings.Count,
                 Items = await GetSortedData(state)
             };
+        }
+
+        private void NavigateToPage(string adress)
+        {           
+			_navigationManager.NavigateTo(adress);
+		}
+
+        private async Task RemoveDrawings()
+        {
+
+        }
+        private async Task CopyDrawings()
+        {
+
         }
     }
 }
