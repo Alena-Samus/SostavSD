@@ -10,6 +10,7 @@ namespace SostavSD.Pages.ProjectSostav
     {
         [Inject] IEntityManagementService EntityManagementService { get; set; }
         [Inject] IStringLocalizer<DrawingsWithoutEstimates> Localizer { get; set; }
+        [Parameter] public int ProjectID { get; set; }
 
         
         private IDrawingService _drawingService;
@@ -35,7 +36,7 @@ namespace SostavSD.Pages.ProjectSostav
         }
         protected override async Task OnInitializedAsync()
         {
-           _drawings = await EntityManagementService.GetDrawingModelsAsync();
+           _drawings = await EntityManagementService.GetDrawingModelsByIdAsync(ProjectID);
         }
 
         private bool FilterFuncCurrent(DrawingModel drawing) => FilterFunc(drawing, searchString);

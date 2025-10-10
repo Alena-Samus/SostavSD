@@ -179,6 +179,10 @@ namespace SostavSD.Services
         {
            return await _drawingService.GetDrawingModelsAsync();
         }
+        public async Task<List<DrawingModel>> GetDrawingModelsByIdAsync(int id)
+		{
+            return await _drawingService.GetDrawingModelsByIdAsync(id);
+        }
 
         public void EditDrawing(DrawingModel currentDrawing)
         {
