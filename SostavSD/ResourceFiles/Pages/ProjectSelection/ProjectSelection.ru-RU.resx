@@ -138,4 +138,7 @@
   <data name="index" xml:space="preserve">
     <value>Индекс</value>
   </data>
+  <data name="priority" xml:space="preserve">
+    <value>Приоритет</value>
+  </data>
 </root>

@@ -117,16 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DateOfAdmission" xml:space="preserve">
+  <data name="dateOfAdmissionToDepartment" xml:space="preserve">
     <value>Date of admission to department</value>
   </data>
-  <data name="DrawingName" xml:space="preserve">
+  <data name="drawingName" xml:space="preserve">
     <value>Drawing name</value>
   </data>
-  <data name="Notes" xml:space="preserve">
+  <data name="drawingReleaseDateDepertment" xml:space="preserve">
+    <value>Drawing Release Date Depertment</value>
+  </data>
+  <data name="group" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="loadingdata" xml:space="preserve">
+    <value>Loading data</value>
+  </data>
+  <data name="noitem" xml:space="preserve">
+    <value>No item</value>
+  </data>
+  <data name="notes" xml:space="preserve">
     <value>Notes</value>
   </data>
-  <data name="ReleaseDateBySchedule" xml:space="preserve">
+  <data name="priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="drawingReleaseDateBySchedule" xml:space="preserve">
     <value>Release date by schedule</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="status" xml:space="preserve">
+    <value>Status</value>
   </data>
 </root>
