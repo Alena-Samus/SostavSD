@@ -151,12 +151,12 @@
     <value>Status</value>
   </data>
   <data name="addNewDrawing" xml:space="preserve">
-    <value>Add drawing</value>
+    <value>Add</value>
   </data>
   <data name="removeDrawing" xml:space="preserve">
-    <value>Remove drawing</value>
+    <value>Remove</value>
   </data>
   <data name="copyDrawings" xml:space="preserve">
-    <value>Copy drawings</value>
+    <value>Copy</value>
   </data>
 </root>
