@@ -1,5 +1,9 @@
 ﻿@page "/sostav/newdrawing"
 
 <h3>NewDrawing</h3>
+<MudButtonGroup Variant="Variant.Outlined" Color="Color.Success" OverrideStyles="false">
+	<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Cancel" Title="@Localizer["cancel"]" Color="Color.Info" @onclick="GoBack" />
+	<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Save" Title="@Localizer["saveNewDrawing"]" Color="Color.Success" @onclick="Save" />
+</MudButtonGroup>
 
 
