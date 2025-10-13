@@ -2,7 +2,7 @@
 
 
 <MudButtonGroup Class="d-flex justify-start flex-grow-1 gap-4" OverrideStyles="false">
-	<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.LibraryAdd" Title="@Localizer["addNewDrawing"]" Color="Color.Success" @onclick="(e => NavigateToPage(_toNewDrawing))" />
+	<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.LibraryAdd" Title="@Localizer["addNewDrawing"]" Color="Color.Success" @onclick="NavigateToPage" />
 	<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.DeleteForever" Title="@Localizer["removeDrawing"]" Color="Color.Error" @onclick="(e => RemoveDrawings())" />
 	<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.ContentCopy" Title="@Localizer["copyDrawings"]" Color="Color.Success" @onclick="(e => CopyDrawings())" />
 

@@ -1,9 +1,31 @@
-﻿@page "/sostav/newdrawing"
+﻿@page "/sostav/newdrawing/{ProjectId:int}"
 
 <h3>NewDrawing</h3>
-<MudButtonGroup Variant="Variant.Outlined" Color="Color.Success" OverrideStyles="false">
-	<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Cancel" Title="@Localizer["cancel"]" Color="Color.Info" @onclick="GoBack" />
-	<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Save" Title="@Localizer["saveNewDrawing"]" Color="Color.Success" @onclick="Save" />
+<MudButtonGroup Variant="Variant.Outlined" Color="Color.Success" OverrideStyles="false" Class="d-flex justify-space-between w-100">
+	<div>
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Cancel" Title="@Localizer["cancel"]" Color="Color.Info" @onclick="GoBack" />
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Save" Title="@Localizer["saveNewDrawing"]" Color="Color.Success" @onclick="Save" />
+
+	</div>
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.AddCircleOutline" Title="@Localizer["addNewDrawing"]" Color="Color.Success" @onclick="Save"/>
 </MudButtonGroup>
 
 
+<MudGrid>
+	<MudItem xs="3">
+		<MudTextField T="string" Label="@Localizer["drawingName"]" @bind-Value="@_newDrawing.DrawingName"></MudTextField>
+
+	</MudItem>
+	<MudItem>
+		<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["dateOfAdmissionToDepartment"]" @bind-Value="@_newDrawing.DrawingDateOfAdmissionToDepartment" Variant="Variant.Outlined"></MudTextField>
+
+	</MudItem>
+	<MudItem>
+		<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["drawingReleaseDateBySchedule"]" @bind-Value="@_newDrawing.DrawingReleaseDateBySchedule" Variant="Variant.Outlined"></MudTextField>
+
+	</MudItem>
+	<MudItem>
+		<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["drawingReleaseDateDepertment"]" @bind-Value="@_newDrawing.DrawingReleaseDateDepertment" Variant="Variant.Outlined"></MudTextField>
+
+	</MudItem>
+</MudGrid>

@@ -13,6 +13,8 @@ namespace SostavSD.Pages.ProjectSostav
         [Inject] IStringLocalizer<DrawingsWithoutEstimates> Localizer { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 
+        [Parameter] public int ProjectID { get; set; }
+
         private NavigationManager _navigationManager;
 
         private DrawingModel _newDrawing = new();
@@ -23,6 +25,7 @@ namespace SostavSD.Pages.ProjectSostav
         protected override async Task OnInitializedAsync()
         {
             _newDrawing = new DrawingModel();
+            _newDrawing.ProjectId = ProjectID;
         }
         public NewDrawing(NavigationManager navigationManager)
         {

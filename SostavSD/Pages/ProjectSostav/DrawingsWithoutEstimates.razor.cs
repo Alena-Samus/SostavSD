@@ -127,9 +127,9 @@ namespace SostavSD.Pages.ProjectSostav
             };
         }
 
-        private void NavigateToPage(string adress)
+        private void NavigateToPage()
         {           
-			_navigationManager.NavigateTo(adress);
+			_navigationManager.NavigateTo($"/sostav/newdrawing/{ProjectID}");
 		}
 
         private async Task RemoveDrawings()
