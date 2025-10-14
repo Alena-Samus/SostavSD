@@ -10,26 +10,26 @@ namespace SostavSD.Pages.ProjectSostav
     partial class NewDrawing
     {
         [Inject] IEntityManagementService EntityManagementService { get; set; }
-        [Inject] IStringLocalizer<DrawingsWithoutEstimates> Localizer { get; set; }
+        [Inject] IStringLocalizer<NewDrawing> Localizer { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 
         [Parameter] public int ProjectID { get; set; }
 
-        private NavigationManager _navigationManager;
+        private NavigationManager navigationManager;
 
-        private DrawingModel _newDrawing = new();
+        private DrawingModel newDrawing = new();
 
 
-        List<DrawingModel> _newDrawingsList = new List<DrawingModel>();
+        private List<DrawingModel> newList = new List<DrawingModel> ();
 
         protected override async Task OnInitializedAsync()
         {
-            _newDrawing = new DrawingModel();
-            _newDrawing.ProjectId = ProjectID;
+            newDrawing = new DrawingModel();
+            newDrawing.ProjectId = ProjectID;           
         }
         public NewDrawing(NavigationManager navigationManager)
         {
-            _navigationManager = navigationManager;
+            this.navigationManager = navigationManager;
         }
 
         private void Save()
@@ -41,7 +41,27 @@ namespace SostavSD.Pages.ProjectSostav
         private void GoBack()
         {
             Snackbar.Add("Canceled", Severity.Warning);
-            _navigationManager.NavigateTo("javascript:history.back()", forceLoad: true);
+            navigationManager.NavigateTo("javascript:history.back()", forceLoad: true);
+        }
+        private void AddItem()
+        {
+            DrawingModel _currentDrawing = new DrawingModel 
+                                           { 
+                                              DrawingName = newDrawing.DrawingName, 
+                                              DrawingDateOfAdmissionToDepartment = newDrawing.DrawingDateOfAdmissionToDepartment,
+                                              DrawingReleaseDateBySchedule = newDrawing.DrawingReleaseDateBySchedule,
+                                              DrawingReleaseDateDepertment = newDrawing.DrawingReleaseDateDepertment
+                                           };
+            newList.Add(_currentDrawing);
+            ClearNewDrawing();
+            StateHasChanged();
+        }
+
+        private void ClearNewDrawing()
+        {
+            newDrawing.DrawingName = string.Empty;
+            newDrawing.DrawingReleaseDateDepertment = null;
+            newDrawing.DrawingReleaseDateBySchedule = null;
         }
     }
 }

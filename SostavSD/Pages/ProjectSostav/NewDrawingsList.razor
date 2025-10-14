@@ -1,0 +1,25 @@
+﻿@if (ListNewDrawings == null || ListNewDrawings.Count == 0)
+{
+	<tr></tr>
+}
+else
+{
+	<MudTable T="DrawingModel" Items="@ListNewDrawings">
+            <HeaderContent>
+					<MudTh>@Localizer["drawingName"]</MudTh>
+					<MudTh>@Localizer["dateOfAdmissionToDepartment"]</MudTh>
+					<MudTh>@Localizer["drawingReleaseDateDepertment"]</MudTh>
+					<MudTh>@Localizer["drawingReleaseDateBySchedule"]</MudTh>
+			</HeaderContent>
+
+			<RowTemplate>
+					<MudTd DataLabel="@Localizer["drawingName"]">@context.DrawingName</MudTd>
+					<MudTd DataLabel="@Localizer["dateOfAdmissionToDepartment"]">@(context.DrawingDateOfAdmissionToDepartment == null ? "" : Convert.ToDateTime(context.DrawingDateOfAdmissionToDepartment).ToString(Constants.DateFormat))</MudTd>
+					<MudTd DataLabel="@Localizer["drawingReleaseDateDepertment"]">@(context.DrawingReleaseDateDepertment == null ? "" : Convert.ToDateTime(context.DrawingReleaseDateDepertment).ToString(Constants.DateFormat))</MudTd>
+					<MudTd DataLabel="@Localizer["drawingReleaseDateBySchedule"]">@(context.DrawingReleaseDateBySchedule == null ? "" : Convert.ToDateTime(context.DrawingReleaseDateBySchedule).ToString(Constants.DateFormat))</MudTd>
+			</RowTemplate>		
+
+			
+
+		</MudTable>
+}
