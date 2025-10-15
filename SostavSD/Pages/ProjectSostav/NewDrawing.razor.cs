@@ -6,6 +6,7 @@ using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 using System.Threading.Tasks;
+using SostavSD.Classes.Validation;
 
 namespace SostavSD.Pages.ProjectSostav
 {
@@ -18,7 +19,7 @@ namespace SostavSD.Pages.ProjectSostav
         [Parameter] public int ProjectID { get; set; }
 
         private NavigationManager navigationManager;
-
+        private DrawingModelValidation validation = new();
         private DrawingModel newDrawing = new();
         private Groups group;
 
@@ -37,9 +38,24 @@ namespace SostavSD.Pages.ProjectSostav
 
         private async Task Save()
         {
-            await EntityManagementService.AddDrawings(newList);
-            Snackbar.Add("Saved", Severity.Success);
-            GoBack();
+
+            if (newDrawing != null)
+            {
+                if (newList == null || newList.Count == 0)
+                {
+                    AddItem();
+                }
+                if (await EntityManagementService.AddDrawingsAsync(newList))
+                {
+                    Snackbar.Add("Saved", Severity.Success);
+                }
+
+            }
+            else 
+            {
+                Snackbar.Add("No data", Severity.Error);
+            }
+                GoBack();
         }
 
         private void GoBack()
@@ -57,7 +73,17 @@ namespace SostavSD.Pages.ProjectSostav
                                               DrawingReleaseDateBySchedule = newDrawing.DrawingReleaseDateBySchedule,
                                               DrawingReleaseDateDepertment = newDrawing.DrawingReleaseDateDepertment
                                             };
-            newList.Add(_currentDrawing);
+
+            var validationResult = validation.Validate(_currentDrawing);
+            if (validationResult.IsValid)
+            {
+                newList.Add(_currentDrawing);
+            }
+            else 
+            { 
+                Snackbar.Add("No data", Severity.Error);
+            }            
+
             ClearNewDrawing();
             StateHasChanged();
         }

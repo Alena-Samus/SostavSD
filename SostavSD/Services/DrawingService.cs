@@ -22,32 +22,59 @@ namespace SostavSD.Services
             _mapper = mapper;
         }
 
-        public async Task AddDrawings(List<DrawingModel> drawingsList)
+        public async Task<bool> AddDrawingsAsync(List<DrawingModel> drawingsList)
         {
-            foreach (DrawingModel drawing in drawingsList)
+            try
             {
-                Drawing _currentDrawing = _mapper.Map<Drawing>(drawing);
-                _context.drawing.Add(_currentDrawing);
-                await _context.SaveChangesAsync();
+                foreach (DrawingModel drawing in drawingsList)
+                {
+                    Drawing _currentDrawing = _mapper.Map<Drawing>(drawing);
+                    _context.drawing.Add(_currentDrawing);
+                    await _context.SaveChangesAsync(); 
+                }
+                return true;
             }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+                throw;
+            }  
+
         }
 
         public async Task  EditDrawing(DrawingModel currentDrawing)
         {
-            Drawing drawingAfterEdit = _mapper.Map<Drawing>(currentDrawing);
-            _context.drawing.Entry(drawingAfterEdit).State = EntityState.Detached; //снимать отслеживание в момент получения 
-            _context.drawing.Update(drawingAfterEdit);           
-            _context.SaveChanges();
-            
+            try
+            {
+                Drawing drawingAfterEdit = _mapper.Map<Drawing>(currentDrawing);
+                _context.drawing.Entry(drawingAfterEdit).State = EntityState.Detached; //снимать отслеживание в момент получения 
+                _context.drawing.Update(drawingAfterEdit);
+                _context.SaveChanges();
+            }
+            catch (Exception ex) 
+            {
+                _logger.Error(ex.InnerException);
+                throw;
+            }
+                        
         }
 
         public async Task<List<DrawingModel>> GetDrawingModelsAsync()
         {
-            var drawingList = _context.drawing
-                .Include(c => c.Project)
-                .AsNoTracking();
+            try
+            {
+                 var drawingList = _context.drawing
+                    .Include(c => c.Project)
+                    .AsNoTracking();
 
-            return _mapper.Map<List<DrawingModel>>(await drawingList.ToListAsync());
+                return _mapper.Map<List<DrawingModel>>(await drawingList.ToListAsync());
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+                throw;
+            }
         }
 
         public async Task<List<DrawingModel>> GetDrawingModelsByIdAsync(int i)

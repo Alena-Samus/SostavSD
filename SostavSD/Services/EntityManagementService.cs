@@ -190,9 +190,9 @@ namespace SostavSD.Services
         //}
 
 
-        public async Task AddDrawings(List<DrawingModel> drawingsList)
+        public async Task<bool> AddDrawingsAsync(List<DrawingModel> drawingsList)
         {
-             await _drawingService.AddDrawings(drawingsList);
+            return await _drawingService.AddDrawingsAsync(drawingsList);
         }
     }
 }
