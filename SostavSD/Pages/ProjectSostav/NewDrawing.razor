@@ -1,4 +1,5 @@
 ﻿@page "/sostav/newdrawing/{ProjectId:int}"
+@using SostavSD.Areas.Identity.Constants;
 
 <MudButtonGroup Variant="Variant.Outlined" Color="Color.Success" OverrideStyles="false">
 	<div>
@@ -7,12 +8,6 @@
 
 	</div>
 </MudButtonGroup>
-
-<NewDrawingsList ListNewDrawings="newList" DeleteItem="DeleteTheItem"/>
-
-<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.AddCircleOutline" Title="@Localizer["addNewDrawing"]" Color="Color.Success" @onclick="AddItem" />
-
-
 <MudGrid>
 	<MudItem xs="3">
 		<MudTextField T="string" Label="@Localizer["drawingName"]" @bind-Value="@newDrawing.DrawingName"></MudTextField>
@@ -30,4 +25,15 @@
 		<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["drawingReleaseDateDepertment"]" @bind-Value="@newDrawing.DrawingReleaseDateDepertment" Variant="Variant.Outlined"></MudTextField>
 
 	</MudItem>
+@* 		<MudSelect T="Groups?" Label="@Localizer["group"]" Variant="Variant.Outlined" @bind-Value="@newDrawing.Group">
+			@foreach (var group in Enum.GetValues(typeof(Groups)))
+			{
+				<MudSelectItem Value="@group">@group.ToString()</MudSelectItem>
+			}
+		</MudSelect> *@
 </MudGrid>
+
+<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.AddCircleOutline" Title="@Localizer["addNewDrawing"]" Color="Color.Success" @onclick="AddItem" />
+
+<NewDrawingsList ListNewDrawings="newList" DeleteItem="DeleteTheItem" />
+

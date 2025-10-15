@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using SostavSD.Areas.Identity.Constants;
 using Microsoft.VisualBasic;
 using MudBlazor;
 using SostavSD.Interfaces;
@@ -18,14 +19,15 @@ namespace SostavSD.Pages.ProjectSostav
         private NavigationManager navigationManager;
 
         private DrawingModel newDrawing = new();
-
+        private Groups group;
 
         private List<DrawingModel> newList = new List<DrawingModel> ();
 
         protected override async Task OnInitializedAsync()
         {
             newDrawing = new DrawingModel();
-            newDrawing.ProjectId = ProjectID;           
+            newDrawing.ProjectId = ProjectID;
+            newDrawing.DrawingDateOfAdmissionToDepartment = DateTime.Now;
         }
         public NewDrawing(NavigationManager navigationManager)
         {
@@ -51,7 +53,7 @@ namespace SostavSD.Pages.ProjectSostav
                                               DrawingDateOfAdmissionToDepartment = newDrawing.DrawingDateOfAdmissionToDepartment,
                                               DrawingReleaseDateBySchedule = newDrawing.DrawingReleaseDateBySchedule,
                                               DrawingReleaseDateDepertment = newDrawing.DrawingReleaseDateDepertment
-                                           };
+                                            };
             newList.Add(_currentDrawing);
             ClearNewDrawing();
             StateHasChanged();
