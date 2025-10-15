@@ -6,8 +6,12 @@ namespace SostavSD.Pages.ProjectSostav
 {
     partial class NewDrawingsList
     {
-        [Parameter] public List<DrawingModel> ListNewDrawings { get; set; }
         [Inject] IStringLocalizer<NewDrawingsList> Localizer { get; set; }
+
+        [Parameter] public List<DrawingModel> ListNewDrawings { get; set; }
+        [Parameter] public EventCallback<DrawingModel> DeleteItem { get; set; }
+
+
 
     }
 

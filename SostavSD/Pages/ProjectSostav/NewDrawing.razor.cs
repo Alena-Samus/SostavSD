@@ -63,5 +63,10 @@ namespace SostavSD.Pages.ProjectSostav
             newDrawing.DrawingReleaseDateDepertment = null;
             newDrawing.DrawingReleaseDateBySchedule = null;
         }
+
+        public void DeleteTheItem (DrawingModel drawingModel)
+        {
+            newList.Remove(drawingModel);
+        }
     }
 }
