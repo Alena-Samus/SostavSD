@@ -5,6 +5,7 @@ using Microsoft.VisualBasic;
 using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
+using System.Threading.Tasks;
 
 namespace SostavSD.Pages.ProjectSostav
 {
@@ -34,8 +35,9 @@ namespace SostavSD.Pages.ProjectSostav
             this.navigationManager = navigationManager;
         }
 
-        private void Save()
+        private async Task Save()
         {
+            await EntityManagementService.AddDrawings(newList);
             Snackbar.Add("Saved", Severity.Success);
             GoBack();
         }
@@ -50,6 +52,7 @@ namespace SostavSD.Pages.ProjectSostav
             DrawingModel _currentDrawing = new DrawingModel 
                                            { 
                                               DrawingName = newDrawing.DrawingName, 
+                                              ProjectId = newDrawing.ProjectId,
                                               DrawingDateOfAdmissionToDepartment = newDrawing.DrawingDateOfAdmissionToDepartment,
                                               DrawingReleaseDateBySchedule = newDrawing.DrawingReleaseDateBySchedule,
                                               DrawingReleaseDateDepertment = newDrawing.DrawingReleaseDateDepertment

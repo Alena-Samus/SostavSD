@@ -19,7 +19,6 @@ else
 					<MudTd DataLabel="@Localizer["drawingReleaseDateBySchedule"]">@(context.DrawingReleaseDateBySchedule == null ? "" : Convert.ToDateTime(context.DrawingReleaseDateBySchedule).ToString(Constants.DateFormat))</MudTd>
 					<MudTd DataLabel="@Localizer["drawingName"]">@context.Group</MudTd>
 					<MudFab @onclick="(() => DeleteItem.InvokeAsync(context))" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small" />
-
 			</RowTemplate>		
 
 			

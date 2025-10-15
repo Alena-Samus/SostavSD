@@ -6,6 +6,7 @@ namespace SostavSD.Interfaces
     {
         Task <List<DrawingModel>> GetDrawingModelsAsync ();
         Task<List<DrawingModel>> GetDrawingModelsByIdAsync(int id);
-        void EditDrawing (DrawingModel currentDrawing);
+        //Task EditDrawing (DrawingModel currentDrawing);
+        Task AddDrawings (List<DrawingModel> drawingsList);
     }
 }

@@ -184,9 +184,15 @@ namespace SostavSD.Services
             return await _drawingService.GetDrawingModelsByIdAsync(id);
         }
 
-        public void EditDrawing(DrawingModel currentDrawing)
+        //public void EditDrawing(DrawingModel currentDrawing)
+        //{
+        //    _drawingService.EditDrawing(currentDrawing);
+        //}
+
+
+        public async Task AddDrawings(List<DrawingModel> drawingsList)
         {
-            _drawingService.EditDrawing(currentDrawing);
+             await _drawingService.AddDrawings(drawingsList);
         }
     }
 }
