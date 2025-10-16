@@ -14,7 +14,7 @@ namespace SostavSD.Data.Configurations
             builder.Property(p => p.DrawingName)
                 .HasMaxLength(200);
             builder.Property(p => p.DrawingPriority);
-            builder.Property(p => p.DrawingDateOfAdmissionToDepartmetn);
+            builder.Property(p => p.DrawingDateOfAdmissionToDepartment);
             builder.Property(p => p.DrawingReleaseDateDepertment);
             builder.Property(p => p.DrawingReleaseDateBySchedule);
             builder.Property(p => p.ProjectId);
@@ -27,6 +27,10 @@ namespace SostavSD.Data.Configurations
                 .HasForeignKey(p => p.StatusId)
                 .IsRequired(false);
             builder.Property(p => p.Group);
+
+            builder.HasMany(m => m.Estimates)
+                .WithMany(m => m.Drawings)
+                .UsingEntity<DrawingEstimate>();
 
         }
     }

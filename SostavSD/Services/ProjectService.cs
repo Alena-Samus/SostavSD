@@ -118,12 +118,26 @@ namespace SostavSD.Services
 
                 if (project != null)
                 {
-                    _context.project.Entry(project).State = EntityState.Modified;
-                    _context.contract.Entry(project.Contract).State = EntityState.Modified;
-                    _context.buildingView.Entry(project.BuildingView).State = EntityState.Modified;
-                    _context.designStage.Entry(project.DesignStage).State = EntityState.Modified;
-                    _context.status.Entry(project.Status).State = EntityState.Modified;
-                    
+                    _context.project.Entry(project).State = EntityState.Detached;                    
+                }
+
+                if (project.Contract!= null)
+                {
+                    _context.contract.Entry(project.Contract).State = EntityState.Detached;
+                }
+
+                if(project.BuildingView!= null) 
+                {
+                    _context.buildingView.Entry(project.BuildingView).State = EntityState.Detached;
+                }
+
+                if (project.Status!= null)
+                {
+                    _context.status.Entry(project.Status).State = EntityState.Detached;
+                }
+                if (project.DesignStage!= null) 
+                {
+                    _context.designStage.Entry(project.DesignStage).State = EntityState.Detached;
                 }
 
                 return _mapper.Map<ProjectModel>(project);
@@ -141,6 +155,7 @@ namespace SostavSD.Services
 		{
             try
             {
+                
                 var projectList = _context.project
                 .Include(c => c.Contract)
                     .ThenInclude(c => c.Executor)
@@ -148,7 +163,6 @@ namespace SostavSD.Services
                 .Include(c => c.Status)
                 .Include(c => c.DesignStage)
                 .AsNoTracking();
-
                 return _mapper.Map<List<ProjectModel>>(await projectList.ToListAsync());
             }
             catch (Exception ex)

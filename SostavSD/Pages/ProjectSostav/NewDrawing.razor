@@ -1,0 +1,40 @@
+﻿@page "/sostav/newdrawing/{ProjectId:int}"
+@using SostavSD.Areas.Identity.Constants;
+
+ 
+<MudButtonGroup Variant="Variant.Outlined" Color="Color.Success" OverrideStyles="false">
+	<div>
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Cancel" Title="@Localizer["cancel"]" Color="Color.Info" @onclick="Cancel" />
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Save" Title="@Localizer["saveNewDrawing"]" Color="Color.Success" @onclick="Save" />
+
+	</div>
+</MudButtonGroup>
+<MudGrid>
+	<MudItem xs="3">
+		<MudTextField T="string" Label="@Localizer["drawingName"]" @bind-Value="@newDrawing.DrawingName"></MudTextField>
+
+	</MudItem>
+	<MudItem xs="2">
+		<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["dateOfAdmissionToDepartment"]" @bind-Value="@newDrawing.DrawingDateOfAdmissionToDepartment" Variant="Variant.Outlined"></MudTextField>
+
+	</MudItem>
+	<MudItem xs="2">
+		<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["drawingReleaseDateBySchedule"]" @bind-Value="@newDrawing.DrawingReleaseDateBySchedule" Variant="Variant.Outlined"></MudTextField>
+
+	</MudItem>
+	<MudItem xs="2">
+		<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["drawingReleaseDateDepertment"]" @bind-Value="@newDrawing.DrawingReleaseDateDepertment" Variant="Variant.Outlined"></MudTextField>
+
+	</MudItem>
+@* 	<MudSelect T="Groups" Label="@Localizer["group"]" Variant="Variant.Outlined" @bind-Value="@newDrawing.Group">
+			@foreach (var group in Enum.GetValues(typeof(Groups)))
+			{
+			<MudSelectItem Value="@group">@group</MudSelectItem>
+			}
+		</MudSelect> *@
+</MudGrid>
+
+<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.AddCircleOutline" Title="@Localizer["addNewDrawing"]" Color="Color.Success" @onclick="AddItem" />
+
+<NewDrawingsList ListNewDrawings="newList" DeleteItem="DeleteTheItem" />
+

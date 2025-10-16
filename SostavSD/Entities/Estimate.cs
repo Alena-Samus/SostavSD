@@ -19,5 +19,8 @@
         public double? Other { get; set; }
         public double? Total { get; set; }
 
+        public ICollection<Drawing> Drawings { get; set; }
+        public ICollection<DrawingEstimate> DrawingsEstimates { get; set; }
+
     }
 }

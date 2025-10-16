@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.CodeAnalysis;
+using NLog;
+using NLog.Fluent;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 using SostavSD.Services;
@@ -14,17 +16,28 @@ namespace SostavSD.Pages.ProjectSelection
 		[Inject] public IAuthorizedUserService AuthorizedUserService { get; set; }
 		[Inject] public NavigationManager NavigationManager { get; set; }
 
-		string calculatorName;
+        private readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+        string calculatorName;
 
 
 
 		protected override async Task OnInitializedAsync()
 		{
-			calculatorName = Calculator.FirstOrDefault(x => x.UserId == Project.Contract.CalculatorId).UserSurname.ToString();
+			calculatorName = Calculator.FirstOrDefault(x => x.UserId == Project.Contract.CalculatorId)?.UserSurname.ToString();
         }
-		private void navigate()
+		private void Navigate()
 		{
-			NavigationManager.NavigateTo($"/sostav/{Project.ProjectId}");
-		}
+			try
+			{
+                NavigationManager.NavigateTo($"/sostav/{Project.ProjectId}");
+            }
+			catch (Exception ex) 
+			{
+				logger.Error(ex);
+                throw;
+			}
+
+        }
 	}
 }

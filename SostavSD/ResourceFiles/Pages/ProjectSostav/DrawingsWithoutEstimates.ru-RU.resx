@@ -117,28 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buildingNumber" xml:space="preserve">
-    <value>№ стройки</value>
+  <data name="dateOfAdmissionToDepartment" xml:space="preserve">
+    <value>Дата поступления в ОСД</value>
   </data>
-  <data name="clean" xml:space="preserve">
-    <value>Очистить</value>
+  <data name="drawingName" xml:space="preserve">
+    <value>Наименование раздела</value>
   </data>
-  <data name="contractNumber" xml:space="preserve">
-    <value>Номер договора</value>
+  <data name="drawingReleaseDateDepertment" xml:space="preserve">
+    <value>Дата выпуска ОСД</value>
   </data>
-  <data name="cpe" xml:space="preserve">
-    <value>ГИП</value>
+  <data name="group" xml:space="preserve">
+    <value>Группа</value>
   </data>
-  <data name="designStage" xml:space="preserve">
-    <value>Стадия проектирования</value>
+  <data name="loadingdata" xml:space="preserve">
+    <value>Загрузка данных</value>
   </data>
-  <data name="find" xml:space="preserve">
-    <value>Найти</value>
+  <data name="noitem" xml:space="preserve">
+    <value>Нет данных</value>
   </data>
-  <data name="index" xml:space="preserve">
-    <value>Индекс</value>
+  <data name="notes" xml:space="preserve">
+    <value>Примечание</value>
   </data>
   <data name="priority" xml:space="preserve">
     <value>Приоритет</value>
+  </data>
+  <data name="drawingReleaseDateBySchedule" xml:space="preserve">
+    <value>Дата выпуска по графику</value>
+  </data>
+  <data name="search" xml:space="preserve">
+    <value>поиск</value>
+  </data>
+  <data name="status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="addNewDrawing" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="removeDrawing" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="copyDrawings" xml:space="preserve">
+    <value>Копировать</value>
   </data>
 </root>
