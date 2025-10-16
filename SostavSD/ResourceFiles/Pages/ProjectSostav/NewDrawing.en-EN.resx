@@ -117,28 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buildingNumber" xml:space="preserve">
-    <value>№ стройки</value>
+  <data name="saveNewDrawing" xml:space="preserve">
+    <value />
   </data>
-  <data name="clean" xml:space="preserve">
-    <value>Очистить</value>
+  <data name="cancel" xml:space="preserve">
+    <value>cancel</value>
   </data>
-  <data name="contractNumber" xml:space="preserve">
-    <value>Номер договора</value>
+  <data name="drawingName" xml:space="preserve">
+    <value>Drawing name</value>
   </data>
-  <data name="cpe" xml:space="preserve">
-    <value>ГИП</value>
+  <data name="dateOfAdmissionToDepartment" xml:space="preserve">
+    <value>Date Of Admission To Department</value>
   </data>
-  <data name="designStage" xml:space="preserve">
-    <value>Стадия проектирования</value>
+  <data name="saved" xml:space="preserve">
+    <value>Saved</value>
   </data>
-  <data name="find" xml:space="preserve">
-    <value>Найти</value>
+  <data name="drawingReleaseDateBySchedule" xml:space="preserve">
+    <value>Drawing release date by schedule</value>
   </data>
-  <data name="index" xml:space="preserve">
-    <value>Индекс</value>
+  <data name="drawingReleaseDateDepertment" xml:space="preserve">
+    <value>Drawing release date department</value>
   </data>
-  <data name="priority" xml:space="preserve">
-    <value>Приоритет</value>
+  <data name="addNewDrawing" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="canceled" xml:space="preserve">
+    <value>Canceled</value>
   </data>
 </root>

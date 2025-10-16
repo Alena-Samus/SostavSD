@@ -14,7 +14,7 @@ namespace SostavSD.Areas.Identity.Constants
         plumbers,
         [Display(Name = "Технологи")]
         technologists,
-        [Display(Name = "Тепловые сети")]
+        [Display(Name = "")]
         heatingnetwork,
         [Display(Name = "Расчетная")]
         calculated,

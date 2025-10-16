@@ -33,6 +33,9 @@ namespace SostavSD.Data.Configurations
             builder.Property(p => p.Other);
             builder.Property(p => p.Total);
 
+            builder.HasMany(m => m.Drawings)
+                .WithMany(m => m.Estimates)
+                .UsingEntity<DrawingEstimate>();
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SostavSD.Data;
 
@@ -11,9 +12,11 @@ using SostavSD.Data;
 namespace SostavSD.Migrations
 {
     [DbContext(typeof(SostavSDContext))]
-    partial class SostavSDContextModelSnapshot : ModelSnapshot
+    [Migration("20230808130840_CreateDrawingEstimateTable")]
+    partial class CreateDrawingEstimateTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -289,7 +292,7 @@ namespace SostavSD.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DrawingId"));
 
-                    b.Property<DateTime?>("DrawingDateOfAdmissionToDepartment")
+                    b.Property<DateTime?>("DrawingDateOfAdmissionToDepartmetn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DrawingName")
@@ -306,9 +309,6 @@ namespace SostavSD.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Group")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProjectId")
@@ -333,6 +333,9 @@ namespace SostavSD.Migrations
 
                     b.Property<int>("EstimateId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DrawingId", "EstimateId");
 
@@ -679,21 +682,17 @@ namespace SostavSD.Migrations
 
             modelBuilder.Entity("SostavSD.Entities.DrawingEstimate", b =>
                 {
-                    b.HasOne("SostavSD.Entities.Drawing", "Drawing")
+                    b.HasOne("SostavSD.Entities.Drawing", null)
                         .WithMany("DrawingsEstimates")
                         .HasForeignKey("DrawingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SostavSD.Entities.Estimate", "Estimate")
+                    b.HasOne("SostavSD.Entities.Estimate", null)
                         .WithMany("DrawingsEstimates")
                         .HasForeignKey("EstimateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Drawing");
-
-                    b.Navigation("Estimate");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.Estimate", b =>
