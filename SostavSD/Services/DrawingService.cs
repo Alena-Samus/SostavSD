@@ -92,5 +92,28 @@ namespace SostavSD.Services
                 throw;
             }
         }
+
+        public async Task<bool> RemoveDrawingsAsync(int drawingId)
+        {
+            try
+            {
+                var drawingToRemove = await _context.drawing.FindAsync(drawingId);
+
+                if (drawingToRemove != null)
+                {
+                    _context.drawing.Remove(drawingToRemove);
+                    _context.SaveChanges();
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+
+                throw;
+            }
+        }
     }
 }

@@ -194,5 +194,10 @@ namespace SostavSD.Services
         {
             return await _drawingService.AddDrawingsAsync(drawingsList);
         }
+
+        public async Task<bool> RemoveDrawingsAsync(int id)
+        {
+            return await _drawingService.RemoveDrawingsAsync(id);
+        }
     }
 }

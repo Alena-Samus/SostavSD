@@ -135,7 +135,19 @@ namespace SostavSD.Pages.ProjectSostav
 
         private async Task RemoveDrawings()
         {
-
+            if (selectedItems.Count != 0)
+            {
+                foreach (var item in selectedItems)
+                {
+                    await EntityManagementService.RemoveDrawingsAsync(item.DrawingId);
+                }
+                Snackbar.Add(Localizer["itemsRemoved"], Severity.Success);
+                //await GetProjects();
+            }
+            else
+            {
+                Snackbar.Add(Localizer["noItems"], Severity.Info);
+            }
         }
         private async Task CopyDrawings()
         {
