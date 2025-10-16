@@ -26,10 +26,10 @@
 		<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["drawingReleaseDateDepertment"]" @bind-Value="@newDrawing.DrawingReleaseDateDepertment" Variant="Variant.Outlined"></MudTextField>
 
 	</MudItem>
-@* 		<MudSelect T="Groups?" Label="@Localizer["group"]" Variant="Variant.Outlined" @bind-Value="@newDrawing.Group">
+@* 	<MudSelect T="Groups" Label="@Localizer["group"]" Variant="Variant.Outlined" @bind-Value="@newDrawing.Group">
 			@foreach (var group in Enum.GetValues(typeof(Groups)))
 			{
-				<MudSelectItem Value="@group">@group.ToString()</MudSelectItem>
+			<MudSelectItem Value="@group">@group</MudSelectItem>
 			}
 		</MudSelect> *@
 </MudGrid>

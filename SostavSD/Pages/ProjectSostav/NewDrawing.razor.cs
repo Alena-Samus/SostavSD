@@ -24,13 +24,13 @@ namespace SostavSD.Pages.ProjectSostav
         private NavigationManager navigationManager;
         private DrawingModelValidation validation = new();
         private DrawingModel newDrawing = new();
-        private Groups group;
 
         protected override async Task OnInitializedAsync()
         {
             newDrawing = new DrawingModel();
             newDrawing.ProjectId = ProjectID;
             newDrawing.DrawingDateOfAdmissionToDepartment = DateTime.Now;
+          
         }
         public NewDrawing(NavigationManager navigationManager)
         {

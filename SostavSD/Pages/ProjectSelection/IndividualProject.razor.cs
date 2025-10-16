@@ -26,7 +26,7 @@ namespace SostavSD.Pages.ProjectSelection
 		{
 			calculatorName = Calculator.FirstOrDefault(x => x.UserId == Project.Contract.CalculatorId)?.UserSurname.ToString();
         }
-		private void navigate()
+		private void Navigate()
 		{
 			try
 			{
