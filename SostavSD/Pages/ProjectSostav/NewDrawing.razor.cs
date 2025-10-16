@@ -48,20 +48,20 @@ namespace SostavSD.Pages.ProjectSostav
                 }
                 if (await EntityManagementService.AddDrawingsAsync(newList))
                 {
-                    Snackbar.Add("Saved", Severity.Success);
+                    Snackbar.Add(Localizer["saved"], Severity.Success);
                 }
 
             }
             else 
             {
-                Snackbar.Add("No data", Severity.Error);
+                Snackbar.Add(Localizer["noData"], Severity.Error);
             }
                 GoBack();
         }
 
         private void GoBack()
         {
-            Snackbar.Add("Canceled", Severity.Warning);
+            Snackbar.Add(Localizer["canceled"], Severity.Warning);
             navigationManager.NavigateTo("javascript:history.back()", forceLoad: true);
         }
         private void AddItem()
@@ -82,7 +82,7 @@ namespace SostavSD.Pages.ProjectSostav
             }
             else 
             { 
-                Snackbar.Add("No data", Severity.Error);
+                Snackbar.Add(Localizer["noData"], Severity.Error);
             }            
 
             ClearNewDrawing();
