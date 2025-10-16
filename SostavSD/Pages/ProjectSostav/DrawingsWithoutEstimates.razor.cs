@@ -44,6 +44,13 @@ namespace SostavSD.Pages.ProjectSostav
            _drawings = await EntityManagementService.GetDrawingModelByIdAsync(ProjectID);
         }
 
+
+        private async Task<List<DrawingModel>> GetDrawingsWithoutEstimates(int projectId)
+        {
+            _drawings.Clear();
+            _drawings = await EntityManagementService.GetDrawingModelByIdAsync(projectId);
+            return _drawings;
+        }
         private bool FilterFuncCurrent(DrawingModel drawing) => FilterFunc(drawing, searchString);
 
         private bool FilterFunc(DrawingModel drawing, string searchString)
@@ -142,12 +149,13 @@ namespace SostavSD.Pages.ProjectSostav
                     await EntityManagementService.RemoveDrawingsAsync(item.DrawingId);
                 }
                 Snackbar.Add(Localizer["itemsRemoved"], Severity.Success);
-                //await GetProjects();
+
             }
             else
             {
                 Snackbar.Add(Localizer["noItems"], Severity.Info);
             }
+            await GetDrawingsWithoutEstimates(ProjectID);
         }
         private async Task CopyDrawings()
         {
@@ -168,6 +176,7 @@ namespace SostavSD.Pages.ProjectSostav
 
                 if (await EntityManagementService.AddDrawingsAsync(_drawingsForCopy))
                 {
+                    await GetDrawingsWithoutEstimates(ProjectID);
                     Snackbar.Add("Copied", Severity.Success);
                 }
                 else
@@ -176,7 +185,7 @@ namespace SostavSD.Pages.ProjectSostav
                 }
                
             }
-            StateHasChanged();
+           
         }
     }
 }
