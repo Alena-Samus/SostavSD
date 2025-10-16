@@ -58,10 +58,14 @@ namespace SostavSD.Pages.ProjectSostav
             }
                 GoBack();
         }
+         private void Cancel()
+        {
+            GoBack();
+            Snackbar.Add(Localizer["canceled"], Severity.Warning);
 
+        }
         private void GoBack()
         {
-            Snackbar.Add(Localizer["canceled"], Severity.Warning);
             navigationManager.NavigateTo("javascript:history.back()", forceLoad: true);
         }
         private void AddItem()
