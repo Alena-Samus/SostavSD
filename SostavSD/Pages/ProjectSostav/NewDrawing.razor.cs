@@ -18,12 +18,13 @@ namespace SostavSD.Pages.ProjectSostav
 
         [Parameter] public int ProjectID { get; set; }
 
+
+        private List<DrawingModel> newList = new List<DrawingModel> ();
+
         private NavigationManager navigationManager;
         private DrawingModelValidation validation = new();
         private DrawingModel newDrawing = new();
         private Groups group;
-
-        private List<DrawingModel> newList = new List<DrawingModel> ();
 
         protected override async Task OnInitializedAsync()
         {

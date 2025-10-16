@@ -10,6 +10,7 @@ namespace SostavSD.Pages.ProjectSostav
     {
         [Inject] IEntityManagementService EntityManagementService { get; set; }
         [Inject] IStringLocalizer<DrawingsWithoutEstimates> Localizer { get; set; }
+        [Inject] ISnackbar Snackbar { get; set; }
 
         [Parameter] public int ProjectID { get; set; }
 
@@ -40,7 +41,7 @@ namespace SostavSD.Pages.ProjectSostav
         }
         protected override async Task OnInitializedAsync()
         {
-           _drawings = await EntityManagementService.GetDrawingModelsByIdAsync(ProjectID);
+           _drawings = await EntityManagementService.GetDrawingModelByIdAsync(ProjectID);
         }
 
         private bool FilterFuncCurrent(DrawingModel drawing) => FilterFunc(drawing, searchString);
@@ -138,7 +139,32 @@ namespace SostavSD.Pages.ProjectSostav
         }
         private async Task CopyDrawings()
         {
+            List<DrawingModel> _drawingsForCopy = new List<DrawingModel>();
+            foreach (var item in selectedItems) 
+            {
+                DrawingModel _drawing = new DrawingModel
+                {
+                    DrawingName = $"{item.DrawingName} Копия",
+                    ProjectId = item.ProjectId,
+                    DrawingDateOfAdmissionToDepartment = item.DrawingDateOfAdmissionToDepartment,
+                };
+                _drawingsForCopy.Add( _drawing );
+            }
 
+            if (_drawingsForCopy.Count > 0 )
+            {
+
+                if (await EntityManagementService.AddDrawingsAsync(_drawingsForCopy))
+                {
+                    Snackbar.Add("Copied", Severity.Success);
+                }
+                else
+                {
+                    Snackbar.Add("Not copied", Severity.Error);
+                }
+               
+            }
+            StateHasChanged();
         }
     }
 }

@@ -77,7 +77,7 @@ namespace SostavSD.Services
             }
         }
 
-        public async Task<List<DrawingModel>> GetDrawingModelsByIdAsync(int i)
+        public async Task<List<DrawingModel>> GetDrawingModelByIdAsync(int i)
         {
             try
             {

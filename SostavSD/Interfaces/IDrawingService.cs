@@ -5,7 +5,7 @@ namespace SostavSD.Interfaces
     public interface IDrawingService
     {
         Task <List<DrawingModel>> GetDrawingModelsAsync ();
-        Task<List<DrawingModel>> GetDrawingModelsByIdAsync(int id);
+        Task<List<DrawingModel>> GetDrawingModelByIdAsync(int id);
         //Task EditDrawing (DrawingModel currentDrawing);
         Task <bool> AddDrawingsAsync (List<DrawingModel> drawingsList);
     }
