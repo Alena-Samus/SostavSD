@@ -21,11 +21,12 @@ namespace SostavSD.Services
 		private readonly IStatusService _statusService;
 		private readonly ISourceOfFinancingService _sourceOfFinancingService;
 		private readonly IDrawingService _drawingService;
+        private readonly IDeppartService _deppartService;
 
 		public EntityManagementService(IContractService contractService, IDialogService dialogService, IBuildingViewService buildingViewService, 
 			IDesignStageService designStageService, IProjectService projectService, IContractForTableService contractForTableService, 
 			IStatusService statusService, IBuildingZoneService buildingZoneService, ISourceOfFinancingService sourceOfFinancingService, 
-			IDrawingService drawingService)
+			IDrawingService drawingService, IDeppartService deppartService)
 		{
 			_contractService = contractService;
 			_dialogService = dialogService;
@@ -37,6 +38,7 @@ namespace SostavSD.Services
 			_buildingZoneService = buildingZoneService;
 			_sourceOfFinancingService = sourceOfFinancingService;
 			_drawingService = drawingService;
+            _deppartService = deppartService;
 		}
 
 		private bool result = false;
@@ -198,6 +200,16 @@ namespace SostavSD.Services
         public async Task<bool> RemoveDrawingsAsync(int id)
         {
             return await _drawingService.RemoveDrawingsAsync(id);
+        }
+
+        public async Task<List<DeppartModel>> GetDeppartsAsync()
+        {
+            return await _deppartService.GetDeppartsAsync();
+        }
+
+        public async Task<List<DeppartModel>> GetDeppartsByGroupsAsync(List<string> groups)
+        {
+            return await _deppartService.GetDeppartsByGroupsAsync(groups);
         }
     }
 }

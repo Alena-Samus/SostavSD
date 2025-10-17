@@ -221,10 +221,34 @@ namespace SostavSD.Data
 			{
 				var statuses = new Status[]
 				{
-					new Status {StatusName = "в работе", IsEstimate = true},
-					new Status {StatusName = "выпущено", IsEstimate = true, IsProject = true},
-					new Status {StatusName = "в план", IsDrawing = true},
-				};
+					new Status {StatusName = "в работе", IsProject = true, IsEstimate = true},
+					new Status {StatusName = "на расчете", IsEstimate = true},
+					new Status {StatusName = "на проверке", IsEstimate = true},
+                    new Status {StatusName = "на исправлении", IsEstimate = true},
+                    new Status {StatusName = "на утверждении", IsEstimate = true},
+                    new Status {StatusName = "на оформлении", IsEstimate = true},
+                    new Status {StatusName = "выпущено", IsProject = true, IsEstimate = true},
+                    new Status {StatusName = "без смет", IsEstimate = true},
+                    new Status {StatusName = "замечания экспертизы", IsProject = true, IsEstimate = true},
+                    new Status {StatusName = "удалить", IsEstimate = true},
+                    new Status {StatusName = "в план", IsDrawing = true},
+                    new Status {StatusName = "согласовано", IsDrawing = true},
+                    new Status {StatusName = "утверждено", IsDrawing = true},
+                    new Status {StatusName = "аннулирована", IsEstimate = true},
+                    new Status {StatusName = "отработано", IsEstimate = true},
+                    new Status {StatusName = "замечания заказчика", IsProject = true, IsDrawing = true, IsEstimate = true},
+                    new Status {StatusName = "на оформлении (нормоконтроль)", IsDrawing = true},
+                    new Status {StatusName = "на исправлении (нормоконтроль)", IsDrawing = true},
+                    new Status {StatusName = "передан в ПОС", IsProject = true},
+                    new Status {StatusName = "в экспертизе", IsProject = true},
+                    new Status {StatusName = "приостановлен", IsProject = true, IsEstimate = true},
+                    new Status {StatusName = "архивировано", IsDrawing = true},
+                    new Status {StatusName = "не требует архивации", IsDrawing = true},
+                    new Status {StatusName = "на архивацию", IsDrawing = true},
+                    new Status {StatusName = "не выпускать", IsEstimate = true},
+                    new Status {StatusName = "в архив", IsProject = true},
+                    new Status {StatusName = "передано в ПИР", IsProject = true},
+                };
 				foreach (Status item in statuses)
 				{
 					context.status.Add(item);
