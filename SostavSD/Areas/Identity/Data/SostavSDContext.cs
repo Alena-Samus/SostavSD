@@ -23,6 +23,7 @@ public class SostavSDContext : IdentityDbContext<UserSostav>
     public DbSet<Status> status { get; set; }
     public DbSet<Drawing> drawing { get; set; }
     public DbSet<Estimate> estimate { get; set; }
+    public DbSet<Deppart> deppart { get; set; }
 
 
 

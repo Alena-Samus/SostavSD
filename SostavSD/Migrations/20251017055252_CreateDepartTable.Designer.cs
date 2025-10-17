@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SostavSD.Data;
 
@@ -11,9 +12,11 @@ using SostavSD.Data;
 namespace SostavSD.Migrations
 {
     [DbContext(typeof(SostavSDContext))]
-    partial class SostavSDContextModelSnapshot : ModelSnapshot
+    [Migration("20251017055252_CreateDepartTable")]
+    partial class CreateDepartTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -338,12 +341,7 @@ namespace SostavSD.Migrations
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TaskFile")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("DrawingId");
-
-                    b.HasIndex("GroupId");
 
                     b.HasIndex("ProjectId");
 
@@ -688,10 +686,6 @@ namespace SostavSD.Migrations
 
             modelBuilder.Entity("SostavSD.Entities.Drawing", b =>
                 {
-                    b.HasOne("SostavSD.Entities.Deppart", "Group")
-                        .WithMany("Drawings")
-                        .HasForeignKey("GroupId");
-
                     b.HasOne("SostavSD.Entities.Project", "Project")
                         .WithMany("Drawings")
                         .HasForeignKey("ProjectId")
@@ -701,8 +695,6 @@ namespace SostavSD.Migrations
                     b.HasOne("SostavSD.Entities.Status", "Status")
                         .WithMany("Drawings")
                         .HasForeignKey("StatusId");
-
-                    b.Navigation("Group");
 
                     b.Navigation("Project");
 
@@ -788,11 +780,6 @@ namespace SostavSD.Migrations
             modelBuilder.Entity("SostavSD.Entities.Contract", b =>
                 {
                     b.Navigation("Projects");
-                });
-
-            modelBuilder.Entity("SostavSD.Entities.Deppart", b =>
-                {
-                    b.Navigation("Drawings");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.DesignStage", b =>
