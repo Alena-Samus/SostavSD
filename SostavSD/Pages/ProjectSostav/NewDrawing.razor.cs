@@ -19,7 +19,11 @@ namespace SostavSD.Pages.ProjectSostav
         [Parameter] public int ProjectID { get; set; }
 
 
+
         private List<DrawingModel> newList = new List<DrawingModel> ();
+        private List<DeppartModel> _groupForTable = new List<DeppartModel>();
+        private List<string> _groups = new List<string>() { "1", "2", "3", "4" };
+
 
         private NavigationManager navigationManager;
         private DrawingModelValidation validation = new();
@@ -27,10 +31,12 @@ namespace SostavSD.Pages.ProjectSostav
 
         protected override async Task OnInitializedAsync()
         {
+            _groupForTable = await EntityManagementService.GetDeppartsByGroupsAsync(_groups);
             newDrawing = new DrawingModel();
             newDrawing.ProjectId = ProjectID;
             newDrawing.DrawingDateOfAdmissionToDepartment = DateTime.Now;
-          
+
+
         }
         public NewDrawing(NavigationManager navigationManager)
         {
@@ -76,7 +82,8 @@ namespace SostavSD.Pages.ProjectSostav
                                               ProjectId = newDrawing.ProjectId,
                                               DrawingDateOfAdmissionToDepartment = newDrawing.DrawingDateOfAdmissionToDepartment,
                                               DrawingReleaseDateBySchedule = newDrawing.DrawingReleaseDateBySchedule,
-                                              DrawingReleaseDateDepertment = newDrawing.DrawingReleaseDateDepertment
+                                              DrawingReleaseDateDepertment = newDrawing.DrawingReleaseDateDepertment,
+                                              GroupId = newDrawing.GroupId,
                                             };
 
             var validationResult = validation.Validate(_currentDrawing);

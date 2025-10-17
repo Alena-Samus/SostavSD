@@ -23,7 +23,8 @@ namespace SostavSD.Pages.ProjectSostav
         private TableState _tableState = new();
         private MudTable<DrawingModel> tableRef;
 
-        List <DrawingModel> _drawings= new ();
+        private List <DrawingModel> _drawings= new ();
+
 
         private string _toNewDrawing = "/sostav/newdrawing";
 
@@ -42,6 +43,7 @@ namespace SostavSD.Pages.ProjectSostav
         protected override async Task OnInitializedAsync()
         {
            _drawings = await EntityManagementService.GetDrawingModelByIdAsync(ProjectID);
+
         }
 
 
