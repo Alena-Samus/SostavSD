@@ -232,7 +232,34 @@ namespace SostavSD.Data
 				context.SaveChanges();
 			}
 		}
-		public static void AddProject(SostavSDContext context)
+
+        public static void AddDeppart(SostavSDContext context)
+        {
+            if (context.deppart.Any())
+            {
+                return;
+            }
+            else
+            {
+                var depparts = new Deppart[]
+                {
+                    new Deppart {GroupName = "Электрики",  GroupANU = "1"},
+                    new Deppart {GroupName = "Строители",  GroupANU = "2"},
+                    new Deppart {GroupName = "Сантехники",  GroupANU = "3"},
+                    new Deppart {GroupName = "Технологи",  GroupANU = "4"},
+                    new Deppart {GroupName = "Расчетная",  GroupANU = "6"},
+                    new Deppart {GroupName = "Руководство",  GroupANU = "7"},
+                    new Deppart {GroupName = "ГИП",  GroupANU = "8"},
+                };
+				foreach (Deppart item in depparts)
+				{ 
+					context.deppart.Add(item);
+				}
+
+                context.SaveChanges();
+            }
+        }
+        public static void AddProject(SostavSDContext context)
 		{
 			if (context.project.Any())
 			{
@@ -241,10 +268,11 @@ namespace SostavSD.Data
 			else
 			{
 				context.project.Add(new Project { BuildingNumber = "1", ContractId = 1, StageId = 1 });
-                context.project.Add(new Project { BuildingNumber = "2", ContractId = 2, StageId = 1 });
-                context.project.Add(new Project { BuildingNumber = "3", ContractId = 3, StageId = 1 });
-                context.project.Add(new Project { BuildingNumber = "4", ContractId = 4, StageId = 1 });
-                context.project.Add(new Project { BuildingNumber = "5", ContractId = 1, StageId = 1 });
+                context.project.Add(new Project { BuildingNumber = "2", ContractId = 2, StageId = 2 });
+                context.project.Add(new Project { BuildingNumber = "3", ContractId = 3, StageId =3 });
+                context.project.Add(new Project { BuildingNumber = "192/1", ContractId = 4, StageId = 1 });
+                context.project.Add(new Project { BuildingNumber = "5", ContractId = 1, StageId = 2});
+                context.project.Add(new Project { BuildingNumber = "777", ContractId = 1, StageId = 3 });
             }
 
 			context.SaveChanges();
@@ -260,9 +288,9 @@ namespace SostavSD.Data
             {
                 var drawings = new Drawing[]
                 {
-                    new Drawing {DrawingName = "11111-Р-10000-ТМ8", ProjectId = 4},
-                    new Drawing {DrawingName = "050-1-КЖ10", ProjectId = 4},
-                    new Drawing {DrawingName = "17100-2001-ЭМ25 изм.1", ProjectId = 4},
+                    new Drawing {DrawingName = "11111-Р-10000-ТМ8", ProjectId = 1},
+                    new Drawing {DrawingName = "050-1-КЖ10", ProjectId = 2},
+                    new Drawing {DrawingName = "17100-2001-ЭМ25 изм.1", ProjectId = 6},
                 };
                 foreach (Drawing item in drawings)
                 {
