@@ -70,7 +70,7 @@ namespace SostavSD.Pages.ProjectSostav
             var currentDrawing = tableRowClickEventArgs.Item.DrawingId;
             if (await EntityManagementService.EditDrawingDialogAsync(currentDrawing))
             {
-                Snackbar.Add(Localizer["drawingEdited"], Severity.Success);
+                //Snackbar.Add(Localizer["drawingEdited"], Severity.Success);
                 await GetDrawingsWithoutEstimates();
                 await tableRef.ReloadServerData();
             }

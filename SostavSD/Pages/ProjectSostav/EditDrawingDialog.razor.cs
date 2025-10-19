@@ -12,7 +12,7 @@ namespace SostavSD.Pages.ProjectSostav
     public partial class EditDrawingDialog: ComponentBase
     {
         [Inject] IEntityManagementService EntityManagementService { get; set; }
-        [Inject] IStringLocalizer<DrawingsWithoutEstimates> Localizer { get; set; }
+        [Inject] IStringLocalizer<EditDrawingDialog> Localizer { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 
         [CascadingParameter] MudDialogInstance EditDrawing { get; set; }
@@ -24,6 +24,7 @@ namespace SostavSD.Pages.ProjectSostav
         private void Cancel()
         {
             EditDrawing.Cancel();
+            Snackbar.Add(Localizer["editingCanceled"], Severity.Success);
 
         }
 
@@ -34,7 +35,7 @@ namespace SostavSD.Pages.ProjectSostav
             //if (validationResult.IsValid)
             //{
                 EditDrawing.Close(DialogResult.Ok(Drawing));
-                Snackbar.Add("Done", Severity.Success);
+                Snackbar.Add(Localizer["drawingEdited"], Severity.Success);
             //}
             //else
             //{
