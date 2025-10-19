@@ -120,14 +120,26 @@
   <data name="cancelChanges" xml:space="preserve">
     <value>Отменить</value>
   </data>
+  <data name="dateOfAdmissionToDepartment" xml:space="preserve">
+    <value>Дата поступления в ОСД</value>
+  </data>
   <data name="drawingEdited" xml:space="preserve">
     <value>Раздел отредактирован</value>
   </data>
   <data name="drawingName" xml:space="preserve">
     <value>Наименование раздела</value>
   </data>
+  <data name="drawingReleaseDateBySchedule" xml:space="preserve">
+    <value>Срок исполнения ОСД</value>
+  </data>
+  <data name="drawingReleaseDateDepertment" xml:space="preserve">
+    <value>Дата выпуска смет</value>
+  </data>
   <data name="editingCanceled" xml:space="preserve">
     <value>Редактирование отменено</value>
+  </data>
+  <data name="group" xml:space="preserve">
+    <value>Группа</value>
   </data>
   <data name="saveChanges" xml:space="preserve">
     <value>Сохранить</value>

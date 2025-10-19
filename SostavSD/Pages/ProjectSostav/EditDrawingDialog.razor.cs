@@ -23,8 +23,8 @@ namespace SostavSD.Pages.ProjectSostav
         }
         private void Cancel()
         {
-            EditDrawing.Cancel();
-            Snackbar.Add(Localizer["editingCanceled"], Severity.Success);
+            EditDrawing.Close();
+            Snackbar.Add(Localizer["editingCanceled"], Severity.Info);
 
         }
 

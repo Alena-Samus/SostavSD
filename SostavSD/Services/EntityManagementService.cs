@@ -52,7 +52,7 @@ namespace SostavSD.Services
 				var contractToEdit = await GetSingleContract(contractId);
 				parameters.Add("Contract", contractToEdit);
 				var dialog = await _dialogService.Show<ContractAddNewAndEdit>("update", parameters).Result;
-				if (dialog != null)
+				if (dialog.Data != null)
 				{
 					await _contractService.EditContract(contractToEdit);
 					result = true;
@@ -88,7 +88,7 @@ namespace SostavSD.Services
 
                 parameters.Add("Drawing", _drawingToEdit);
                 var dialog = await _dialogService.Show<EditDrawingDialog>("update", parameters).Result;
-                if (dialog != null)
+                if (dialog.Data != null)
                 {
                     await _drawingService.EditDrawingAsync(_drawingToEdit);
                     result = true;

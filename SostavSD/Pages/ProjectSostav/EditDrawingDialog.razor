@@ -1,9 +1,12 @@
 ﻿<h3>Edit Drawing Dialog</h3>
 <MudDialog>
 	<DialogContent>
-		<MudTextField T="string" Label="@Localizer["drawingName"]" @bind-Value="Drawing.DrawingName" Required=true />
-@* 		<MudTextField T="string" Label="@localizer["companyDetails"]" @bind-Value="Company.CompanyDetails" />
- *@	</DialogContent>
+		<MudTextField T="string" Label="@Localizer["drawingName"]" @bind-Value="Drawing.DrawingName" Variant="Variant.Outlined" Required=true />
+		<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["dateOfAdmissionToDepartment"]" @bind-Value="@Drawing.DrawingDateOfAdmissionToDepartment" Variant="Variant.Outlined"></MudTextField>
+		<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["drawingReleaseDateDepertment"]" @bind-Value="@Drawing.DrawingReleaseDateDepertment" Variant="Variant.Outlined"></MudTextField>
+		<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["drawingReleaseDateBySchedule"]" @bind-Value="@Drawing.DrawingReleaseDateBySchedule" Variant="Variant.Outlined"></MudTextField>
+
+	</DialogContent>
 
 	<DialogActions>
 		<MudButton @onclick="Cancel">@Localizer["cancelChanges"]</MudButton>

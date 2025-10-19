@@ -120,14 +120,26 @@
   <data name="cancelChanges" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="dateOfAdmissionToDepartment" xml:space="preserve">
+    <value>Date of admission to department</value>
+  </data>
   <data name="drawingEdited" xml:space="preserve">
     <value>Drawing edited</value>
   </data>
   <data name="drawingName" xml:space="preserve">
     <value>Drawing name</value>
   </data>
+  <data name="drawingReleaseDateBySchedule" xml:space="preserve">
+    <value>Drawing release date by schedule</value>
+  </data>
+  <data name="drawingReleaseDateDepertment" xml:space="preserve">
+    <value>Drawing release date department</value>
+  </data>
   <data name="editingCanceled" xml:space="preserve">
     <value>Editing canceled</value>
+  </data>
+  <data name="group" xml:space="preserve">
+    <value>Group</value>
   </data>
   <data name="saveChanges" xml:space="preserve">
     <value>Save</value>
