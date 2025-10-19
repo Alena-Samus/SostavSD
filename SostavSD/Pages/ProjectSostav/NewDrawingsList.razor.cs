@@ -8,8 +8,8 @@ namespace SostavSD.Pages.ProjectSostav
     {
         [Inject] IStringLocalizer<NewDrawingsList> Localizer { get; set; }
 
-        [Parameter] public List<DrawingModel> ListNewDrawings { get; set; }
-        [Parameter] public EventCallback<DrawingModel> DeleteItem { get; set; }
+        [Parameter] public List<DrawingModelForList> ListNewDrawings { get; set; }
+        [Parameter] public EventCallback<DrawingModelForList> DeleteItem { get; set; }
 
 
 

@@ -4,7 +4,7 @@
 }
 else
 {
-	<MudTable T="DrawingModel" Items="@ListNewDrawings">
+	<MudTable T="DrawingModelForList" Items="@ListNewDrawings">
             <HeaderContent>
 					<MudTh>@Localizer["drawingName"]</MudTh>
 					<MudTh>@Localizer["dateOfAdmissionToDepartment"]</MudTh>
@@ -18,7 +18,7 @@ else
 					<MudTd DataLabel="@Localizer["dateOfAdmissionToDepartment"]">@(context.DrawingDateOfAdmissionToDepartment == null ? "" : Convert.ToDateTime(context.DrawingDateOfAdmissionToDepartment).ToString(Constants.DateFormat))</MudTd>
 					<MudTd DataLabel="@Localizer["drawingReleaseDateDepertment"]">@(context.DrawingReleaseDateDepertment == null ? "" : Convert.ToDateTime(context.DrawingReleaseDateDepertment).ToString(Constants.DateFormat))</MudTd>
 					<MudTd DataLabel="@Localizer["drawingReleaseDateBySchedule"]">@(context.DrawingReleaseDateBySchedule == null ? "" : Convert.ToDateTime(context.DrawingReleaseDateBySchedule).ToString(Constants.DateFormat))</MudTd>
-					<MudTd DataLabel="@Localizer["group"]">@context.Group?.GroupName</MudTd>
+					<MudTd DataLabel="@Localizer["group"]">@context.DeppartName</MudTd>
 					<MudFab @onclick="(() => DeleteItem.InvokeAsync(context))" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Delete" Size="Size.Small" IconSize="Size.Small" />
 			</RowTemplate>		
 
