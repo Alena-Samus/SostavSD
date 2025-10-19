@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="saveNewDrawing" xml:space="preserve">
-    <value />
+    <value>Save</value>
   </data>
   <data name="cancel" xml:space="preserve">
-    <value>cancel</value>
+    <value>Cancel</value>
   </data>
   <data name="drawingName" xml:space="preserve">
     <value>Drawing name</value>
@@ -143,5 +143,8 @@
   </data>
   <data name="canceled" xml:space="preserve">
     <value>Canceled</value>
+  </data>
+  <data name="group" xml:space="preserve">
+    <value>Group</value>
   </data>
 </root>
