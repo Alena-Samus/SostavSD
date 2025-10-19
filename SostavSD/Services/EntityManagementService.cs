@@ -5,6 +5,7 @@ using SostavSD.Interfaces;
 using SostavSD.Models;
 using SostavSD.Pages.Contracts;
 using SostavSD.Pages.Projects;
+using SostavSD.Pages.ProjectSostav;
 
 namespace SostavSD.Services
 {
@@ -72,12 +73,29 @@ namespace SostavSD.Services
 				if (await _projectService.EditProjectAsync((ProjectModel)dialog.Data))
 				{
                     result = true;
-                }
-                
+                }                
             }
 
             return result;
+        }
 
+        public async Task<bool> EditDrawingDialogAsync(int drawingId)
+        {
+            if (drawingId > 0)
+            {
+                var parameters = new DialogParameters();
+               var _drawingToEdit = await GetSingleDrawingById(drawingId);
+
+                parameters.Add("Drawing", _drawingToEdit);
+                var dialog = await _dialogService.Show<EditDrawingDialog>("update", parameters).Result;
+                if (dialog != null)
+                {
+                    await _drawingService.EditDrawingAsync(_drawingToEdit);
+                    result = true;
+                }
+
+            }
+            return result;
         }
 
         public async Task<List<ContractForTableModel>> GetContractsAsync()
@@ -181,9 +199,9 @@ namespace SostavSD.Services
         {
            return await _drawingService.GetDrawingModelsAsync();
         }
-        public async Task<List<DrawingModel>> GetDrawingModelByIdAsync(int id)
+        public async Task<List<DrawingModel>> GetDrawingModelByProjectIdAsync(int id)
 		{
-            return await _drawingService.GetDrawingModelByIdAsync(id);
+            return await _drawingService.GetDrawingModelByProjectIdAsync(id);
         }
 
         //public void EditDrawing(DrawingModel currentDrawing)
@@ -210,6 +228,16 @@ namespace SostavSD.Services
         public async Task<List<DeppartModel>> GetDeppartsByGroupsAsync(List<string> groups)
         {
             return await _deppartService.GetDeppartsByGroupsAsync(groups);
+        }
+
+        public Task<bool> EditDrawingAsync(DrawingModel currentDrawing)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<DrawingModel> GetSingleDrawingById(int drawingId)
+        {
+           return await _drawingService.GetSingleDrawingById(drawingId);
         }
     }
 }

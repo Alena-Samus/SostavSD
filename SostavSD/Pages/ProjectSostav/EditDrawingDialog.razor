@@ -1,0 +1,12 @@
+﻿<h3>Edit Drawing Dialog</h3>
+<MudDialog>
+	<DialogContent>
+		<MudTextField T="string" Label="@Localizer["companyName"]" @bind-Value="Drawing.DrawingName" Required=true />
+@* 		<MudTextField T="string" Label="@localizer["companyDetails"]" @bind-Value="Company.CompanyDetails" />
+ *@	</DialogContent>
+
+	<DialogActions>
+		<MudButton @onclick="Cancel">@Localizer["cancelChanges"]</MudButton>
+		<MudButton @onclick="Submit" Color="Color.Primary">@Localizer["saveChanges"]</MudButton>
+	</DialogActions>
+</MudDialog>

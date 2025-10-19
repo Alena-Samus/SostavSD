@@ -8,6 +8,8 @@ namespace SostavSD.Interfaces
 		Task<bool> EditContractDialog (int contractId);
 
 		Task<bool> EditProjectAsync(ProjectModel newProject);
+
+		Task <bool> EditDrawingDialogAsync (int drawingId);
         
 
     }
