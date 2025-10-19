@@ -65,6 +65,7 @@ namespace SostavSD.Services
             {
                  var drawingList = _context.drawing
                     .Include(c => c.Project)
+                    .Include(c => c.Group)
                     .AsNoTracking();
 
                 return _mapper.Map<List<DrawingModel>>(await drawingList.ToListAsync());
@@ -81,7 +82,10 @@ namespace SostavSD.Services
         {
             try
             {
-                var _drawingsById = _context.drawing.Where( u => u.ProjectId == i);
+                var _drawingsById = _context.drawing
+                    .Include(c => c.Group)
+                    .Include(c => c.Project)
+                    .Where( u => u.ProjectId == i);
 
                 return _mapper.Map<List<DrawingModel>>(await _drawingsById.ToListAsync());
             }
