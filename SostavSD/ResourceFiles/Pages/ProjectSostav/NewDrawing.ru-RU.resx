@@ -138,6 +138,9 @@
   <data name="drawingReleaseDateDepertment" xml:space="preserve">
     <value>Дата выпуска сметы</value>
   </data>
+  <data name="group" xml:space="preserve">
+    <value>Группа</value>
+  </data>
   <data name="saved" xml:space="preserve">
     <value>Сохранено</value>
   </data>

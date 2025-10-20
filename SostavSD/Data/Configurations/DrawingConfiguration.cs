@@ -10,7 +10,6 @@ namespace SostavSD.Data.Configurations
         {
             builder.ToTable("Drawing")
                  .HasKey(k => k.DrawingId);
-            builder.Property(p => p.DrawingId);
             builder.Property(p => p.DrawingName)
                 .HasMaxLength(200);
             builder.Property(p => p.DrawingPriority);
@@ -26,7 +25,9 @@ namespace SostavSD.Data.Configurations
                 .WithMany(m => m.Drawings)
                 .HasForeignKey(p => p.StatusId)
                 .IsRequired(false);
-            builder.Property(p => p.Group);
+            builder.Property(p => p.GroupId);
+              builder.Property(p => p.Notes);
+            builder.Property(p => p.TaskFile);
 
             builder.HasMany(m => m.Estimates)
                 .WithMany(m => m.Drawings)

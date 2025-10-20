@@ -26,12 +26,15 @@
 		<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date" Label="@Localizer["drawingReleaseDateDepertment"]" @bind-Value="@newDrawing.DrawingReleaseDateDepertment" Variant="Variant.Outlined"></MudTextField>
 
 	</MudItem>
-@* 	<MudSelect T="Groups" Label="@Localizer["group"]" Variant="Variant.Outlined" @bind-Value="@newDrawing.Group">
-			@foreach (var group in Enum.GetValues(typeof(Groups)))
+	<MudItem>
+		<MudSelect T="int?" Label="@Localizer["group"]" Variant="Variant.Outlined" Value="@newDrawing.GroupId" ValueChanged="@(async (int? newValue) => await OnGroupSelected(newValue))">
+			@foreach (var group in _groupForTable)
 			{
-			<MudSelectItem Value="@group">@group</MudSelectItem>
+				<MudSelectItem T="int?" Value="@group.GroupId">@group.GroupName</MudSelectItem>
 			}
-		</MudSelect> *@
+		</MudSelect>
+	</MudItem>
+
 </MudGrid>
 
 <MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.AddCircleOutline" Title="@Localizer["addNewDrawing"]" Color="Color.Success" @onclick="AddItem" />

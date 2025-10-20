@@ -1,4 +1,6 @@
-﻿namespace SostavSD.Entities
+﻿using Microsoft.Identity.Client;
+
+namespace SostavSD.Entities
 {
     public class Drawing
     {
@@ -13,8 +15,10 @@
         public DateTime? DrawingReleaseDateBySchedule { get; set; }
         public DateTime? DrawingReleaseDateDepertment { get; set; }
         public DateTime? DrawingDateOfAdmissionToDepartment { get; set; }
-        public string Group { get; set; }
+        public int? GroupId { get; set; }
+        public Deppart Group { get; set; }
         public string Notes { get; set; }
+        public string TaskFile {  get; set; }
 
         public ICollection<Estimate> Estimates { get; set; }
         public ICollection<DrawingEstimate> DrawingsEstimates { get; set; }

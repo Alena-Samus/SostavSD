@@ -11,19 +11,19 @@ namespace SostavSD.Pages.ProjectSostav
         [Inject] IEntityManagementService EntityManagementService { get; set; }
         [Inject] IStringLocalizer<DrawingsWithoutEstimates> Localizer { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
+        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] IDialogService _dialogService { get; set; }
 
         [Parameter] public int ProjectID { get; set; }
 
-        private NavigationManager _navigationManager;
-        private IDrawingService _drawingService;
-        private IDialogService _dialogService;
         private HashSet<DrawingModel> selectedItems = new HashSet<DrawingModel>();
         private SortDirection _sortDirection = SortDirection.None;
 
         private TableState _tableState = new();
         private MudTable<DrawingModel> tableRef;
 
-        List <DrawingModel> _drawings= new ();
+        private List <DrawingModel> _drawings= new ();
+
 
         private string _toNewDrawing = "/sostav/newdrawing";
 
@@ -33,22 +33,18 @@ namespace SostavSD.Pages.ProjectSostav
         string styleTableHeader = "font-size: 12px; text-align: center; padding: 0 0 0 10px; overflow-wrap: break-word; line-height: 1;";
         string styleTableBody = "padding: 0; text-align: center;";
 
-        public DrawingsWithoutEstimates(IDrawingService drawingService,IDialogService dialog, NavigationManager navigationManager)
-        {
-            _drawingService = drawingService;
-            _dialogService = dialog;
-            _navigationManager = navigationManager;
-        }
+
         protected override async Task OnInitializedAsync()
         {
-           _drawings = await EntityManagementService.GetDrawingModelByIdAsync(ProjectID);
+           _drawings = await EntityManagementService.GetDrawingModelByProjectIdAsync(ProjectID);
+
         }
 
 
         private async Task<List<DrawingModel>> GetDrawingsWithoutEstimates()
         {
             _drawings.Clear();
-            _drawings = await EntityManagementService.GetDrawingModelByIdAsync(ProjectID);
+            _drawings = await EntityManagementService.GetDrawingModelByProjectIdAsync(ProjectID);
             return _drawings;
         }
         private bool FilterFuncCurrent(DrawingModel drawing) => FilterFunc(drawing, searchString);
@@ -71,28 +67,32 @@ namespace SostavSD.Pages.ProjectSostav
 
         private async Task OpenEditDialog(TableRowClickEventArgs<DrawingModel> tableRowClickEventArgs)
         {
-            //var currentProject = tableRowClickEventArgs.Item.Project;
-            //if (await EntityManagementService.EditProjectAsync(currentProject))
-            //{
-            //    Snackbar.Add(_localizer["projectEdited"], Severity.Success);
-            //    await GetProjects();
-            //}
-            //else
-            //{
-            //    Snackbar.Add(_localizer["projectNotEdited"], Severity.Error);
-            //}
+            var currentDrawing = tableRowClickEventArgs.Item.DrawingId;
+            if (await EntityManagementService.EditDrawingDialogAsync(currentDrawing))
+            {
+                //Snackbar.Add(Localizer["drawingEdited"], Severity.Success);
+                await GetDrawingsWithoutEstimates();
+                await tableRef.ReloadServerData();
+            }
+            else
+            {
+                Snackbar.Add(Localizer["drawingNotEdited"], Severity.Error);
+            }
+
+            selectedItems.Clear();
+            StateHasChanged();
 
         }
 
 
 
-        //  // Обработчик сортировки
-        //private async Task OnSort(TableState state)
-        //{
-        //    _tableState = state;
-        //    _drawings = await GetSortedData(state);
-        //    tableRef.ReloadServerData();
-        //}
+        // Обработчик сортировки
+        private async Task OnSort(TableState state)
+        {
+            _tableState = state;
+            _drawings = await GetSortedData(state);
+            tableRef.ReloadServerData();
+        }
         private Task<List<DrawingModel>> GetSortedData(TableState state)
         {
             var data = _drawings.AsQueryable();
@@ -156,6 +156,7 @@ namespace SostavSD.Pages.ProjectSostav
                 Snackbar.Add(Localizer["noItems"], Severity.Info);
             }
             await GetDrawingsWithoutEstimates();
+            selectedItems.Clear();
         }
         private async Task CopyDrawings()
         {
@@ -173,18 +174,21 @@ namespace SostavSD.Pages.ProjectSostav
 
             if (_drawingsForCopy.Count > 0 )
             {
-
-                if (await EntityManagementService.AddDrawingsAsync(_drawingsForCopy))
+                var result = await EntityManagementService.AddDrawingsAsync(_drawingsForCopy);
+                if (result)
                 {
-                    await GetDrawingsWithoutEstimates();
+
+                        await GetDrawingsWithoutEstimates();
+                        await tableRef.ReloadServerData();
+
                     Snackbar.Add("Copied", Severity.Success);
                 }
                 else
                 {
                     Snackbar.Add("Not copied", Severity.Error);
                 }
-               
             }
+            selectedItems.Clear ();
             StateHasChanged();
 
         }

@@ -132,4 +132,31 @@ public class AuthorizedUserService : IAuthorizedUserService
         }
         return currentList;
     }
+
+    public async Task<List<GroupHeadsModel>> GetGroupHeadsAsync()
+    {
+        List<GroupHeadsModel> groupHeads = new List<GroupHeadsModel>();
+
+        // Get all users in groups 1-4 who have the 'HeadOfGroup' role
+        var users = _userManager.Users
+            .Where(u => new[] { "1", "2", "3", "4" }.Contains(u.GroupName))
+            .ToList();
+
+        foreach (var user in users)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            if (roles.Contains("HeadOfGroup"))
+            {
+                groupHeads.Add(new GroupHeadsModel
+                {
+                    UserId = user.Id,
+                    SurnameHeadOfGroup = user.Surname,
+                    GroupANU = user.GroupName
+                });
+            }
+        }
+
+
+        return groupHeads;
+    }
 }
