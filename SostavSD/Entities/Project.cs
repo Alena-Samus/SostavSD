@@ -24,5 +24,6 @@
         public string CiCVersion { get; set; }
 
         public ICollection<Drawing> Drawings { get; set; }
+        public ICollection<Subsection> Sections { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SostavSD.Data;
 
@@ -11,9 +12,11 @@ using SostavSD.Data;
 namespace SostavSD.Migrations
 {
     [DbContext(typeof(SostavSDContext))]
-    partial class SostavSDContextModelSnapshot : ModelSnapshot
+    [Migration("20251020133045_CreateChapterTable")]
+    partial class CreateChapterTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -551,47 +554,6 @@ namespace SostavSD.Migrations
                     b.ToTable("Status", (string)null);
                 });
 
-            modelBuilder.Entity("SostavSD.Entities.Subsection", b =>
-                {
-                    b.Property<int>("SubsectionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubsectionId"));
-
-                    b.Property<int?>("ChapterId")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("K1")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("K2")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("Norm")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SerialNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SubsectionName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SubsectionId");
-
-                    b.HasIndex("ChapterId");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("Subsection", (string)null);
-                });
-
             modelBuilder.Entity("SostavSD.Entities.UserSostav", b =>
                 {
                     b.Property<string>("Id")
@@ -827,21 +789,6 @@ namespace SostavSD.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("SostavSD.Entities.Subsection", b =>
-                {
-                    b.HasOne("SostavSD.Entities.Chapter", "Chapter")
-                        .WithMany("Sections")
-                        .HasForeignKey("ChapterId");
-
-                    b.HasOne("SostavSD.Entities.Project", "Project")
-                        .WithMany("Sections")
-                        .HasForeignKey("ProjectId");
-
-                    b.Navigation("Chapter");
-
-                    b.Navigation("Project");
-                });
-
             modelBuilder.Entity("SostavSD.Entities.BuildingView", b =>
                 {
                     b.Navigation("Projects");
@@ -850,11 +797,6 @@ namespace SostavSD.Migrations
             modelBuilder.Entity("SostavSD.Entities.BuildingZone", b =>
                 {
                     b.Navigation("Contracts");
-                });
-
-            modelBuilder.Entity("SostavSD.Entities.Chapter", b =>
-                {
-                    b.Navigation("Sections");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.Company", b =>
@@ -890,8 +832,6 @@ namespace SostavSD.Migrations
             modelBuilder.Entity("SostavSD.Entities.Project", b =>
                 {
                     b.Navigation("Drawings");
-
-                    b.Navigation("Sections");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.SourceOfFinacing", b =>
