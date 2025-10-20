@@ -9,7 +9,8 @@ namespace SostavSD.Interfaces
 
 		Task<bool> EditProjectAsync(ProjectModel newProject);
 
-		Task <bool> EditDrawingDialogAsync (int drawingId);
+		Task <bool> EditDrawingDialogAsync (int drawingId); 
+
         
 
     }
