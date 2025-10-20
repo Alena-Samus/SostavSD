@@ -138,6 +138,9 @@
   <data name="editingCanceled" xml:space="preserve">
     <value>Редактирование отменено</value>
   </data>
+  <data name="estimator" xml:space="preserve">
+    <value>Исполнитель</value>
+  </data>
   <data name="group" xml:space="preserve">
     <value>Группа</value>
   </data>

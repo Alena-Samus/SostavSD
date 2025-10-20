@@ -138,6 +138,9 @@
   <data name="editingCanceled" xml:space="preserve">
     <value>Editing canceled</value>
   </data>
+  <data name="estimator" xml:space="preserve">
+    <value>Estimator</value>
+  </data>
   <data name="group" xml:space="preserve">
     <value>Group</value>
   </data>

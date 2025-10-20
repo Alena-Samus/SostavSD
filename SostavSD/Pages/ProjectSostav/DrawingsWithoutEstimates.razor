@@ -54,7 +54,6 @@ else
 					<MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingReleaseDateBySchedule)"
 									   SortLabel="DrawingReleaseDateBySchedule">@Localizer["drawingReleaseDateBySchedule"]</MudTableSortLabel>
 				</MudTh>
-				<MudTh Style="@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.Status.StatusName)">@Localizer["status"]</MudTableSortLabel></MudTh>
 				<MudTh Style="@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.Group)">@Localizer["group"]</MudTableSortLabel></MudTh>
 				<MudTh Style="@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.Notes)">@Localizer["notes"]</MudTableSortLabel></MudTh>
 			</HeaderContent>
