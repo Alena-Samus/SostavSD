@@ -149,8 +149,9 @@ public class AuthorizedUserService : IAuthorizedUserService
             {
                 groupHeads.Add(new GroupHeadsModel
                 {
+                    UserId = user.Id,
                     SurnameHeadOfGroup = user.Surname,
-                    GroupName = user.GroupName
+                    GroupANU = user.GroupName
                 });
             }
         }

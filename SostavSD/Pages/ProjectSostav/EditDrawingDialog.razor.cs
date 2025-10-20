@@ -12,15 +12,34 @@ namespace SostavSD.Pages.ProjectSostav
     public partial class EditDrawingDialog: ComponentBase
     {
         [Inject] IEntityManagementService EntityManagementService { get; set; }
+        [Inject] IAuthorizedUserService AuthorizedUserService { get; set; }
         [Inject] IStringLocalizer<EditDrawingDialog> Localizer { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 
         [CascadingParameter] MudDialogInstance EditDrawing { get; set; }
         [Parameter] public DrawingModel Drawing { get; set; }
 
+        private List<GroupHeadsModel> groupHeads { get; set; } = new List<GroupHeadsModel>();
+        private List<DeppartModel> _groupForTable = new List<DeppartModel>();
+        private List<string> _groups = new List<string>() { "1", "2", "3", "4" };
+        private string estimator;
         protected override async Task OnInitializedAsync()
         {
+            groupHeads = await AuthorizedUserService.GetGroupHeadsAsync();
+            _groupForTable = await EntityManagementService.GetDeppartsByGroupsAsync(_groups);
+            AddToTheGroupHeads(groupHeads, _groupForTable);
         }
+
+        private void AddToTheGroupHeads(List<GroupHeadsModel> heads, List<DeppartModel> depparts)
+        {
+            foreach (var group in heads)
+            {
+                var _currentGroup = depparts.FirstOrDefault(g => g.GroupANU == group.GroupANU);
+                group.GroupId = _currentGroup.GroupId;
+                group.GroupName = _currentGroup.GroupName;               
+            }
+        }
+
         private void Cancel()
         {
             EditDrawing.Close();
@@ -47,5 +66,26 @@ namespace SostavSD.Pages.ProjectSostav
             //}
 
         }
+
+        private async Task OnGroupSelected(int? selectedGroupId)
+        {
+            Drawing.GroupId = selectedGroupId;
+
+            if (selectedGroupId.HasValue)
+            {
+                var selectedGroup = groupHeads.FirstOrDefault(g => g.GroupId == selectedGroupId.Value);
+                if (selectedGroup != null)
+                {
+                    
+                    estimator = selectedGroup.SurnameHeadOfGroup;
+                   
+                }
+            }
+            else
+            {
+                estimator = null;
+            }
+        }
+
     }
 }

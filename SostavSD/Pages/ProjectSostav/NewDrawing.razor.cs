@@ -151,6 +151,8 @@ namespace SostavSD.Pages.ProjectSostav
             {
                 groupName = null;
             }
+
+            //впоследствии в Estimate вставлять Id исполнителя
         }
     }
 }
