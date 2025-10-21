@@ -10,7 +10,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
     public partial class ProjectCardChapters
     {
         [Inject] IEntityManagementService EntityManagementService { get; set; }
-        [Inject] IStringLocalizer<DrawingsWithoutEstimates> Localizer { get; set; }
+        [Inject] IStringLocalizer<ProjectCardChapters> Localizer { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
         [Inject] NavigationManager _navigationManager { get; set; }
         [Inject] IDialogService _dialogService { get; set; }

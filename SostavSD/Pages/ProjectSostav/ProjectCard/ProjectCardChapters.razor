@@ -1,54 +1,53 @@
-﻿<h3>ProjectCardChapters</h3>
+﻿<div>
+	<MudButtonGroup Class="d-flex justify-start flex-grow-1 gap-4" OverrideStyles="false">
+		<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.LibraryAdd" Title="@Localizer["addNewDrawing"]" Color="Color.Success" @onclick="NavigateToPage" />
+		<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.DeleteForever" Title="@Localizer["removeDrawing"]" Color="Color.Error" @onclick="(e => RemoveChapters())" />
+		<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.ContentCopy" Title="@Localizer["copyDrawings"]" Color="Color.Success" @onclick="(e => CopyChapters())" />
 
+	</MudButtonGroup>
 
-<MudButtonGroup Class="d-flex justify-start flex-grow-1 gap-4" OverrideStyles="false">
-	<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.LibraryAdd" Title="@Localizer["addNewDrawing"]" Color="Color.Success" @onclick="NavigateToPage" />
-	<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.DeleteForever" Title="@Localizer["removeDrawing"]" Color="Color.Error" @onclick="(e => RemoveChapters())" />
-	<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.ContentCopy" Title="@Localizer["copyDrawings"]" Color="Color.Success" @onclick="(e => CopyChapters())" />
+	@if (subsections == null)
+	{
+		<tr>@Localizer["loadingdata"]</tr>
+	}
+	else if (subsections.Count == 0)
+	{
+		<tr>@Localizer["noitem"]</tr>
+	}
+	else
+	{
+		<MudGrid>
+			<MudItem xs="7">
+				@foreach (var item in projectChapters)
+				{
 
-</MudButtonGroup>
+					<MudText>@item.Chapter.ChapterName</MudText>
 
-@if (subsections == null)
-{
-	<tr>@Localizer["loadingdata"]</tr>
-}
-else if (subsections.Count == 0)
-{
-	<tr>@Localizer["noitem"]</tr>
-}
-else
-{
-	<MudGrid>
-		<MudItem xs="7">
-			@foreach (var item in projectChapters)
-			{
+					<MudTable T="SubsectionModel" Items="@item.Subsections" Bordered=true>
 
-				<MudText>@item.Chapter.ChapterName</MudText>
+						<HeaderContent>
+							<MudTh>@Localizer["serialNumber"]</MudTh>
+							<MudTh>@Localizer["subsectionName"]</MudTh>
+							<MudTh>@Localizer["kOne"]</MudTh>
+							<MudTh>@Localizer["kTwo"]</MudTh>
+							<MudTh>@Localizer["norm"]</MudTh>
+							<MudTh>@Localizer["notes"]</MudTh>
+						</HeaderContent>
+						<RowTemplate>
+							<MudTd DataLabel="@Localizer["serialNumber"]">@context.SerialNumber</MudTd>
+							<MudTd DataLabel="@Localizer["subsectionName"]">@context.SubsectionName</MudTd>
+							<MudTd DataLabel="@Localizer["kOne"]">@context.K1</MudTd>
+							<MudTd DataLabel="@Localizer["kTwo"]">@context.K2</MudTd>
+							<MudTd DataLabel="@Localizer["norm"]">@context.Norm</MudTd>
+							<MudTd DataLabel="@Localizer["notes"]">@context.Notes</MudTd>
+						</RowTemplate>
+					</MudTable>
+				}
+			</MudItem>
+		</MudGrid>
+	}
 
-				<MudTable T="SubsectionModel" Items="@item.Subsections" Bordered=true>
+</div>
 
-					<HeaderContent>
-						<MudTh>@Localizer["serialNumber"]</MudTh>
-						<MudTh>@Localizer["subsectionName"]</MudTh>
-						<MudTh>@Localizer["kOne"]</MudTh>
-						<MudTh>@Localizer["kTwo"]</MudTh>
-						<MudTh>@Localizer["norm"]</MudTh>
-						<MudTh>@Localizer["notes"]</MudTh>
-					</HeaderContent>
-					<RowTemplate>
-						<MudTd DataLabel="@Localizer["serialNumber"]">@context.SerialNumber</MudTd>
-						<MudTd DataLabel="@Localizer["subsectionName"]">@context.SubsectionName</MudTd>
-						<MudTd DataLabel="@Localizer["kOne"]">@context.K1</MudTd>
-						<MudTd DataLabel="@Localizer["kTwo"]">@context.K2</MudTd>
-						<MudTd DataLabel="@Localizer["norm"]">@context.Norm</MudTd>
-						<MudTd DataLabel="@Localizer["notes"]">@context.Notes</MudTd>
-					</RowTemplate>
-				</MudTable>
-			}
-		</MudItem>
-	</MudGrid>
-
-	
-}
 
 
