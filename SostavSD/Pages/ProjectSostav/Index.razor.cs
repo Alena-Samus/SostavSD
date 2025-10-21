@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using NLog;
 
 namespace SostavSD.Pages.ProjectSostav
 {
@@ -8,6 +9,8 @@ namespace SostavSD.Pages.ProjectSostav
         [Inject] public NavigationManager NavigationManager { get; set; }
         [Parameter] public int ProjectId {get;set;}
 
+        private readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         private void Navigate()
         {
             try
@@ -16,7 +19,7 @@ namespace SostavSD.Pages.ProjectSostav
             }
             catch (Exception ex)
             {
-                //logger.Error(ex);
+                logger.Error(ex);
                 throw;
             }
 
