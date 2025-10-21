@@ -10,7 +10,9 @@ namespace SostavSD.Data.Configurations
         {
             builder.ToTable(nameof(Chapter))
                 .HasKey(k => k.ChapterId);
-            builder.Property(k => k.ChapterName);
+            builder.Property(p => p.ChapterName);
+            builder.Property(p => p.Country)
+                .HasMaxLength(5);
         }
     }
 }

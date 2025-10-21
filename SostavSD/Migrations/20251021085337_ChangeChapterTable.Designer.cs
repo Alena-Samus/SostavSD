@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SostavSD.Data;
 
@@ -11,9 +12,11 @@ using SostavSD.Data;
 namespace SostavSD.Migrations
 {
     [DbContext(typeof(SostavSDContext))]
-    partial class SostavSDContextModelSnapshot : ModelSnapshot
+    [Migration("20251021085337_ChangeChapterTable")]
+    partial class ChangeChapterTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -205,8 +208,7 @@ namespace SostavSD.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ChapterId");
 
