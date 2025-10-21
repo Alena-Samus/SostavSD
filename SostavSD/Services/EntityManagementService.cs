@@ -23,11 +23,12 @@ namespace SostavSD.Services
 		private readonly ISourceOfFinancingService _sourceOfFinancingService;
 		private readonly IDrawingService _drawingService;
         private readonly IDeppartService _deppartService;
+        private readonly ISubsectionService _subsectionService;
 
-		public EntityManagementService(IContractService contractService, IDialogService dialogService, IBuildingViewService buildingViewService, 
+        public EntityManagementService(IContractService contractService, IDialogService dialogService, IBuildingViewService buildingViewService, 
 			IDesignStageService designStageService, IProjectService projectService, IContractForTableService contractForTableService, 
 			IStatusService statusService, IBuildingZoneService buildingZoneService, ISourceOfFinancingService sourceOfFinancingService, 
-			IDrawingService drawingService, IDeppartService deppartService)
+			IDrawingService drawingService, IDeppartService deppartService, ISubsectionService subsectionService)
 		{
 			_contractService = contractService;
 			_dialogService = dialogService;
@@ -40,6 +41,7 @@ namespace SostavSD.Services
 			_sourceOfFinancingService = sourceOfFinancingService;
 			_drawingService = drawingService;
             _deppartService = deppartService;
+            _subsectionService = subsectionService;
 		}
 
 		private bool result = false;
@@ -240,5 +242,9 @@ namespace SostavSD.Services
            return await _drawingService.GetSingleDrawingById(drawingId);
         }
 
+        public async Task<List<SubsectionModel>> GetSubsectionByProjectIdAsync(int projectId)
+        {
+           return await _subsectionService.GetSubsectionByProjectIdAsync(projectId);
+        }
     }
 }

@@ -44,23 +44,6 @@ namespace SostavSD.Services
 
         }
 
-        public async Task EditDrawing(DrawingModel currentDrawing)
-        {
-            //try
-            //{
-            //    Drawing drawingAfterEdit = _mapper.Map<Drawing>(currentDrawing);
-            //    _context.drawing.Entry(drawingAfterEdit).State = EntityState.Detached; //снимать отслеживание в момент получения 
-            //    _context.drawing.Update(drawingAfterEdit);
-            //    _context.SaveChanges();
-            //}
-            //catch (Exception ex) 
-            //{
-            //    _logger.Error(ex.InnerException);
-            //    throw;
-            //}
-
-        }
-
         public async Task<List<DrawingModel>> GetDrawingModelsAsync()
         {
             try
