@@ -9,9 +9,9 @@
         public ChapterModel Chapter { get; set; }
         public int? ProjectId { get; set; }
         public ProjectModel Project { get; set; }
-        public double? K1 { get; set; }
-        public double? K2 { get; set; }
-        public double? Norm { get; set; }
+        public string K1 { get; set; }
+        public string K2 { get; set; }
+        public string Norm { get; set; }
         public string Notes { get; set; }
     }
 }
