@@ -16,7 +16,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
         [CascadingParameter] MudDialogInstance CopyChapters { get; set; }
         [Parameter] public string BuildingNumber { get; set; }
 
-
+        DefaultFocus DefaultFocus { get; set; } = DefaultFocus.FirstChild;
         protected override async Task OnInitializedAsync()
         {
 
@@ -35,8 +35,6 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
             if (EntityManagementService.CheckBuildingNumber(BuildingNumber))
             {
                 CopyChapters.Close(DialogResult.Ok(BuildingNumber));
-                Snackbar.Add(Localizer["copied"], Severity.Success);
-
             }
             else
             {

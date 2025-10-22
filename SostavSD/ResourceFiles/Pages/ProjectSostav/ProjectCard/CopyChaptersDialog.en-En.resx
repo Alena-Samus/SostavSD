@@ -117,82 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="addNewProject" xml:space="preserve">
-    <value>Add New Project</value>
+  <data name="badBuildingNumber" xml:space="preserve">
+    <value>Bad building number</value>
   </data>
-  <data name="buildingN" xml:space="preserve">
-    <value>№ building</value>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="calculator" xml:space="preserve">
-    <value>Calculator</value>
+  <data name="copy" xml:space="preserve">
+    <value>Copy</value>
   </data>
-  <data name="cantRemove" xml:space="preserve">
-    <value>Can't remove</value>
+  <data name="copyingCanceled" xml:space="preserve">
+    <value>Copying canceled</value>
   </data>
-  <data name="contractNumber" xml:space="preserve">
-    <value>Contract Number</value>
-  </data>
-  <data name="copied" xml:space="preserve">
-    <value>The project copied</value>
-  </data>
-  <data name="copyTheProject" xml:space="preserve">
-    <value>Copy the Project</value>
-  </data>
-  <data name="cpe" xml:space="preserve">
-    <value>CPE</value>
-  </data>
-  <data name="designStage" xml:space="preserve">
-    <value>Design stage</value>
-  </data>
-  <data name="index" xml:space="preserve">
-    <value>Index</value>
-  </data>
-  <data name="itemsRemoved" xml:space="preserve">
-    <value>Items removed</value>
-  </data>
-  <data name="listOfContracts" xml:space="preserve">
-    <value>List of contracts</value>
-  </data>
-  <data name="loadingdata" xml:space="preserve">
-    <value>Loading data...</value>
-  </data>
-  <data name="noitem" xml:space="preserve">
-    <value>No items</value>
-  </data>
-  <data name="noItems" xml:space="preserve">
-    <value>No items</value>
-  </data>
-  <data name="priority" xml:space="preserve">
-    <value>Priority</value>
-  </data>
-  <data name="projectEdited" xml:space="preserve">
-    <value>Project edited</value>
-  </data>
-  <data name="projectName" xml:space="preserve">
-    <value>Object</value>
-  </data>
-  <data name="projectNotEdited" xml:space="preserve">
-    <value>Project not edited</value>
-  </data>
-  <data name="projectRD" xml:space="preserve">
-    <value>Project release date</value>
-  </data>
-  <data name="projectRDC" xml:space="preserve">
-    <value>Project release date by contract</value>
-  </data>
-  <data name="removeProjects" xml:space="preserve">
-    <value>Remove Projects</value>
-  </data>
-  <data name="search" xml:space="preserve">
-    <value>Search</value>
-  </data>
-  <data name="someItems" xml:space="preserve">
-    <value>Selected some projects</value>
-  </data>
-  <data name="status" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="statusDate" xml:space="preserve">
-    <value>Status date</value>
+  <data name="EnterTheProjectNumberWhoseCardYouWantToCopy" xml:space="preserve">
+    <value>Enter the project number whose card you want to copy</value>
   </data>
 </root>

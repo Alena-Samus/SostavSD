@@ -144,6 +144,12 @@
   <data name="notes" xml:space="preserve">
     <value>Notes</value>
   </data>
+  <data name="projectChaptersIsCopied" xml:space="preserve">
+    <value>Copied</value>
+  </data>
+  <data name="projectChaptersIsNotEmpty" xml:space="preserve">
+    <value>Project chapters is not empty</value>
+  </data>
   <data name="removeProjectChapters" xml:space="preserve">
     <value>Remove project chapters</value>
   </data>

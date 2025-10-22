@@ -144,8 +144,14 @@
   <data name="notes" xml:space="preserve">
     <value>Примечание</value>
   </data>
+  <data name="projectChaptersIsCopied" xml:space="preserve">
+    <value>Скопировано</value>
+  </data>
+  <data name="projectChaptersIsNotEmpty" xml:space="preserve">
+    <value>Список глав данной стройки уже сформирован!</value>
+  </data>
   <data name="removeProjectChapters" xml:space="preserve">
-    <value>Удалить главы</value>
+    <value>Очистить список глав</value>
   </data>
   <data name="serialNumber" xml:space="preserve">
     <value>№ пп</value>

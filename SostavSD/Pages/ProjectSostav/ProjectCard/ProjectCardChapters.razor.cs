@@ -54,7 +54,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         }
 
-        private void RemoveChapters()
+        private async Task RemoveChapters()
         {
 
         }
@@ -97,7 +97,6 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
                 }
                 await GetChapters();
                 StateHasChanged();
-                //await tableRef.ReloadServerData();
             }
         }
 

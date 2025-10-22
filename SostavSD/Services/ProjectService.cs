@@ -15,6 +15,7 @@ namespace SostavSD.Services
 		private readonly SostavSDContext _context;
 		private readonly IMapper _mapper;
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        private bool result = true;
 
         public ProjectService(SostavSDContext context, IMapper mapper)
 		{
@@ -73,15 +74,16 @@ namespace SostavSD.Services
                     _context.SaveChanges();
                 }
 
-                return true;
             }
 			catch(Exception ex)
 			{
                 _logger.Error(ex.InnerException);
 
+                return false;
+
                 throw;
             }
-			
+            return result;
 		}
 
 		public async Task<bool> EditProjectAsync(ProjectModel newProject)

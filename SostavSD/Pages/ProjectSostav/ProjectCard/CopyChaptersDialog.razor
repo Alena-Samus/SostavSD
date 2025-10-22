@@ -2,7 +2,9 @@
 
 <MudDialog>
     <DialogContent>
-        <MudTextField T="string" Label="@Localizer["newBuildingNumber"]" @bind-Value="@BuildingNumber" />
+        <MudFocusTrap DefaultFocus="DefaultFocus">
+            <MudTextField T="string" @bind-Value="@BuildingNumber" />
+        </MudFocusTrap>
     </DialogContent>
     <DialogActions>
         <MudButton @onclick="Cancel">@Localizer["cancel"]</MudButton>

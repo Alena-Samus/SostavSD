@@ -81,9 +81,18 @@ namespace SostavSD.Pages.Projects
             {
 				foreach (var project in selectedItems)
 				{
-					await EntityManagementService.DeleteProjectAsync(project.Project.ProjectId);
-				}
-				Snackbar.Add(_localizer["itemsRemoved"], Severity.Success);
+					if (await EntityManagementService.DeleteProjectAsync(project.Project.ProjectId)) 
+					{
+                        Snackbar.Add(_localizer["itemsRemoved"], Severity.Success);
+                    }
+					else
+					{
+                        Snackbar.Add(_localizer["cantRemove"], Severity.Error);
+                    }
+
+
+                }
+
                 await GetProjects();
 			}
             else
