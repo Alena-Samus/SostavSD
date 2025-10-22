@@ -246,5 +246,15 @@ namespace SostavSD.Services
         {
            return await _subsectionService.GetSubsectionByProjectIdAsync(projectId);
         }
+
+        public async Task<int> GetPtojectIdAsync(string buildingNumber)
+        {
+            return await _projectService.GetPtojectIdAsync(buildingNumber);
+        }
+
+        public async Task<bool> AddSubsectionsAsync(List<SubsectionModel> subsections)
+        {
+            return await _subsectionService.AddSubsectionsAsync(subsections);
+        }
     }
 }

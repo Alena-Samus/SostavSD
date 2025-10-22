@@ -173,5 +173,22 @@ namespace SostavSD.Services
             }
         }
 
-	}
+        public async Task<int> GetPtojectIdAsync(string buildingNumber)
+        {
+            try
+            {
+                var _projects = _context.project.ToList();
+                int result = _projects.FirstOrDefault(x => x.BuildingNumber == buildingNumber).ProjectId;
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+
+                throw;
+            }
+
+        }
+    }
 }

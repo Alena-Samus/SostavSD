@@ -10,6 +10,8 @@ namespace SostavSD.Interfaces
 		Task<bool> DeleteProjectAsync(int id);
 		Task<ProjectModel> GetProjectByIdAsync (int id);
 		bool CheckBuildingNumber(string buildingNumber);
+
+		Task <int> GetPtojectIdAsync (string buildingNumber);
 		
 	}
 }

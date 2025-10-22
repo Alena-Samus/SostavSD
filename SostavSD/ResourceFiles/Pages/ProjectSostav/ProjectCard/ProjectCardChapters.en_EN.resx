@@ -123,6 +123,9 @@
   <data name="copyProjectChapters" xml:space="preserve">
     <value>Copy project chapters</value>
   </data>
+  <data name="editProjectChapters" xml:space="preserve">
+    <value>Edit project chapters</value>
+  </data>
   <data name="kOne" xml:space="preserve">
     <value>K1</value>
   </data>

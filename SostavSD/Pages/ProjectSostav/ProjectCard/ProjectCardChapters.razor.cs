@@ -4,6 +4,7 @@ using MudBlazor;
 using SostavSD.Classes.ProjectChapter;
 using SostavSD.Interfaces;
 using SostavSD.Models;
+using SostavSD.Pages.Projects;
 
 namespace SostavSD.Pages.ProjectSostav.ProjectCard
 {
@@ -25,12 +26,13 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         protected override async Task OnInitializedAsync()
         {
-            subsections = await EntityManagementService.GetSubsectionByProjectIdAsync(ProjectId);
-            GetChapters(subsections);
+            
+           await  GetChapters();
 
         }
-        private void GetChapters(List<SubsectionModel> subsections)
+        private async Task  GetChapters()
         {
+            subsections = await EntityManagementService.GetSubsectionByProjectIdAsync(ProjectId);
             var chapterList = subsections.DistinctBy(p => p.ChapterId).OrderBy(p => p.ChapterId).ToList();
             foreach (var chapter in chapterList) 
             {
@@ -57,10 +59,54 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         }
 
-        private void CopyChapters()
+        private async Task CopyChapters()
+        {
+            if (projectChapters.Count != 0)
+            {
+                Snackbar.Add(Localizer["projectChaptersIsNotEmpty"], Severity.Error);
+            }
+            else
+            {
+                var parameters = new DialogParameters();
+                parameters.Add("BuildingNumber", string.Empty);
+
+                var dialog = await _dialogService.Show<CopyChaptersDialog>("Copy", parameters).Result;
+
+                if (dialog.Data != null)
+                {
+                    int _newProjectId = await EntityManagementService.GetPtojectIdAsync(dialog.Data.ToString());
+                    List<SubsectionModel> _subsectionSource = await EntityManagementService.GetSubsectionByProjectIdAsync(_newProjectId);
+                    foreach (var item in _subsectionSource)
+                    {
+                        SubsectionModel _currentProjectSubsection = new SubsectionModel()
+                        {
+                            SerialNumber = item.SerialNumber,
+                            SubsectionName = item.SubsectionName,
+                            ChapterId = item.ChapterId,
+                            ProjectId = ProjectId,
+                            K1 = item.K1,
+                            K2 = item.K2,
+                            Norm = item.Norm,    
+                        };
+                        subsections.Add(_currentProjectSubsection);
+                    }
+                    await EntityManagementService.AddSubsectionsAsync(subsections);
+
+                    Snackbar.Add(Localizer["projectChaptersIsCopied"], Severity.Success);
+                    subsections.Clear();
+                }
+                await GetChapters();
+                StateHasChanged();
+                //await tableRef.ReloadServerData();
+            }
+        }
+
+  
+
+
+        private void EditChapters()
         {
 
         }
-        
     }
 }

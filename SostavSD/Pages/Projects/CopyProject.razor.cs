@@ -21,7 +21,7 @@ namespace SostavSD.Pages.Projects
 
 		private void Submit()
 		{
-			if (!EntityManagementService.CheckBuildingNumber(BuildingNumber))
+            if (!EntityManagementService.CheckBuildingNumber(BuildingNumber))
 			{
 				NewProject.Close(DialogResult.Ok(BuildingNumber));
 			}

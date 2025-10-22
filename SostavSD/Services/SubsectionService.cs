@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using SostavSD.Data;
+using SostavSD.Entities;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 
@@ -15,12 +16,36 @@ namespace SostavSD.Services
 
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
+        private bool result;
+
         public SubsectionService(SostavSDContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
 
         }
+
+        public async Task<bool> AddSubsectionsAsync(List<SubsectionModel> subsections)
+        {
+            try
+            {
+                foreach(SubsectionModel item in subsections)
+                {
+                    Subsection _newSubsection = _mapper.Map<Subsection>(item);
+                    _context.section.Add(_newSubsection);
+                    await _context.SaveChangesAsync();
+                }
+
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+
+            }
+            return result;
+        }
+
         public async Task<List<SubsectionModel>> GetSubsectionByProjectIdAsync(int projectId)
         {
             try

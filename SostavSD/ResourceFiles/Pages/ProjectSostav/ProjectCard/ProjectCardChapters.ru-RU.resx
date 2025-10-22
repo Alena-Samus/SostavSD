@@ -123,6 +123,9 @@
   <data name="copyProjectChapters" xml:space="preserve">
     <value>Копировать главы</value>
   </data>
+  <data name="editProjectChapters" xml:space="preserve">
+    <value>Редактировать главы</value>
+  </data>
   <data name="kOne" xml:space="preserve">
     <value>К1</value>
   </data>
