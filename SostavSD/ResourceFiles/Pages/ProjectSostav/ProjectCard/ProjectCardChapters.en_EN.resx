@@ -117,52 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="dateOfAdmissionToDepartment" xml:space="preserve">
-    <value>Дата поступления в ОСД</value>
+  <data name="addNewProjectChapters" xml:space="preserve">
+    <value>Add new chapters</value>
   </data>
-  <data name="drawingName" xml:space="preserve">
-    <value>Наименование раздела</value>
+  <data name="copyProjectChapters" xml:space="preserve">
+    <value>Copy project chapters</value>
   </data>
-  <data name="drawingReleaseDateDepertment" xml:space="preserve">
-    <value>Дата выпуска ОСД</value>
+  <data name="kOne" xml:space="preserve">
+    <value>K1</value>
   </data>
-  <data name="group" xml:space="preserve">
-    <value>Группа</value>
+  <data name="kTwo" xml:space="preserve">
+    <value>K2</value>
   </data>
   <data name="loadingdata" xml:space="preserve">
-    <value>Загрузка данных</value>
+    <value>Loading data</value>
   </data>
   <data name="noitem" xml:space="preserve">
-    <value>Нет данных</value>
+    <value>No item by chapters</value>
+  </data>
+  <data name="norm" xml:space="preserve">
+    <value>Norm</value>
   </data>
   <data name="notes" xml:space="preserve">
-    <value>Примечание</value>
+    <value>Notes</value>
   </data>
-  <data name="priority" xml:space="preserve">
-    <value>Приоритет</value>
+  <data name="removeProjectChapters" xml:space="preserve">
+    <value>Remove project chapters</value>
   </data>
-  <data name="drawingReleaseDateBySchedule" xml:space="preserve">
-    <value>Дата выпуска по графику</value>
+  <data name="serialNumber" xml:space="preserve">
+    <value>Serial number</value>
   </data>
-  <data name="search" xml:space="preserve">
-    <value>Поиск</value>
-  </data>
-  <data name="status" xml:space="preserve">
-    <value>Статус</value>
-  </data>
-  <data name="addNewDrawing" xml:space="preserve">
-    <value>Добавить</value>
-  </data>
-  <data name="removeDrawing" xml:space="preserve">
-    <value>Удалить</value>
-  </data>
-  <data name="copyDrawings" xml:space="preserve">
-    <value>Копировать</value>
-  </data>
-  <data name="drawingNotEdited" xml:space="preserve">
-    <value>Раздел не изменен</value>
-  </data>
-  <data name="drawingEdited" xml:space="preserve">
-    <value>Раздел изменен</value>
+  <data name="subsectionName" xml:space="preserve">
+    <value>Subsection name</value>
   </data>
 </root>

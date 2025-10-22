@@ -42,7 +42,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
                 List<SubsectionModel> _currentSubsections = subsections.FindAll(item => item.ChapterId == chapter.ChapterId);
                 ProjectChapter _subsection = new ProjectChapter() {
                                                  Chapter = chapter,
-                                                 Subsections = _currentSubsections
+                                                 Subsections = _currentSubsections.OrderBy(p => p.SerialNumber).ToList(),
                                                  };
                 projectChapters.Add(_subsection);
             }

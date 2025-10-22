@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using NLog;
+using SostavSD.Pages.ProjectSostav.ProjectCard;
 
 namespace SostavSD.Pages.ProjectSostav
 {
@@ -7,6 +9,8 @@ namespace SostavSD.Pages.ProjectSostav
 
 	{
         [Inject] public NavigationManager NavigationManager { get; set; }
+        [Inject] IStringLocalizer<Index> Localizer { get; set; }
+
         [Parameter] public int ProjectId {get;set;}
 
         private readonly Logger logger = LogManager.GetCurrentClassLogger();
