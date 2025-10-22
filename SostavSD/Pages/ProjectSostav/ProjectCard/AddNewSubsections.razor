@@ -1,6 +1,8 @@
-﻿@page "/projectcard/addnewsubsections/{ProjectId:int}"
+﻿
 
 <h3>AddNewSubsections</h3>
+<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Cancel" Title="@Localizer["cancel"]" Color="Color.Info" @onclick="Cancel" />
+
 <MudRadioGroup T="string" SelectedOption="Country" SelectedOptionChanged="OnSelectedOptionChanged">
     <MudRadio T="string" Option="@("РБ")" Color="Color.Primary">РБ</MudRadio>
     <MudRadio T="string" Option="@("РФ")" Color="Color.Primary">РФ</MudRadio>
@@ -8,11 +10,51 @@
 
 <MudText Class="ml-4">Selected Option: @Country</MudText>
 
-<MudSelect T="ChapterModel" Label="@Localizer["chapter"]" Variant="Variant.Outlined" @bind-value="@Chapter">
+<MudSelect T="ChapterModel" Label="@Localizer["chapter"]" Variant="Variant.Outlined" @bind-value="@chapter">
 	@foreach (ChapterModel chapter in chapters)
 	{
-		<MudSelectItem T="ChapterModel?" Value="@chapter">@chapter.ChapterName</MudSelectItem>
+		<MudSelectItem T="ChapterModel" Value="@chapter">@chapter.ChapterName</MudSelectItem>
 	}
 </MudSelect>
 
-<MudText Class="ml-4">Selected chapter: @Chapter.ChapterName</MudText>
+
+<MudButtonGroup Variant="Variant.Outlined" Color="Color.Success" OverrideStyles="false">
+	<div>
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Clear" Title="@Localizer["clearChapter"]" Color="Color.Info" @onclick="Clear" />
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Save" Title="@Localizer["saveChapter"]" Color="Color.Success" @onclick="Save" />
+
+	</div>
+</MudButtonGroup>
+<MudGrid>
+
+	<MudTextField T="int?" Label="@Localizer["serialNumber"]" @bind-Value="@subsection.SerialNumber"></MudTextField>
+	<MudTextField T="string" Label="@Localizer["subsectionName"]" @bind-Value="@subsection.SubsectionName"></MudTextField>
+	<MudTextField T="string" Label="@Localizer["kOne"]" @bind-Value="@subsection.K1"></MudTextField>
+	<MudTextField T="string" Label="@Localizer["kTwo"]" @bind-Value="@subsection.K2"></MudTextField>
+	<MudTextField T="string" Label="@Localizer["norm"]" @bind-Value="@subsection.Norm"></MudTextField>
+	<MudTextField T="string" Label="@Localizer["notes"]" @bind-Value="@subsection.Notes"></MudTextField>
+	<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.AddCircleOutline" Title="@Localizer["addNewSubsection"]" Color="Color.Success" @onclick="AddItem" />
+
+</MudGrid>
+<MudSpacer/>
+<MudText>@chapter.ChapterName</MudText>
+
+<MudTable T="SubsectionModel" @ref="tableRef" Items="currenSubsections" Bordered=true>
+
+	<HeaderContent>
+		<MudTh>@Localizer["serialNumber"]</MudTh>
+		<MudTh>@Localizer["subsectionName"]</MudTh>
+		<MudTh>@Localizer["kOne"]</MudTh>
+		<MudTh>@Localizer["kTwo"]</MudTh>
+		<MudTh>@Localizer["norm"]</MudTh>
+		<MudTh>@Localizer["notes"]</MudTh>
+	</HeaderContent>
+	<RowTemplate>
+		<MudTd DataLabel="@Localizer["serialNumber"]">@context.SerialNumber</MudTd>
+		<MudTd DataLabel="@Localizer["subsectionName"]">@context.SubsectionName</MudTd>
+		<MudTd DataLabel="@Localizer["kOne"]">@context.K1</MudTd>
+		<MudTd DataLabel="@Localizer["kTwo"]">@context.K2</MudTd>
+		<MudTd DataLabel="@Localizer["norm"]">@context.Norm</MudTd>
+		<MudTd DataLabel="@Localizer["notes"]">@context.Notes</MudTd>
+	</RowTemplate>
+</MudTable>

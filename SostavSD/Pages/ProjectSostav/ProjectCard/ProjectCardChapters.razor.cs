@@ -70,12 +70,15 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
             {
                 Snackbar.Add(Localizer["projectChaptersIsRemoved"], Severity.Success);
                 await GetChapters();
+                projectChapters.Clear();
+                StateHasChanged();
             }
             else
             {
                 Snackbar.Add(Localizer["projectChaptersNotRemoved"], Severity.Error);
 
             }
+            
         }
 
         private async Task CopyChapters()
