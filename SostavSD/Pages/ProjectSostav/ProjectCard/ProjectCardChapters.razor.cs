@@ -51,7 +51,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
         }
         private void NavigateToPage()
         {
-
+            _navigationManager.NavigateTo($"/projectcard/addnewsubsections/{ProjectId}");
         }
 
         private async Task RemoveChapters()

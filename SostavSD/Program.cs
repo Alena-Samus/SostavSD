@@ -125,6 +125,7 @@ static void AddBusinessLogicServices(IServiceCollection collection)
     collection.AddScoped<IDrawingService, DrawingService>();
     collection.AddScoped<IDeppartService, DeppartService>();
     collection.AddScoped<ISubsectionService, SubsectionService>();
+    collection.AddScoped<ISubsectionService, SubsectionService>();
     collection.AddTransient<IEmailService, EmailService>();
     collection.AddTransient<IWordExport,WordExportService>();
     collection.AddTransient<IPdfExport, PdfExportService>();
