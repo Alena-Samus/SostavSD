@@ -1,8 +1,8 @@
 ﻿<div>
 	<MudButtonGroup Class="d-flex justify-start flex-grow-1 gap-4" OverrideStyles="false">
-		<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.LibraryAdd" Title="@Localizer["addNewProjectChapters"]" Color="Color.Success" @onclick="NavigateToPage" />
+		<MudIconButton Class="@buttonStyleClass" Variant="Variant.Filled" Icon="@Icons.Material.Filled.LibraryAdd" Title="@Localizer["addNewProjectChapters"]" Color="Color.Success" @onclick="NavigateToPage" />
 		<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.DeleteForever" Title="@Localizer["removeProjectChapters"]" Color="Color.Error" @onclick="(e => RemoveChapters())" />
-		<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.ContentCopy" Title="@Localizer["copyProjectChapters"]" Color="Color.Success" @onclick="(e => CopyChapters())" />
+		<MudIconButton Class="@buttonStyleClass" Variant="Variant.Filled" Icon="@Icons.Material.Filled.ContentCopy" Title="@Localizer["copyProjectChapters"]" Color="Color.Success" @onclick="(e => CopyChapters())" />
 		<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Edit" Title="@Localizer["editProjectChapters"]" Color="Color.Success" @onclick="(e => EditChapters())" />
 
 	</MudButtonGroup>

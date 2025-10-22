@@ -8,11 +8,11 @@
 
 <MudText Class="ml-4">Selected Option: @Country</MudText>
 
-<MudSelect T="int" Label="@Localizer["group"]" Variant="Variant.Outlined" Value="@SelectedChapter">
-	@foreach (var chapter in chapters)
+<MudSelect T="ChapterModel" Label="@Localizer["chapter"]" Variant="Variant.Outlined" @bind-value="@Chapter">
+	@foreach (ChapterModel chapter in chapters)
 	{
-		<MudSelectItem T="int" Value="@chapter.ChapterId">@chapter.ChapterName</MudSelectItem>
+		<MudSelectItem T="ChapterModel?" Value="@chapter">@chapter.ChapterName</MudSelectItem>
 	}
 </MudSelect>
 
-<MudText Class="ml-4">Selected chapter: @SelectedChapter</MudText>
+<MudText Class="ml-4">Selected chapter: @Chapter.ChapterName</MudText>

@@ -24,10 +24,20 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         private MudTable<SubsectionModel> tableRef;
 
+        private string buttonStyleClass;
+
         protected override async Task OnInitializedAsync()
         {
             
            await  GetChapters();
+            if (projectChapters.Count != 0) 
+            {
+                buttonStyleClass = "invisible  mx-4 my-2 mt-4";
+            }
+            else
+            {
+                buttonStyleClass = "visible  mx-4 my-2 mt-4";
+            }
 
         }
         private async Task  GetChapters()

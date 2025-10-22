@@ -14,7 +14,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         private List<ChapterModel> chapters = new List<ChapterModel>();
         
-        
+        private ChapterModel Chapter = new ChapterModel();
         private string Country { get; set; } = "РБ";
         private int SelectedChapter { get; set; }
        
