@@ -24,11 +24,12 @@ namespace SostavSD.Services
 		private readonly IDrawingService _drawingService;
         private readonly IDeppartService _deppartService;
         private readonly ISubsectionService _subsectionService;
+        private readonly IChapterService _chapterService;
 
         public EntityManagementService(IContractService contractService, IDialogService dialogService, IBuildingViewService buildingViewService, 
 			IDesignStageService designStageService, IProjectService projectService, IContractForTableService contractForTableService, 
 			IStatusService statusService, IBuildingZoneService buildingZoneService, ISourceOfFinancingService sourceOfFinancingService, 
-			IDrawingService drawingService, IDeppartService deppartService, ISubsectionService subsectionService)
+			IDrawingService drawingService, IDeppartService deppartService, ISubsectionService subsectionService, IChapterService chapterService)
 		{
 			_contractService = contractService;
 			_dialogService = dialogService;
@@ -42,6 +43,7 @@ namespace SostavSD.Services
 			_drawingService = drawingService;
             _deppartService = deppartService;
             _subsectionService = subsectionService;
+            _chapterService = chapterService;
 		}
 
 		private bool result = false;
@@ -260,6 +262,11 @@ namespace SostavSD.Services
         public async Task<bool> RemoveSubsectionsAsync(int projectId)
         {
            return await _subsectionService.RemoveSubsectionsAsync(projectId);
+        }
+
+        public async Task<List<ChapterModel>> GetChaptersByCountryAsync(string country)
+        {
+            return await _chapterService.GetChaptersByCountryAsync(country);
         }
     }
 }
