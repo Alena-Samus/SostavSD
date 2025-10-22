@@ -56,7 +56,16 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         private async Task RemoveChapters()
         {
+            if(await EntityManagementService.RemoveSubsectionsAsync(ProjectId))
+            {
+                Snackbar.Add(Localizer["projectChaptersIsRemoved"], Severity.Success);
+                await GetChapters();
+            }
+            else
+            {
+                Snackbar.Add(Localizer["projectChaptersNotRemoved"], Severity.Error);
 
+            }
         }
 
         private async Task CopyChapters()

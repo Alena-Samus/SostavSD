@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using SostavSD.Data;
@@ -16,7 +17,7 @@ namespace SostavSD.Services
 
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
-        private bool result;
+        private bool result = true;
 
         public SubsectionService(SostavSDContext context, IMapper mapper)
         {
@@ -36,11 +37,12 @@ namespace SostavSD.Services
                     await _context.SaveChangesAsync();
                 }
 
-                result = true;
             }
             catch (Exception ex)
             {
                 _logger.Error(ex.InnerException);
+                return false;
+                throw;
 
             }
             return result;
@@ -63,6 +65,34 @@ namespace SostavSD.Services
 
                 throw;
             }
+        }
+
+        public async Task<bool> RemoveSubsectionsAsync(int projectId)
+        {
+
+            try
+            {
+                var _subsectionsToRemove = await _context.section.Where(u => u.ProjectId == projectId).ToListAsync();
+
+                if (_subsectionsToRemove != null)
+                {
+                    foreach(var subsection in _subsectionsToRemove)
+                    {
+                        _context.section.Remove(subsection);
+                    }
+                    _context.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+
+                return false;
+
+                throw;
+            }
+            return result;
         }
     }
 }

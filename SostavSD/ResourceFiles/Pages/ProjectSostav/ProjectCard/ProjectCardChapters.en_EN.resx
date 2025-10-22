@@ -150,6 +150,12 @@
   <data name="projectChaptersIsNotEmpty" xml:space="preserve">
     <value>Project chapters is not empty</value>
   </data>
+  <data name="projectChaptersIsRemoved" xml:space="preserve">
+    <value>Project chapters is removed</value>
+  </data>
+  <data name="projectChaptersNotRemoved" xml:space="preserve">
+    <value>Project chapters not removed</value>
+  </data>
   <data name="removeProjectChapters" xml:space="preserve">
     <value>Remove project chapters</value>
   </data>

@@ -256,5 +256,10 @@ namespace SostavSD.Services
         {
             return await _subsectionService.AddSubsectionsAsync(subsections);
         }
+
+        public async Task<bool> RemoveSubsectionsAsync(int projectId)
+        {
+           return await _subsectionService.RemoveSubsectionsAsync(projectId);
+        }
     }
 }
