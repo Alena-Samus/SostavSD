@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
+using SostavSD.Classes.ProjectChapter;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 using System.Reflection.Metadata;
+using System.Threading.Tasks;
 
 namespace SostavSD.Pages.ProjectSostav.ProjectCard
 {
@@ -17,6 +19,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         private List<ChapterModel> chapters = new List<ChapterModel>();
         private List<SubsectionModel> currenSubsections = new List<SubsectionModel>();
+        private List<ProjectChapter> subsectionsCurrentSession = new List<ProjectChapter>();
         
         private ChapterModel chapter = new ChapterModel();
         private SubsectionModel subsection = new SubsectionModel();
@@ -50,10 +53,15 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
             chapters = await ChapterService.GetChaptersByCountryAsync(country);
         }
 
-        private void OnGroupSelected(ChapterModel selectedChapter)
+        private async Task OnGroupSelected(ChapterModel selectedChapter)
         {
            chapter.ChapterId = selectedChapter.ChapterId;
            chapter.ChapterName = selectedChapter.ChapterName;
+            if (currenSubsections.Count > 0)
+            {
+                await Save();
+            }
+
         }
 
         private void Cancel()
@@ -71,6 +79,8 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
             {
                 await EntityManagementService.AddSubsectionsAsync(currenSubsections);
                 Snackbar.Add(Localizer["chapterAdded"], Severity.Success);
+                await AddToSubsectionCurrentList();
+
                 currenSubsections.Clear();
             }
             else
@@ -113,5 +123,23 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
             currenSubsections.Remove(subsection);
         }
 
+        private async Task AddToSubsectionCurrentList()
+        {
+            ChapterModel _currentSessionChapter = new ChapterModel()
+                                                    {
+                                                        ChapterId = chapter.ChapterId,
+                                                        ChapterName = chapter.ChapterName,
+                                                        Country = chapter.Country,
+                                                    };
+
+            ProjectChapter _currenrSessionChapter = new ProjectChapter()
+                                                    {
+                                                        Chapter = _currentSessionChapter,
+                                                        Subsections = currenSubsections.ToList()
+
+                                                    };
+
+            subsectionsCurrentSession.Add(_currenrSessionChapter);
+        }
     }
 }

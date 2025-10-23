@@ -76,6 +76,33 @@
 			</MudTable>
 
 		</MudItem>
+		<MudItem xs="6">
+			@foreach (var item in subsectionsCurrentSession)
+			{
+
+				<MudText>@item.Chapter.ChapterName</MudText>
+
+				<MudTable T="SubsectionModel" Items="@item.Subsections" Bordered=true>
+
+					<HeaderContent>
+						<MudTh>@Localizer["serialNumber"]</MudTh>
+						<MudTh>@Localizer["subsectionName"]</MudTh>
+						<MudTh>@Localizer["kOne"]</MudTh>
+						<MudTh>@Localizer["kTwo"]</MudTh>
+						<MudTh>@Localizer["norm"]</MudTh>
+						<MudTh>@Localizer["notes"]</MudTh>
+					</HeaderContent>
+					<RowTemplate>
+						<MudTd DataLabel="@Localizer["serialNumber"]">@context.SerialNumber</MudTd>
+						<MudTd DataLabel="@Localizer["subsectionName"]">@context.SubsectionName</MudTd>
+						<MudTd DataLabel="@Localizer["kOne"]">@context.K1</MudTd>
+						<MudTd DataLabel="@Localizer["kTwo"]">@context.K2</MudTd>
+						<MudTd DataLabel="@Localizer["norm"]">@context.Norm</MudTd>
+						<MudTd DataLabel="@Localizer["notes"]">@context.Notes</MudTd>
+					</RowTemplate>
+				</MudTable>
+			}
+		</MudItem>
 	</MudGrid>
 
 </div>
