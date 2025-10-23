@@ -126,6 +126,9 @@
   <data name="drawingEdited" xml:space="preserve">
     <value>Раздел отредактирован</value>
   </data>
+  <data name="drawingEditing" xml:space="preserve">
+    <value>Редактирование чертежа</value>
+  </data>
   <data name="drawingName" xml:space="preserve">
     <value>Наименование раздела</value>
   </data>

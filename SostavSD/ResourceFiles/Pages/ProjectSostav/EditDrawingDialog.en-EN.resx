@@ -126,6 +126,9 @@
   <data name="drawingEdited" xml:space="preserve">
     <value>Drawing edited</value>
   </data>
+  <data name="drawingEditing" xml:space="preserve">
+    <value>Drawing editing</value>
+  </data>
   <data name="drawingName" xml:space="preserve">
     <value>Drawing name</value>
   </data>
