@@ -41,7 +41,7 @@
 							<MudTd DataLabel="@Localizer["notes"]">@context.Notes</MudTd>
 							<MudTd>
 								<MudIcon Icon="@Icons.Material.Filled.Edit" Size="Size.Small" />
-								<MudIcon Icon="@Icons.Material.Filled.FileCopy" Size="Size.Small" />
+								<MudIcon Icon="@Icons.Material.Filled.FileCopy" Size="Size.Small" @onclick="(e => CopySubsection(context.SubsectionId))" />
 								<MudIcon Icon="@Icons.Material.Filled.Delete" Size="Size.Small" />
 							</MudTd>
 

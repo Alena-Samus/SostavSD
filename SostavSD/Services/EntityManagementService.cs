@@ -261,5 +261,10 @@ namespace SostavSD.Services
         {
            return await _subsectionService.RemoveSubsectionsAsync(projectId);
         }
+
+        public async Task<SubsectionModel> GetSubsectionById(int subsectionId)
+        {
+            return await _subsectionService.GetSubsectionById(subsectionId);
+        }
     }
 }

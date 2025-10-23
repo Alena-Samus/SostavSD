@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using DocumentFormat.OpenXml.Office.CustomUI;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 using SostavSD.Classes.ProjectChapter;
@@ -114,7 +115,25 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
         }
 
   
-
+        private async Task CopySubsection(int subsectionId)
+        {
+            var _currentSubsection = await EntityManagementService.GetSubsectionById(subsectionId);
+            SubsectionModel subsection = new SubsectionModel()
+            {
+                SubsectionName = $"{_currentSubsection.SubsectionName} Копия",
+                ChapterId = _currentSubsection.ChapterId,
+                ProjectId = _currentSubsection.ProjectId,
+                K1 = _currentSubsection.K1,
+                K2 = _currentSubsection.K2,
+                Norm = _currentSubsection.Norm,
+                Notes = _currentSubsection.Notes,
+            };
+            List<SubsectionModel> _currentList = new List<SubsectionModel>();
+            _currentList.Add(subsection);
+            await EntityManagementService.AddSubsectionsAsync(_currentList);
+            //await GetChapters();
+            StateHasChanged();
+        }
 
         private void EditChapters()
         {

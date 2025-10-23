@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using SostavSD.Data;
@@ -46,6 +47,25 @@ namespace SostavSD.Services
 
             }
             return result;
+        }
+
+        public async Task<SubsectionModel> GetSubsectionById(int subsectionId)
+        {
+            try
+            {
+                var _subsectionsById = _context.section
+                                        .Include(c => c.Chapter)
+                                        .Include(c => c.Project)
+                                        .Where(u => u.SubsectionId == subsectionId);
+
+                return _mapper.Map<SubsectionModel>(_subsectionsById);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException); 
+                throw;
+            }
         }
 
         public async Task<List<SubsectionModel>> GetSubsectionByProjectIdAsync(int projectId)
