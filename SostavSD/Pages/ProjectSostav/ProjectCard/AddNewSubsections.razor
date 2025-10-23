@@ -14,7 +14,9 @@
 
 
 
-			<MudSelect T="ChapterModel" Label="@Localizer["chapter"]" Lines="2" Variant="Variant.Outlined" @bind-value="@chapter">
+			<MudSelect T="ChapterModel" Label="@Localizer["chapter"]" Lines="2" Variant="Variant.Outlined" value="@chapter" 
+					   ValueChanged="@(OnGroupSelected)" ToStringFunc="@(d => d?.ChapterName ?? String.Empty)">
+
 				@foreach (ChapterModel chapter in chapters)
 				{
 					<MudSelectItem T="ChapterModel" Value="@chapter">@chapter.ChapterName</MudSelectItem>
@@ -68,6 +70,8 @@
 					<MudTd DataLabel="@Localizer["kTwo"]">@context.K2</MudTd>
 					<MudTd DataLabel="@Localizer["norm"]">@context.Norm</MudTd>
 					<MudTd DataLabel="@Localizer["notes"]">@context.Notes</MudTd>
+					<MudIcon Icon="@Icons.Material.Filled.Delete" Size="Size.Medium" Color="Color.Primary" @onclick="@(() => RemoveItem(context))" />
+
 				</RowTemplate>
 			</MudTable>
 

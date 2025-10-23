@@ -32,7 +32,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
         protected override async Task OnInitializedAsync()
         {
             chapters = await ChapterService.GetChaptersByCountryAsync(Country);
-            //Chapter = new ChapterModel();
+
         }
         public AddNewSubsections(NavigationManager navigationManager)
         {
@@ -50,10 +50,10 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
             chapters = await ChapterService.GetChaptersByCountryAsync(country);
         }
 
-        private async Task OnGroupSelected(int selectedChapter)
+        private void OnGroupSelected(ChapterModel selectedChapter)
         {
-            //Chapter = chapters.FirstOrDefault(e => e.ChapterId == selectedChapter);
-            //SelectedChapter = Chapter.ChapterName;
+           chapter.ChapterId = selectedChapter.ChapterId;
+           chapter.ChapterName = selectedChapter.ChapterName;
         }
 
         private void Cancel()
@@ -106,6 +106,11 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
             subsection.K2 = null;
             subsection.Norm = null;
             subsection.Notes = null;
+        }
+
+        private void RemoveItem(SubsectionModel subsection)
+        {
+            currenSubsections.Remove(subsection);
         }
 
     }
