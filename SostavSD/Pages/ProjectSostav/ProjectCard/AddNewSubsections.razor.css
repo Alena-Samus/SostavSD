@@ -1,0 +1,17 @@
+﻿::deep p.mud-typography:nth-child(4) {
+    margin-bottom: 25px;
+    text-align: left;
+    font-weight:bold;
+    color:darkblue;
+}
+
+::deep p.mud-typography:nth-child(8) {
+    margin-top: 25px;
+    text-align: left;
+    font-weight: bold;
+    color: darkblue;
+}
+::deep th.mud-table-cell {
+    background-color:palegoldenrod;
+    padding: 1px 5px;
+}
