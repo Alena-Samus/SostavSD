@@ -165,7 +165,10 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         private async Task EditSubsection(int subsectionId)
         {
-
+           await EntityManagementService.EditSubsectionDialogAsync(subsectionId);
+            subsections.Clear();
+            projectChapters.Clear();
+            await GetChapters();
         }
     }
 }

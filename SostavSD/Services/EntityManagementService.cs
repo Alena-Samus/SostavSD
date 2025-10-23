@@ -6,6 +6,7 @@ using SostavSD.Models;
 using SostavSD.Pages.Contracts;
 using SostavSD.Pages.Projects;
 using SostavSD.Pages.ProjectSostav;
+using SostavSD.Pages.ProjectSostav.ProjectCard;
 
 namespace SostavSD.Services
 {
@@ -99,18 +100,19 @@ namespace SostavSD.Services
             }
             return result;
         }
+
         public async Task<bool> EditSubsectionDialogAsync(int subsectionId)
         {
             if (subsectionId > 0)
             {
                 var parameters = new DialogParameters();
-                var _drawingToEdit = await GetSingleDrawingById(subsectionId);
+                var _subsectionToEdit = await GetSubsectionById(subsectionId);
 
-                parameters.Add("Drawing", _drawingToEdit);
-                var dialog = await _dialogService.Show<EditDrawingDialog>("update", parameters).Result;
+                parameters.Add("Subsection", _subsectionToEdit);
+                var dialog = await _dialogService.Show<EditSubsectionDialog>("update", parameters).Result;
                 if (dialog.Data != null)
                 {
-                    await _drawingService.EditDrawingAsync(_drawingToEdit);
+                    await _subsectionService.EditSubsectionAsync(_subsectionToEdit);
                     result = true;
                 }
 
@@ -289,6 +291,11 @@ namespace SostavSD.Services
         public async Task<bool> RemoveSubsectionsByIdAsync(int subsectionId)
         {
             return await _subsectionService.RemoveSubsectionsByIdAsync(subsectionId);
+        }
+
+        public async Task<bool> EditSubsectionAsync(SubsectionModel subsection)
+        {
+            return await _subsectionService.EditSubsectionAsync(subsection);
         }
     }
 }

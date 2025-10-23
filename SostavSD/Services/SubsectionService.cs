@@ -50,14 +50,35 @@ namespace SostavSD.Services
             return result;
         }
 
+        public async Task<bool> EditSubsectionAsync(SubsectionModel subsection)
+        {
+            try
+            {
+                Subsection subsectionAfterEdit = _mapper.Map<Subsection>(subsection);
+                _context.section.Entry(subsectionAfterEdit).State = EntityState.Modified;
+                _context.section.Update(subsectionAfterEdit);
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+
+                throw;
+            }
+        }
+
         public async Task<SubsectionModel> GetSubsectionById(int subsectionId)
         {
             try
             {
                 var _subsectionsById = await _context.section
-                                        .Include(c => c.Chapter)
-                                        .Include(c => c.Project)
                                         .FirstOrDefaultAsync(u => u.SubsectionId == subsectionId);
+                if (_subsectionsById != null)
+                {
+                    _context.section.Entry(_subsectionsById).State = EntityState.Detached;
+                }
 
                 return _mapper.Map<SubsectionModel>(_subsectionsById);
 
