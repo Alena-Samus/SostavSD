@@ -6,7 +6,8 @@ namespace SostavSD.Interfaces
     {
         Task<List<SubsectionModel>> GetSubsectionByProjectIdAsync(int projectId);
         Task<bool> AddSubsectionsAsync(List<SubsectionModel> subsections);
-        Task<bool> RemoveSubsectionsAsync(int projectId);
+        Task<bool> RemoveSubsectionsByProjectIdAsync(int projectId);
+        Task<bool> RemoveSubsectionsByIdAsync(int subsectionId);
         Task <SubsectionModel> GetSubsectionById (int subsectionId);
     }
 }

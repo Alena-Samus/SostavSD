@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.Build.Evaluation;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using NLog;
@@ -87,7 +88,31 @@ namespace SostavSD.Services
             }
         }
 
-        public async Task<bool> RemoveSubsectionsAsync(int projectId)
+        public async Task<bool> RemoveSubsectionsByIdAsync(int subsectionId)
+        {
+            try
+            {
+                var _subsectionsToRemove = await _context.section.FirstOrDefaultAsync(u => u.SubsectionId == subsectionId);
+
+                if (_subsectionsToRemove != null)
+                {                    
+                    _context.section.Remove(_subsectionsToRemove);
+                    _context.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+
+                return false;
+
+                throw;
+            }
+            return result;
+        }
+
+        public async Task<bool> RemoveSubsectionsByProjectIdAsync(int projectId)
         {
 
             try

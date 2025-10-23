@@ -99,6 +99,25 @@ namespace SostavSD.Services
             }
             return result;
         }
+        public async Task<bool> EditSubsectionDialogAsync(int subsectionId)
+        {
+            if (subsectionId > 0)
+            {
+                var parameters = new DialogParameters();
+                var _drawingToEdit = await GetSingleDrawingById(subsectionId);
+
+                parameters.Add("Drawing", _drawingToEdit);
+                var dialog = await _dialogService.Show<EditDrawingDialog>("update", parameters).Result;
+                if (dialog.Data != null)
+                {
+                    await _drawingService.EditDrawingAsync(_drawingToEdit);
+                    result = true;
+                }
+
+            }
+            return result;
+        }
+
 
         public async Task<List<ContractForTableModel>> GetContractsAsync()
 		{
@@ -257,14 +276,19 @@ namespace SostavSD.Services
             return await _subsectionService.AddSubsectionsAsync(subsections);
         }
 
-        public async Task<bool> RemoveSubsectionsAsync(int projectId)
+        public async Task<bool> RemoveSubsectionsByProjectIdAsync(int projectId)
         {
-           return await _subsectionService.RemoveSubsectionsAsync(projectId);
+           return await _subsectionService.RemoveSubsectionsByProjectIdAsync(projectId);
         }
 
         public async Task<SubsectionModel> GetSubsectionById(int subsectionId)
         {
             return await _subsectionService.GetSubsectionById(subsectionId);
+        }
+
+        public async Task<bool> RemoveSubsectionsByIdAsync(int subsectionId)
+        {
+            return await _subsectionService.RemoveSubsectionsByIdAsync(subsectionId);
         }
     }
 }

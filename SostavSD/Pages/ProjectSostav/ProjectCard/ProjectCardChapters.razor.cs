@@ -59,7 +59,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         private async Task RemoveChapters()
         {
-            if(await EntityManagementService.RemoveSubsectionsAsync(ProjectId))
+            if(await EntityManagementService.RemoveSubsectionsByProjectIdAsync(ProjectId))
             {
                 Snackbar.Add(Localizer["projectChaptersIsRemoved"], Severity.Success);
                 await GetChapters();
@@ -69,7 +69,6 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
             else
             {
                 Snackbar.Add(Localizer["projectChaptersNotRemoved"], Severity.Error);
-
             }
             
         }
@@ -131,14 +130,40 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
             };
             List<SubsectionModel> _currentList = new List<SubsectionModel>();
             _currentList.Add(subsection);
-            await EntityManagementService.AddSubsectionsAsync(_currentList);
+            if (await EntityManagementService.AddSubsectionsAsync(_currentList))
+            {
+                Snackbar.Add(Localizer["subsectionIsCopied"], Severity.Success);
+                await GetChapters();
+                StateHasChanged();
+            }
+            else
+            {
+                Snackbar.Add(Localizer["subsectionNotCopied"], Severity.Error);
+            }
+            subsections.Clear();
+            projectChapters.Clear();
+            await GetChapters();
+            StateHasChanged();
+        }
+        private async Task RemoveSubsection(int subsectionId)
+        {
+            if (await EntityManagementService.RemoveSubsectionsByIdAsync(subsectionId))
+            {
+                Snackbar.Add(Localizer["subsectionIsRemoved"], Severity.Success);
+                await GetChapters();
+                StateHasChanged();
+            }
+            else
+            {
+                Snackbar.Add(Localizer["subsectionNotRemoved"], Severity.Error);
+            }
             subsections.Clear();
             projectChapters.Clear();
             await GetChapters();
             StateHasChanged();
         }
 
-        private void EditChapters()
+        private async Task EditSubsection(int subsectionId)
         {
 
         }
