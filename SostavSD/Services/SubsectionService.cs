@@ -53,10 +53,10 @@ namespace SostavSD.Services
         {
             try
             {
-                var _subsectionsById = _context.section
+                var _subsectionsById = await _context.section
                                         .Include(c => c.Chapter)
                                         .Include(c => c.Project)
-                                        .Where(u => u.SubsectionId == subsectionId);
+                                        .FirstOrDefaultAsync(u => u.SubsectionId == subsectionId);
 
                 return _mapper.Map<SubsectionModel>(_subsectionsById);
 

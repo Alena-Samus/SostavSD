@@ -51,6 +51,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
                 projectChapters.Add(_subsection);
             }
         }
+
         private void NavigateToPage()
         {
             _navigationManager.NavigateTo($"/projectcard/addnewsubsections/{ProjectId}");
@@ -131,7 +132,9 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
             List<SubsectionModel> _currentList = new List<SubsectionModel>();
             _currentList.Add(subsection);
             await EntityManagementService.AddSubsectionsAsync(_currentList);
-            //await GetChapters();
+            subsections.Clear();
+            projectChapters.Clear();
+            await GetChapters();
             StateHasChanged();
         }
 
