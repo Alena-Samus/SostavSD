@@ -109,6 +109,7 @@ namespace SostavSD.Services
             try
             {
                 Contract contractAfterEdit = _mapper.Map<Contract>(currentContract);
+                _context.contract.Entry(contractAfterEdit).State = EntityState.Modified;
                 _context.contract.Update(contractAfterEdit);
                 await _context.SaveChangesAsync();
              }
