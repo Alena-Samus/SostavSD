@@ -20,7 +20,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
         {
             _projectModel = await entityManagementService.GetProjectByIdAsync(ProjectId);
            ManagerUserModel _calculatorName = await AuthorizedUserService.GetSingleUser(_projectModel.Contract.CalculatorId);
-            if (_calculatorName == null) 
+            if (_calculatorName != null) 
             {
                 calculatorName = _calculatorName.UserSurname;
             }
