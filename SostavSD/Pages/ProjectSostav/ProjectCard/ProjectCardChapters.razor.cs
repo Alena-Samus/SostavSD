@@ -23,8 +23,6 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
         private List<ProjectChapter> projectChapters = new List<ProjectChapter>();
 
 
-        private MudTable<SubsectionModel> tableRef;
-
 
         protected override async Task OnInitializedAsync()
         {
@@ -165,10 +163,19 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         private async Task EditSubsection(int subsectionId)
         {
-           await EntityManagementService.EditSubsectionDialogAsync(subsectionId);
-            subsections.Clear();
-            projectChapters.Clear();
-            await GetChapters();
+            if(await EntityManagementService.EditSubsectionDialogAsync(subsectionId))
+            {
+                Snackbar.Add(Localizer["subsectionIsEdited"], Severity.Success);
+
+                subsections.Clear();
+                projectChapters.Clear();
+                await GetChapters();
+            }
+            else
+            {
+                Snackbar.Add(Localizer["subsectionNotEdited"], Severity.Error);
+            }
+
         }
     }
 }

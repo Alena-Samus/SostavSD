@@ -117,14 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="addNewProjectChapters" xml:space="preserve">
-    <value>Добавить главы</value>
-  </data>
-  <data name="copyProjectChapters" xml:space="preserve">
-    <value>Копировать главы</value>
-  </data>
-  <data name="editProjectChapters" xml:space="preserve">
-    <value>Редактировать главы</value>
+  <data name="cancel" xml:space="preserve">
+    <value>Отменить</value>
   </data>
   <data name="kOne" xml:space="preserve">
     <value>К1</value>
@@ -132,55 +126,22 @@
   <data name="kTwo" xml:space="preserve">
     <value>К2</value>
   </data>
-  <data name="loadingdata" xml:space="preserve">
-    <value>Загрузка данных</value>
-  </data>
-  <data name="noitem" xml:space="preserve">
-    <value>Нет данных по главам</value>
-  </data>
   <data name="norm" xml:space="preserve">
-    <value>Норма,%</value>
+    <value>Норма</value>
   </data>
   <data name="notes" xml:space="preserve">
     <value>Примечание</value>
   </data>
-  <data name="projectChaptersIsCopied" xml:space="preserve">
-    <value>Скопировано</value>
-  </data>
-  <data name="projectChaptersIsNotEmpty" xml:space="preserve">
-    <value>Список глав данной стройки уже сформирован!</value>
-  </data>
-  <data name="projectChaptersIsRemoved" xml:space="preserve">
-    <value>Список глав очищен</value>
-  </data>
-  <data name="projectChaptersNotRemoved" xml:space="preserve">
-    <value>Список глав не очищен</value>
-  </data>
-  <data name="removeProjectChapters" xml:space="preserve">
-    <value>Очистить список глав</value>
+  <data name="save" xml:space="preserve">
+    <value>Сохранить</value>
   </data>
   <data name="serialNumber" xml:space="preserve">
-    <value>№ пп</value>
+    <value>№пп</value>
   </data>
-  <data name="subsectionIsCopied" xml:space="preserve">
-    <value>Раздел скопирован</value>
-  </data>
-  <data name="subsectionIsEdited" xml:space="preserve">
-    <value>Раздел отредактирован</value>
-  </data>
-  <data name="subsectionIsRemoved" xml:space="preserve">
-    <value>Раздел удален</value>
+  <data name="subsectionEditing" xml:space="preserve">
+    <value>Редактирование раздела главы: </value>
   </data>
   <data name="subsectionName" xml:space="preserve">
     <value>Наименование</value>
-  </data>
-  <data name="subsectionNotCopied" xml:space="preserve">
-    <value>Раздел не скопирован</value>
-  </data>
-  <data name="subsectionNotEdited" xml:space="preserve">
-    <value>Раздел не отредактирован</value>
-  </data>
-  <data name="subsectionNotRemoved" xml:space="preserve">
-    <value />
   </data>
 </root>

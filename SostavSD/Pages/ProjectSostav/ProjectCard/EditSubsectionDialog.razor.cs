@@ -9,15 +9,17 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
     public partial class EditSubsectionDialog
     {
         [Inject] IEntityManagementService EntityManagementService { get; set; }
-        [Inject] IStringLocalizer<EditDrawingDialog> Localizer { get; set; }
+        [Inject] IStringLocalizer<EditSubsectionDialog> Localizer { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 
         [CascadingParameter] MudDialogInstance EditSubsection { get; set; }
         [Parameter] public SubsectionModel Subsection { get; set; }
 
+        private List<SubsectionModel> subsectionsList = new List<SubsectionModel>();
+
         protected override async Task OnInitializedAsync()
         {
-
+            subsectionsList.Add(Subsection);
         }
 
 
@@ -25,15 +27,11 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
         private void Cancel()
         {
             EditSubsection.Close();
-            Snackbar.Add(Localizer["editingCanceled"], Severity.Info);
-
         }
 
         private void Submit()
         {
-
             EditSubsection.Close(DialogResult.Ok(Subsection));
-            Snackbar.Add(Localizer["drawingEdited"], Severity.Success);
 
         }
 

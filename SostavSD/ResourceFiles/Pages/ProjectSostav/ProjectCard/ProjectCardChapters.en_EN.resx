@@ -162,7 +162,25 @@
   <data name="serialNumber" xml:space="preserve">
     <value>Serial number</value>
   </data>
+  <data name="subsectionIsCopied" xml:space="preserve">
+    <value>Subsection is copied</value>
+  </data>
+  <data name="subsectionIsEdited" xml:space="preserve">
+    <value>Subsection is edited</value>
+  </data>
+  <data name="subsectionIsRemoved" xml:space="preserve">
+    <value>Subsection is removed</value>
+  </data>
   <data name="subsectionName" xml:space="preserve">
     <value>Subsection name</value>
+  </data>
+  <data name="subsectionNotCopied" xml:space="preserve">
+    <value>Subsection not copied</value>
+  </data>
+  <data name="subsectionNotEdited" xml:space="preserve">
+    <value>Subsection not edited</value>
+  </data>
+  <data name="subsectionNotRemoved" xml:space="preserve">
+    <value>Subsection not removed</value>
   </data>
 </root>
