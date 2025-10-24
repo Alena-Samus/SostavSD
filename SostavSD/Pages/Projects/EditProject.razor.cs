@@ -27,7 +27,6 @@ namespace SostavSD.Pages.Projects
         List<DesignStageModel> _stages = new();
         List<BuildingViewModel> _views = new();
         List<ContractModel> _contracts = new();
-        
 
 
         protected override async Task OnInitializedAsync()
@@ -92,11 +91,17 @@ namespace SostavSD.Pages.Projects
 
         private void ChangeDate(int? elem)
         {
-            if (Project.StatusId != elem)
-            {
-                Project.StatusId= elem;
+
+                Project.StatusId = elem.Value;
                 Project.StatusDate = DateTime.Now;
-            }            
+
+        }
+
+        private void ChangeStage(int? elem)
+        {
+            
+                Project.StageId = elem;
+
         }
 
     }
