@@ -112,6 +112,10 @@ namespace SostavSD.Services
                 var project = _context.project
                 .Include(c => c.Contract)
                     .ThenInclude(c => c.Executor)
+                .Include(c => c.Contract)
+                    .ThenInclude(c => c.SourceOfFinacing)
+                .Include(c => c.Contract)
+                    .ThenInclude(c => c.BuildingZone)
                 .Include(c => c.BuildingView)
                 .Include(c => c.Status)
                 .Include(c => c.DesignStage)

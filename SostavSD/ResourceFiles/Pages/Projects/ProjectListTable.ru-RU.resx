@@ -156,6 +156,9 @@
   <data name="loadingdata" xml:space="preserve">
     <value>Загрузка данных...</value>
   </data>
+  <data name="mainWorker" xml:space="preserve">
+    <value>Ответственный</value>
+  </data>
   <data name="noitem" xml:space="preserve">
     <value>Нет данных</value>
   </data>

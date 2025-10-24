@@ -46,6 +46,7 @@ else
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.ProjectName)">@_localizer["projectName"]</MudTableSortLabel></MudTh>
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.Contract.UserID)">@_localizer["cpe"]</MudTableSortLabel></MudTh>
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.Contract.CalculatorId)">@_localizer["calculator"]</MudTableSortLabel></MudTh>
+					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.MainDepWorker)">@_localizer["mainWorker"]</MudTableSortLabel></MudTh>
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.StageId)">@_localizer["designStage"]</MudTableSortLabel></MudTh>
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.Contract.ContractNumber)">@_localizer["contractNumber"]</MudTableSortLabel></MudTh>
 					<MudTh Style = "@styleTableHeader"><MudTableSortLabel SortBy="new Func<ProjectForTableModel, object>(x => x.Project.ProjectReleaseDate)">@_localizer["projectRD"]</MudTableSortLabel></MudTh>
@@ -61,7 +62,8 @@ else
 					<MudTd DataLabel="@_localizer["projectName"]">@context.Project.ProjectName</MudTd>
 					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["cpe"]">@(context.Project.Contract.Executor?.Surname)</MudTd>
 					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["calculator"]">@context.Calculator.UserSurname</MudTd>
-					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["designStage"]">@context.Project.DesignStage?.StageName</MudTd>
+					<MudTd Style="@styleTableBody" DataLabel="@_localizer["mainWorker"]">@context.Project.MainDepWorker</MudTd>
+					<MudTd Style="@styleTableBody" DataLabel="@_localizer["designStage"]">@context.Project.DesignStage?.StageName</MudTd>
 					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["contractNumber"]">@context.Project.Contract?.ContractNumber</MudTd>
 					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["projectReleaseDate"]">@(context.Project.ProjectReleaseDate == null ? "" : Convert.ToDateTime(context.Project.ProjectReleaseDate).ToString(Constants.DateFormat))</MudTd>
 					<MudTd Style = "@styleTableBody" DataLabel="@_localizer["projectReleaseDateByContract"]">@(context.Project.ProjectReleaseDateByContract == null ? "" : Convert.ToDateTime(context.Project.ProjectReleaseDateByContract).ToString(Constants.DateFormat))</MudTd>

@@ -56,6 +56,7 @@ namespace SostavSD.Pages.Projects
 			|| (!string.IsNullOrWhiteSpace(project.Project.Contract.Index) && project.Project.Contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| (!string.IsNullOrWhiteSpace(project.Project.BuildingNumber) && project.Project.BuildingNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| (!string.IsNullOrWhiteSpace(project.Project.ProjectName) && project.Project.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(project.Project.MainDepWorker) && project.Project.MainDepWorker.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| (!string.IsNullOrWhiteSpace(project.Project.Contract.UserID) && project.Project.Contract.Executor.Surname.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| (!string.IsNullOrWhiteSpace(project.Calculator.UserSurname) && project.Calculator.UserSurname.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| ((project.Project.StageId > 0) && project.Project.DesignStage.StageName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
@@ -132,6 +133,9 @@ namespace SostavSD.Pages.Projects
 						PrintType = currentProject.Project.PrintType,
 						CiCVersion = currentProject.Project.CiCVersion,
 						ProjectName = currentProject.Project.ProjectName,
+						ProjectK1 = currentProject.Project.ProjectK1,
+						ProjectK2 = currentProject.Project.ProjectK2,
+						MainDepWorker = currentProject.Project.MainDepWorker,
 					};
 					
 					await EntityManagementService.AddProjectAsync(newProject);
