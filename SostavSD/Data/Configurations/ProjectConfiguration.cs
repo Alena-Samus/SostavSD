@@ -48,6 +48,10 @@ namespace SostavSD.Data.Configurations
                 .HasForeignKey(p => p.StatusId)
                 .IsRequired(false);
             builder.Property(p => p.StatusDate);
+            builder.Property(p => p.ProjectK1);
+            builder.Property(p => p.ProjectK2);
+            builder.Property(p => p.MainDepWorker)
+                .HasMaxLength(30);
         }
     }
 }
