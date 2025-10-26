@@ -80,12 +80,17 @@
             </MudGrid>
             <MudGrid>
                 <MudItem xs="6">
-                    <MudText Class="title">@Localizer["cic"]</MudText>
+                    <MudGrid>
+                        <MudItem xs="6">
+                            <MudText Class="title">@Localizer["cic"]</MudText>
 
-                    <MudText>@_projectModel.CiCVersion</MudText>
-                </MudItem>
-                <MudItem xs="6">
-                    <MudButton Variant="Variant.Filled">@Localizer["changeCiC"]</MudButton>
+                            <MudText>@_projectModel.CiCVersion</MudText>
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudButton Variant="Variant.Filled" @onclick="ChangeCiC">@Localizer["changeCiC"]</MudButton>
+                        </MudItem>
+
+                    </MudGrid>
                 </MudItem>
             </MudGrid>
 

@@ -157,7 +157,7 @@ namespace SostavSD.Pages.Projects
 		private async Task OpenEditDialog(TableRowClickEventArgs<ProjectForTableModel> tableRowClickEventArgs)
         {
             var currentProject = tableRowClickEventArgs.Item.Project;
-            if ( await EntityManagementService.EditProjectAsync(currentProject))
+            if ( await EntityManagementService.EditProjectDialogAsync(currentProject))
             {
                 Snackbar.Add(_localizer["projectEdited"], Severity.Success);
                 await GetProjects();

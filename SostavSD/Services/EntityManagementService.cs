@@ -67,7 +67,7 @@ namespace SostavSD.Services
 
 			return result;
 		}
-        public async Task<bool> EditProjectAsync(ProjectModel newProject)
+        public async Task<bool> EditProjectDialogAsync(ProjectModel newProject)
         {
             var parameters = new DialogParameters();
 
@@ -230,12 +230,6 @@ namespace SostavSD.Services
             return await _drawingService.GetDrawingModelByProjectIdAsync(id);
         }
 
-        //public void EditDrawing(DrawingModel currentDrawing)
-        //{
-        //    _drawingService.EditDrawing(currentDrawing);
-        //}
-
-
         public async Task<bool> AddDrawingsAsync(List<DrawingModel> drawingsList)
         {
             return await _drawingService.AddDrawingsAsync(drawingsList);
@@ -299,6 +293,11 @@ namespace SostavSD.Services
         public async Task<bool> EditSubsectionAsync(SubsectionModel subsection)
         {
             return await _subsectionService.EditSubsectionAsync(subsection);
+        }
+
+        public async Task<bool> EditProjectAsync(ProjectModel newProject)
+        {
+            return await _projectService.EditProjectAsync(newProject);
         }
     }
 }
