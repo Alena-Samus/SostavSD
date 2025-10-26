@@ -18,12 +18,12 @@
                 <MudItem xs="6">
                     <MudText Class="title">@Localizer["order"]</MudText>
 
-                    <MudText>@_projectModel.Contract.Order</MudText>
+                    <MudText>@_projectModel.Contract?.Order</MudText>
                 </MudItem>
             </MudGrid>
             <MudText Class="title">@Localizer["cpe"]</MudText>
 
-            <MudText>@_projectModel.Contract.Executor?.Surname</MudText>
+            <MudText>@_projectModel.Contract?.Executor?.Surname</MudText>
             <MudText Class="title">@Localizer["constructionPhase"]</MudText>
 
             <MudText>@_projectModel.ConstructionPhase</MudText>
@@ -38,7 +38,7 @@
 
             <MudText Class="title">@Localizer["buildingZone"]</MudText>
 
-            <MudText>@_projectModel.Contract.BuildingZone?.BuildingZoneName</MudText>
+            <MudText>@_projectModel.Contract?.BuildingZone?.BuildingZoneName</MudText>
 
         </MudItem>
         <MudItem xs="3">

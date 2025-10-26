@@ -33,13 +33,13 @@ namespace SostavSD.Services
 
                 await _context.SaveChangesAsync();
 
-                return true;
+                return result;
             }
 			catch(Exception ex)
 			{
                 _logger.Error(ex.InnerException);
 
-                throw;
+                return false;
             }
 			
 		}
@@ -57,7 +57,7 @@ namespace SostavSD.Services
             {
                 _logger.Error(ex.InnerException);
 
-                throw;
+                return false;
             }
 
         }
@@ -81,7 +81,6 @@ namespace SostavSD.Services
 
                 return false;
 
-                throw;
             }
             return result;
 		}
@@ -102,7 +101,7 @@ namespace SostavSD.Services
                 _context.project.Update(existingProject);
                 await _context.SaveChangesAsync();
                 _context.Entry(existingProject).State = EntityState.Detached;
-                return true;
+                return result;
             }
 			catch(Exception ex)
 			{

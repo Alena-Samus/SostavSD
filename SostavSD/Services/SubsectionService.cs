@@ -59,7 +59,9 @@ namespace SostavSD.Services
                 _context.section.Update(subsectionAfterEdit);
                 await _context.SaveChangesAsync();
 
+                _context.section.Entry(subsectionAfterEdit).State = EntityState.Detached;
                 return true;
+
             }
             catch (Exception ex)
             {
@@ -73,7 +75,8 @@ namespace SostavSD.Services
         {
             try
             {
-                var _subsectionsById = await _context.section.AsNoTracking()
+                var _subsectionsById = await _context.section
+                                        .AsNoTracking()
                                         .FirstOrDefaultAsync(u => u.SubsectionId == subsectionId);
                 if (_subsectionsById != null)
                 {
@@ -97,6 +100,7 @@ namespace SostavSD.Services
                 var _subsectionsById = _context.section
                     .Include(c => c.Chapter)
                     .Include(c => c.Project)
+                    .AsNoTracking()
                     .Where(u => u.ProjectId == projectId);
 
                 return _mapper.Map<List<SubsectionModel>>(await _subsectionsById.ToListAsync());

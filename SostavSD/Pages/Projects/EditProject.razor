@@ -58,7 +58,7 @@
         </div>
         <div class="d-flex justify-space-around flex-grow-1 gap-4" mb-3>
 
-@*             <MudSelect T="int?" Label="@Localizer["designStage"]" Value="@Project.StageId" ValueChanged="ChangeStage">
+           <MudSelect T="int?" Label="@Localizer["designStage"]" Value="@Project.StageId" ValueChanged="ChangeStage">
 
                 @foreach (var stage in _stages)
                 {
@@ -67,7 +67,7 @@
 
             </MudSelect>
 
- *@@*            <MudSelect T="int?" Label="@Localizer["buildingView"]" @bind-Value="@Project.BuildingViewId">
+            <MudSelect T="int?" Label="@Localizer["buildingView"]" @bind-Value="@Project.BuildingViewId">
 
                 @foreach (var stage in _views)
                 {
@@ -75,7 +75,7 @@
                 }
 
             </MudSelect>
- *@            <MudTextField T="string" Label="@Localizer["constructionPhase"]" @bind-Value="@Project.ConstructionPhase"></MudTextField>     
+             <MudTextField T="string" Label="@Localizer["constructionPhase"]" @bind-Value="@Project.ConstructionPhase"></MudTextField>     
 
         </div>
  

@@ -83,6 +83,10 @@ public class AuthorizedUserService : IAuthorizedUserService
     public async Task<ManagerUserModel> GetSingleUser(string id)
     {
        var currentUser = await _userManager.FindByIdAsync(id);
+        if(currentUser == null)
+        {
+            return new ManagerUserModel();
+        }
         ManagerUserModel model = new ManagerUserModel
         {
             UserId = currentUser.Id,
@@ -91,7 +95,8 @@ public class AuthorizedUserService : IAuthorizedUserService
             UserRoles = new List<string>(),
         };
 
-        return model;
+            return model;
+
     }
 
     public async Task ChangeUserRole(ManagerUserModel newRole)
