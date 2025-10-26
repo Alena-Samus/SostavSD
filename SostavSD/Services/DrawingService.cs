@@ -128,7 +128,7 @@ namespace SostavSD.Services
         {
             try
             {
-                var singleDrawing = await _context.drawing
+                var singleDrawing = await _context.drawing.AsNoTracking()
                 .FirstOrDefaultAsync(e => e.DrawingId == drawingId);
 
                 if (singleDrawing != null)

@@ -8,5 +8,9 @@ namespace SostavSD.Pages.Projects
 		{
 			
 		}
-	}
+        public async Task Refresh()
+        {
+            StateHasChanged();
+        }
+    }
 }

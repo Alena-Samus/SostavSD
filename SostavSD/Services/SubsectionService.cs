@@ -73,7 +73,7 @@ namespace SostavSD.Services
         {
             try
             {
-                var _subsectionsById = await _context.section
+                var _subsectionsById = await _context.section.AsNoTracking()
                                         .FirstOrDefaultAsync(u => u.SubsectionId == subsectionId);
                 if (_subsectionsById != null)
                 {

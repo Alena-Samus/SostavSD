@@ -20,7 +20,9 @@ namespace SostavSD.Services
 
         public BuildingZoneModel GetBuildingZoneById(int zoneId)
         {
-            var currentZone = _context.buildingZone.FirstOrDefault(x => x.BuildingZoneId == zoneId);
+            var currentZone = _context.buildingZone
+                .AsNoTracking()
+                .FirstOrDefault(x => x.BuildingZoneId == zoneId);
 
             return  _mapper.Map<BuildingZoneModel>(currentZone);
         }

@@ -90,18 +90,25 @@ namespace SostavSD.Services
 		{
 			try
 			{
-                Project projectAfterEdit = _mapper.Map<Project>(newProject);
-                _context.project.Entry(projectAfterEdit).State = EntityState.Modified;
-                _context.project.Update(projectAfterEdit);
+                var existingProject = await _context.project
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(p => p.ProjectId == newProject.ProjectId);
+                if (existingProject == null) 
+                { 
+                    return false;
+                }
+                _mapper.Map(newProject, existingProject);
+                _context.project.Entry(existingProject).State = EntityState.Modified;
+                _context.project.Update(existingProject);
                 await _context.SaveChangesAsync();
-
+                _context.Entry(existingProject).State = EntityState.Detached;
                 return true;
             }
 			catch(Exception ex)
 			{
                 _logger.Error(ex.InnerException);
 
-                throw;
+                return false;
             }			
 		}
 
@@ -109,7 +116,7 @@ namespace SostavSD.Services
         {
 			try
 			{
-                var project = _context.project
+                var project = await _context.project
                 .Include(c => c.Contract)
                     .ThenInclude(c => c.Executor)
                 .Include(c => c.Contract)
@@ -120,19 +127,20 @@ namespace SostavSD.Services
                 .Include(c => c.Status)
                 .Include(c => c.DesignStage)
                 .AsNoTracking()
-                .FirstOrDefault(c => c.ProjectId == id);
+                .FirstOrDefaultAsync(c => c.ProjectId == id);
 
-                if (project != null)
+                _context.project.Entry(project).State = EntityState.Detached;
+
+                if (project == null)
                 {
-                    _context.project.Entry(project).State = EntityState.Detached;                    
-                }
+                    return null;                }
 
                 if (project.Contract!= null)
                 {
                     _context.contract.Entry(project.Contract).State = EntityState.Detached;
                 }
 
-                if(project.BuildingView!= null) 
+                if (project.BuildingView!= null) 
                 {
                     _context.buildingView.Entry(project.BuildingView).State = EntityState.Detached;
                 }

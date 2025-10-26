@@ -13,7 +13,9 @@ namespace SostavSD.Services
 	public class EntityManagementService : IEntityManagementService
 
 	{
-		private readonly IContractService _contractService;
+        [Inject] ISnackbar Snackbar { get; set; }
+
+        private readonly IContractService _contractService;
 		private readonly IDialogService _dialogService;
 		private readonly IBuildingViewService _buildingViewService;
 		private readonly IBuildingZoneService _buildingZoneService;
@@ -76,7 +78,8 @@ namespace SostavSD.Services
 				if (await _projectService.EditProjectAsync((ProjectModel)dialog.Data))
 				{
                     result = true;
-                }                
+
+                }
             }
 
             return result;

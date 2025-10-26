@@ -9,7 +9,8 @@ namespace SostavSD.Pages.Projects
     {
         [Inject] IEntityManagementService EntityManagementService { get; set; }
 		[Inject] ISnackbar Snackbar { get; set; }
-		private IDialogService _dialogService;
+        [CascadingParameter] public Index ParentPage { get; set; }
+        private IDialogService _dialogService;
 
        
         private IProjectForTableService _projectService;
@@ -44,6 +45,7 @@ namespace SostavSD.Pages.Projects
 		}
         private async Task<List<ProjectForTableModel>> GetProjects()
         {
+			selectedItems.Clear();
             _projects.Clear();
 			_projects = await _projectService.GetProjectsAsync();
             return _projects;
@@ -163,9 +165,10 @@ namespace SostavSD.Pages.Projects
             else
             {
                 Snackbar.Add(_localizer["projectNotEdited"], Severity.Error);
-            }			
+            }
+            await ParentPage.Refresh();
 
-		}
+        }
 
 	}
 }
