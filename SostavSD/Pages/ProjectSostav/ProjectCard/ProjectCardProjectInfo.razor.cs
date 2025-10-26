@@ -39,7 +39,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
             if (dialog.Data != null)
             {
                 _projectModel.CiCVersion = (string)dialog.Data;
-                if (await EntityManagementService.EditProjectAsync(_projectModel))
+                if (await EntityManagementService.UpdateCiCVersionAsync(_projectModel.ProjectId, _projectModel.CiCVersion))
                 {
                     Snackbar.Add(@Localizer["changed"], Severity.Success);
                 }

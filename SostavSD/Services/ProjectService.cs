@@ -190,8 +190,10 @@ namespace SostavSD.Services
         {
             try
             {
-                var _projects = _context.project.ToList();
-                int result = _projects.FirstOrDefault(x => x.BuildingNumber == buildingNumber).ProjectId;
+                var _projects = _context.project
+                    .ToList();
+                int result = _projects
+                    .FirstOrDefault(x => x.BuildingNumber == buildingNumber).ProjectId;
                 return result;
 
             }
@@ -202,6 +204,33 @@ namespace SostavSD.Services
                 throw;
             }
 
+        }
+
+        public async Task<bool> UpdateCiCVersionAsync(int projectId, string newCiCVersion)
+        {
+            try
+            {
+                // Вместо создания нового экземпляра, используем Find для получения существующего
+                var existingProject = await _context.project.FindAsync(projectId);
+
+                if (existingProject == null)
+                {
+                    return false; // Обработка ситуации, если проект не найден
+                }
+
+                // Обновляем только конкретное поле
+                existingProject.CiCVersion = newCiCVersion;
+
+                // Сохраняем изменения в базе данных
+                await _context.SaveChangesAsync();
+                _context.Entry(existingProject).State = EntityState.Detached;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.InnerException);
+                return false;
+            }
         }
     }
 }

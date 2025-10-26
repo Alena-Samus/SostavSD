@@ -299,5 +299,10 @@ namespace SostavSD.Services
         {
             return await _projectService.EditProjectAsync(newProject);
         }
+
+        public async Task<bool> UpdateCiCVersionAsync(int projectId, string newCiCVersion)
+        {
+            return await _projectService.UpdateCiCVersionAsync(projectId,newCiCVersion);
+        }
     }
 }
