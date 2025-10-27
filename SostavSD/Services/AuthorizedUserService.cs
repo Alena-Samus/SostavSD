@@ -164,4 +164,19 @@ public class AuthorizedUserService : IAuthorizedUserService
 
         return groupHeads;
     }
+
+    public async Task<List<UsersForListModel>> GetMainDepWorker()
+    {
+        List<UsersForListModel> currentList = new List<UsersForListModel>();
+        var user = _userManager.Users.Where(x => x.IsMainDepWorker).Select(x => new UsersForListModel
+        {
+            IdUser = x.Id,
+            SurnameUser = x.Surname,
+        });
+        foreach (var item in user)
+        {
+            currentList.Add(item);
+        }
+        return currentList;
+    }
 }

@@ -24,5 +24,6 @@ namespace SostavSD.Interfaces
         List<UserSostavModel> GetListUserSostavModel();
         List<UsersForListModel> GetListUserSostavModelByGroup(string group);
         Task<List<GroupHeadsModel>> GetGroupHeadsAsync();
+        Task<List<UsersForListModel>> GetMainDepWorker();
     }
 }
