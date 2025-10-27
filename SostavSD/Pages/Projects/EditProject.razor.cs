@@ -23,10 +23,10 @@ namespace SostavSD.Pages.Projects
         private ContractModel _selectedContract = new();
         private ProjectModelValidation _projectModelValidation = new();
 
-        List<StatusModel> _statuses = new();
-        List<DesignStageModel> _stages = new();
-        List<BuildingViewModel> _views = new();
-        List<ContractModel> _contracts = new();
+        private List<StatusModel> _statuses = new();
+        private List<DesignStageModel> _stages = new();
+        private List<BuildingViewModel> _views = new();
+        private List<ContractModel> _contracts = new();
 
 
         protected override async Task OnInitializedAsync()
@@ -97,10 +97,16 @@ namespace SostavSD.Pages.Projects
 
         }
 
-        private void ChangeStage(int? elem)
+        private void ChangeStage(DesignStageModel _selectedStage)
         {
-            
-                Project.StageId = elem;
+
+            Project.StageId = _selectedStage.StageId;
+
+        }
+        private void ChangeView(BuildingViewModel _selectedView)
+        {
+
+            Project.BuildingViewId = _selectedView.BuildingViewId;
 
         }
 

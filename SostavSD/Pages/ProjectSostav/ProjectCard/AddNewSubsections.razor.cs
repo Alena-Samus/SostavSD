@@ -26,7 +26,6 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         private MudTable<SubsectionModel> tableRef;
         private string Country { get; set; } = "РБ";
-        private int SelectedChapter { get; set; }
 
         private NavigationManager navigationManager;
 
