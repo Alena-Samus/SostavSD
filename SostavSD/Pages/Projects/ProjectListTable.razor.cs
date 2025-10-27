@@ -26,7 +26,7 @@ namespace SostavSD.Pages.Projects
 
 		private string searchString;
 
-        string styleTableHeader = "font-size: 12px; text-align: center; padding: 0 0 0 10px; overflow-wrap: break-word; line-height: 1;";
+        string styleTableHeader = "font-size: 12px; text-align: center; padding: 0 0 0 10px; overflow-wrap: break-word; line-height: 1; position: sticky; top: 8px; z-index: 50;";
 		string styleTableBody = "padding: 0; text-align: center;";
     
 

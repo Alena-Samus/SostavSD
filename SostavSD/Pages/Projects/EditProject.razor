@@ -57,27 +57,40 @@
 
         </div>
         <div class="d-flex justify-space-around flex-grow-1 gap-4" mb-3>
-            <MudSelect T="int?" Label="@Localizer["designStage"]" Value="@Project.StageId" ValueChanged="ChangeStage">
+            <MudSelect T="DesignStageModel" Label="@Localizer["designStage"]" Value="@_selectedStage" ValueChanged="ChangeStage"
+                       ToStringFunc="@(d => d?.StageName ?? string.Empty)">
 
 
                 @foreach (var stage in _stages)
                 {
-                    <MudSelectItem T="int?" Value="@stage.StageId">@stage.StageName</MudSelectItem>
+                    <MudSelectItem T="DesignStageModel" Value="@stage">@stage.StageName</MudSelectItem>
                 }
 
             </MudSelect>
 
+            <MudSelect T="BuildingViewModel" Label="@Localizer["buildingView"]" Value="@_selectedView" ValueChanged="ChangeView"
+                       ToStringFunc="@(d => d?.BuildingViewName ?? string.Empty)">
 
-
-            <MudSelect T="int?" Label="@Localizer["buildingView"]" Value="@Project.BuildingViewId" ValueChanged="ChangeView">
- 
 
                 @foreach (var item in _views)
                 {
-                    <MudSelectItem T="int?" Value="@item.BuildingViewId">@item.BuildingViewName</MudSelectItem>
+                    <MudSelectItem T="BuildingViewModel" Value="@item">@item.BuildingViewName</MudSelectItem>
                 }
 
             </MudSelect>
+
+            <MudSelect T="UsersForListModel" Label="@Localizer["mainWorker"]" Value="@_selectedWorker" ValueChanged="ChangeWorker"
+                        ToStringFunc="@(d => d.SurnameUser ?? string.Empty)">
+            
+
+
+                @foreach (var item in _mainWorkers)
+                {
+                    <MudSelectItem T="UsersForListModel" Value="@item">@item.SurnameUser</MudSelectItem>
+                }
+
+            </MudSelect>
+
              <MudTextField T="string" Label="@Localizer["constructionPhase"]" @bind-Value="@Project.ConstructionPhase"></MudTextField>     
 
         </div>

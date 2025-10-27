@@ -32,6 +32,7 @@ namespace SostavSD.Services
                 _context.project.Add(_newProject);
 
                 await _context.SaveChangesAsync();
+                _context.Entry(_newProject).State = EntityState.Detached;
 
                 return result;
             }

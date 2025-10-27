@@ -1,11 +1,14 @@
-﻿
-		<MudButtonGroup Class="d-flex justify-start flex-grow-1 gap-4" OverrideStyles="false">
-		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.LibraryAdd" Title="@_localizer["addNewProject"]" Color="Color.Success"  @onclick="(e => NavigateToPage(_toNewProject))"/>	 
-		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.DeleteForever" Title="@_localizer["removeProjects"]" Color="Color.Error"  @onclick="(e => RemoveProjects())"/>	 
-		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Outlined.CollectionsBookmark" Title="@_localizer["listOfContracts"]" Color="Color.Info"  @onclick="(e => NavigateToPage(_toContracts))"/>
-		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.ContentCopy" Title="@_localizer["copyTheProject"]" Color="Color.Success"  @onclick="(e => CopyProject())"/>
-
-		</MudButtonGroup>
+﻿<MudPaper Elevation="3" Style="position: sticky; top: 0; z-index: 100; background: white; padding: 8px 0; margin-bottom: 10px;">
+	<MudButtonGroup Class="d-flex justify-start flex-grow-1 gap-4" OverrideStyles="false">
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.LibraryAdd" Title="@_localizer["addNewProject"]" Color="Color.Success" @onclick="(e => NavigateToPage(_toNewProject))" />
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.DeleteForever" Title="@_localizer["removeProjects"]" Color="Color.Error" @onclick="(e => RemoveProjects())" />
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Outlined.CollectionsBookmark" Title="@_localizer["listOfContracts"]" Color="Color.Info" @onclick="(e => NavigateToPage(_toContracts))" />
+		<MudIconButton Class="mx-4 my-2" Variant="Variant.Filled" Icon="@Icons.Material.Filled.ContentCopy" Title="@_localizer["copyTheProject"]" Color="Color.Success" @onclick="(e => CopyProject())" />
+	</MudButtonGroup>
+	<MudPaper Style="justify-content: flex-end; padding: 8px 16px;">
+		<MudTextField @bind-Value="searchString" Placeholder="@_localizer["search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+	</MudPaper>
+</MudPaper>
 
 @if (_projects == null)
 {
@@ -19,11 +22,6 @@ else
 {
 			<MudTable T="ProjectForTableModel" Items="@_projects" Filter="new Func<ProjectForTableModel,bool>(FilterFuncCurrent)" 
 				MultiSelection=true @bind-SelectedItems="selectedItems" Bordered=true OnRowClick="OpenEditDialog">
-			<ToolBarContent>
-				<MudSpacer />
-				<MudTextField @bind-Value="searchString" Placeholder="@_localizer["search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-				
-			</ToolBarContent>
 			<ColGroup>
 				<col />
 				<col style="width: 3%;"/>
