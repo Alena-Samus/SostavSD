@@ -51,7 +51,7 @@ namespace SostavSD.Data.Configurations
             builder.Property(p => p.ProjectK1);
             builder.Property(p => p.ProjectK2);
             builder.Property(p => p.MainDepWorker)
-                .HasMaxLength(30);
+                .HasMaxLength(50);
         }
     }
 }

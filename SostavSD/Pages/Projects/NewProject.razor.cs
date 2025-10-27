@@ -122,11 +122,11 @@ namespace SostavSD.Pages.Projects
             {
                 if (await EntityManagementService.AddProjectAsync(_newProject))
                 {
-                    Snackbar.Add("Add", Severity.Success);
+                    Snackbar.Add(Localizer["add"], Severity.Success);
                 }
                 else
                 {
-                    Snackbar.Add("Don't add", Severity.Error);
+                    Snackbar.Add(Localizer["doNotAdd"], Severity.Error);
                 }
 
                 GoToPage(_toProject);

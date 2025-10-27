@@ -97,16 +97,16 @@ namespace SostavSD.Pages.Projects
 
         }
 
-        private void ChangeStage(DesignStageModel _selectedStage)
+        private void ChangeStage(int? elem)
         {
 
-            Project.StageId = _selectedStage.StageId;
+            Project.StageId = elem.Value;
 
         }
-        private void ChangeView(BuildingViewModel _selectedView)
+        private void ChangeView(int? elem)
         {
 
-            Project.BuildingViewId = _selectedView.BuildingViewId;
+            Project.BuildingViewId = elem.Value;
 
         }
 

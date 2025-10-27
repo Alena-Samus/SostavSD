@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="add" xml:space="preserve">
+    <value>Стройка добавлена</value>
+  </data>
   <data name="buildingNumber" xml:space="preserve">
     <value>№ стройки</value>
   </data>
@@ -147,11 +150,17 @@
   <data name="designStage" xml:space="preserve">
     <value>Стадия проектирования</value>
   </data>
+  <data name="doNotAdd" xml:space="preserve">
+    <value>Стройка не добавлена</value>
+  </data>
   <data name="index" xml:space="preserve">
     <value>Индекс</value>
   </data>
   <data name="listOfContracts" xml:space="preserve">
     <value>Список договоров</value>
+  </data>
+  <data name="mainWorker" xml:space="preserve">
+    <value>Ответственный</value>
   </data>
   <data name="order" xml:space="preserve">
     <value>Заказ</value>

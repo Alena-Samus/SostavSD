@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="add" xml:space="preserve">
+    <value>Added</value>
+  </data>
   <data name="buildingNumber" xml:space="preserve">
     <value>№ building</value>
   </data>
@@ -147,8 +150,14 @@
   <data name="designStage" xml:space="preserve">
     <value>Design stage</value>
   </data>
+  <data name="doNotAdd" xml:space="preserve">
+    <value>Don't added</value>
+  </data>
   <data name="listOfContracts" xml:space="preserve">
     <value>List of contracts</value>
+  </data>
+  <data name="mainWorker" xml:space="preserve">
+    <value>Main worker</value>
   </data>
   <data name="order" xml:space="preserve">
     <value>Order</value>
