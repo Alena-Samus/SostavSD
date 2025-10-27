@@ -12,7 +12,11 @@ namespace SostavSD.Data.Configurations
 				.HasKey(k => k.BuildingZoneId);
 			builder.Property(k => k.BuildingZoneId);
 			builder.Property(p => p.BuildingZoneName)
-				.HasMaxLength(20);
+				.HasMaxLength(35);
+
+			builder.HasMany(m => m.BuildingViews)
+				.WithMany(m => m.BuildingZones)
+				.UsingEntity<Coefficient>();
 		}
 	}
 }
