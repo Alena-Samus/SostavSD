@@ -117,61 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buildingNumber" xml:space="preserve">
-    <value>N building</value>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="buildingView" xml:space="preserve">
-    <value>Building view</value>
+  <data name="CiC" xml:space="preserve">
+    <value>CiC version</value>
   </data>
-  <data name="buildingZone" xml:space="preserve">
-    <value>Building zone</value>
-  </data>
-  <data name="calculator" xml:space="preserve">
-    <value>Calculator</value>
-  </data>
-  <data name="changeCiC" xml:space="preserve">
-    <value>Change CiC</value>
-  </data>
-  <data name="changed" xml:space="preserve">
-    <value>CiC changed</value>
-  </data>
-  <data name="cic" xml:space="preserve">
-    <value>CiC</value>
-  </data>
-  <data name="constructionPhase" xml:space="preserve">
-    <value>Construction phase</value>
-  </data>
-  <data name="cpe" xml:space="preserve">
-    <value>CPE</value>
-  </data>
-  <data name="designStage" xml:space="preserve">
-    <value>Design stage</value>
-  </data>
-  <data name="mainDepWorker" xml:space="preserve">
-    <value>Main DepWorker</value>
-  </data>
-  <data name="notchanged" xml:space="preserve">
-    <value>CiC not changed</value>
-  </data>
-  <data name="order" xml:space="preserve">
-    <value>Order</value>
-  </data>
-  <data name="pk1" xml:space="preserve">
-    <value>K1</value>
-  </data>
-  <data name="pk2" xml:space="preserve">
-    <value>K2</value>
-  </data>
-  <data name="priceLevel" xml:space="preserve">
-    <value>Price level</value>
-  </data>
-  <data name="projectName" xml:space="preserve">
-    <value>Object</value>
-  </data>
-  <data name="sourceOfFinancing" xml:space="preserve">
-    <value>Source of financing</value>
-  </data>
-  <data name="workSrartDate" xml:space="preserve">
-    <value>Work start date</value>
+  <data name="save" xml:space="preserve">
+    <value>Save</value>
   </data>
 </root>

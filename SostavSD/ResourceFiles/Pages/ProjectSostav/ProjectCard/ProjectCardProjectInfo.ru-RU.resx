@@ -132,6 +132,9 @@
   <data name="changeCiC" xml:space="preserve">
     <value>Сменить CiC</value>
   </data>
+  <data name="changed" xml:space="preserve">
+    <value>Версия CiC изменена</value>
+  </data>
   <data name="cic" xml:space="preserve">
     <value>CiC</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="mainDepWorker" xml:space="preserve">
     <value>Ответственный</value>
+  </data>
+  <data name="notchanged" xml:space="preserve">
+    <value>версия CiC не изменена</value>
   </data>
   <data name="order" xml:space="preserve">
     <value>Заказ</value>
