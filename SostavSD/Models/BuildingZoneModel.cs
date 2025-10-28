@@ -6,5 +6,6 @@
 		public string BuildingZoneName { get; set; }
 
 		public ICollection<ContractModel> Contracts { get; set; }
-	}
+        public ICollection<CoefficientModel> Coefficients { get; set; }
+    }
 }
