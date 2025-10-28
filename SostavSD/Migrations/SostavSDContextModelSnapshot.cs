@@ -185,8 +185,8 @@ namespace SostavSD.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BuildingZoneId"));
 
                     b.Property<string>("BuildingZoneName")
-                        .HasMaxLength(35)
-                        .HasColumnType("nvarchar(35)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("BuildingZoneId");
 
@@ -211,39 +211,6 @@ namespace SostavSD.Migrations
                     b.HasKey("ChapterId");
 
                     b.ToTable("Chapter", (string)null);
-                });
-
-            modelBuilder.Entity("SostavSD.Entities.Coefficient", b =>
-                {
-                    b.Property<int>("BuildingViewId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BuildingZoneId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CoefficientName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("OHROPR1")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("OHROPR2")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("PlannedProfit")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Qualifier")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Relevance")
-                        .HasColumnType("bit");
-
-                    b.HasKey("BuildingViewId", "BuildingZoneId");
-
-                    b.HasIndex("BuildingZoneId");
-
-                    b.ToTable("Coefficient");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.Company", b =>
@@ -767,25 +734,6 @@ namespace SostavSD.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SostavSD.Entities.Coefficient", b =>
-                {
-                    b.HasOne("SostavSD.Entities.BuildingView", "BuildingView")
-                        .WithMany("Coefficients")
-                        .HasForeignKey("BuildingViewId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SostavSD.Entities.BuildingZone", "BuildingZone")
-                        .WithMany("Coefficients")
-                        .HasForeignKey("BuildingZoneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BuildingView");
-
-                    b.Navigation("BuildingZone");
-                });
-
             modelBuilder.Entity("SostavSD.Entities.Contract", b =>
                 {
                     b.HasOne("SostavSD.Entities.BuildingZone", "BuildingZone")
@@ -916,15 +864,11 @@ namespace SostavSD.Migrations
 
             modelBuilder.Entity("SostavSD.Entities.BuildingView", b =>
                 {
-                    b.Navigation("Coefficients");
-
                     b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.BuildingZone", b =>
                 {
-                    b.Navigation("Coefficients");
-
                     b.Navigation("Contracts");
                 });
 

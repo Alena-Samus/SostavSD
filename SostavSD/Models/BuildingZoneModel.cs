@@ -1,6 +1,4 @@
-﻿using SostavSD.Entities;
-
-namespace SostavSD.Models
+﻿namespace SostavSD.Models
 {
 	public class BuildingZoneModel
 	{
@@ -8,8 +6,5 @@ namespace SostavSD.Models
 		public string BuildingZoneName { get; set; }
 
 		public ICollection<ContractModel> Contracts { get; set; }
-
-        public ICollection<BuildingViewModel> BuildingZones { get; set; }
-        public ICollection<CoefficientModel> Coefficients { get; set; }
-    }
+	}
 }
