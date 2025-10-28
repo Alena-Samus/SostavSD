@@ -18,8 +18,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
         [Inject] IDialogService DialogService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
         [Inject] NavigationManager _navigationManager { get; set; }
-        [Inject] IStringLocalizer<ProjectCardProjectInfo> InfoLocalizer { get; set; }
-        [Inject] IStringLocalizer<ProjectCardChapters> Localizer { get; set; }
+        [Inject] IStringLocalizer<ProjectCard> Localizer { get; set; }
 
 
 
@@ -65,11 +64,11 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
                 _projectModel.CiCVersion = (string)dialog.Data;
                 if (await EntityManagementService.UpdateCiCVersionAsync(_projectModel.ProjectId, _projectModel.CiCVersion))
                 {
-                    Snackbar.Add(@InfoLocalizer["changed"], Severity.Success);
+                    Snackbar.Add(@Localizer["changed"], Severity.Success);
                 }
                 else
                 {
-                    Snackbar.Add(@InfoLocalizer["notchanged"], Severity.Error);
+                    Snackbar.Add(@Localizer["notchanged"], Severity.Error);
                 }
             }
         }
