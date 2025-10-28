@@ -73,6 +73,7 @@ namespace SostavSD.Services
 
         public async Task<SubsectionModel> GetSubsectionById(int subsectionId)
         {
+            
             try
             {
                 var _subsectionsById = await _context.section
@@ -95,6 +96,7 @@ namespace SostavSD.Services
 
         public async Task<List<SubsectionModel>> GetSubsectionByProjectIdAsync(int projectId)
         {
+
             try
             {
                 var _subsectionsById = _context.section

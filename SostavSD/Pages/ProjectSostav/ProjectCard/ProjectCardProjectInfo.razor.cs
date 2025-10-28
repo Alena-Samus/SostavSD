@@ -10,7 +10,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 {
     public partial class ProjectCardProjectInfo
     {
-        [Parameter] public int ProjectId { get; set; }
+        [Parameter] public ProjectModel Project { get; set; }
         [Inject] IEntityManagementService EntityManagementService { get; set; }
         [Inject] public IAuthorizedUserService AuthorizedUserService { get; set; }
         [Inject] IDialogService DialogService { get; set; }
@@ -23,8 +23,8 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         protected override async Task OnInitializedAsync()
         {
-            _projectModel = await EntityManagementService.GetProjectByIdAsync(ProjectId);
-           ManagerUserModel _calculatorName = await AuthorizedUserService.GetSingleUser(_projectModel.Contract.CalculatorId);
+
+           ManagerUserModel _calculatorName = await AuthorizedUserService.GetSingleUser(Project.Contract?.CalculatorId);
             if (_calculatorName != null) 
             {
                 calculatorName = _calculatorName.UserSurname;
