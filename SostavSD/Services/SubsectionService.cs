@@ -37,6 +37,8 @@ namespace SostavSD.Services
                     Subsection _newSubsection = _mapper.Map<Subsection>(item);
                     _context.section.Add(_newSubsection);
                     await _context.SaveChangesAsync();
+                    _context.section.Entry(_newSubsection).State = EntityState.Detached;
+
                 }
 
             }

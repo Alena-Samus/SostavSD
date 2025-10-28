@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using MimeKit.Cryptography;
+using MudBlazor;
+using SostavSD.Classes.ProjectChapter;
 using SostavSD.Interfaces;
 using SostavSD.Models;
 
@@ -11,25 +14,214 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         [Inject] IEntityManagementService EntityManagementService { get; set; }
         [Inject] ICoefficientService CoefficientService { get; set; }
+        [Inject] public IAuthorizedUserService AuthorizedUserService { get; set; }
+        [Inject] IDialogService DialogService { get; set; }
+        [Inject] ISnackbar Snackbar { get; set; }
+        [Inject] NavigationManager _navigationManager { get; set; }
+        [Inject] IStringLocalizer<ProjectCardProjectInfo> InfoLocalizer { get; set; }
+        [Inject] IStringLocalizer<ProjectCardChapters> Localizer { get; set; }
+
+
 
         private List<CoefficientModel> coefficients = new List<CoefficientModel>();
+        private List<SubsectionModel> subsections = new List<SubsectionModel>();
+        private List<ChapterModel> chapters = new List<ChapterModel>();
+        private List<ProjectChapter> projectChapters = new List<ProjectChapter>();
 
-        private ProjectModel currentProject = new ProjectModel();
 
+        private ProjectModel _projectModel = new();
+        string calculatorName;
         private int? buildingViewId;
         private int? buildingZoneId;
 
         protected override async Task OnInitializedAsync()
         {
-            currentProject = await EntityManagementService.GetProjectByIdAsync(ProjectId);
-            buildingViewId = currentProject.BuildingViewId;
-            buildingZoneId = currentProject.Contract.BuildingZoneId;
+            _projectModel = await EntityManagementService.GetProjectByIdAsync(ProjectId);
+
+            ManagerUserModel _calculatorName = await AuthorizedUserService.GetSingleUser(_projectModel.Contract.CalculatorId);
+            if (_calculatorName != null)
+            {
+                calculatorName = _calculatorName.UserSurname;
+            }
+
+            await GetChapters();
+            
+            buildingViewId = _projectModel.BuildingViewId;
+            buildingZoneId = _projectModel.Contract.BuildingZoneId;
             if (buildingViewId != null && buildingZoneId != null)
             {
                 coefficients = await CoefficientService.GetCoefficiensByBuildingViewIdBuildingZoneId((int)buildingViewId, (int)buildingZoneId);
 
             }
         }
+        private async Task ChangeCiC()
+        {
+            var parameters = new DialogParameters();
+
+            parameters.Add("ProjectCiC", _projectModel.CiCVersion);
+            var dialog = await DialogService.Show<ChangeCiCDialog>("Edit", parameters).Result;
+            if (dialog.Data != null)
+            {
+                _projectModel.CiCVersion = (string)dialog.Data;
+                if (await EntityManagementService.UpdateCiCVersionAsync(_projectModel.ProjectId, _projectModel.CiCVersion))
+                {
+                    Snackbar.Add(@InfoLocalizer["changed"], Severity.Success);
+                }
+                else
+                {
+                    Snackbar.Add(@InfoLocalizer["notchanged"], Severity.Error);
+                }
+            }
+        }
+        private async Task GetChapters()
+        {
+            subsections = await EntityManagementService.GetSubsectionByProjectIdAsync(ProjectId);
+            var chapterList = subsections.DistinctBy(p => p.ChapterId).OrderBy(p => p.ChapterId).ToList();
+            foreach (var chapter in chapterList)
+            {
+                chapters.Add(chapter.Chapter);
+            }
+
+            foreach (var chapter in chapters)
+            {
+                List<SubsectionModel> _currentSubsections = subsections.FindAll(item => item.ChapterId == chapter.ChapterId);
+                ProjectChapter _subsection = new ProjectChapter()
+                {
+                    Chapter = chapter,
+                    Subsections = _currentSubsections.OrderBy(p => p.SerialNumber).ToList(),
+                };
+                projectChapters.Add(_subsection);
+            }
+        }
+
+        private void NavigateToPage()
+        {
+            _navigationManager.NavigateTo($"/projectcard/addnewsubsections/{ProjectId}");
+        }
+
+        private async Task RemoveChapters()
+        {
+            if (await EntityManagementService.RemoveSubsectionsByProjectIdAsync(ProjectId))
+            {
+                Snackbar.Add(Localizer["projectChaptersIsRemoved"], Severity.Success);
+                await GetChapters();
+                projectChapters.Clear();
+                StateHasChanged();
+            }
+            else
+            {
+                Snackbar.Add(Localizer["projectChaptersNotRemoved"], Severity.Error);
+            }
+
+        }
+
+        private async Task CopyChapters()
+        {
+            if (projectChapters.Count != 0)
+            {
+                Snackbar.Add(Localizer["projectChaptersIsNotEmpty"], Severity.Error);
+            }
+            else
+            {
+                var parameters = new DialogParameters();
+                parameters.Add("BuildingNumber", string.Empty);
+
+                var dialog = await DialogService.Show<CopyChaptersDialog>("Copy", parameters).Result;
+
+                if (dialog.Data != null)
+                {
+                    int _newProjectId = await EntityManagementService.GetPtojectIdAsync(dialog.Data.ToString());
+                    List<SubsectionModel> _subsectionSource = await EntityManagementService.GetSubsectionByProjectIdAsync(_newProjectId);
+                    foreach (var item in _subsectionSource)
+                    {
+                        SubsectionModel _currentProjectSubsection = new SubsectionModel()
+                        {
+                            SerialNumber = item.SerialNumber,
+                            SubsectionName = item.SubsectionName,
+                            ChapterId = item.ChapterId,
+                            ProjectId = ProjectId,
+                            K1 = item.K1,
+                            K2 = item.K2,
+                            Norm = item.Norm,
+                        };
+                        subsections.Add(_currentProjectSubsection);
+                    }
+                    await EntityManagementService.AddSubsectionsAsync(subsections);
+
+                    Snackbar.Add(Localizer["projectChaptersIsCopied"], Severity.Success);
+                    subsections.Clear();
+                }
+                await GetChapters();
+                StateHasChanged();
+            }
+        }
+
+
+        private async Task CopySubsection(int subsectionId)
+        {
+            var _currentSubsection = await EntityManagementService.GetSubsectionById(subsectionId);
+            SubsectionModel subsection = new SubsectionModel()
+            {
+                SubsectionName = $"{_currentSubsection.SubsectionName} Копия",
+                ChapterId = _currentSubsection.ChapterId,
+                ProjectId = _currentSubsection.ProjectId,
+                K1 = _currentSubsection.K1,
+                K2 = _currentSubsection.K2,
+                Norm = _currentSubsection.Norm,
+                Notes = _currentSubsection.Notes,
+            };
+            List<SubsectionModel> _currentList = new List<SubsectionModel>();
+            _currentList.Add(subsection);
+            if (await EntityManagementService.AddSubsectionsAsync(_currentList))
+            {
+                Snackbar.Add(Localizer["subsectionIsCopied"], Severity.Success);
+                await GetChapters();
+                StateHasChanged();
+            }
+            else
+            {
+                Snackbar.Add(Localizer["subsectionNotCopied"], Severity.Error);
+            }
+            subsections.Clear();
+            projectChapters.Clear();
+            await GetChapters();
+            StateHasChanged();
+        }
+        private async Task RemoveSubsection(int subsectionId)
+        {
+            if (await EntityManagementService.RemoveSubsectionsByIdAsync(subsectionId))
+            {
+                Snackbar.Add(Localizer["subsectionIsRemoved"], Severity.Success);
+                await GetChapters();
+                StateHasChanged();
+            }
+            else
+            {
+                Snackbar.Add(Localizer["subsectionNotRemoved"], Severity.Error);
+            }
+            subsections.Clear();
+            projectChapters.Clear();
+            await GetChapters();
+            StateHasChanged();
+        }
+
+        private async Task EditSubsection(int subsectionId)
+        {
+            if (await EntityManagementService.EditSubsectionDialogAsync(subsectionId))
+            {
+                Snackbar.Add(Localizer["subsectionIsEdited"], Severity.Success);
+
+                subsections.Clear();
+                projectChapters.Clear();
+                await GetChapters();
+            }
+            else
+            {
+                Snackbar.Add(Localizer["subsectionNotEdited"], Severity.Error);
+            }
+
+        }
+
 
     }
 }
