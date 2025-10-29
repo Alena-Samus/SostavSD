@@ -9,10 +9,23 @@ else if (ProjectCoefficiencets.Count == 0)
 	else
 	{
 
+	<MudGrid>
+		<MudItem xs="1">
+			<MudText Class="title">@Localizer["pk1"]</MudText>
+			<MudText>@OHROPR1</MudText>
+		</MudItem>
+		<MudItem xs="1">
+			<MudText Class="title">@Localizer["pk2"]</MudText>
 
-@* 	<MudText>@ProjectCoefficience.ProjectK1</MudText>
-	<MudText>@ProjectCoefficience.ProjectK2</MudText>
- *@ 
+			<MudText Style="background: yellow;">@OHROPR2</MudText>
+		</MudItem>
+		<MudItem xs="1">
+			<MudIconButton @onclick="@(() => Edit())" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small" />
+		</MudItem>
+	</MudGrid>
+
+
+
 <div>
 		<MudTable T="CoefficientModel" Items="@ProjectCoefficiencets" Bordered=true>
 

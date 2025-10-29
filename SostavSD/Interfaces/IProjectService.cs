@@ -14,5 +14,6 @@ namespace SostavSD.Interfaces
 
 		Task<int> GetPtojectIdAsync(string buildingNumber);
 		Task<bool> UpdateCiCVersionAsync(int projectId, string newCiCVersion);
-	}
+        Task<bool> UpdateCoefficientsAsync(int projectId, double? newPK1, double? newPK2);
+    }
 }

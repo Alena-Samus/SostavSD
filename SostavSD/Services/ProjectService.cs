@@ -237,5 +237,31 @@ namespace SostavSD.Services
                 return false;
             }
         }
+
+        public async Task<bool> UpdateCoefficientsAsync(int projectId, double? newPK1, double? newPK2)
+        {
+            try
+            {
+                var existingProject = await _context.project.FirstOrDefaultAsync(e => e.ProjectId == projectId);
+
+                if (existingProject == null)
+                {
+                    return false; 
+                }
+
+                existingProject.ProjectK1 = newPK1;
+                existingProject.ProjectK2 = newPK2;
+
+                await _context.SaveChangesAsync();
+
+                _context.Entry(existingProject).State = EntityState.Detached;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"{ex.InnerException}, method: UpdateCoefficientsAsync, projectId: {projectId}, newCoefficients: {newPK1} and {newPK2} , message: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

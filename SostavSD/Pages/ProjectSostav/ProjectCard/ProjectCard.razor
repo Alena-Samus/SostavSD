@@ -87,18 +87,6 @@
                     </MudItem>
                 </MudGrid>
 
-                <MudGrid>
-                    <MudItem xs="6">
-                        <MudText Class="title">@Localizer["pk1"]</MudText>
-                        <MudText>@_projectModel.ProjectK1</MudText>
-                    </MudItem>
-                    <MudItem xs="6">
-                        <MudText Class="title">@Localizer["pk2"]</MudText>
-
-                        <MudText>@_projectModel.ProjectK2</MudText>
-                    </MudItem>
-                </MudGrid>
-
 
             </MudItem>
 
@@ -164,7 +152,7 @@
         </div>
     </MudItem>
     <MudItem xs="5">
-        <Coefficient ProjectCoefficiencets="coefficients" />
+        <Coefficient ProjectCoefficiencets="coefficients" OHROPR1="_projectModel.ProjectK1" OHROPR2="_projectModel.ProjectK2" ProjectId="ProjectId" UpdateCoefficients="UpdateCoefficients" />
     </MudItem>
 </MudGrid>
 

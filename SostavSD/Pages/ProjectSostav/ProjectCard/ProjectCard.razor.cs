@@ -5,6 +5,7 @@ using MudBlazor;
 using SostavSD.Classes.ProjectChapter;
 using SostavSD.Interfaces;
 using SostavSD.Models;
+using System.Runtime.CompilerServices;
 
 namespace SostavSD.Pages.ProjectSostav.ProjectCard
 {
@@ -35,7 +36,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         protected override async Task OnInitializedAsync()
         {
-            _projectModel = await EntityManagementService.GetProjectByIdAsync(ProjectId);
+            await GetProject();
 
             ManagerUserModel _calculatorName = await AuthorizedUserService.GetSingleUser(_projectModel.Contract.CalculatorId);
             if (_calculatorName != null)
@@ -45,37 +46,16 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
             await GetChapters();
             
+
+            await GetCoefficients();
+        }
+
+        private async Task GetProject()
+        {
+            _projectModel = await EntityManagementService.GetProjectByIdAsync(ProjectId);
             buildingViewId = _projectModel.BuildingViewId;
             buildingZoneId = _projectModel.Contract.BuildingZoneId;
-            if (buildingViewId != null && buildingZoneId != null)
-            {
-                coefficients = await CoefficientService.GetCoefficiensByBuildingViewIdBuildingZoneId((int)buildingViewId, (int)buildingZoneId);
 
-            }
-            foreach (var coefficient in coefficients) 
-            {
-                coefficient.OHROPR1 = Math.Round((coefficient.OHROPR1 * _projectModel.ProjectK1) ?? 0,2);
-                coefficient.OHROPR2 = Math.Round((coefficient.OHROPR2 * _projectModel.ProjectK2) ?? 0, 2);
-            }
-        }
-        private async Task ChangeCiC()
-        {
-            var parameters = new DialogParameters();
-
-            parameters.Add("ProjectCiC", _projectModel.CiCVersion);
-            var dialog = await DialogService.Show<ChangeCiCDialog>("Edit", parameters).Result;
-            if (dialog.Data != null)
-            {
-                _projectModel.CiCVersion = (string)dialog.Data;
-                if (await EntityManagementService.UpdateCiCVersionAsync(_projectModel.ProjectId, _projectModel.CiCVersion))
-                {
-                    Snackbar.Add(@Localizer["changed"], Severity.Success);
-                }
-                else
-                {
-                    Snackbar.Add(@Localizer["notchanged"], Severity.Error);
-                }
-            }
         }
         private async Task GetChapters()
         {
@@ -95,6 +75,48 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
                     Subsections = _currentSubsections.OrderBy(p => p.SerialNumber).ToList(),
                 };
                 projectChapters.Add(_subsection);
+            }
+        }
+
+        private async Task GetCoefficients()
+        {
+
+            if (buildingViewId != null && buildingZoneId != null)
+            {
+                coefficients = await CoefficientService.GetCoefficiensByBuildingViewIdBuildingZoneId((int)buildingViewId, (int)buildingZoneId);
+
+            }
+            foreach (var coefficient in coefficients)
+            {
+                coefficient.OHROPR1 = Math.Round((coefficient.OHROPR1 * _projectModel.ProjectK1) ?? 0, 2);
+                coefficient.OHROPR2 = Math.Round((coefficient.OHROPR2 * _projectModel.ProjectK2) ?? 0, 2);
+            }
+
+        }
+
+        private async Task UpdateCoefficients()
+        {
+            coefficients.Clear();
+            await GetProject();
+            await GetCoefficients();
+        }
+        private async Task ChangeCiC()
+        {
+            var parameters = new DialogParameters();
+
+            parameters.Add("ProjectCiC", _projectModel.CiCVersion);
+            var dialog = await DialogService.Show<ChangeCiCDialog>("Edit", parameters).Result;
+            if (dialog.Data != null)
+            {
+                _projectModel.CiCVersion = (string)dialog.Data;
+                if (await EntityManagementService.UpdateCiCVersionAsync(_projectModel.ProjectId, _projectModel.CiCVersion))
+                {
+                    Snackbar.Add(@Localizer["changed"], Severity.Success);
+                }
+                else
+                {
+                    Snackbar.Add(@Localizer["notchanged"], Severity.Error);
+                }
             }
         }
 
