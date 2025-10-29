@@ -5,5 +5,6 @@
         public int BuildingViewId { get; set; }
         public string BuildingViewName { get; set; }
         public ICollection<Project> Projects { get; set; }
+        public ICollection<Coefficient> Coefficients { get; set; }
     }
 }

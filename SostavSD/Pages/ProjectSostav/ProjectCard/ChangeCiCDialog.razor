@@ -1,0 +1,10 @@
+﻿<MudDialog>
+	<DialogContent>
+		<MudTextField T="string" Label="@Localizer["CiC"]" @bind-Value="@ProjectCiC"></MudTextField>
+	</DialogContent>
+
+	<DialogActions>
+		<MudButton @onclick="Cancel">@Localizer["cancel"]</MudButton>
+		<MudButton @onclick="Submit" Color="Color.Primary">@Localizer["save"]</MudButton>
+	</DialogActions>
+</MudDialog>

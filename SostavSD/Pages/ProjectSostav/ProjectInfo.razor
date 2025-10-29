@@ -16,13 +16,13 @@
                     <MudText Class="title">@Localizer["contractNumber"]</MudText>
                 </MudItem>
                 <MudItem xs="3">
-                    <MudText>@_projectModel.Contract.ContractNumber</MudText>
+                    <MudText>@_projectModel.Contract?.ContractNumber</MudText>
                 </MudItem>
                 <MudItem xs="3">
                     <MudText Class="title">@Localizer["contractDate"]</MudText>
                 </MudItem>
                 <MudItem xs="3">            
-                    <MudText>@(_projectModel.Contract.ContractDate == null ? "" : Convert.ToDateTime(_projectModel.Contract.ContractDate).ToString(Constants.DateFormat))</MudText>
+                    <MudText>@(_projectModel.Contract?.ContractDate == null ? "" : Convert.ToDateTime(_projectModel.Contract.ContractDate).ToString(Constants.DateFormat))</MudText>
                 </MudItem>
             </MudGrid>
         </MudItem>
@@ -62,7 +62,7 @@
                         <MudText Class="title">@Localizer["cpe"]</MudText>
                 </MudItem>
                 <MudItem xs="8">
-                    <MudText>@_projectModel.Contract.Executor?.Surname</MudText>
+                    <MudText>@_projectModel.Contract?.Executor?.Surname</MudText>
                 </MudItem>
             </MudGrid>                                       
         </MudItem>
@@ -82,7 +82,7 @@
                       <MudText Class="title">@Localizer["index"]</MudText>  
                 </MudItem>
                 <MudItem xs="6">
-                        <MudText>@_projectModel.Contract.Index</MudText>
+                        <MudText>@_projectModel.Contract?.Index</MudText>
                 </MudItem>
             </MudGrid>                     
         </MudItem>

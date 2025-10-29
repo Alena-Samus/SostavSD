@@ -1,0 +1,23 @@
+﻿<MudText Style="color:darkblue;">
+	@Localizer["subsectionEditing"]
+	@Subsection.Chapter?.ChapterName
+</MudText>
+<MudDialog>
+	<DialogContent>
+		<MudGrid>
+			<MudItem xs="12">
+				<MudTextField T="int?" Label="@Localizer["serialNumber"]" @bind-Value="@Subsection.SerialNumber"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["subsectionName"]" Lines="3" @bind-Value="@Subsection.SubsectionName"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["kOne"]" @bind-Value="@Subsection.K1"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["kTwo"]" @bind-Value="@Subsection.K2"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["norm"]" @bind-Value="@Subsection.Norm"></MudTextField>
+				<MudTextField T="string" Label="@Localizer["notes"]" @bind-Value="@Subsection.Notes"></MudTextField>
+			</MudItem>
+		</MudGrid>
+	</DialogContent>
+
+	<DialogActions>
+		<MudButton @onclick="Cancel">@Localizer["cancel"]</MudButton>
+		<MudButton @onclick="Submit" Color="Color.Primary">@Localizer["save"]</MudButton>
+	</DialogActions>
+</MudDialog>

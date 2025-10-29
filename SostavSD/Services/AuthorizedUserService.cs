@@ -83,6 +83,10 @@ public class AuthorizedUserService : IAuthorizedUserService
     public async Task<ManagerUserModel> GetSingleUser(string id)
     {
        var currentUser = await _userManager.FindByIdAsync(id);
+        if(currentUser == null)
+        {
+            return new ManagerUserModel();
+        }
         ManagerUserModel model = new ManagerUserModel
         {
             UserId = currentUser.Id,
@@ -91,7 +95,8 @@ public class AuthorizedUserService : IAuthorizedUserService
             UserRoles = new List<string>(),
         };
 
-        return model;
+            return model;
+
     }
 
     public async Task ChangeUserRole(ManagerUserModel newRole)
@@ -158,5 +163,20 @@ public class AuthorizedUserService : IAuthorizedUserService
 
 
         return groupHeads;
+    }
+
+    public async Task<List<UsersForListModel>> GetMainDepWorker()
+    {
+        List<UsersForListModel> currentList = new List<UsersForListModel>();
+        var user = _userManager.Users.Where(x => x.IsMainDepWorker).Select(x => new UsersForListModel
+        {
+            IdUser = x.Id,
+            SurnameUser = x.Surname,
+        });
+        foreach (var item in user)
+        {
+            currentList.Add(item);
+        }
+        return currentList;
     }
 }

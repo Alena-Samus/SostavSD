@@ -20,6 +20,7 @@ namespace SostavSD.Pages.Projects
 		private NavigationManager _navigationManager;
 		
 		[Inject] IStringLocalizer<NewProject> Localizer { get; set; }
+		[Inject] IAuthorizedUserService AuthorizedUserService { get; set; }
 		[Inject] ISnackbar Snackbar { get; set; }
 		[Inject] IEntityManagementService EntityManagementService { get; set; }
 
@@ -28,6 +29,7 @@ namespace SostavSD.Pages.Projects
 		private List<ContractForTableModel> _contracts = new();
 		private List<BuildingViewModel> _viewes = new();
 		private List<DesignStageModel> _stages = new();
+		private List<UsersForListModel> _mainDepWorkers = new();
 		
 
 		private ContractForTableModel _selectedContract = new();
@@ -35,6 +37,7 @@ namespace SostavSD.Pages.Projects
 		private BuildingViewModel _selectedBuildingView = new();
 
 		private DesignStageModel _selectedDesignStage = new();
+        private UsersForListModel _selectedMainWorker = new();
 
         private ProjectModelValidation _projectModelValidation = new();
 
@@ -49,6 +52,7 @@ namespace SostavSD.Pages.Projects
 		protected override async Task OnInitializedAsync()
 		{			
 			_newProject = new ProjectModel();
+			_mainDepWorkers = await AuthorizedUserService.GetMainDepWorker();
 			
 			
         }
@@ -110,6 +114,7 @@ namespace SostavSD.Pages.Projects
 			_newProject.ContractId = _selectedContract.Contract.ContractID;
 			_newProject.BuildingViewId = _selectedBuildingView.BuildingViewId > 0 ? _selectedBuildingView.BuildingViewId : null;
 			_newProject.StageId = _selectedDesignStage.StageId > 0 ? _selectedDesignStage.StageId : null;
+            _newProject.MainDepWorker = _selectedMainWorker.SurnameUser;
 
             var validationResult = _projectModelValidation.Validate(_newProject);
 
@@ -117,11 +122,11 @@ namespace SostavSD.Pages.Projects
             {
                 if (await EntityManagementService.AddProjectAsync(_newProject))
                 {
-                    Snackbar.Add("Add", Severity.Success);
+                    Snackbar.Add(Localizer["add"], Severity.Success);
                 }
                 else
                 {
-                    Snackbar.Add("Don't add", Severity.Error);
+                    Snackbar.Add(Localizer["doNotAdd"], Severity.Error);
                 }
 
                 GoToPage(_toProject);

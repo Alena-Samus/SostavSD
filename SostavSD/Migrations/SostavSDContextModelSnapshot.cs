@@ -193,6 +193,68 @@ namespace SostavSD.Migrations
                     b.ToTable("BuildingZone", (string)null);
                 });
 
+            modelBuilder.Entity("SostavSD.Entities.Chapter", b =>
+                {
+                    b.Property<int>("ChapterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ChapterId"));
+
+                    b.Property<string>("ChapterName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.HasKey("ChapterId");
+
+                    b.ToTable("Chapter", (string)null);
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.Coefficient", b =>
+                {
+                    b.Property<int>("CoefficientId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CoefficientId"));
+
+                    b.Property<int>("BuildingViewId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BuildingZoneId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CoefficientName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("OHROPR1")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("OHROPR2")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("PlannedProfit")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Qualifier")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<bool>("Relevance")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CoefficientId");
+
+                    b.HasIndex("BuildingViewId");
+
+                    b.HasIndex("BuildingZoneId");
+
+                    b.ToTable("Coefficient", (string)null);
+                });
+
             modelBuilder.Entity("SostavSD.Entities.Company", b =>
                 {
                     b.Property<int>("CompanyID")
@@ -449,6 +511,10 @@ namespace SostavSD.Migrations
                     b.Property<int>("ContractId")
                         .HasColumnType("int");
 
+                    b.Property<string>("MainDepWorker")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<DateTime?>("PriceLevel")
                         .HasColumnType("datetime2");
 
@@ -458,6 +524,12 @@ namespace SostavSD.Migrations
 
                     b.Property<int?>("Priority")
                         .HasColumnType("int");
+
+                    b.Property<double?>("ProjectK1")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("ProjectK2")
+                        .HasColumnType("float");
 
                     b.Property<string>("ProjectName")
                         .HasColumnType("nvarchar(max)");
@@ -535,6 +607,50 @@ namespace SostavSD.Migrations
                     b.ToTable("Status", (string)null);
                 });
 
+            modelBuilder.Entity("SostavSD.Entities.Subsection", b =>
+                {
+                    b.Property<int>("SubsectionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubsectionId"));
+
+                    b.Property<int?>("ChapterId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("K1")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("K2")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Norm")
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SerialNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SubsectionName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SubsectionId");
+
+                    b.HasIndex("ChapterId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("Subsection", (string)null);
+                });
+
             modelBuilder.Entity("SostavSD.Entities.UserSostav", b =>
                 {
                     b.Property<string>("Id")
@@ -556,6 +672,9 @@ namespace SostavSD.Migrations
 
                     b.Property<string>("GroupName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsMainDepWorker")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -655,6 +774,21 @@ namespace SostavSD.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.Coefficient", b =>
+                {
+                    b.HasOne("SostavSD.Entities.BuildingView", "BuildingView")
+                        .WithMany("Coefficients")
+                        .HasForeignKey("BuildingViewId");
+
+                    b.HasOne("SostavSD.Entities.BuildingZone", "BuildingZone")
+                        .WithMany("Coefficients")
+                        .HasForeignKey("BuildingZoneId");
+
+                    b.Navigation("BuildingView");
+
+                    b.Navigation("BuildingZone");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.Contract", b =>
@@ -770,14 +904,38 @@ namespace SostavSD.Migrations
                     b.Navigation("Status");
                 });
 
+            modelBuilder.Entity("SostavSD.Entities.Subsection", b =>
+                {
+                    b.HasOne("SostavSD.Entities.Chapter", "Chapter")
+                        .WithMany("Sections")
+                        .HasForeignKey("ChapterId");
+
+                    b.HasOne("SostavSD.Entities.Project", "Project")
+                        .WithMany("Sections")
+                        .HasForeignKey("ProjectId");
+
+                    b.Navigation("Chapter");
+
+                    b.Navigation("Project");
+                });
+
             modelBuilder.Entity("SostavSD.Entities.BuildingView", b =>
                 {
+                    b.Navigation("Coefficients");
+
                     b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.BuildingZone", b =>
                 {
+                    b.Navigation("Coefficients");
+
                     b.Navigation("Contracts");
+                });
+
+            modelBuilder.Entity("SostavSD.Entities.Chapter", b =>
+                {
+                    b.Navigation("Sections");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.Company", b =>
@@ -813,6 +971,8 @@ namespace SostavSD.Migrations
             modelBuilder.Entity("SostavSD.Entities.Project", b =>
                 {
                     b.Navigation("Drawings");
+
+                    b.Navigation("Sections");
                 });
 
             modelBuilder.Entity("SostavSD.Entities.SourceOfFinacing", b =>

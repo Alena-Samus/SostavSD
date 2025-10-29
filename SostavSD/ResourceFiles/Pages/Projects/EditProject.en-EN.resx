@@ -135,6 +135,9 @@
   <data name="index" xml:space="preserve">
     <value>Index</value>
   </data>
+  <data name="mainWorker" xml:space="preserve">
+    <value>MainWorker</value>
+  </data>
   <data name="priceLevel" xml:space="preserve">
     <value>Price Level</value>
   </data>

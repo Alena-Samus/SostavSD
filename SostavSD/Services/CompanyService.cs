@@ -71,7 +71,9 @@ namespace SostavSD.Services
 
         public async Task<CompanyModel> GetSingleCompany(int companytId)
         {
-            var singleCompany = await _context.company.FirstOrDefaultAsync(e => e.CompanyID == companytId);
+            var singleCompany = await _context.company
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.CompanyID == companytId);
 
             if (singleCompany != null)
             {

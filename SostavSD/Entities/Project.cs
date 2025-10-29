@@ -1,4 +1,6 @@
-﻿namespace SostavSD.Entities
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace SostavSD.Entities
 {
     public class Project
     {
@@ -22,7 +24,11 @@
         public DateTime? PriceLevel { get; set; }
         public string PrintType { get; set; }
         public string CiCVersion { get; set; }
+        public double? ProjectK1 { get; set; }
+        public double? ProjectK2 { get; set; }
+        public string MainDepWorker { get; set; }
 
         public ICollection<Drawing> Drawings { get; set; }
+        public ICollection<Subsection> Sections { get; set; }
     }
 }

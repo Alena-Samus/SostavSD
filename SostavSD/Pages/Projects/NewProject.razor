@@ -46,6 +46,13 @@
 		<MudItem xs="3">
 			<div>				
 				<MudTextField T="string" Label="@Localizer["buildingNumber"]" @bind-Value="@_newProject.BuildingNumber" Variant="Variant.Outlined"></MudTextField>	
+				<MudSelect T="UsersForListModel" Label="@Localizer["mainWorker"]" @bind-Value="@_selectedMainWorker" Variant="Variant.Outlined"
+				ToStringFunc="d => d.SurnameUser ?? string.Empty">
+					@foreach(var item in _mainDepWorkers)
+					{
+						<MudSelectItem T="UsersForListModel" Value="@item"> @item.SurnameUser</MudSelectItem>
+					}
+				</MudSelect>
 				<MudTextField T="DateTime?" Format="yyyy-MM-dd" InputType="InputType.Date"Label="@Localizer["dateWorkStart"]" @bind-Value="@_newProject.WorkStartDate" Variant="Variant.Outlined"></MudTextField>
 				<MudAutocomplete T="DesignStageModel" Label="@Localizer["designStage"]" Variant="Variant.Outlined" @bind-Value="_selectedDesignStage" SearchFunc="@FindDesignStage" 
 								ToStringFunc="@(i => i is null ? null : $"{i.StageName}")"/>

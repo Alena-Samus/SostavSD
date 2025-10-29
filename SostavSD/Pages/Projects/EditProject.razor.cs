@@ -17,18 +17,20 @@ namespace SostavSD.Pages.Projects
 		[Parameter] public ProjectModel Project { get; set; }
 		[Inject] IStringLocalizer<EditProject> Localizer { get; set; }
 		[Inject] IEntityManagementService EntityManagementService { get; set; }
-
+        [Inject] IAuthorizedUserService AuthorizedUserService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 
         private ContractModel _selectedContract = new();
         private ProjectModelValidation _projectModelValidation = new();
+        private UsersForListModel _selectedWorker = new();
+        private DesignStageModel _selectedStage = new();
+        private BuildingViewModel _selectedView = new();
 
-        List<StatusModel> _statuses = new();
-        List<DesignStageModel> _stages = new();
-        List<BuildingViewModel> _views = new();
-        List<ContractModel> _contracts = new();
-        
-
+        private List<StatusModel> _statuses = new();
+        private List<DesignStageModel> _stages = new();
+        private List<BuildingViewModel> _views = new();
+        private List<ContractModel> _contracts = new();
+        private List<UsersForListModel> _mainWorkers = new();
 
         protected override async Task OnInitializedAsync()
 		{
@@ -69,6 +71,10 @@ namespace SostavSD.Pages.Projects
             _statuses = _statusesForTable.Where(x => x.IsProject).ToList();
             _stages = await EntityManagementService.GetAllDesignStageAsync();
             _views = EntityManagementService.GetAllBuildingView();
+            _mainWorkers = await AuthorizedUserService.GetMainDepWorker();
+            _selectedWorker = _mainWorkers.FirstOrDefault(p => p.SurnameUser == Project.MainDepWorker);
+            _selectedStage = _stages.FirstOrDefault(p => p.StageId == Project.StageId);
+            _selectedView = _views.FirstOrDefault(p => p.BuildingViewId == Project.BuildingViewId);
             
         }
 		public async Task Edit(int contractId)
@@ -92,11 +98,30 @@ namespace SostavSD.Pages.Projects
 
         private void ChangeDate(int? elem)
         {
-            if (Project.StatusId != elem)
-            {
-                Project.StatusId= elem;
+
+                Project.StatusId = elem.Value;
                 Project.StatusDate = DateTime.Now;
-            }            
+
+        }
+
+        private void ChangeStage(DesignStageModel selectedStage)
+        {
+            _selectedStage = selectedStage;
+            Project.StageId = selectedStage.StageId;
+
+        }
+        private void ChangeView(BuildingViewModel selectedView)
+        {
+
+            Project.BuildingViewId = selectedView.BuildingViewId;
+            _selectedView = selectedView;
+
+        }
+
+        private void ChangeWorker(UsersForListModel selectedWorker)
+        {
+            Project.MainDepWorker = selectedWorker.SurnameUser;
+            _selectedWorker = selectedWorker;
         }
 
     }

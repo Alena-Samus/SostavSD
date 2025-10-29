@@ -1,0 +1,13 @@
+﻿@Localizer["EnterTheProjectNumberWhoseCardYouWantToCopy"]
+
+<MudDialog>
+    <DialogContent>
+        <MudFocusTrap DefaultFocus="DefaultFocus">
+            <MudTextField T="string" @bind-Value="@BuildingNumber" />
+        </MudFocusTrap>
+    </DialogContent>
+    <DialogActions>
+        <MudButton @onclick="Cancel">@Localizer["cancel"]</MudButton>
+        <MudButton @onclick="Submit" Color="Color.Primary">@Localizer["copy"]</MudButton>
+    </DialogActions>
+</MudDialog>

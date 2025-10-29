@@ -67,17 +67,17 @@ namespace SostavSD.Pages.ProjectSostav
 
         }
 
-        private async Task OnGroupSelected(int? selectedGroupId)
+        private void OnGroupSelected(DeppartModel selectedGroup)
         {
-            Drawing.GroupId = selectedGroupId;
+            Drawing.GroupId = selectedGroup.GroupId;
 
-            if (selectedGroupId.HasValue)
+            if (selectedGroup != null)
             {
-                var selectedGroup = groupHeads.FirstOrDefault(g => g.GroupId == selectedGroupId.Value);
+                var _selectedGroup = groupHeads.FirstOrDefault(g => g.GroupId == selectedGroup.GroupId);
                 if (selectedGroup != null)
                 {
                     
-                    estimator = selectedGroup.SurnameHeadOfGroup;
+                    estimator = _selectedGroup.SurnameHeadOfGroup;
                    
                 }
             }

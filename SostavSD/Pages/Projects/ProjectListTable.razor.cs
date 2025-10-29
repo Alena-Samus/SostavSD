@@ -9,7 +9,8 @@ namespace SostavSD.Pages.Projects
     {
         [Inject] IEntityManagementService EntityManagementService { get; set; }
 		[Inject] ISnackbar Snackbar { get; set; }
-		private IDialogService _dialogService;
+        [CascadingParameter] public Index ParentPage { get; set; }
+        private IDialogService _dialogService;
 
        
         private IProjectForTableService _projectService;
@@ -25,7 +26,7 @@ namespace SostavSD.Pages.Projects
 
 		private string searchString;
 
-        string styleTableHeader = "font-size: 12px; text-align: center; padding: 0 0 0 10px; overflow-wrap: break-word; line-height: 1;";
+        string styleTableHeader = "font-size: 12px; text-align: center; padding: 0 0 0 10px; overflow-wrap: break-word; line-height: 1; position: sticky; top: 8px; z-index: 50;";
 		string styleTableBody = "padding: 0; text-align: center;";
     
 
@@ -44,6 +45,7 @@ namespace SostavSD.Pages.Projects
 		}
         private async Task<List<ProjectForTableModel>> GetProjects()
         {
+			selectedItems.Clear();
             _projects.Clear();
 			_projects = await _projectService.GetProjectsAsync();
             return _projects;
@@ -56,6 +58,7 @@ namespace SostavSD.Pages.Projects
 			|| (!string.IsNullOrWhiteSpace(project.Project.Contract.Index) && project.Project.Contract.Index.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| (!string.IsNullOrWhiteSpace(project.Project.BuildingNumber) && project.Project.BuildingNumber.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| (!string.IsNullOrWhiteSpace(project.Project.ProjectName) && project.Project.ProjectName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            || (!string.IsNullOrWhiteSpace(project.Project.MainDepWorker) && project.Project.MainDepWorker.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| (!string.IsNullOrWhiteSpace(project.Project.Contract.UserID) && project.Project.Contract.Executor.Surname.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| (!string.IsNullOrWhiteSpace(project.Calculator.UserSurname) && project.Calculator.UserSurname.Contains(searchString, StringComparison.OrdinalIgnoreCase))
 			|| ((project.Project.StageId > 0) && project.Project.DesignStage.StageName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
@@ -81,9 +84,18 @@ namespace SostavSD.Pages.Projects
             {
 				foreach (var project in selectedItems)
 				{
-					await EntityManagementService.DeleteProjectAsync(project.Project.ProjectId);
-				}
-				Snackbar.Add(_localizer["itemsRemoved"], Severity.Success);
+					if (await EntityManagementService.DeleteProjectAsync(project.Project.ProjectId)) 
+					{
+                        Snackbar.Add(_localizer["itemsRemoved"], Severity.Success);
+                    }
+					else
+					{
+                        Snackbar.Add(_localizer["cantRemove"], Severity.Error);
+                    }
+
+
+                }
+
                 await GetProjects();
 			}
             else
@@ -123,6 +135,9 @@ namespace SostavSD.Pages.Projects
 						PrintType = currentProject.Project.PrintType,
 						CiCVersion = currentProject.Project.CiCVersion,
 						ProjectName = currentProject.Project.ProjectName,
+						ProjectK1 = currentProject.Project.ProjectK1,
+						ProjectK2 = currentProject.Project.ProjectK2,
+						MainDepWorker = currentProject.Project.MainDepWorker,
 					};
 					
 					await EntityManagementService.AddProjectAsync(newProject);
@@ -142,7 +157,7 @@ namespace SostavSD.Pages.Projects
 		private async Task OpenEditDialog(TableRowClickEventArgs<ProjectForTableModel> tableRowClickEventArgs)
         {
             var currentProject = tableRowClickEventArgs.Item.Project;
-            if ( await EntityManagementService.EditProjectAsync(currentProject))
+            if ( await EntityManagementService.EditProjectDialogAsync(currentProject))
             {
                 Snackbar.Add(_localizer["projectEdited"], Severity.Success);
                 await GetProjects();
@@ -150,9 +165,10 @@ namespace SostavSD.Pages.Projects
             else
             {
                 Snackbar.Add(_localizer["projectNotEdited"], Severity.Error);
-            }			
+            }
+            await ParentPage.Refresh();
 
-		}
+        }
 
 	}
 }

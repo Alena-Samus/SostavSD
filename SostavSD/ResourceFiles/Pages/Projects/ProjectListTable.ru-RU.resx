@@ -126,6 +126,9 @@
   <data name="calculator" xml:space="preserve">
     <value>Расчетчик</value>
   </data>
+  <data name="cantRemove" xml:space="preserve">
+    <value>Нельзя удалить стройку!</value>
+  </data>
   <data name="contractNumber" xml:space="preserve">
     <value>Номер договора</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="loadingdata" xml:space="preserve">
     <value>Загрузка данных...</value>
+  </data>
+  <data name="mainWorker" xml:space="preserve">
+    <value>Ответственный</value>
   </data>
   <data name="noitem" xml:space="preserve">
     <value>Нет данных</value>

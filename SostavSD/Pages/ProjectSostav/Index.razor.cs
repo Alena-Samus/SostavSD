@@ -1,9 +1,32 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
+using NLog;
+using SostavSD.Pages.ProjectSostav.ProjectCard;
 
 namespace SostavSD.Pages.ProjectSostav
 {
 	partial class Index
+
 	{
-		[Parameter] public int ProjectId {get;set;}
+        [Inject] public NavigationManager NavigationManager { get; set; }
+        [Inject] IStringLocalizer<Index> Localizer { get; set; }
+
+        [Parameter] public int ProjectId {get;set;}
+
+        private readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+        private void Navigate()
+        {
+            try
+            {
+                NavigationManager.NavigateTo($"/projectcard/{ProjectId}");
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                throw;
+            }
+
+        }
     }
 }

@@ -6,15 +6,16 @@
     padding-right:0;
 }
 ::deep .mud-grid.mud-grid-spacing-xs-3.justify-start {
-    background-color: lightgray;
+    background-color: mediumslateblue;
 }
 ::deep .mud-typography.mud-typography-body1{
     background-color: aliceblue;
     text-align:center;
 }
 ::deep .title.mud-typography.mud-typography-body1 {
-    background-color: lightgray;
+    background-color: mediumslateblue;
     text-align: right;
-    font-size:15px;
-    font-weight:bolder;
+    font-size: 15px;
+    font-weight: bolder;
+    color:white;
 }

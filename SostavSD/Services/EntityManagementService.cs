@@ -6,13 +6,16 @@ using SostavSD.Models;
 using SostavSD.Pages.Contracts;
 using SostavSD.Pages.Projects;
 using SostavSD.Pages.ProjectSostav;
+using SostavSD.Pages.ProjectSostav.ProjectCard;
 
 namespace SostavSD.Services
 {
 	public class EntityManagementService : IEntityManagementService
 
 	{
-		private readonly IContractService _contractService;
+        [Inject] ISnackbar Snackbar { get; set; }
+
+        private readonly IContractService _contractService;
 		private readonly IDialogService _dialogService;
 		private readonly IBuildingViewService _buildingViewService;
 		private readonly IBuildingZoneService _buildingZoneService;
@@ -23,11 +26,12 @@ namespace SostavSD.Services
 		private readonly ISourceOfFinancingService _sourceOfFinancingService;
 		private readonly IDrawingService _drawingService;
         private readonly IDeppartService _deppartService;
+        private readonly ISubsectionService _subsectionService;
 
-		public EntityManagementService(IContractService contractService, IDialogService dialogService, IBuildingViewService buildingViewService, 
+        public EntityManagementService(IContractService contractService, IDialogService dialogService, IBuildingViewService buildingViewService, 
 			IDesignStageService designStageService, IProjectService projectService, IContractForTableService contractForTableService, 
 			IStatusService statusService, IBuildingZoneService buildingZoneService, ISourceOfFinancingService sourceOfFinancingService, 
-			IDrawingService drawingService, IDeppartService deppartService)
+			IDrawingService drawingService, IDeppartService deppartService, ISubsectionService subsectionService)
 		{
 			_contractService = contractService;
 			_dialogService = dialogService;
@@ -40,6 +44,7 @@ namespace SostavSD.Services
 			_sourceOfFinancingService = sourceOfFinancingService;
 			_drawingService = drawingService;
             _deppartService = deppartService;
+            _subsectionService = subsectionService;
 		}
 
 		private bool result = false;
@@ -62,7 +67,7 @@ namespace SostavSD.Services
 
 			return result;
 		}
-        public async Task<bool> EditProjectAsync(ProjectModel newProject)
+        public async Task<bool> EditProjectDialogAsync(ProjectModel newProject)
         {
             var parameters = new DialogParameters();
 
@@ -73,7 +78,8 @@ namespace SostavSD.Services
 				if (await _projectService.EditProjectAsync((ProjectModel)dialog.Data))
 				{
                     result = true;
-                }                
+
+                }
             }
 
             return result;
@@ -97,6 +103,26 @@ namespace SostavSD.Services
             }
             return result;
         }
+
+        public async Task<bool> EditSubsectionDialogAsync(int subsectionId)
+        {
+            if (subsectionId > 0)
+            {
+                var parameters = new DialogParameters();
+                var _subsectionToEdit = await GetSubsectionById(subsectionId);
+
+                parameters.Add("Subsection", _subsectionToEdit);
+                var dialog = await _dialogService.Show<EditSubsectionDialog>("update", parameters).Result;
+                if (dialog.Data != null)
+                {
+                    await _subsectionService.EditSubsectionAsync(_subsectionToEdit);
+                    result = true;
+                }
+
+            }
+            return result;
+        }
+
 
         public async Task<List<ContractForTableModel>> GetContractsAsync()
 		{
@@ -204,12 +230,6 @@ namespace SostavSD.Services
             return await _drawingService.GetDrawingModelByProjectIdAsync(id);
         }
 
-        //public void EditDrawing(DrawingModel currentDrawing)
-        //{
-        //    _drawingService.EditDrawing(currentDrawing);
-        //}
-
-
         public async Task<bool> AddDrawingsAsync(List<DrawingModel> drawingsList)
         {
             return await _drawingService.AddDrawingsAsync(drawingsList);
@@ -240,5 +260,54 @@ namespace SostavSD.Services
            return await _drawingService.GetSingleDrawingById(drawingId);
         }
 
+        public async Task<List<SubsectionModel>> GetSubsectionByProjectIdAsync(int projectId)
+        {
+           return await _subsectionService.GetSubsectionByProjectIdAsync(projectId);
+        }
+
+        public async Task<int> GetPtojectIdAsync(string buildingNumber)
+        {
+            return await _projectService.GetPtojectIdAsync(buildingNumber);
+        }
+
+        public async Task<bool> AddSubsectionsAsync(List<SubsectionModel> subsections)
+        {
+            return await _subsectionService.AddSubsectionsAsync(subsections);
+        }
+
+        public async Task<bool> RemoveSubsectionsByProjectIdAsync(int projectId)
+        {
+           return await _subsectionService.RemoveSubsectionsByProjectIdAsync(projectId);
+        }
+
+        public async Task<SubsectionModel> GetSubsectionById(int subsectionId)
+        {
+            return await _subsectionService.GetSubsectionById(subsectionId);
+        }
+
+        public async Task<bool> RemoveSubsectionsByIdAsync(int subsectionId)
+        {
+            return await _subsectionService.RemoveSubsectionsByIdAsync(subsectionId);
+        }
+
+        public async Task<bool> EditSubsectionAsync(SubsectionModel subsection)
+        {
+            return await _subsectionService.EditSubsectionAsync(subsection);
+        }
+
+        public async Task<bool> EditProjectAsync(ProjectModel newProject)
+        {
+            return await _projectService.EditProjectAsync(newProject);
+        }
+
+        public async Task<bool> UpdateCiCVersionAsync(int projectId, string newCiCVersion)
+        {
+            return await _projectService.UpdateCiCVersionAsync(projectId,newCiCVersion);
+        }
+
+        public async Task<bool> UpdateCoefficientsAsync(int projectId, double? newPK1, double? newPK2)
+        {
+            return await _projectService.UpdateCoefficientsAsync(projectId, newPK1, newPK2);
+        }
     }
 }

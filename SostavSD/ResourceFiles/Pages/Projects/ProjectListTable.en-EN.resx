@@ -126,6 +126,9 @@
   <data name="calculator" xml:space="preserve">
     <value>Calculator</value>
   </data>
+  <data name="cantRemove" xml:space="preserve">
+    <value>Can't remove</value>
+  </data>
   <data name="contractNumber" xml:space="preserve">
     <value>Contract Number</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="loadingdata" xml:space="preserve">
     <value>Loading data...</value>
+  </data>
+  <data name="mainWorker" xml:space="preserve">
+    <value>Main worker</value>
   </data>
   <data name="noitem" xml:space="preserve">
     <value>No items</value>

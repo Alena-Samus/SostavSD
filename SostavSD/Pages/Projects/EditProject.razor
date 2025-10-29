@@ -5,7 +5,7 @@
             <MudTextField  T="string" Label="@Localizer["projectName"]" @bind-Value="@Project.ProjectName" Lines="3"/>
         </div>
 
-        <div class="d-flex justify-space-around flex-grow-1 gap-4 mb-3">
+         <div class="d-flex justify-space-around flex-grow-1 gap-4 mb-3">
             <MudGrid>
                 <MudItem xs="2"> 
                     <MudTextField T="int?" Label="@Localizer["priority"]" @bind-Value="@Project.Priority"/>    
@@ -44,9 +44,9 @@
                         </MudItem>
                     </MudGrid>          
                 </MudItem>
-            </MudGrid>          
+             </MudGrid>          
             
-            
+             
         </div>
         <div class="d-flex justify-space-around flex-grow-1 gap-4 mb-3">
 
@@ -57,28 +57,44 @@
 
         </div>
         <div class="d-flex justify-space-around flex-grow-1 gap-4" mb-3>
+            <MudSelect T="DesignStageModel" Label="@Localizer["designStage"]" Value="@_selectedStage" ValueChanged="ChangeStage"
+                       ToStringFunc="@(d => d?.StageName ?? string.Empty)">
 
-            <MudSelect T="int?" Label="@Localizer["designStage"]" @bind-Value="@Project.StageId">
 
                 @foreach (var stage in _stages)
                 {
-                    <MudSelectItem T="int?" Value="@stage.StageId">@stage.StageName</MudSelectItem>
+                    <MudSelectItem T="DesignStageModel" Value="@stage">@stage.StageName</MudSelectItem>
                 }
 
             </MudSelect>
 
-           <MudSelect T="int?" Label="@Localizer["buildingView"]" @bind-Value="@Project.BuildingViewId">
+            <MudSelect T="BuildingViewModel" Label="@Localizer["buildingView"]" Value="@_selectedView" ValueChanged="ChangeView"
+                       ToStringFunc="@(d => d?.BuildingViewName ?? string.Empty)">
 
-                @foreach (var stage in _views)
+
+                @foreach (var item in _views)
                 {
-                                <MudSelectItem T="int?" Value="@stage.BuildingViewId">@stage.BuildingViewName</MudSelectItem>
+                    <MudSelectItem T="BuildingViewModel" Value="@item">@item.BuildingViewName</MudSelectItem>
                 }
 
             </MudSelect>
-            <MudTextField T="string" Label="@Localizer["constructionPhase"]" @bind-Value="@Project.ConstructionPhase"></MudTextField>     
+
+            <MudSelect T="UsersForListModel" Label="@Localizer["mainWorker"]" Value="@_selectedWorker" ValueChanged="ChangeWorker"
+                        ToStringFunc="@(d => d.SurnameUser ?? string.Empty)">
+            
+
+
+                @foreach (var item in _mainWorkers)
+                {
+                    <MudSelectItem T="UsersForListModel" Value="@item">@item.SurnameUser</MudSelectItem>
+                }
+
+            </MudSelect>
+
+             <MudTextField T="string" Label="@Localizer["constructionPhase"]" @bind-Value="@Project.ConstructionPhase"></MudTextField>     
 
         </div>
-
+ 
     </DialogContent>
 
     <DialogActions>

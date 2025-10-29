@@ -24,5 +24,8 @@ namespace SostavSD.Models
 		public DateTime? PriceLevel { get; set; }
 		public string PrintType { get; set; }
 		public string CiCVersion { get; set; }
-	}
+        public double? ProjectK1 { get; set; }
+        public double? ProjectK2 { get; set; }
+        public string MainDepWorker { get; set; }
+    }
 }

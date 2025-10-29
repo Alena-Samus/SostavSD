@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using SostavSD.Data;
@@ -15,6 +16,7 @@ namespace SostavSD.Services
 		private readonly SostavSDContext _context;
 		private readonly IMapper _mapper;
         private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        private bool result = true;
 
         public ProjectService(SostavSDContext context, IMapper mapper)
 		{
@@ -24,21 +26,23 @@ namespace SostavSD.Services
 
 		public async Task<bool> AddProjectAsync(ProjectModel newProject)
 		{
-			try
+            Project _newProject = _mapper.Map<Project>(newProject);
+            try
 			{
-                Project _newProject = _mapper.Map<Project>(newProject);
+                
 
                 _context.project.Add(_newProject);
 
                 await _context.SaveChangesAsync();
+                _context.Entry(_newProject).State = EntityState.Detached;
 
-                return true;
+                return result;
             }
 			catch(Exception ex)
 			{
-                _logger.Error(ex.InnerException);
+                _logger.Error($"{ex.InnerException}, method: AddProjectAsync, _newProject: {_newProject.ProjectName}, message: {ex.Message}"); 
 
-                throw;
+                return false;
             }
 			
 		}
@@ -54,17 +58,17 @@ namespace SostavSD.Services
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.InnerException);
+                _logger.Error($"{ex.InnerException}, method: CheckBuildingNumber, buildingNumber: {buildingNumber}, message: {ex.Message}");
 
-                throw;
+                return false;
             }
 
         }
 
         public async Task<bool> DeleteProjectAsync(int id)
 		{
-			try 
-			{
+            try
+            {
                 var projectToRemove = await _context.project.FindAsync(id);
 
                 if (projectToRemove != null)
@@ -73,60 +77,72 @@ namespace SostavSD.Services
                     _context.SaveChanges();
                 }
 
-                return true;
             }
-			catch(Exception ex)
-			{
-                _logger.Error(ex.InnerException);
+            catch (Exception ex)
+            {
+                _logger.Error($"{ex.InnerException}, method: DeleteProjectAsync, buildingId: {id}, message: {ex.Message}");
 
-                throw;
+                return false;
+
             }
-			
+            return result;
 		}
 
 		public async Task<bool> EditProjectAsync(ProjectModel newProject)
 		{
-			try
-			{
-                Project projectAfterEdit = _mapper.Map<Project>(newProject);
-                _context.project.Entry(projectAfterEdit).State = EntityState.Modified;
-                _context.project.Update(projectAfterEdit);
+            try
+            {
+                var existingProject = await _context.project
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(p => p.ProjectId == newProject.ProjectId);
+                if (existingProject == null) 
+                { 
+                    return false;
+                }
+                _mapper.Map(newProject, existingProject);
+                _context.project.Entry(existingProject).State = EntityState.Modified;
+                _context.project.Update(existingProject);
                 await _context.SaveChangesAsync();
-
-                return true;
+                _context.Entry(existingProject).State = EntityState.Detached;
+                return result;
             }
-			catch(Exception ex)
-			{
-                _logger.Error(ex.InnerException);
+            catch (Exception ex)
+            {
+                _logger.Error($"{ex.InnerException}, method: EditProjectAsync, ProjectModel: {newProject.ProjectName}, message: {ex.Message}");
 
-                throw;
-            }			
-		}
+                return false;
+            }
+        }
 
         public async Task<ProjectModel> GetProjectByIdAsync(int id)
         {
-			try
-			{
-                var project = _context.project
+            try
+            {
+                var project = await _context.project
                 .Include(c => c.Contract)
                     .ThenInclude(c => c.Executor)
+                .Include(c => c.Contract)
+                    .ThenInclude(c => c.SourceOfFinacing)
+                .Include(c => c.Contract)
+                    .ThenInclude(c => c.BuildingZone)
                 .Include(c => c.BuildingView)
                 .Include(c => c.Status)
                 .Include(c => c.DesignStage)
                 .AsNoTracking()
-                .FirstOrDefault(c => c.ProjectId == id);
+                .FirstOrDefaultAsync(c => c.ProjectId == id);
 
-                if (project != null)
+                _context.project.Entry(project).State = EntityState.Detached;
+
+                if (project == null)
                 {
-                    _context.project.Entry(project).State = EntityState.Detached;                    
-                }
+                    return null;                }
 
                 if (project.Contract!= null)
                 {
                     _context.contract.Entry(project.Contract).State = EntityState.Detached;
                 }
 
-                if(project.BuildingView!= null) 
+                if (project.BuildingView!= null) 
                 {
                     _context.buildingView.Entry(project.BuildingView).State = EntityState.Detached;
                 }
@@ -142,12 +158,12 @@ namespace SostavSD.Services
 
                 return _mapper.Map<ProjectModel>(project);
             }
-			catch(Exception ex)
-			{
-                _logger.Error(ex.InnerException);
+            catch (Exception ex)
+            {
+                _logger.Error($"{ex.InnerException}, method: GetProjectByIdAsync, ProjectId: {id}, message: {ex.Message}");
 
                 throw;
-            }		
+            }
 
         }
 
@@ -155,7 +171,7 @@ namespace SostavSD.Services
 		{
             try
             {
-                
+
                 var projectList = _context.project
                 .Include(c => c.Contract)
                     .ThenInclude(c => c.Executor)
@@ -167,11 +183,85 @@ namespace SostavSD.Services
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.InnerException);
+                _logger.Error($"{ex.InnerException}, method: GetProjectsAsync, message: {ex.Message}");
 
                 throw;
             }
         }
 
-	}
+        public async Task<int> GetPtojectIdAsync(string buildingNumber)
+        {
+            try
+            {
+                var _projects = await _context.project
+                    .ToListAsync();
+                int BuildingId = _projects.FirstOrDefault(x => x.BuildingNumber == buildingNumber).ProjectId;
+
+                return BuildingId;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"{ex.InnerException}, method: GetPtojectIdAsync, buildingNumber: {buildingNumber}, message: {ex.Message}");
+
+                return 0;
+            }
+
+        }
+
+        public async Task<bool> UpdateCiCVersionAsync(int projectId, string newCiCVersion)
+        {
+            try
+            {
+                // Вместо создания нового экземпляра, используем Find для получения существующего
+                var existingProject = await _context.project.FindAsync(projectId);
+
+                if (existingProject == null)
+                {
+                    return false; // Обработка ситуации, если проект не найден
+                }
+
+                // Обновляем только конкретное поле
+                existingProject.CiCVersion = newCiCVersion;
+
+                // Сохраняем изменения в базе данных
+                await _context.SaveChangesAsync();
+
+                // Снимаем отслеживание
+                _context.Entry(existingProject).State = EntityState.Detached;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"{ex.InnerException}, method: UpdateCiCVersionAsync, projectId: {projectId}, newCiCVersion: {newCiCVersion}, message: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateCoefficientsAsync(int projectId, double? newPK1, double? newPK2)
+        {
+            try
+            {
+                var existingProject = await _context.project.FirstOrDefaultAsync(e => e.ProjectId == projectId);
+
+                if (existingProject == null)
+                {
+                    return false; 
+                }
+
+                existingProject.ProjectK1 = newPK1;
+                existingProject.ProjectK2 = newPK2;
+
+                await _context.SaveChangesAsync();
+
+                _context.Entry(existingProject).State = EntityState.Detached;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"{ex.InnerException}, method: UpdateCoefficientsAsync, projectId: {projectId}, newCoefficients: {newPK1} and {newPK2} , message: {ex.Message}");
+                return false;
+            }
+        }
+    }
 }
