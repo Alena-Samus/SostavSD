@@ -52,6 +52,11 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
                 coefficients = await CoefficientService.GetCoefficiensByBuildingViewIdBuildingZoneId((int)buildingViewId, (int)buildingZoneId);
 
             }
+            foreach (var coefficient in coefficients) 
+            {
+                coefficient.OHROPR1 = Math.Round((coefficient.OHROPR1 * _projectModel.ProjectK1) ?? 0,2);
+                coefficient.OHROPR2 = Math.Round((coefficient.OHROPR2 * _projectModel.ProjectK2) ?? 0, 2);
+            }
         }
         private async Task ChangeCiC()
         {

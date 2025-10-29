@@ -156,6 +156,12 @@
   <data name="editProjectChapters" xml:space="preserve">
     <value>Редактировать главы</value>
   </data>
+  <data name="k1" xml:space="preserve">
+    <value>К1</value>
+  </data>
+  <data name="k2" xml:space="preserve">
+    <value>К2</value>
+  </data>
   <data name="loadingdata" xml:space="preserve">
     <value>Загрузка данных</value>
   </data>

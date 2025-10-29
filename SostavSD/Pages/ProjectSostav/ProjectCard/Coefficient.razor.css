@@ -1,0 +1,7 @@
+﻿::deep .mud-table-cell{
+    padding: 2px 2px;
+}
+
+::deep .mud-table-root .mud-table-head .mud-table-cell{
+    text-align: center;
+}

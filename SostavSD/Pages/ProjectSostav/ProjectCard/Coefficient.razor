@@ -12,24 +12,27 @@ else if (ProjectCoefficiencets.Count == 0)
 
 @* 	<MudText>@ProjectCoefficience.ProjectK1</MudText>
 	<MudText>@ProjectCoefficience.ProjectK2</MudText>
- *@
-	<MudTable T="CoefficientModel" Items="@ProjectCoefficiencets" Bordered=true>
+ *@ 
+<div>
+		<MudTable T="CoefficientModel" Items="@ProjectCoefficiencets" Bordered=true>
 
-	<HeaderContent>
-	<MudTh>@Localizer["coefName"]</MudTh>
-	<MudTh>@Localizer["qualifier"]</MudTh>
-	<MudTh>@Localizer["kOne"]</MudTh>
-			<MudTh>@Localizer["kTwo"]</MudTh>
-	<MudTh>@Localizer["pp"]</MudTh>
-	</HeaderContent>
-	<RowTemplate>
-	<MudTd DataLabel="@Localizer["coefName"]">@context.CoefficientName</MudTd>
-	<MudTd DataLabel="@Localizer["qualifier"]">@context.Qualifier</MudTd>
-	<MudTd DataLabel="@Localizer["kOne"]">@context.OHROPR1</MudTd>
-	<MudTd DataLabel="@Localizer["kTwo"]">@context.OHROPR2</MudTd>
-	<MudTd DataLabel="@Localizer["pp"]">@context.PlannedProfit</MudTd>
+			<HeaderContent>
+				<MudTh>@Localizer["coefName"]</MudTh>
+				<MudTh>@Localizer["qualifier"]</MudTh>
+				<MudTh>@Localizer["kOne"]</MudTh>
+				<MudTh Style="background: yellow;">@Localizer["kTwo"]</MudTh>
+				<MudTh Style="background: yellow;">@Localizer["pp"]</MudTh>
+			</HeaderContent>
+			<RowTemplate>
+				<MudTd DataLabel="@Localizer["coefName"]">@context.CoefficientName</MudTd>
+				<MudTd DataLabel="@Localizer["qualifier"]">@context.Qualifier</MudTd>
+				<MudTd DataLabel="@Localizer["kOne"]">@context.OHROPR1</MudTd>
+				<MudTd Style="background: yellow;" DataLabel="@Localizer[" kTwo"]">@context.OHROPR2</MudTd>
+				<MudTd Style="background: yellow;" DataLabel="@Localizer["pp"]">@context.PlannedProfit</MudTd>
 
-	</RowTemplate>
-	</MudTable>
+			</RowTemplate>
+		</MudTable>
+</div>	
+
 	}
 

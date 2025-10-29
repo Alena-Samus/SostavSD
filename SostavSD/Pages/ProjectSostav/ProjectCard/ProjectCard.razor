@@ -1,6 +1,7 @@
 ﻿@page "/projectcard/{ProjectId:int}"
 
 <div>
+    @* Component ProjectInfo *@
     <MudPaper>
         <MudGrid>
             <MudItem xs="1">
@@ -106,6 +107,9 @@
     </MudPaper>
 
 </div>
+
+@* Component Chapters *@
+
 <MudGrid>
     <MudItem xs="7">
         <div>
@@ -135,16 +139,16 @@
                                 <HeaderContent>
                                     <MudTh>@Localizer["serialNumber"]</MudTh>
                                     <MudTh>@Localizer["subsectionName"]</MudTh>
-                                    <MudTh>@Localizer["pk1"]</MudTh>
-                                    <MudTh>@Localizer["pk2"]</MudTh>
+                                    <MudTh>@Localizer["k1"]</MudTh>
+                                    <MudTh>@Localizer["k2"]</MudTh>
                                     <MudTh>@Localizer["norm"]</MudTh>
                                     <MudTh>@Localizer["notes"]</MudTh>
                                 </HeaderContent>
                                 <RowTemplate>
                                     <MudTd DataLabel="@Localizer["serialNumber"]">@context.SerialNumber</MudTd>
                                     <MudTd DataLabel="@Localizer["subsectionName"]">@context.SubsectionName</MudTd>
-                                    <MudTd DataLabel="@Localizer["pk1"]">@context.K1</MudTd>
-                                    <MudTd DataLabel="@Localizer["pk2"]">@context.K2</MudTd>
+                                    <MudTd DataLabel="@Localizer["k1"]">@context.K1</MudTd>
+                                    <MudTd DataLabel="@Localizer["k2"]">@context.K2</MudTd>
                                     <MudTd DataLabel="@Localizer["norm"]">@context.Norm</MudTd>
                                     <MudTd DataLabel="@Localizer["notes"]">@context.Notes</MudTd>
                                     <MudTd>

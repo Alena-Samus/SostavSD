@@ -156,6 +156,12 @@
   <data name="editProjectChapters" xml:space="preserve">
     <value>Edit project chapters</value>
   </data>
+  <data name="k1" xml:space="preserve">
+    <value>K1</value>
+  </data>
+  <data name="k2" xml:space="preserve">
+    <value>K2</value>
+  </data>
   <data name="loadingdata" xml:space="preserve">
     <value>Loading data</value>
   </data>
@@ -178,10 +184,10 @@
     <value>Order</value>
   </data>
   <data name="pk1" xml:space="preserve">
-    <value>K1</value>
+    <value>OHROPR1</value>
   </data>
   <data name="pk2" xml:space="preserve">
-    <value>K2</value>
+    <value>OHROPR2</value>
   </data>
   <data name="priceLevel" xml:space="preserve">
     <value>Price level</value>
