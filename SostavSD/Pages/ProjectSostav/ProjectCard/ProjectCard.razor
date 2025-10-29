@@ -54,7 +54,7 @@
                 <MudText Class="title">@Localizer["designStage"]</MudText>
 
                 <MudText>@_projectModel.DesignStage?.StageName</MudText>
-                <MudText Class="title">@Localizer["workStartDate"]</MudText>
+                <MudText Class="title">@Localizer["workSrartDate"]</MudText>
 
                 <MudText>@(_projectModel.WorkStartDate == null ? "" : Convert.ToDateTime(_projectModel.WorkStartDate).ToString(Constants.DateFormat))</MudText>
 
@@ -71,19 +71,12 @@
                         <MudText>@_projectModel.MainDepWorker</MudText>
                     </MudItem>
                 </MudGrid>
-                <MudGrid>
+                <MudGrid>            
                     <MudItem xs="6">
-                        <MudGrid>
-                            <MudItem xs="4">
-                                <MudText Class="title">@Localizer["cic"]</MudText>
+                        <MudText Class="title">@Localizer["cic"]</MudText>
+                        <MudText>@_projectModel.CiCVersion</MudText>
+                        <MudButton Size="Size.Small" FullWidth="true" Variant="Variant.Filled" Color="Color.Primary" @onclick="ChangeCiC">@Localizer["changeCiC"]</MudButton>
 
-                                <MudText>@_projectModel.CiCVersion</MudText>
-                            </MudItem>
-                            <MudItem xs="8">
-                                <MudButton Variant="Variant.Filled" @onclick="ChangeCiC">@Localizer["changeCiC"]</MudButton>
-                            </MudItem>
-
-                        </MudGrid>
                     </MudItem>
                 </MudGrid>
 
