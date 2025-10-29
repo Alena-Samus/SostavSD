@@ -8,35 +8,29 @@ else if (ProjectCoefficiencets.Count == 0)
 	}
 	else
 	{
-
-	<MudGrid>
-		<MudItem xs="1">
-			<MudText Class="title">@Localizer["pk1"]</MudText>
-			<MudText>@OHROPR1</MudText>
-		</MudItem>
-		<MudItem xs="1">
-			<MudText Class="title">@Localizer["pk2"]</MudText>
-
-			<MudText Style="background: yellow;">@OHROPR2</MudText>
-		</MudItem>
-		<MudItem xs="1">
-			<MudIconButton @onclick="@(() => Edit())" Color="Color.Primary" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small" />
-		</MudItem>
-	</MudGrid>
-
+		<MudGrid Style="width: 100%;">
+			<MudItem xs="8"></MudItem>
+			<MudItem xs="1">
+				<MudIconButton Style="transform:scaleX(-1)" @onclick="@(() => Edit())" Color="Color.Primary" Title="@Localizer["changeCoefficients"]" Icon="@Icons.Material.Filled.Edit" Size="Size.Small" IconSize="Size.Small" />
+			</MudItem>
+			<MudItem xs="1">
+				<MudText Class="title" Style="font-size: 11px; text-align:center;">@Localizer["kOne"]</MudText>
+				<MudText Style="text-align:center;">@OHROPR1</MudText>
+			</MudItem>
+			<MudItem xs="1">
+				<MudText Class="title" Style="font-size: 11px; text-align:center;">@Localizer["kTwo"]</MudText>
+				<MudText Style="background: yellow; text-align:center;">@OHROPR2</MudText>
+			</MudItem>
+			<MudItem xs="1">
+				<MudText Class="title">@Localizer["pp"]</MudText>
+			</MudItem>
+		</MudGrid>
 
 
 <div>
 		<MudTable T="CoefficientModel" Items="@ProjectCoefficiencets" Bordered=true>
 
-			<HeaderContent>
-				<MudTh>@Localizer["coefName"]</MudTh>
-				<MudTh>@Localizer["qualifier"]</MudTh>
-				<MudTh>@Localizer["kOne"]</MudTh>
-				<MudTh Style="background: yellow;">@Localizer["kTwo"]</MudTh>
-				<MudTh Style="background: yellow;">@Localizer["pp"]</MudTh>
-			</HeaderContent>
-			<RowTemplate>
+ 			<RowTemplate>
 				<MudTd DataLabel="@Localizer["coefName"]">@context.CoefficientName</MudTd>
 				<MudTd DataLabel="@Localizer["qualifier"]">@context.Qualifier</MudTd>
 				<MudTd DataLabel="@Localizer["kOne"]">@context.OHROPR1</MudTd>

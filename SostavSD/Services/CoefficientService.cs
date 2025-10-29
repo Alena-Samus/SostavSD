@@ -4,6 +4,7 @@ using NLog;
 using SostavSD.Data;
 using SostavSD.Interfaces;
 using SostavSD.Models;
+using SostavSD.Pages.Projects;
 
 namespace SostavSD.Services
 {
@@ -18,12 +19,23 @@ namespace SostavSD.Services
             _context = context;
             _mapper = mapper;
         }
+
         public async Task<List<CoefficientModel>> GetCoefficiensByBuildingViewIdBuildingZoneId(int buildingViewId, int buildingZoneId)
         {
+
             var _coefficients = _context.coefficient
                 .Where(x => x.BuildingViewId == buildingViewId && x.BuildingZoneId == buildingZoneId);
+            try
+            {
+                return _mapper.Map<List<CoefficientModel>>(await _coefficients.ToListAsync());
 
-            return _mapper.Map<List<CoefficientModel>>(await _coefficients.ToListAsync());
+            }
+            catch (Exception ex) 
+            {
+                _logger.Error($"{ex.InnerException}, method: GetCoefficiensByBuildingViewIdBuildingZoneId, buildingViewId: {buildingViewId}, " +
+                    $"buildingZoneId: {buildingZoneId}, message: {ex.Message}");
+                throw;
+            }
         }
     }
 }
