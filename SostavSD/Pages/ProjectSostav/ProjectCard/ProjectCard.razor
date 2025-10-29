@@ -1,106 +1,109 @@
 ﻿@page "/projectcard/{ProjectId:int}"
 
 <div>
-    <MudGrid>
-        <MudItem xs="1">
-            <MudText Class="title">@Localizer["projectName"]</MudText>
-        </MudItem>
-        <MudItem xs="11">
-            <MudText>@_projectModel.ProjectName</MudText>
-        </MudItem>
-    </MudGrid>
+    <MudPaper>
+        <MudGrid>
+            <MudItem xs="1">
+                <MudText Class="title">@Localizer["projectName"]</MudText>
+            </MudItem>
+            <MudItem xs="11">
+                <MudText>@_projectModel.ProjectName</MudText>
+            </MudItem>
+        </MudGrid>
 
-    <MudGrid>
-        <MudItem xs="3">
-            <MudGrid>
-                <MudItem xs="6">
-                    <MudText Class="title">@Localizer["buildingNumber"]</MudText>
-                    <MudText>@_projectModel.BuildingNumber</MudText>
-                </MudItem>
-                <MudItem xs="6">
-                    <MudText Class="title">@Localizer["order"]</MudText>
+        <MudGrid>
+            <MudItem xs="3">
+                <MudGrid>
+                    <MudItem xs="6">
+                        <MudText Class="title">@Localizer["buildingNumber"]</MudText>
+                        <MudText>@_projectModel.BuildingNumber</MudText>
+                    </MudItem>
+                    <MudItem xs="6">
+                        <MudText Class="title">@Localizer["order"]</MudText>
 
-                    <MudText>@_projectModel.Contract?.Order</MudText>
-                </MudItem>
-            </MudGrid>
-            <MudText Class="title">@Localizer["cpe"]</MudText>
+                        <MudText>@_projectModel.Contract?.Order</MudText>
+                    </MudItem>
+                </MudGrid>
+                <MudText Class="title">@Localizer["cpe"]</MudText>
 
-            <MudText>@_projectModel.Contract?.Executor?.Surname</MudText>
-            <MudText Class="title">@Localizer["constructionPhase"]</MudText>
+                <MudText>@_projectModel.Contract?.Executor?.Surname</MudText>
+                <MudText Class="title">@Localizer["constructionPhase"]</MudText>
 
-            <MudText>@_projectModel.ConstructionPhase</MudText>
-        </MudItem>
-        <MudItem xs="3">
-            <MudText Class="title">@Localizer["priceLevel"]</MudText>
+                <MudText>@_projectModel.ConstructionPhase</MudText>
+            </MudItem>
+            <MudItem xs="3">
+                <MudText Class="title">@Localizer["priceLevel"]</MudText>
 
-            <MudText>@(_projectModel.PriceLevel == null ? "" : Convert.ToDateTime(_projectModel.PriceLevel).ToString(Constants.DateFormat))</MudText>
-            <MudText Class="title">@Localizer["sourceOfFinancing"]</MudText>
+                <MudText>@(_projectModel.PriceLevel == null ? "" : Convert.ToDateTime(_projectModel.PriceLevel).ToString(Constants.DateFormat))</MudText>
+                <MudText Class="title">@Localizer["sourceOfFinancing"]</MudText>
 
-            <MudText>@_projectModel.Contract?.SourceOfFinacing?.SourceName</MudText>
+                <MudText>@_projectModel.Contract?.SourceOfFinacing?.SourceName</MudText>
 
-            <MudText Class="title">@Localizer["buildingZone"]</MudText>
+                <MudText Class="title">@Localizer["buildingZone"]</MudText>
 
-            <MudText>@_projectModel.Contract?.BuildingZone?.BuildingZoneName</MudText>
+                <MudText>@_projectModel.Contract?.BuildingZone?.BuildingZoneName</MudText>
 
-        </MudItem>
-        <MudItem xs="3">
+            </MudItem>
+            <MudItem xs="3">
 
-            <MudText Class="title">@Localizer["buildingView"]</MudText>
+                <MudText Class="title">@Localizer["buildingView"]</MudText>
 
-            <MudText>@_projectModel.BuildingView?.BuildingViewName</MudText>
+                <MudText>@_projectModel.BuildingView?.BuildingViewName</MudText>
 
-            <MudText Class="title">@Localizer["designStage"]</MudText>
+                <MudText Class="title">@Localizer["designStage"]</MudText>
 
-            <MudText>@_projectModel.DesignStage?.StageName</MudText>
-            <MudText Class="title">@Localizer["workStartDate"]</MudText>
+                <MudText>@_projectModel.DesignStage?.StageName</MudText>
+                <MudText Class="title">@Localizer["workStartDate"]</MudText>
 
-            <MudText>@(_projectModel.WorkStartDate == null ? "" : Convert.ToDateTime(_projectModel.WorkStartDate).ToString(Constants.DateFormat))</MudText>
+                <MudText>@(_projectModel.WorkStartDate == null ? "" : Convert.ToDateTime(_projectModel.WorkStartDate).ToString(Constants.DateFormat))</MudText>
 
-        </MudItem>
-        <MudItem xs="3">
-            <MudGrid>
-                <MudItem xs="6">
-                    <MudText Class="title">@Localizer["calculator"]</MudText>
-                    <MudText>@calculatorName</MudText>
-                </MudItem>
-                <MudItem xs="6">
-                    <MudText Class="title">@Localizer["mainDepWorker"]</MudText>
+            </MudItem>
+            <MudItem xs="3">
+                <MudGrid>
+                    <MudItem xs="6">
+                        <MudText Class="title">@Localizer["calculator"]</MudText>
+                        <MudText>@calculatorName</MudText>
+                    </MudItem>
+                    <MudItem xs="6">
+                        <MudText Class="title">@Localizer["mainDepWorker"]</MudText>
 
-                    <MudText>@_projectModel.MainDepWorker</MudText>
-                </MudItem>
-            </MudGrid>
-            <MudGrid>
-                <MudItem xs="6">
-                    <MudGrid>
-                        <MudItem xs="4">
-                            <MudText Class="title">@Localizer["cic"]</MudText>
+                        <MudText>@_projectModel.MainDepWorker</MudText>
+                    </MudItem>
+                </MudGrid>
+                <MudGrid>
+                    <MudItem xs="6">
+                        <MudGrid>
+                            <MudItem xs="4">
+                                <MudText Class="title">@Localizer["cic"]</MudText>
 
-                            <MudText>@_projectModel.CiCVersion</MudText>
-                        </MudItem>
-                        <MudItem xs="8">
-                            <MudButton Variant="Variant.Filled" @onclick="ChangeCiC">@Localizer["changeCiC"]</MudButton>
-                        </MudItem>
+                                <MudText>@_projectModel.CiCVersion</MudText>
+                            </MudItem>
+                            <MudItem xs="8">
+                                <MudButton Variant="Variant.Filled" @onclick="ChangeCiC">@Localizer["changeCiC"]</MudButton>
+                            </MudItem>
 
-                    </MudGrid>
-                </MudItem>
-            </MudGrid>
+                        </MudGrid>
+                    </MudItem>
+                </MudGrid>
 
-            <MudGrid>
-                <MudItem xs="6">
-                    <MudText Class="title">@Localizer["pk1"]</MudText>
-                    <MudText>@_projectModel.ProjectK1</MudText>
-                </MudItem>
-                <MudItem xs="6">
-                    <MudText Class="title">@Localizer["pk2"]</MudText>
+                <MudGrid>
+                    <MudItem xs="6">
+                        <MudText Class="title">@Localizer["pk1"]</MudText>
+                        <MudText>@_projectModel.ProjectK1</MudText>
+                    </MudItem>
+                    <MudItem xs="6">
+                        <MudText Class="title">@Localizer["pk2"]</MudText>
 
-                    <MudText>@_projectModel.ProjectK2</MudText>
-                </MudItem>
-            </MudGrid>
+                        <MudText>@_projectModel.ProjectK2</MudText>
+                    </MudItem>
+                </MudGrid>
 
 
-        </MudItem>
+            </MudItem>
 
-    </MudGrid>
+        </MudGrid>
+
+    </MudPaper>
 
 </div>
 <MudGrid>
@@ -132,16 +135,16 @@
                                 <HeaderContent>
                                     <MudTh>@Localizer["serialNumber"]</MudTh>
                                     <MudTh>@Localizer["subsectionName"]</MudTh>
-                                    <MudTh>@Localizer["kOne"]</MudTh>
-                                    <MudTh>@Localizer["kTwo"]</MudTh>
+                                    <MudTh>@Localizer["pk1"]</MudTh>
+                                    <MudTh>@Localizer["pk2"]</MudTh>
                                     <MudTh>@Localizer["norm"]</MudTh>
                                     <MudTh>@Localizer["notes"]</MudTh>
                                 </HeaderContent>
                                 <RowTemplate>
                                     <MudTd DataLabel="@Localizer["serialNumber"]">@context.SerialNumber</MudTd>
                                     <MudTd DataLabel="@Localizer["subsectionName"]">@context.SubsectionName</MudTd>
-                                    <MudTd DataLabel="@Localizer["kOne"]">@context.K1</MudTd>
-                                    <MudTd DataLabel="@Localizer["kTwo"]">@context.K2</MudTd>
+                                    <MudTd DataLabel="@Localizer["pk1"]">@context.K1</MudTd>
+                                    <MudTd DataLabel="@Localizer["pk2"]">@context.K2</MudTd>
                                     <MudTd DataLabel="@Localizer["norm"]">@context.Norm</MudTd>
                                     <MudTd DataLabel="@Localizer["notes"]">@context.Notes</MudTd>
                                     <MudTd>

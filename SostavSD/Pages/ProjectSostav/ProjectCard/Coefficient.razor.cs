@@ -12,10 +12,10 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
         [Inject] IDialogService DialogService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
         [Inject] IStringLocalizer<Coefficient> Localizer { get; set; }
-        protected override Task OnInitializedAsync()
-        {
-            return base.OnInitializedAsync();
-        }
+        //protected override Task OnInitializedAsync()
+        //{
+        //    return base.OnInitializedAsync();
+        //}
 
         
     }

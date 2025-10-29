@@ -117,70 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="addNewProjectChapters" xml:space="preserve">
-    <value>Add new chapters</value>
-  </data>
-  <data name="copyProjectChapters" xml:space="preserve">
-    <value>Copy project chapters</value>
-  </data>
-  <data name="editProjectChapters" xml:space="preserve">
-    <value>Edit project chapters</value>
+  <data name="coefName" xml:space="preserve">
+    <value>Наименование</value>
   </data>
   <data name="kOne" xml:space="preserve">
-    <value>K1</value>
+    <value>ОХРиОПР1</value>
   </data>
   <data name="kTwo" xml:space="preserve">
-    <value>K2</value>
+    <value>ОХРиОПР2</value>
   </data>
   <data name="loadingdata" xml:space="preserve">
-    <value>Loading data</value>
+    <value>Загрузка данных</value>
   </data>
   <data name="noitem" xml:space="preserve">
-    <value>No item by chapters</value>
+    <value>Нет данных</value>
   </data>
-  <data name="norm" xml:space="preserve">
-    <value>Norm</value>
+  <data name="pp" xml:space="preserve">
+    <value>ПП</value>
   </data>
-  <data name="notes" xml:space="preserve">
-    <value>Notes</value>
-  </data>
-  <data name="projectChaptersIsCopied" xml:space="preserve">
-    <value>Copied</value>
-  </data>
-  <data name="projectChaptersIsNotEmpty" xml:space="preserve">
-    <value>Project chapters is not empty</value>
-  </data>
-  <data name="projectChaptersIsRemoved" xml:space="preserve">
-    <value>Project chapters is removed</value>
-  </data>
-  <data name="projectChaptersNotRemoved" xml:space="preserve">
-    <value>Project chapters not removed</value>
-  </data>
-  <data name="removeProjectChapters" xml:space="preserve">
-    <value>Remove project chapters</value>
-  </data>
-  <data name="serialNumber" xml:space="preserve">
-    <value>Serial number</value>
-  </data>
-  <data name="subsectionIsCopied" xml:space="preserve">
-    <value>Subsection is copied</value>
-  </data>
-  <data name="subsectionIsEdited" xml:space="preserve">
-    <value>Subsection is edited</value>
-  </data>
-  <data name="subsectionIsRemoved" xml:space="preserve">
-    <value>Subsection is removed</value>
-  </data>
-  <data name="subsectionName" xml:space="preserve">
-    <value>Subsection name</value>
-  </data>
-  <data name="subsectionNotCopied" xml:space="preserve">
-    <value>Subsection not copied</value>
-  </data>
-  <data name="subsectionNotEdited" xml:space="preserve">
-    <value>Subsection not edited</value>
-  </data>
-  <data name="subsectionNotRemoved" xml:space="preserve">
-    <value>Subsection not removed</value>
+  <data name="qualifier" xml:space="preserve">
+    <value>Опред.</value>
   </data>
 </root>
