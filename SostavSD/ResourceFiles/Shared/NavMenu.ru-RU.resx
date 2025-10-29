@@ -129,6 +129,9 @@
   <data name="currentuser" xml:space="preserve">
     <value>Кабинет пользователя</value>
   </data>
+  <data name="plan" xml:space="preserve">
+    <value>Планирование</value>
+  </data>
   <data name="projects" xml:space="preserve">
     <value>Объекты</value>
   </data>
