@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using SostavSD.Data;
@@ -25,9 +26,10 @@ namespace SostavSD.Services
 
 		public async Task<bool> AddProjectAsync(ProjectModel newProject)
 		{
-			try
+            Project _newProject = _mapper.Map<Project>(newProject);
+            try
 			{
-                Project _newProject = _mapper.Map<Project>(newProject);
+                
 
                 _context.project.Add(_newProject);
 
@@ -38,7 +40,7 @@ namespace SostavSD.Services
             }
 			catch(Exception ex)
 			{
-                _logger.Error(ex.InnerException);
+                _logger.Error($"{ex.InnerException}, method: AddProjectAsync, _newProject: {_newProject.ProjectName}, message: {ex.Message}"); 
 
                 return false;
             }
@@ -56,7 +58,7 @@ namespace SostavSD.Services
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.InnerException);
+                _logger.Error($"{ex.InnerException}, method: CheckBuildingNumber, buildingNumber: {buildingNumber}, message: {ex.Message}");
 
                 return false;
             }
@@ -65,8 +67,8 @@ namespace SostavSD.Services
 
         public async Task<bool> DeleteProjectAsync(int id)
 		{
-			try 
-			{
+            try
+            {
                 var projectToRemove = await _context.project.FindAsync(id);
 
                 if (projectToRemove != null)
@@ -76,9 +78,9 @@ namespace SostavSD.Services
                 }
 
             }
-			catch(Exception ex)
-			{
-                _logger.Error(ex.InnerException);
+            catch (Exception ex)
+            {
+                _logger.Error($"{ex.InnerException}, method: DeleteProjectAsync, buildingId: {id}, message: {ex.Message}");
 
                 return false;
 
@@ -88,8 +90,8 @@ namespace SostavSD.Services
 
 		public async Task<bool> EditProjectAsync(ProjectModel newProject)
 		{
-			try
-			{
+            try
+            {
                 var existingProject = await _context.project
                     .AsNoTracking()
                     .FirstOrDefaultAsync(p => p.ProjectId == newProject.ProjectId);
@@ -104,18 +106,18 @@ namespace SostavSD.Services
                 _context.Entry(existingProject).State = EntityState.Detached;
                 return result;
             }
-			catch(Exception ex)
-			{
-                _logger.Error(ex.InnerException);
+            catch (Exception ex)
+            {
+                _logger.Error($"{ex.InnerException}, method: EditProjectAsync, ProjectModel: {newProject.ProjectName}, message: {ex.Message}");
 
                 return false;
-            }			
-		}
+            }
+        }
 
         public async Task<ProjectModel> GetProjectByIdAsync(int id)
         {
-			try
-			{
+            try
+            {
                 var project = await _context.project
                 .Include(c => c.Contract)
                     .ThenInclude(c => c.Executor)
@@ -156,12 +158,12 @@ namespace SostavSD.Services
 
                 return _mapper.Map<ProjectModel>(project);
             }
-			catch(Exception ex)
-			{
-                _logger.Error(ex.InnerException);
+            catch (Exception ex)
+            {
+                _logger.Error($"{ex.InnerException}, method: GetProjectByIdAsync, ProjectId: {id}, message: {ex.Message}");
 
                 throw;
-            }		
+            }
 
         }
 
@@ -169,7 +171,7 @@ namespace SostavSD.Services
 		{
             try
             {
-                
+
                 var projectList = _context.project
                 .Include(c => c.Contract)
                     .ThenInclude(c => c.Executor)
@@ -181,7 +183,7 @@ namespace SostavSD.Services
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.InnerException);
+                _logger.Error($"{ex.InnerException}, method: GetProjectsAsync, message: {ex.Message}");
 
                 throw;
             }
@@ -191,18 +193,18 @@ namespace SostavSD.Services
         {
             try
             {
-                var _projects = _context.project
-                    .ToList();
-                int result = _projects
-                    .FirstOrDefault(x => x.BuildingNumber == buildingNumber).ProjectId;
-                return result;
+                var _projects = await _context.project
+                    .ToListAsync();
+                int BuildingId = _projects.FirstOrDefault(x => x.BuildingNumber == buildingNumber).ProjectId;
+
+                return BuildingId;
 
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.InnerException);
+                _logger.Error($"{ex.InnerException}, method: GetPtojectIdAsync, buildingNumber: {buildingNumber}, message: {ex.Message}");
 
-                throw;
+                return 0;
             }
 
         }
@@ -224,12 +226,14 @@ namespace SostavSD.Services
 
                 // Сохраняем изменения в базе данных
                 await _context.SaveChangesAsync();
+
+                // Снимаем отслеживание
                 _context.Entry(existingProject).State = EntityState.Detached;
                 return true;
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.InnerException);
+                _logger.Error($"{ex.InnerException}, method: UpdateCiCVersionAsync, projectId: {projectId}, newCiCVersion: {newCiCVersion}, message: {ex.Message}");
                 return false;
             }
         }
