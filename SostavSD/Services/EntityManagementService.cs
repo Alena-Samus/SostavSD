@@ -225,9 +225,9 @@ namespace SostavSD.Services
         {
            return await _drawingService.GetDrawingModelsAsync();
         }
-        public async Task<List<DrawingModel>> GetDrawingModelByProjectIdAsync(int id)
+        public async Task<List<DrawingModel>> GetDrawingModelsByProjectIdAsync(int id)
 		{
-            return await _drawingService.GetDrawingModelByProjectIdAsync(id);
+            return await _drawingService.GetDrawingModelsByProjectIdAsync(id);
         }
 
         public async Task<bool> AddDrawingsAsync(List<DrawingModel> drawingsList)
@@ -308,6 +308,11 @@ namespace SostavSD.Services
         public async Task<bool> UpdateCoefficientsAsync(int projectId, double? newPK1, double? newPK2)
         {
             return await _projectService.UpdateCoefficientsAsync(projectId, newPK1, newPK2);
+        }
+
+        public async Task<List<DrawingModel>> GetDrawingModelsByGroupIdAsync(int groupId)
+        {
+            return await _drawingService.GetDrawingModelsByGroupIdAsync(groupId);
         }
     }
 }

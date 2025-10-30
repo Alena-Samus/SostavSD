@@ -38,7 +38,7 @@ namespace SostavSD.Services
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.InnerException);
+                _logger.Error($"{ex.InnerException}, method: AddProjectAsync, message: {ex.Message}"); 
                 throw;
             }
 
@@ -58,12 +58,12 @@ namespace SostavSD.Services
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.InnerException);
+                _logger.Error($"{ex.InnerException}, method: GetDrawingModelsAsync, message: {ex.Message}");
                 throw;
             }
         }
 
-        public async Task<List<DrawingModel>> GetDrawingModelByProjectIdAsync(int i)
+        public async Task<List<DrawingModel>> GetDrawingModelsByProjectIdAsync(int i)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace SostavSD.Services
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.InnerException);
+                _logger.Error($"{ex.InnerException}, method: GetDrawingModelByProjectIdAsync, projectId: {i} message: {ex.Message}");
 
                 throw;
             }
@@ -99,7 +99,7 @@ namespace SostavSD.Services
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.InnerException);
+                _logger.Error($"{ex.InnerException}, method: RemoveDrawingsAsync, drawingId: {drawingId} message: {ex.Message}");
 
                 throw;
             }
@@ -118,7 +118,7 @@ namespace SostavSD.Services
             }
             catch (Exception ex)
             {
-                _logger.Error(ex.InnerException);
+                _logger.Error($"{ex.InnerException}, method: EditDrawingAsync, currentDrawing: {currentDrawing.DrawingName} message: {ex.Message}");
 
                 throw;
             }
@@ -141,9 +141,31 @@ namespace SostavSD.Services
             catch (Exception ex)
             {
                 _logger.Error(ex.InnerException);
+                _logger.Error($"{ex.InnerException}, method: GetSingleDrawingById, drawingId: {drawingId}, message: {ex.Message}");
+
                 throw;
             }
 
+        }
+
+        public async Task<List<DrawingModel>> GetDrawingModelsByGroupIdAsync(int groupId)
+        {
+            try
+            {
+                var _drawingsById = _context.drawing
+                    .Include(c => c.Project)
+                    .Include(c => c.Status)
+                    .Include(c => c.Group)
+                    .Where(u => u.GroupId == groupId);
+
+                return _mapper.Map<List<DrawingModel>>(await _drawingsById.ToListAsync());
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"{ex.InnerException}, method: GetDrawingModelByGroupIdAsync, drawingId: {groupId}, message: {ex.Message}");
+
+                throw;
+            }
         }
     }
 }

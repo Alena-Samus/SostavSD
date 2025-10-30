@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 using MudBlazor;
 using SostavSD.Interfaces;
 using SostavSD.Models;
+using System.Diagnostics;
 
 namespace SostavSD.Pages.ProjectSostav
 {
@@ -13,6 +15,7 @@ namespace SostavSD.Pages.ProjectSostav
         [Inject] ISnackbar Snackbar { get; set; }
         [Inject] NavigationManager _navigationManager { get; set; }
         [Inject] IDialogService _dialogService { get; set; }
+        [Inject] IJSRuntime JSRuntime { get; set; }
 
         [Parameter] public int ProjectID { get; set; }
 
@@ -36,7 +39,7 @@ namespace SostavSD.Pages.ProjectSostav
 
         protected override async Task OnInitializedAsync()
         {
-           _drawings = await EntityManagementService.GetDrawingModelByProjectIdAsync(ProjectID);
+           _drawings = await EntityManagementService.GetDrawingModelsByProjectIdAsync(ProjectID);
 
         }
 
@@ -44,7 +47,7 @@ namespace SostavSD.Pages.ProjectSostav
         private async Task<List<DrawingModel>> GetDrawingsWithoutEstimates()
         {
             _drawings.Clear();
-            _drawings = await EntityManagementService.GetDrawingModelByProjectIdAsync(ProjectID);
+            _drawings = await EntityManagementService.GetDrawingModelsByProjectIdAsync(ProjectID);
             return _drawings;
         }
         private bool FilterFuncCurrent(DrawingModel drawing) => FilterFunc(drawing, searchString);
@@ -192,6 +195,19 @@ namespace SostavSD.Pages.ProjectSostav
             StateHasChanged();
 
         }
+
+        //private async Task OpenFile()
+        //{
+        //    string fileUrl = @"d:\Elena\Recovery.txt";
+        //    if (fileUrl != null)
+        //    {
+        //        // Используем JSRuntime для открытия файла в новом окне
+        //        await JSRuntime.InvokeVoidAsync("open", fileUrl, "_blank");
+
+        //    }
+  
+
+        //}
     }
 }
 
