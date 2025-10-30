@@ -1,21 +1,27 @@
 ﻿::deep .mud-input-label.mud-input-label-animated.mud-input-label-text.mud-input-label-inputcontrol {
     border: none;
-    font-weight:500;
-    font-size:13px;
-    text-align:left;
-    padding-right:0;
+    font-weight: 500;
+    font-size: 13px;
+    text-align: left;
+    padding-right: 0;
 }
+
 ::deep .mud-grid.mud-grid-spacing-xs-3.justify-start {
     background-color: mediumslateblue;
 }
-::deep .mud-typography.mud-typography-body1{
+
+::deep .mud-typography.mud-typography-body1 {
     background-color: aliceblue;
-    text-align:center;
+    text-align: center;
 }
+
 ::deep .title.mud-typography.mud-typography-body1 {
     background-color: mediumslateblue;
     text-align: right;
     font-size: 15px;
     font-weight: bolder;
-    color:white;
+    color: white;
+}
+::deep .mud-table-root .mud-table-body .mud-table-cell {
+    padding: 0 2px;
 }

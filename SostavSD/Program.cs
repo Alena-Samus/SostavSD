@@ -28,7 +28,7 @@ builder.Services.AddServerSideBlazor();
 
 //register the SostavSDContext
 builder.Services.AddDbContext<SostavSDContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")), ServiceLifetime.Scoped);
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddDefaultIdentity<UserSostav>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
@@ -119,7 +119,8 @@ static void AddBusinessLogicServices(IServiceCollection collection)
     collection.AddScoped<IBuildingZoneService, BuildingZoneService>();
     collection.AddScoped<IBuildingViewService, BuildingViewService>();
     collection.AddScoped<IDesignStageService, DesignStageService>();
-    collection.AddScoped<IEntityManagementService, EntityManagementService>();
+    collection.AddScoped<IDrawingEstimateService, DrawingEstimateService>();
+    collection.AddScoped<IEditService, EditService>();
     collection.AddScoped<IProjectService, ProjectService>();
     collection.AddScoped<IProjectForTableService, ProjectForTableService>();
 	collection.AddScoped<IStatusService, StatusService>();

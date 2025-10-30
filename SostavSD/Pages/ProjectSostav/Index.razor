@@ -1,10 +1,193 @@
 ﻿@page "/sostav/{ProjectId:int}"
 
-<ProjectInfo ProjectId="ProjectId"/>
+<div>
+    <MudGrid>
+        <MudItem xs="1">
+            <MudText Class="title">@Localizer["projectName"]</MudText>
+        </MudItem>
+        <MudItem xs="11">
+            <MudText>@_projectModel.ProjectName</MudText>
+        </MudItem>
+    </MudGrid>
+
+    <MudGrid>
+        <MudItem xs="5">
+            <MudGrid>
+                <MudItem xs="3">
+                    <MudText Class="title">@Localizer["contractNumber"]</MudText>
+                </MudItem>
+                <MudItem xs="3">
+                    <MudText>@_projectModel.Contract?.ContractNumber</MudText>
+                </MudItem>
+                <MudItem xs="3">
+                    <MudText Class="title">@Localizer["contractDate"]</MudText>
+                </MudItem>
+                <MudItem xs="3">
+                    <MudText>@(_projectModel.Contract?.ContractDate == null ? "" : Convert.ToDateTime(_projectModel.Contract.ContractDate).ToString(Constants.DateFormat))</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+        <MudItem xs="2">
+            <MudGrid>
+                <MudItem xs="6">
+                    <MudText Class="title">@Localizer["releaseDate"]</MudText>
+                </MudItem>
+                <MudItem xs="6">
+                    <MudText>@(_projectModel.ProjectReleaseDate == null ? "" : Convert.ToDateTime(_projectModel.ProjectReleaseDate).ToString(Constants.DateFormat))</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+        <MudItem xs="5">
+            <MudGrid>
+                <MudItem xs="3">
+                    <MudText Class="title">@Localizer["status"]</MudText>
+                </MudItem>
+                <MudItem xs="3">
+                    <MudText>@_projectModel.Status?.StatusName</MudText>
+                </MudItem>
+                <MudItem xs="3">
+                    <MudText Class="title">@Localizer["statusDate"]</MudText>
+                </MudItem>
+                <MudItem xs="3">
+                    <MudText>@(_projectModel.StatusDate == null ? "" : Convert.ToDateTime(_projectModel.StatusDate).ToString(Constants.DateFormat))</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+
+    </MudGrid>
+
+    <MudGrid>
+        <MudItem xs="2">
+            <MudGrid>
+                <MudItem xs="4">
+                    <MudText Class="title">@Localizer["cpe"]</MudText>
+                </MudItem>
+                <MudItem xs="8">
+                    <MudText>@_projectModel.Contract?.Executor?.Surname</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+        <MudItem xs="2">
+            <MudGrid>
+                <MudItem xs="5">
+                    <MudText Class="title">@Localizer["buildingNumber"]</MudText>
+                </MudItem>
+                <MudItem xs="7">
+                    <MudText>@_projectModel.BuildingNumber</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+        <MudItem xs="1">
+            <MudGrid>
+                <MudItem xs="6">
+                    <MudText Class="title">@Localizer["index"]</MudText>
+                </MudItem>
+                <MudItem xs="6">
+                    <MudText>@_projectModel.Contract?.Index</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+        <MudItem xs="5">
+            <MudGrid>
+                <MudItem xs="4">
+                    <MudText Class="title">@Localizer["designStage"]</MudText>
+                </MudItem>
+                <MudItem xs="8">
+                    <MudText>@_projectModel.DesignStage?.StageName</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+        <MudItem xs="2">
+            <MudGrid>
+                <MudItem xs="8">
+                    <MudText Class="title">@Localizer["constructionPhase"]</MudText>
+                </MudItem>
+                <MudItem xs="3">
+                    <MudText>@_projectModel.ConstructionPhase</MudText>
+                </MudItem>
+            </MudGrid>
+        </MudItem>
+    </MudGrid>
+</div>
+
 
 <MudButtonGroup Class=" d-flex justify-start flex-grow-1 gap-4" OverrideStyles="false">
     <MudButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Color="Color.Primary" OnClick="Navigate">@Localizer["projectCard"]</MudButton>
 
 </MudButtonGroup>
 
-<DrawingsWithoutEstimates ProjectID="ProjectId" />
+
+    
+<MudButtonGroup Class="d-flex justify-start flex-grow-1 gap-4" OverrideStyles="false">
+	<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.LibraryAdd" Title="@Localizer["addNewDrawing"]" Color="Color.Success" @onclick="NavigateToPage" />
+	<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.DeleteForever" Title="@Localizer["removeDrawing"]" Color="Color.Error" @onclick="(e => RemoveDrawings())" />
+	<MudIconButton Class="mx-4 my-2 mt-4" Variant="Variant.Filled" Icon="@Icons.Material.Filled.ContentCopy" Title="@Localizer["copyDrawings"]" Color="Color.Success" @onclick="(e => CopyDrawings())" />
+
+</MudButtonGroup>
+
+@if (_drawings == null)
+{
+        <tr>@Localizer["loadingdata"]</tr>
+}
+else if (_drawings.Count == 0)
+{
+		<tr>@Localizer["noitem"]</tr>
+}
+else
+{
+	<div>
+		<MudTable T="DrawingModel" @ref="tableRef" Items="@_drawings" Filter="new Func<DrawingModel, bool>(FilterFuncCurrent)"
+				  MultiSelection=true @bind-SelectedItems="selectedItems" Bordered=true OnRowClick="OpenEditDialog"
+				  ServerData="@(new Func<TableState, Task<TableData<DrawingModel>>>(LoadData))">
+			<ToolBarContent>
+				<MudSpacer />
+				<MudTextField @bind-Value="searchString" Placeholder="@Localizer["search"]" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+
+			</ToolBarContent>
+			@* 			<ColGroup> должен содержать столько элементов `<col>`, сколько столбцов (включая столбец с чекбоксами для мультиселекта) *@ 			
+				<ColGroup>
+				<col style="width: 1%" />
+				<col style="width: 1%" />
+				<col style="width: 27%" />
+				<col />
+				<col />
+				<col />
+				<col style="width: 17%" />
+				<col style="width: 17%" />
+				<col style="width: 25%" />
+			</ColGroup>
+			<HeaderContent>
+				<MudTh Style="@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingPriority)">@Localizer["priority"]</MudTableSortLabel></MudTh>
+				<MudTh Style="@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingName)">@Localizer["drawingName"]</MudTableSortLabel></MudTh>
+				<MudTh Style="@styleTableHeader">
+					<MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingDateOfAdmissionToDepartment)"
+									   SortLabel="DrawingDateOfAdmissionToDepartment">@Localizer["dateOfAdmissionToDepartment"]</MudTableSortLabel>
+				</MudTh>
+				<MudTh Style="@styleTableHeader">
+					<MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingReleaseDateDepertment)"
+									   SortLabel="DrawingReleaseDateDepertment">@Localizer["drawingReleaseDateDepertment"]</MudTableSortLabel>
+				</MudTh>
+				<MudTh Style="@styleTableHeader">
+					<MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.DrawingReleaseDateBySchedule)"
+									   SortLabel="DrawingReleaseDateBySchedule">@Localizer["drawingReleaseDateBySchedule"]</MudTableSortLabel>
+				</MudTh>
+				<MudTh Style="@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.Group)">@Localizer["group"]</MudTableSortLabel></MudTh>
+				<MudTh Style="@styleTableHeader"><MudTableSortLabel SortBy="new Func<DrawingModel, object>(x => x.Notes)">@Localizer["notes"]</MudTableSortLabel></MudTh>
+			</HeaderContent>
+
+			<RowTemplate>
+				<MudTd style="@styleTableBody" DataLabel="@Localizer["priority"]">@context.DrawingPriority</MudTd>
+				<MudTd Style="@styleTableBody" DataLabel="@Localizer["drawingName"]">@context.DrawingName</MudTd>
+				<MudTd Style="@styleTableBody" DataLabel="@Localizer["dateOfAdmissionToDepartment"]">@(context.DrawingDateOfAdmissionToDepartment == null ? "" : Convert.ToDateTime(context.DrawingDateOfAdmissionToDepartment).ToString(Constants.DateFormat))</MudTd>
+				<MudTd Style="@styleTableBody" DataLabel="@Localizer["drawingReleaseDateDepertment"]">@(context.DrawingReleaseDateDepertment == null ? "" : Convert.ToDateTime(context.DrawingReleaseDateDepertment).ToString(Constants.DateFormat))</MudTd>
+				<MudTd Style="@styleTableBody" DataLabel="@Localizer["drawingReleaseDateBySchedule"]">@(context.DrawingReleaseDateBySchedule == null ? "" : Convert.ToDateTime(context.DrawingReleaseDateBySchedule).ToString(Constants.DateFormat))</MudTd>
+				<MudTd Style="@styleTableBody" DataLabel="@Localizer["group"]">@(context.Group?.GroupName)</MudTd>
+				<MudTd Style="@styleTableBody" DataLabel="@Localizer["notes"]">@context.Notes</MudTd>
+
+			</RowTemplate>
+
+		</MudTable>
+
+	</div>
+
+}

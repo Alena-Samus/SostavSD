@@ -18,11 +18,16 @@ namespace SostavSD.Pages.Projects
 	partial class NewProject
 	{
 		private NavigationManager _navigationManager;
-		
+
+
+		[Inject] IProjectService ProjectService { get; set; }
+		[Inject] IContractForTableService ContractForTableService { get; set; }
+		[Inject] IBuildingViewService BuildingViewService { get; set; }
+		[Inject] IDesignStageService DesignStageService { get; set; }
 		[Inject] IStringLocalizer<NewProject> Localizer { get; set; }
 		[Inject] IAuthorizedUserService AuthorizedUserService { get; set; }
 		[Inject] ISnackbar Snackbar { get; set; }
-		[Inject] IEntityManagementService EntityManagementService { get; set; }
+		[Inject] IEditService EntityManagementService { get; set; }
 
 	
 
@@ -68,7 +73,7 @@ namespace SostavSD.Pages.Projects
 
 		protected async Task<IEnumerable<ContractForTableModel>> FindContract(string value)
 		{
-			_contracts = await EntityManagementService.GetContractsAsync();
+			_contracts = await ContractForTableService.GetContractsAsync();
 
 			if (string.IsNullOrEmpty(value))
 			{
@@ -82,7 +87,7 @@ namespace SostavSD.Pages.Projects
 		}
 		protected async Task<IEnumerable<BuildingViewModel>> FindBuildingView(string value)
 		{
-			_viewes = EntityManagementService.GetAllBuildingView();
+			_viewes = await BuildingViewService.GetAllBuildingViewAsync();
 
 			if (string.IsNullOrEmpty(value))
 			{
@@ -96,7 +101,7 @@ namespace SostavSD.Pages.Projects
 		}
 		protected async Task<IEnumerable<DesignStageModel>> FindDesignStage(string value)
 		{
-			_stages = await EntityManagementService.GetAllDesignStageAsync();
+			_stages = await DesignStageService.GetAllDesignStageAsync();
 
 			if (string.IsNullOrEmpty(value))
 			{
@@ -118,9 +123,9 @@ namespace SostavSD.Pages.Projects
 
             var validationResult = _projectModelValidation.Validate(_newProject);
 
-            if (validationResult.IsValid && !EntityManagementService.CheckBuildingNumber(_newProject.BuildingNumber))
+            if (validationResult.IsValid && ! await ProjectService.CheckBuildingNumber(_newProject.BuildingNumber))
             {
-                if (await EntityManagementService.AddProjectAsync(_newProject))
+                if (await ProjectService.AddProjectAsync(_newProject))
                 {
                     Snackbar.Add(Localizer["add"], Severity.Success);
                 }
@@ -134,7 +139,7 @@ namespace SostavSD.Pages.Projects
             else
             {
                 StringBuilder bld = new StringBuilder();
-				if (EntityManagementService.CheckBuildingNumber(_newProject.BuildingNumber))
+				if (await ProjectService.CheckBuildingNumber(_newProject.BuildingNumber))
 				{
 					bld.AppendLine($"Стройка с номер {_newProject.BuildingNumber} уже существует!");
 				}
@@ -153,7 +158,7 @@ namespace SostavSD.Pages.Projects
 			if (contractId > 0)
 			{
 				await EntityManagementService.EditContractDialog(contractId);
-				_contracts = await EntityManagementService.GetContractsAsync();
+				_contracts = await ContractForTableService.GetContractsAsync();
 				_selectedContract = _contracts.FirstOrDefault(c => c.Contract.ContractID == contractId);
 
                 StateHasChanged();

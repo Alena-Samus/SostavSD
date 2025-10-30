@@ -8,7 +8,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 {
     public partial class EditSubsectionDialog
     {
-        [Inject] IEntityManagementService EntityManagementService { get; set; }
+        [Inject] IEditService EntityManagementService { get; set; }
         [Inject] IStringLocalizer<EditSubsectionDialog> Localizer { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 

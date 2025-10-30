@@ -8,7 +8,8 @@ namespace SostavSD.Pages.Plan
 {
     public partial class Plan
     {
-        [Inject] IEntityManagementService EntityManagementService { get; set; }
+        [Inject] IDrawingService DrawingService { get; set; }
+        [Inject] IDeppartService DeppartService { get; set; }
         [Inject] IAuthorizedUserService AuthorizedUserService { get; set; }
         [Inject] IStringLocalizer<EditDrawingDialog> Localizer { get; set; }
 
@@ -28,7 +29,7 @@ namespace SostavSD.Pages.Plan
 
         protected override async Task OnInitializedAsync()
         {
-            _groupForTable = await EntityManagementService.GetDeppartsByGroupsAsync(_groups);
+            _groupForTable = await DeppartService.GetDeppartsByGroupsAsync(_groups);
 
         }
 
@@ -39,7 +40,7 @@ namespace SostavSD.Pages.Plan
             _estimates.Clear();
             _estimates = AuthorizedUserService.GetListUserSostavModelByGroup(deppart.GroupANU);
             _drawings.Clear();
-            _drawings = await EntityManagementService.GetDrawingModelsByGroupIdAsync(deppart.GroupId);
+            _drawings = await DrawingService.GetDrawingModelsByGroupIdAsync(deppart.GroupId);
         }
 
         private bool FilterFuncCurrent(DrawingModel drawing) => FilterFunc(drawing, searchString);

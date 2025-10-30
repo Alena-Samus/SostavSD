@@ -27,6 +27,7 @@ public class SostavSDContext : IdentityDbContext<UserSostav>
     public DbSet<Chapter> chapter { get; set; }
     public DbSet<Subsection> section { get; set; }
     public DbSet<Coefficient> coefficient { get; set; }
+    public DbSet<DrawingEstimate> drawingEstimate { get; set; }
 
 
 

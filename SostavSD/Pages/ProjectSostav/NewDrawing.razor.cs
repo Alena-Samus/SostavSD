@@ -12,7 +12,8 @@ namespace SostavSD.Pages.ProjectSostav
 {
     partial class NewDrawing
     {
-        [Inject] IEntityManagementService EntityManagementService { get; set; }
+        [Inject] IDeppartService DeppartService { get; set; }
+        [Inject] IDrawingService DrawingService { get; set; }
         [Inject] IEstimateService EstimateService { get; set; }
         [Inject] IStringLocalizer<NewDrawing> Localizer { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
@@ -38,7 +39,7 @@ namespace SostavSD.Pages.ProjectSostav
 
         protected override async Task OnInitializedAsync()
         {
-            _groupForTable = await EntityManagementService.GetDeppartsByGroupsAsync(_groups);
+            _groupForTable = await DeppartService.GetDeppartsByGroupsAsync(_groups);
             newDrawing = new DrawingModelForList();
             newDrawing.ProjectId = ProjectID;
             newDrawing.DrawingDateOfAdmissionToDepartment = DateTime.Now;
@@ -64,7 +65,7 @@ namespace SostavSD.Pages.ProjectSostav
                 PrepareForSave();
                 foreach (var item in listForSave) 
                 {
-                    int insertResult = await EntityManagementService.AddSingleDrawingAsync(item);
+                    int insertResult = await DrawingService.AddSingleDrawingAsync(item);
                     if (insertResult != 0) 
                     {
                         _drawingsId.Add(insertResult);
@@ -85,16 +86,15 @@ namespace SostavSD.Pages.ProjectSostav
                 }
                 foreach (var item in _drawingsId)
                 {
-
-                }
-                EstimateModel _newEstimate = new EstimateModel()
-                {
-                    EstimateName = string.Empty
-                };
-                int estimateResult = await EstimateService.AddEstimateAsync(_newEstimate);
-                if (estimateResult != 0)
-                {
-                    Snackbar.Add(Localizer["estimate inserted"], Severity.Success);
+                    EstimateModel _newEstimate = new EstimateModel()
+                    {
+                        EstimateName = string.Empty
+                    };
+                    int estimateResult = await EstimateService.AddEstimateAsync(_newEstimate);
+                    if (estimateResult != 0)
+                    {
+                        Snackbar.Add(Localizer["estimate inserted"], Severity.Success);
+                    }
 
                 }
             }
@@ -124,6 +124,11 @@ namespace SostavSD.Pages.ProjectSostav
         }
          private void Cancel()
         {
+            newList.Clear();
+            listForSave.Clear();
+            _insertErrors.Clear();
+            _drawingsId.Clear();
+
             GoBack();
             Snackbar.Add(Localizer["canceled"], Severity.Warning);
 

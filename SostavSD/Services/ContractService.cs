@@ -25,7 +25,7 @@ namespace SostavSD.Services
 
         }
 
-        public async Task<List<ContractModel>> GetAllContract()
+        public async Task<List<ContractModel>> GetAllContracts()
         {           
             try
             {

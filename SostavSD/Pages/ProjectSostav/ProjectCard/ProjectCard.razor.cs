@@ -13,8 +13,10 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
     {
         [Parameter] public int ProjectId { get; set; }
 
-        [Inject] IEntityManagementService EntityManagementService { get; set; }
+        [Inject] IProjectService ProjectService { get; set; }
+        [Inject] ISubsectionService SubsectionService { get; set; }
         [Inject] ICoefficientService CoefficientService { get; set; }
+        [Inject] IEditService EntityManagementService { get; set; }
         [Inject] public IAuthorizedUserService AuthorizedUserService { get; set; }
         [Inject] IDialogService DialogService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
@@ -52,14 +54,14 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         private async Task GetProject()
         {
-            _projectModel = await EntityManagementService.GetProjectByIdAsync(ProjectId);
+            _projectModel = await ProjectService.GetProjectByIdAsync(ProjectId);
             buildingViewId = _projectModel.BuildingViewId;
             buildingZoneId = _projectModel.Contract.BuildingZoneId;
 
         }
         private async Task GetChapters()
         {
-            subsections = await EntityManagementService.GetSubsectionByProjectIdAsync(ProjectId);
+            subsections = await SubsectionService.GetSubsectionByProjectIdAsync(ProjectId);
             var chapterList = subsections.DistinctBy(p => p.ChapterId).OrderBy(p => p.ChapterId).ToList();
             foreach (var chapter in chapterList)
             {
@@ -109,7 +111,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
             if (dialog.Data != null)
             {
                 _projectModel.CiCVersion = (string)dialog.Data;
-                if (await EntityManagementService.UpdateCiCVersionAsync(_projectModel.ProjectId, _projectModel.CiCVersion))
+                if (await ProjectService.UpdateCiCVersionAsync(_projectModel.ProjectId, _projectModel.CiCVersion))
                 {
                     Snackbar.Add(@Localizer["changed"], Severity.Success);
                 }
@@ -127,7 +129,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         private async Task RemoveChapters()
         {
-            if (await EntityManagementService.RemoveSubsectionsByProjectIdAsync(ProjectId))
+            if (await SubsectionService.RemoveSubsectionsByProjectIdAsync(ProjectId))
             {
                 Snackbar.Add(Localizer["projectChaptersIsRemoved"], Severity.Success);
                 await GetChapters();
@@ -156,8 +158,8 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
                 if (dialog.Data != null)
                 {
-                    int _newProjectId = await EntityManagementService.GetPtojectIdAsync(dialog.Data.ToString());
-                    List<SubsectionModel> _subsectionSource = await EntityManagementService.GetSubsectionByProjectIdAsync(_newProjectId);
+                    int _newProjectId = await ProjectService.GetPtojectIdAsync(dialog.Data.ToString());
+                    List<SubsectionModel> _subsectionSource = await SubsectionService.GetSubsectionByProjectIdAsync(_newProjectId);
                     foreach (var item in _subsectionSource)
                     {
                         SubsectionModel _currentProjectSubsection = new SubsectionModel()
@@ -172,7 +174,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
                         };
                         subsections.Add(_currentProjectSubsection);
                     }
-                    await EntityManagementService.AddSubsectionsAsync(subsections);
+                    await SubsectionService.AddSubsectionsAsync(subsections);
 
                     Snackbar.Add(Localizer["projectChaptersIsCopied"], Severity.Success);
                     subsections.Clear();
@@ -185,7 +187,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         private async Task CopySubsection(int subsectionId)
         {
-            var _currentSubsection = await EntityManagementService.GetSubsectionById(subsectionId);
+            var _currentSubsection = await SubsectionService.GetSubsectionById(subsectionId);
             SubsectionModel subsection = new SubsectionModel()
             {
                 SubsectionName = $"{_currentSubsection.SubsectionName} Копия",
@@ -198,7 +200,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
             };
             List<SubsectionModel> _currentList = new List<SubsectionModel>();
             _currentList.Add(subsection);
-            if (await EntityManagementService.AddSubsectionsAsync(_currentList))
+            if (await SubsectionService.AddSubsectionsAsync(_currentList))
             {
                 Snackbar.Add(Localizer["subsectionIsCopied"], Severity.Success);
                 await GetChapters();
@@ -215,7 +217,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
         }
         private async Task RemoveSubsection(int subsectionId)
         {
-            if (await EntityManagementService.RemoveSubsectionsByIdAsync(subsectionId))
+            if (await SubsectionService.RemoveSubsectionsByIdAsync(subsectionId))
             {
                 Snackbar.Add(Localizer["subsectionIsRemoved"], Severity.Success);
                 await GetChapters();

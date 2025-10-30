@@ -28,7 +28,6 @@ namespace SostavSD.Services
         {
             try
             {
-
                     Drawing _currentDrawing = _mapper.Map<Drawing>(drawingModel);
                     _context.drawing.Add(_currentDrawing);
                     await _context.SaveChangesAsync();
@@ -72,6 +71,7 @@ namespace SostavSD.Services
                 var _drawingsById = _context.drawing
                     .Include(c => c.Group)
                     .Include(c => c.Project)
+                    .AsNoTracking()
                     .Where(u => u.ProjectId == i);
 
                 return _mapper.Map<List<DrawingModel>>(await _drawingsById.ToListAsync());
@@ -158,6 +158,7 @@ namespace SostavSD.Services
                     .Include(c => c.Project)
                     .Include(c => c.Status)
                     .Include(c => c.Group)
+                    .AsNoTracking()
                     .Where(u => u.GroupId == groupId);
 
                 return _mapper.Map<List<DrawingModel>>(await _drawingsById.ToListAsync());

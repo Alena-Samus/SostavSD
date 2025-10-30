@@ -4,7 +4,7 @@ namespace SostavSD.Interfaces
 {
     public interface IContractService
     {
-        Task<List<ContractModel>> GetAllContract();
+        Task<List<ContractModel>> GetAllContracts();
         Task DeleteContract(int contractId);
         Task AddContract(ContractModel newContract);
 

@@ -8,7 +8,9 @@ namespace SostavSD.Pages.ProjectSelection
 {
     partial class ProjectSelection
     {
-        [Inject] public IEntityManagementService EntityManagementService { get; set; }
+        [Inject] public IEditService EntityManagementService { get; set; }
+		[Inject] public IDesignStageService DesignStageService { get; set; }
+		[Inject] public IProjectService ProjectService { get; set; }
 		[Inject] public IAuthorizedUserService AuthorizedUserService { get; set; }
 		[Inject] public IStringLocalizer<ProjectSelection> Localizer { get; set; }
 
@@ -29,14 +31,14 @@ namespace SostavSD.Pages.ProjectSelection
         {
             await GetProjectsAsync();
 			_usersCPE = AuthorizedUserService.GetListUserSostavModelByGroup("8");
-			_designStages = await EntityManagementService.GetAllDesignStageAsync();
+			_designStages = await DesignStageService.GetAllDesignStageAsync();
 			Calculators = await AuthorizedUserService.GetAllUsersAsync();
 
 		}
 
         private async Task <List<ProjectModel>> GetProjectsAsync()
         {
-            _projects = await EntityManagementService.GetProjectsAsync();
+            _projects = await ProjectService.GetProjectsAsync();
             return _projects;
         }
 

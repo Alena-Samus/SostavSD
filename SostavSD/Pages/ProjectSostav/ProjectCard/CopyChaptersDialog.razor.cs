@@ -9,7 +9,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 {
     public partial class CopyChaptersDialog
     {
-        [Inject] IEntityManagementService EntityManagementService { get; set; }
+        [Inject] IProjectService ProjectService { get; set; }
         [Inject] IStringLocalizer<CopyChaptersDialog> Localizer { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 
@@ -30,9 +30,9 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 
         }
 
-        private void Submit()
+        private async Task Submit()
         {
-            if (EntityManagementService.CheckBuildingNumber(BuildingNumber))
+            if (await ProjectService.CheckBuildingNumber(BuildingNumber))
             {
                 CopyChapters.Close(DialogResult.Ok(BuildingNumber));
             }

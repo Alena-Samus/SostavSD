@@ -10,7 +10,7 @@ namespace SostavSD.Interfaces
 		Task<bool> EditProjectAsync(ProjectModel newProject);
 		Task<bool> DeleteProjectAsync(int id);
 		Task<ProjectModel> GetProjectByIdAsync(int id);
-		bool CheckBuildingNumber(string buildingNumber);
+		Task<bool> CheckBuildingNumber(string buildingNumber);
 
 		Task<int> GetPtojectIdAsync(string buildingNumber);
 		Task<bool> UpdateCiCVersionAsync(int projectId, string newCiCVersion);

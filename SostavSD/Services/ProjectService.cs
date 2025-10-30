@@ -47,11 +47,11 @@ namespace SostavSD.Services
 			
 		}
 
-        public bool CheckBuildingNumber(string buildingNumber)
+        public async Task<bool> CheckBuildingNumber(string buildingNumber)
         {
             try
             {
-                var _projects = _context.project.ToList();
+                var _projects = await _context.project.ToListAsync();
                 bool result = _projects.Exists(x => x.BuildingNumber.Equals(buildingNumber));
                 return result;
 

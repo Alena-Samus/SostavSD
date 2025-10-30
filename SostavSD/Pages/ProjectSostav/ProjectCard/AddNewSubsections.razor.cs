@@ -13,7 +13,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
     {
         [Inject] IChapterService ChapterService { get; set; }
         [Inject] IStringLocalizer<AddNewSubsections> Localizer { get; set; }
-        [Inject] IEntityManagementService EntityManagementService { get; set; }
+        [Inject] ISubsectionService SubsectionService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
         [Parameter] public int ProjectId { get; set; }
 
@@ -76,7 +76,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
         {
             if (currenSubsections.Count > 0)
             {
-                await EntityManagementService.AddSubsectionsAsync(currenSubsections);
+                await SubsectionService.AddSubsectionsAsync(currenSubsections);
                 Snackbar.Add(Localizer["chapterAdded"], Severity.Success);
                 await AddToSubsectionCurrentList();
 

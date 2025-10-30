@@ -7,7 +7,8 @@ namespace SostavSD.Pages.Projects
 {
     partial class ProjectListTable
     {
-        [Inject] IEntityManagementService EntityManagementService { get; set; }
+        [Inject] IProjectService ProjectService { get; set; }
+		[Inject] IEditService EditService { get; set; }
 		[Inject] ISnackbar Snackbar { get; set; }
         [CascadingParameter] public Index ParentPage { get; set; }
         private IDialogService _dialogService;
@@ -84,7 +85,7 @@ namespace SostavSD.Pages.Projects
             {
 				foreach (var project in selectedItems)
 				{
-					if (await EntityManagementService.DeleteProjectAsync(project.Project.ProjectId)) 
+					if (await ProjectService.DeleteProjectAsync(project.Project.ProjectId)) 
 					{
                         Snackbar.Add(_localizer["itemsRemoved"], Severity.Success);
                     }
@@ -140,7 +141,7 @@ namespace SostavSD.Pages.Projects
 						MainDepWorker = currentProject.Project.MainDepWorker,
 					};
 					
-					await EntityManagementService.AddProjectAsync(newProject);
+					await ProjectService.AddProjectAsync(newProject);
 					await GetProjects();
 					
 					Snackbar.Add(_localizer["copied"], Severity.Success);
@@ -157,7 +158,7 @@ namespace SostavSD.Pages.Projects
 		private async Task OpenEditDialog(TableRowClickEventArgs<ProjectForTableModel> tableRowClickEventArgs)
         {
             var currentProject = tableRowClickEventArgs.Item.Project;
-            if ( await EntityManagementService.EditProjectDialogAsync(currentProject))
+            if ( await EditService.EditProjectDialogAsync(currentProject))
             {
                 Snackbar.Add(_localizer["projectEdited"], Severity.Success);
                 await GetProjects();

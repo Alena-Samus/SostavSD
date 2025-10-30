@@ -15,8 +15,13 @@ namespace SostavSD.Pages.Projects
 		[CascadingParameter] MudDialogInstance EditCurrentProject { get; set; }
 
 		[Parameter] public ProjectModel Project { get; set; }
+
+        [Inject] IContractService ContractService { get; set; }
+        [Inject] IBuildingViewService BuildingViewService { get; set; }
+        [Inject] IDesignStageService DesignStageService { get; set; }
+        [Inject] IStatusService StatusService { get; set; }
 		[Inject] IStringLocalizer<EditProject> Localizer { get; set; }
-		[Inject] IEntityManagementService EntityManagementService { get; set; }
+		[Inject] IEditService EntityManagementService { get; set; }
         [Inject] IAuthorizedUserService AuthorizedUserService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 
@@ -67,10 +72,10 @@ namespace SostavSD.Pages.Projects
 
 		private async Task GetLists()
 		{
-            var _statusesForTable = await EntityManagementService.GetAllStatusAsync();
+            var _statusesForTable = await StatusService.GetAllStatusAsync();
             _statuses = _statusesForTable.Where(x => x.IsProject).ToList();
-            _stages = await EntityManagementService.GetAllDesignStageAsync();
-            _views = EntityManagementService.GetAllBuildingView();
+            _stages = await DesignStageService.GetAllDesignStageAsync();
+            _views = await BuildingViewService.GetAllBuildingViewAsync();
             _mainWorkers = await AuthorizedUserService.GetMainDepWorker();
             _selectedWorker = _mainWorkers.FirstOrDefault(p => p.SurnameUser == Project.MainDepWorker);
             _selectedStage = _stages.FirstOrDefault(p => p.StageId == Project.StageId);
@@ -83,7 +88,7 @@ namespace SostavSD.Pages.Projects
 		}
         protected async Task<IEnumerable<ContractModel>> FindContract(string value)
         {
-            _contracts = await EntityManagementService.GetAllContract();
+            _contracts = await ContractService.GetAllContracts();
 
             if (string.IsNullOrEmpty(value))
             {               

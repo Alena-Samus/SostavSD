@@ -20,6 +20,7 @@ namespace SostavSD
 			CreateMap<Status, StatusModel>().ReverseMap().PreserveReferences();
 			CreateMap<Drawing,DrawingModel>().ReverseMap().PreserveReferences();
             CreateMap<Estimate, EstimateModel>().ReverseMap().PreserveReferences();
+            CreateMap<DrawingEstimate, DrawingEstimateModel>().ReverseMap().PreserveReferences();
             CreateMap<Deppart, DeppartModel>().ReverseMap().PreserveReferences();
             CreateMap<Chapter, ChapterModel>().ReverseMap().PreserveReferences();
             CreateMap<Subsection, SubsectionModel>().ReverseMap().PreserveReferences();

@@ -16,7 +16,7 @@ namespace SostavSD.Services
 
         public async Task<List<ContractForTableModel>> GetContractsAsync()
         {
-            List<ContractModel> _contracts = await _contractService.GetAllContract();
+            List<ContractModel> _contracts = await _contractService.GetAllContracts();
 
             List<ContractForTableModel> _contractForTableModel = new();
 

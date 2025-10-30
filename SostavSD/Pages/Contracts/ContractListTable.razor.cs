@@ -14,7 +14,7 @@ public partial class ContractListTable : ComponentBase
     private List<ContractForTableModel> _contractForTableModel = new List<ContractForTableModel>();
 
     private IContractService _contractService;
-    [Inject] IEntityManagementService EntityManagementService { get; set; }
+    [Inject] IEditService EntityManagementService { get; set; }
     private IDialogService _dialogService;
     private IStringLocalizer<ContractListTable> _localizer;
 

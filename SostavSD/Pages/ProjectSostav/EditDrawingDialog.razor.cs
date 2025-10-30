@@ -11,7 +11,7 @@ namespace SostavSD.Pages.ProjectSostav
 {
     public partial class EditDrawingDialog: ComponentBase
     {
-        [Inject] IEntityManagementService EntityManagementService { get; set; }
+        [Inject] IDeppartService DeppartService { get; set; }
         [Inject] IAuthorizedUserService AuthorizedUserService { get; set; }
         [Inject] IStringLocalizer<EditDrawingDialog> Localizer { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
@@ -26,7 +26,7 @@ namespace SostavSD.Pages.ProjectSostav
         protected override async Task OnInitializedAsync()
         {
             groupHeads = await AuthorizedUserService.GetGroupHeadsAsync();
-            _groupForTable = await EntityManagementService.GetDeppartsByGroupsAsync(_groups);
+            _groupForTable = await DeppartService.GetDeppartsByGroupsAsync(_groups);
             AddToTheGroupHeads(groupHeads, _groupForTable);
         }
 

@@ -9,7 +9,7 @@ namespace SostavSD.Pages.Projects
 	{
 		[CascadingParameter] MudDialogInstance NewProject { get; set; }
 		[Inject] public IStringLocalizer<CopyProject> Localizer { get; set; }
-		[Inject] public IEntityManagementService EntityManagementService { get; set; }
+		[Inject] public IProjectService ProjectService { get; set; }
 		[Inject] ISnackbar Snackbar { get; set; }
 		[Parameter] public string BuildingNumber { get; set; }
 		
@@ -19,9 +19,9 @@ namespace SostavSD.Pages.Projects
 			NewProject.Cancel();
 		}
 
-		private void Submit()
+		private async Task Submit()
 		{
-            if (!EntityManagementService.CheckBuildingNumber(BuildingNumber))
+            if (! await ProjectService.CheckBuildingNumber(BuildingNumber))
 			{
 				NewProject.Close(DialogResult.Ok(BuildingNumber));
 			}

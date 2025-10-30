@@ -8,7 +8,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
 {
     public partial class Coefficient
     {
-        [Inject] IEntityManagementService EntityManagementService { get; set; }
+        [Inject] IProjectService ProjectService { get; set; }
         [Inject] IDialogService DialogService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
         [Inject] IStringLocalizer<Coefficient> Localizer { get; set; }
@@ -37,7 +37,7 @@ namespace SostavSD.Pages.ProjectSostav.ProjectCard
             if (dialog.Data != null)
             {
                 
-                if (await EntityManagementService.UpdateCoefficientsAsync(ProjectId, Coefficients[0], Coefficients[1]))
+                if (await ProjectService.UpdateCoefficientsAsync(ProjectId, Coefficients[0], Coefficients[1]))
                 {
                     Snackbar.Add(@Localizer["coefficientsChanged"], Severity.Success);
                     await UpdateCoefficients.InvokeAsync();
