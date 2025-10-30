@@ -24,22 +24,24 @@ namespace SostavSD.Services
             _mapper = mapper;
         }
 
-        public async Task<bool> AddDrawingsAsync(List<DrawingModel> drawingsList)
+        public async Task<int> AddSingleDrawingAsync(DrawingModel drawingModel)
         {
             try
             {
-                foreach (DrawingModel drawing in drawingsList)
-                {
-                    Drawing _currentDrawing = _mapper.Map<Drawing>(drawing);
+
+                    Drawing _currentDrawing = _mapper.Map<Drawing>(drawingModel);
                     _context.drawing.Add(_currentDrawing);
                     await _context.SaveChangesAsync();
-                }
-                return true;
+                    int isertedId = _currentDrawing.DrawingId;
+                    _context.Entry(_currentDrawing).State = EntityState.Detached;
+
+                return isertedId;
+
             }
             catch (Exception ex)
             {
-                _logger.Error($"{ex.InnerException}, method: AddProjectAsync, message: {ex.Message}"); 
-                throw;
+                _logger.Error($"{ex.InnerException}, method: AddSingleDrawingAsync {drawingModel.DrawingName}, message: {ex.Message}");
+                return 0;
             }
 
         }
@@ -167,5 +169,7 @@ namespace SostavSD.Services
                 throw;
             }
         }
+
+
     }
 }

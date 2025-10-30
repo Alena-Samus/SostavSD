@@ -113,6 +113,7 @@ static void AddBusinessLogicServices(IServiceCollection collection)
 
     collection.AddScoped<IContractService, ContractService>();
     collection.AddScoped<IContractForTableService, ContractForTableService>();
+    collection.AddScoped<IEstimateService, EstimateService>();
     collection.AddScoped<ICompanyService, CompanyService>();
     collection.AddScoped<ISourceOfFinancingService, SourceOfFinancingService>();
     collection.AddScoped<IBuildingZoneService, BuildingZoneService>();

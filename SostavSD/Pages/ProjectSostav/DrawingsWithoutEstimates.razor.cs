@@ -26,6 +26,7 @@ namespace SostavSD.Pages.ProjectSostav
         private MudTable<DrawingModel> tableRef;
 
         private List <DrawingModel> _drawings= new ();
+        private List<string> insertErrors = new ();
 
 
         private string _toNewDrawing = "/sostav/newdrawing";
@@ -163,6 +164,7 @@ namespace SostavSD.Pages.ProjectSostav
         }
         private async Task CopyDrawings()
         {
+            insertErrors.Clear();
             List<DrawingModel> _drawingsForCopy = new List<DrawingModel>();
             foreach (var item in selectedItems) 
             {
@@ -177,8 +179,15 @@ namespace SostavSD.Pages.ProjectSostav
 
             if (_drawingsForCopy.Count > 0 )
             {
-                var result = await EntityManagementService.AddDrawingsAsync(_drawingsForCopy);
-                if (result)
+
+                foreach (var drawing in _drawingsForCopy)
+                {
+                    if(await EntityManagementService.AddSingleDrawingAsync(drawing) == 0)
+                    {
+                        insertErrors.Add(drawing.DrawingName);
+                    }
+                }
+                if (insertErrors.Count == 0)
                 {
 
                         await GetDrawingsWithoutEstimates();

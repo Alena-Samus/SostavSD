@@ -8,8 +8,8 @@ namespace SostavSD.Interfaces
         Task <List<DrawingModel>> GetDrawingModelsByProjectIdAsync(int id);
         Task<List<DrawingModel>> GetDrawingModelsByGroupIdAsync(int groupId);
         Task<DrawingModel> GetSingleDrawingById(int drawingId);
+        Task <int> AddSingleDrawingAsync (DrawingModel drawingModel);
         Task <bool> EditDrawingAsync(DrawingModel currentDrawing);
-        Task<bool> AddDrawingsAsync (List<DrawingModel> drawingsList);
         Task<bool> RemoveDrawingsAsync (int id);
     }
 }

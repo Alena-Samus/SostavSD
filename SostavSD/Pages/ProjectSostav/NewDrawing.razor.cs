@@ -13,6 +13,7 @@ namespace SostavSD.Pages.ProjectSostav
     partial class NewDrawing
     {
         [Inject] IEntityManagementService EntityManagementService { get; set; }
+        [Inject] IEstimateService EstimateService { get; set; }
         [Inject] IStringLocalizer<NewDrawing> Localizer { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
 
@@ -24,6 +25,9 @@ namespace SostavSD.Pages.ProjectSostav
         private List<DrawingModel> listForSave = new List<DrawingModel> ();
         private List<DeppartModel> _groupForTable = new List<DeppartModel>();
         private List<string> _groups = new List<string>() { "1", "2", "3", "4" };
+
+        List <string> _insertErrors = new List<string> ();
+        List <int> _drawingsId = new List<int> ();
 
 
         private NavigationManager navigationManager;
@@ -48,6 +52,8 @@ namespace SostavSD.Pages.ProjectSostav
 
         private async Task Save()
         {
+            _insertErrors.Clear();
+            _drawingsId.Clear();
 
             if (newDrawing != null)
             {
@@ -56,11 +62,41 @@ namespace SostavSD.Pages.ProjectSostav
                     AddItem();
                 }
                 PrepareForSave();
-                if (await EntityManagementService.AddDrawingsAsync(listForSave))
+                foreach (var item in listForSave) 
                 {
-                    Snackbar.Add(Localizer["saved"], Severity.Success);
+                    int insertResult = await EntityManagementService.AddSingleDrawingAsync(item);
+                    if (insertResult != 0) 
+                    {
+                        _drawingsId.Add(insertResult);
+                       
+                    }
+                    else
+                    {
+                        _insertErrors.Add(item.DrawingName);
+                        Snackbar.Add($"{item.DrawingName} не {Localizer["saved"]}", Severity.Error);
+                    }
+
                 }
 
+                if(_insertErrors.Count == 0)
+                {
+                    Snackbar.Add(Localizer["saved"], Severity.Success);
+
+                }
+                foreach (var item in _drawingsId)
+                {
+
+                }
+                EstimateModel _newEstimate = new EstimateModel()
+                {
+                    EstimateName = string.Empty
+                };
+                int estimateResult = await EstimateService.AddEstimateAsync(_newEstimate);
+                if (estimateResult != 0)
+                {
+                    Snackbar.Add(Localizer["estimate inserted"], Severity.Success);
+
+                }
             }
             else 
             {
